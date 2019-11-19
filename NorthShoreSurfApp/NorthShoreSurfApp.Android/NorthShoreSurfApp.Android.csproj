@@ -15,7 +15,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -128,7 +127,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NorthShoreSurfApp\NorthShoreSurfApp.csproj">
-      <Project>{811FF60B-4554-4D99-A42D-28AE5269D54D}</Project>
+      <Project>{48BAE961-8256-4124-909E-0BD10D591583}</Project>
       <Name>NorthShoreSurfApp</Name>
     </ProjectReference>
   </ItemGroup>
