@@ -15,7 +15,7 @@
     <ContentPage.Content>
         
             
-        <StackLayout Margin="20, 20, 10, 20" HorizontalOptions="Fill" VerticalOptions="Center">
+        <StackLayout Margin="20, 20, 20, 20" HorizontalOptions="Fill" VerticalOptions="Center">
             <local:CustomTextBox Text=" Hey whats up" TextColor=" black" TextSize="20" />
             <local:CustomTextBox Text="{Binding FirstName, Mode=OneWay}" TextColor="Black" TextSize="18"/>
             <local:CustomTextBox Text="{Binding Destination, Mode =OneWayToSource}" />
