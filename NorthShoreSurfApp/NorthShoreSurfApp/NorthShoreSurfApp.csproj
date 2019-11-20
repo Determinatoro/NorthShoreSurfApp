@@ -68,6 +68,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\WelcomeModel.cs" />
+    <Compile Remove="ViewModels\EmptyClass.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Update="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
@@ -76,5 +80,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\CarpoolingPage\" />
   </ItemGroup>
 </Project>

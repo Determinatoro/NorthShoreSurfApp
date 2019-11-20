@@ -3,13 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels.CarpoolingPage"
              mc:Ignorable="d"
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
              x:Class="NorthShoreSurfApp.CarpoolingPage">
+
+     <ContentPage.BindingContext>
+        <models:CarpoolingPageViewModel />
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        
+            
+        <StackLayout Margin="20, 20, 20, 20" HorizontalOptions="Fill" VerticalOptions="Center">
+            <local:CustomTextBox Text=" Hey whats up" TextColor=" black" TextSize="20" />
+            <local:CustomTextBox Text="{Binding FirstName, Mode=OneWay}" TextColor="Black" TextSize="18"/>
+            <local:CustomTextBox Text="{Binding Destination, Mode =OneWayToSource}" />
+                               
         </StackLayout>
+                        
+       
     </ContentPage.Content>
 </ContentPage>
+
+
+
+
