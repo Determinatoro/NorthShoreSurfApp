@@ -4,6 +4,7 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using System.Diagnostics;
 using NorthShoreSurfApp.ModelComponents;
+using System.Collections.ObjectModel;
 
 namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
 {
@@ -16,19 +17,39 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-      
-
-
-        public string FirstName
+        public CarpoolingPageViewModel()
         {
-            get { return firstName; }
+            rides = new ObservableCollection<CarpoolEvent>();
+            rides.Add(new CarpoolEvent()
+            {
+                ZipCode = "8000",
+                Address = "Aalborg",
+                NumberOfSeats = 2,
+                DepartureTime = new DateTime(2019, 1, 1,13,0,0),
+                PricePerPassenger = 50
+
+            });
+            rides.Add(new CarpoolEvent()
+            {
+                ZipCode = "9000",
+                Address = "Hjørring",
+                NumberOfSeats = 5,
+                DepartureTime = new DateTime(2019,1,1,14,30,0),
+                PricePerPassenger = 50
+            });
+        }
+
+
+        private ObservableCollection<CarpoolEvent> rides;
+
+
+        public ObservableCollection<CarpoolEvent> Rides
+        {
+            get { return rides; }
             set
             {
-                if (firstName != value)
-                {
-                    firstName = value;
-                    OnPropertyChanged(nameof(FirstName));
-                }
+                rides = value;
+                OnPropertyChanged(nameof(rides));
             }
         }
 

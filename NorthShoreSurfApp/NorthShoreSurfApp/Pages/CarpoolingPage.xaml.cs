@@ -16,8 +16,21 @@ namespace NorthShoreSurfApp
         public CarpoolingPage()
         {
             InitializeComponent();
-            CarpoolingPageViewModel.FirstName = "Frederik";
-            
+
+            rideList.ItemSelected += Ride_Clicked;
         }
+
+
+        private void Ride_Clicked(object sender, EventArgs e)
+        {
+            if (sender == rideList)
+            {
+                var model = CarpoolingPageViewModel;
+                
+          
+            }
+        }
+
+
     }
 }

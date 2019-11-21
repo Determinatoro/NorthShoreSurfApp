@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Remove="ViewModels\WelcomeModel.cs" />
     <Compile Remove="ViewModels\EmptyClass.cs" />
+    <Compile Remove="ViewModels\CarpoolingPage\CarpoolingRideCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Pages\HomePage.xaml.cs">
