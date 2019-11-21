@@ -153,6 +153,9 @@
   <data name="could_not_unsign_from_carpool" xml:space="preserve">
     <value>Could not unsign from carpool event</value>
   </data>
+  <data name="delete_account" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
   <data name="female" xml:space="preserve">
     <value>Female</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="last_name" xml:space="preserve">
     <value>Last name</value>
+  </data>
+  <data name="log_out" xml:space="preserve">
+    <value>Log out</value>
   </data>
   <data name="male" xml:space="preserve">
     <value>Male</value>

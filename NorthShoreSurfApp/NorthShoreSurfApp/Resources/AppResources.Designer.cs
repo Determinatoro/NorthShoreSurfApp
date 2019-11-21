@@ -169,6 +169,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete account.
+        /// </summary>
+        internal static string delete_account {
+            get {
+                return ResourceManager.GetString("delete_account", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Female.
         /// </summary>
         internal static string female {
@@ -201,6 +210,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string last_name {
             get {
                 return ResourceManager.GetString("last_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log out.
+        /// </summary>
+        internal static string log_out {
+            get {
+                return ResourceManager.GetString("log_out", resourceCulture);
             }
         }
         
