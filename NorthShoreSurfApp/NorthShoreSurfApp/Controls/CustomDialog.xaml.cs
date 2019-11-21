@@ -63,7 +63,7 @@ namespace NorthShoreSurfApp
 
         public static readonly BindableProperty MessageProperty = BindableProperty.Create(nameof(Message), typeof(string), typeof(CustomDialog), null);
         public static readonly BindableProperty CancelTitleProperty = BindableProperty.Create(nameof(CancelTitle), typeof(string), typeof(CustomDialog), null);
-        public event EventHandler Canceled;
+        public event EventHandler<EventArgs> Canceled;
 
         #endregion
 

@@ -1,4 +1,6 @@
-﻿using NorthShoreSurfApp.ViewModels;
+﻿using NorthShoreSurfApp.ModelComponents;
+using NorthShoreSurfApp.ViewCells;
+using NorthShoreSurfApp.ViewModels;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -32,7 +34,7 @@ namespace NorthShoreSurfApp
             Title = "Sign up";
 
             SignUpUserModel.FirstName = "Jakob";
-            btnNext.Button.Clicked += Button_Clicked;
+            btnNext.Clicked += Button_Clicked;
 
             navigationBar.BackButtonClicked += NavigationBar_BackButtonClicked;
         }
@@ -51,15 +53,37 @@ namespace NorthShoreSurfApp
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            if (sender == btnNext.Button)
+            if (sender == btnNext)
             {
+                var genders = new List<Gender>();
+                genders.Add(new Gender()
+                {
+                    Id = 1,
+                    Name = NorthShoreSurfApp.Resources.AppResources.male
+                });
+                genders.Add(new Gender()
+                {
+                    Id = 2,
+                    Name = NorthShoreSurfApp.Resources.AppResources.female
+                });
+                genders.Add(new Gender()
+                {
+                    Id = 3,
+                    Name = NorthShoreSurfApp.Resources.AppResources.other
+                });
 
+                CustomListDialog customListDialog = new CustomListDialog(
+                    () => new GenderCustomViewCell(),
+                    genders,
+                    string.Format(NorthShoreSurfApp.Resources.AppResources.select_parameter, NorthShoreSurfApp.Resources.AppResources.gender.ToLower())
+                    );
 
+                await PopupNavigation.Instance.PushAsync(customListDialog);
                 return;
-                /*var page = new SignUpUserPage();
+                var page = new SignUpUserPage();
                 page.SignUpUserModel.LastName = "TEST";
                 await Navigation.PushAsync(page);
-                return;*/
+                return;
 
                 try
                 {

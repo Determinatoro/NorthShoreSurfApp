@@ -60,7 +60,7 @@ namespace NorthShoreSurfApp
 
         Task<DataResponse<List<User>>> GetUsers();
         Task<DataResponse<List<Gender>>> GetGenders();
-        Task<DataResponse<List<CarpoolEvent>>> GetCarpoolEvents();
+        Task<DataResponse<List<CarpoolRide>>> GetCarpoolRides();
         Task<DataResponse<List<CarpoolRequest>>> GetCarpoolRequests();
         Task<DataResponse<List<CarpoolConfirmation>>> GetCarpoolConfirmations();
         Task<DataResponse<List<Event>>> GetEvents();
@@ -74,12 +74,12 @@ namespace NorthShoreSurfApp
         Task<DataResponse<User>> SignUpUser(string firstName, string lastName, string phoneNo, int age, int genderId);
         Task<DataResponse> DeleteUser(string phoneNo);        
         Task<DataResponse<Car>> CreateCar(int userId, string licensePlate, string color);
-        Task<DataResponse<CarpoolEvent>> CreateCarpoolEvent(int userId, DateTime departureTime, string address, string zipCode, string city, int carId, int numberOfSeats, int pricePerPassenger, List<Event> events, string comment = null);
+        Task<DataResponse<CarpoolRide>> CreateCarpoolRide(int userId, DateTime departureTime, string address, string zipCode, string city, int carId, int numberOfSeats, int pricePerPassenger, List<Event> events, string comment = null);
         Task<DataResponse<CarpoolRequest>> CreateCarpoolRequest(int userId, DateTime fromTime, DateTime toTime, string zipCode, string city, List<Event> events);
-        Task<DataResponse> InvitePassenger(int carpoolRequestId, int carpoolEventId);
+        Task<DataResponse> InvitePassenger(int carpoolRequestId, int carpoolRideId);
         Task<DataResponse> UninvitePassenger(int carpoolConfirmationId);
-        Task<DataResponse> SignUpToCarpoolEvent(int carpoolEventId, int userId);
-        Task<DataResponse> UnsignFromCarpoolEvent(int carpoolConfirmationId);
+        Task<DataResponse> SignUpToCarpoolRide(int carpoolRideId, int userId);
+        Task<DataResponse> UnsignFromCarpoolRide(int carpoolConfirmationId);
         Task<DataResponse> AnswerCarpoolConfirmation(int userId, int carpoolConfirmationId, bool accept);
     }
 }

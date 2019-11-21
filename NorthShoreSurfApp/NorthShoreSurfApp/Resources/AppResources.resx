@@ -178,6 +178,9 @@ Please wait...</value>
   <data name="other" xml:space="preserve">
     <value>Other</value>
   </data>
+  <data name="select_parameter" xml:space="preserve">
+    <value>Select {0}</value>
+  </data>
   <data name="sign_up" xml:space="preserve">
     <value>Sign up</value>
   </data>

@@ -112,7 +112,7 @@ namespace NorthShoreSurfApp.Database
                     // Get all carpool confirmations
                     var carpoolConfirmations = await context.CarpoolConfirmations
                                         .Include(x => x.Passenger)
-                                        .Include(x => x.CarpoolEvent)
+                                        .Include(x => x.CarpoolRide)
                                         .AsNoTracking()
                                         .ToListAsync();
                     // Return response
@@ -125,28 +125,28 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse<List<CarpoolConfirmation>>(1, mes.Message);
             }
         }
-        public async Task<DataResponse<List<CarpoolEvent>>> GetCarpoolEvents()
+        public async Task<DataResponse<List<CarpoolRide>>> GetCarpoolRides()
         {
             try
             {
                 using (var context = CreateContext())
                 {
                     // Get all carpool events
-                    var events = await context.CarpoolEvents
+                    var events = await context.CarpoolRides
                                         .Include(x => x.Driver)
                                         .Include(x => x.Car)
                                         .Include(x => x.CarpoolConfirmations)
-                                        .Include(x => x.CarpoolEvents_Events_Relations).ThenInclude(x => x.Event)
+                                        .Include(x => x.CarpoolRides_Events_Relations).ThenInclude(x => x.Event)
                                         .AsNoTracking()
                                         .ToListAsync();
                     // Return response
-                    return new DataResponse<List<CarpoolEvent>>(true, events);
+                    return new DataResponse<List<CarpoolRide>>(true, events);
                 }
             }
             catch (Exception mes)
             {
                 // Return exception
-                return new DataResponse<List<CarpoolEvent>>(1, mes.Message);
+                return new DataResponse<List<CarpoolRide>>(1, mes.Message);
             }
         }
         public async Task<DataResponse<List<CarpoolRequest>>> GetCarpoolRequests()
@@ -409,14 +409,14 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse<Car>(1, mes.Message);
             }
         }
-        public async Task<DataResponse<CarpoolEvent>> CreateCarpoolEvent(int userId, DateTime departureTime, string address, string zipCode, string city, int carId, int numberOfSeats, int pricePerPassenger, List<Event> events, string comment = null)
+        public async Task<DataResponse<CarpoolRide>> CreateCarpoolRide(int userId, DateTime departureTime, string address, string zipCode, string city, int carId, int numberOfSeats, int pricePerPassenger, List<Event> events, string comment = null)
         {
             try
             {
                 using (var context = CreateContext())
                 {
                     // Create carpool event
-                    CarpoolEvent carpoolEvent = new CarpoolEvent()
+                    CarpoolRide carpoolRide = new CarpoolRide()
                     {
                         DriverId = userId,
                         DepartureTime = departureTime,
@@ -429,37 +429,37 @@ namespace NorthShoreSurfApp.Database
                         IsActive = true
                     };
                     // Add new carpool event
-                    var entry = await context.CarpoolEvents.AddAsync(carpoolEvent);
+                    var entry = await context.CarpoolRides.AddAsync(carpoolRide);
                     // Save changes
                     int rowsChanged = await context.SaveChangesAsync();
                     // Error when saving
                     if (rowsChanged != 1)
-                        return new DataResponse<CarpoolEvent>(200, Resources.AppResources.could_not_create_carpool_event);
+                        return new DataResponse<CarpoolRide>(200, Resources.AppResources.could_not_create_carpool_event);
                     // Create event relations
-                    var event_relations = new List<CarpoolEvents_Events_Relation>();
+                    var event_relations = new List<CarpoolRides_Events_Relation>();
                     foreach (var eve in events)
                     {
-                        event_relations.Add(new CarpoolEvents_Events_Relation()
+                        event_relations.Add(new CarpoolRides_Events_Relation()
                         {
-                            CarpoolEventId = entry.Entity.Id,
+                            CarpoolRideId = entry.Entity.Id,
                             EventId = eve.Id
                         });
                     }
                     // Add new relations
-                    await context.CarpoolEvents_Events_Relations.AddRangeAsync(event_relations);
+                    await context.CarpoolRides_Events_Relations.AddRangeAsync(event_relations);
                     // Save changes
                     rowsChanged = await context.SaveChangesAsync();
                     // Error when saving
                     if (rowsChanged != event_relations.Count)
-                        return new DataResponse<CarpoolEvent>(201, Resources.AppResources.could_not_add_events_to_carpool_event);
+                        return new DataResponse<CarpoolRide>(201, Resources.AppResources.could_not_add_events_to_carpool_event);
                     // Return response
-                    return new DataResponse<CarpoolEvent>(true, entry.Entity);
+                    return new DataResponse<CarpoolRide>(true, entry.Entity);
                 }
             }
             catch (Exception mes)
             {
                 // Return exception
-                return new DataResponse<CarpoolEvent>(1, mes.Message);
+                return new DataResponse<CarpoolRide>(1, mes.Message);
             }
         }
         public async Task<DataResponse<CarpoolRequest>> CreateCarpoolRequest(int userId, DateTime fromTime, DateTime toTime, string zipCode, string city, List<Event> events)
@@ -486,10 +486,10 @@ namespace NorthShoreSurfApp.Database
                     if (rowsChanged != 1)
                         return new DataResponse<CarpoolRequest>(300, Resources.AppResources.could_not_create_carpool_request);
                     // Create event relations
-                    var event_relations = new List<CarpoolRequests_Events_Relations>();
+                    var event_relations = new List<CarpoolRequests_Events_Relation>();
                     foreach (var eve in events)
                     {
-                        event_relations.Add(new CarpoolRequests_Events_Relations()
+                        event_relations.Add(new CarpoolRequests_Events_Relation()
                         {
                             CarpoolRequestId = entry.Entity.Id,
                             EventId = eve.Id
@@ -512,7 +512,7 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse<CarpoolRequest>(1, mes.Message);
             }
         }
-        public async Task<DataResponse> InvitePassenger(int carpoolRequestId, int carpoolEventId)
+        public async Task<DataResponse> InvitePassenger(int carpoolRequestId, int carpoolRideId)
         {
             try
             {
@@ -525,7 +525,7 @@ namespace NorthShoreSurfApp.Database
                     // Create carpool confirmation
                     CarpoolConfirmation carpoolConfirmation = new CarpoolConfirmation()
                     {
-                        CarpoolEventId = carpoolEventId,
+                        CarpoolRideId = carpoolRideId,
                         HasDriverAccepted = true,
                         HasPassengerAccepted = false,
                         IsActive = true,
@@ -573,7 +573,7 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse(1, mes.Message);
             }
         }
-        public async Task<DataResponse> SignUpToCarpoolEvent(int carpoolEventId, int userId)
+        public async Task<DataResponse> SignUpToCarpoolRide(int carpoolRideId, int userId)
         {
             try
             {
@@ -582,7 +582,7 @@ namespace NorthShoreSurfApp.Database
                     // Create carpool confirmation
                     CarpoolConfirmation carpoolConfirmation = new CarpoolConfirmation()
                     {
-                        CarpoolEventId = carpoolEventId,
+                        CarpoolRideId = carpoolRideId,
                         HasDriverAccepted = false,
                         HasPassengerAccepted = true,
                         IsActive = true,
@@ -605,7 +605,7 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse(1, mes.Message);
             }
         }
-        public async Task<DataResponse> UnsignFromCarpoolEvent(int carpoolConfirmationId)
+        public async Task<DataResponse> UnsignFromCarpoolRide(int carpoolConfirmationId)
         {
             try
             {
@@ -638,11 +638,11 @@ namespace NorthShoreSurfApp.Database
                 {
                     // Get carpool confirmation
                     CarpoolConfirmation carpoolConfirmation = await context.CarpoolConfirmations
-                        .Include(x => x.CarpoolEvent)
+                        .Include(x => x.CarpoolRide)
                         .FirstOrDefaultAsync(x => x.Id == carpoolConfirmationId);
 
                     int passengerId = carpoolConfirmation.PassengerId;
-                    int driverId = carpoolConfirmation.CarpoolEvent.DriverId;
+                    int driverId = carpoolConfirmation.CarpoolRide.DriverId;
                     // User has answered a confirmation that was not for them
                     if (userId != passengerId && userId != driverId)
                         return new DataResponse(500, Resources.AppResources.could_not_answer_confirmation);

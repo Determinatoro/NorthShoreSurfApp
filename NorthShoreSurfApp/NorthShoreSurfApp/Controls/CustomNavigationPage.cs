@@ -15,8 +15,8 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Variables
 
-        public static readonly BindableProperty IconSelectedProperty = BindableProperty.Create("IconSelectedResource", typeof(string), typeof(CustomNavigationPage), null);
-        public static readonly BindableProperty IconUnselectedProperty = BindableProperty.Create("IconUnselectedResource", typeof(string), typeof(CustomNavigationPage), null);
+        public static readonly BindableProperty IconSelectedProperty = BindableProperty.Create(nameof(IconSelectedSource), typeof(string), typeof(CustomNavigationPage), null);
+        public static readonly BindableProperty IconUnselectedProperty = BindableProperty.Create(nameof(IconUnselectedSource), typeof(string), typeof(CustomNavigationPage), null);
 
         #endregion
 
@@ -25,20 +25,14 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Constructor
 
-        private void Init()
-        {
-            BarBackgroundColor = (Color)App.Current.Resources["BarBackground"];
-            BarTextColor = Color.Black;
-        }
-
         public CustomNavigationPage(Xamarin.Forms.Page page) : base(page)
         {
-            Init();
+            
         }
 
         public CustomNavigationPage() : base()
         {
-            Init();
+            
         }
 
         #endregion

@@ -33,12 +33,12 @@ namespace NorthShoreSurfApp
         public DbSet<User> Users { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Car> Cars { get; set; }
-        public DbSet<CarpoolEvent> CarpoolEvents { get; set; }
+        public DbSet<CarpoolRide> CarpoolRides { get; set; }
         public DbSet<CarpoolRequest> CarpoolRequests { get; set; }
         public DbSet<CarpoolConfirmation> CarpoolConfirmations { get; set; }
         public DbSet<Event> Events { get; set; }
-        public DbSet<CarpoolEvents_Events_Relation> CarpoolEvents_Events_Relations { get; set; }
-        public DbSet<CarpoolRequests_Events_Relations> CarpoolRequests_Events_Relations { get; set; }
+        public DbSet<CarpoolRides_Events_Relation> CarpoolRides_Events_Relations { get; set; }
+        public DbSet<CarpoolRequests_Events_Relation> CarpoolRequests_Events_Relations { get; set; }
         public DbSet<ContactInfo> ContactInfos { get; set; }
         public DbSet<OpeningHour> OpeningHours { get; set; }
     }

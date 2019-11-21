@@ -6,7 +6,7 @@ using System.Text;
 
 namespace NorthShoreSurfApp.ModelComponents
 {
-    public partial class CarpoolEvent
+    public partial class CarpoolRide
     {
         [Key]
         [Required]
@@ -29,7 +29,16 @@ namespace NorthShoreSurfApp.ModelComponents
         public string ZipCode { get; set; }
         [Required]
         [StringLength(255)]
-        public string City { get; set; }       
+        public string City { get; set; }
+        [Required]
+        [StringLength(255)]
+        public string DestinationAddress { get; set; }
+        [Required]
+        [StringLength(4)]
+        public string DestinationZipCode { get; set; }
+        [Required]
+        [StringLength(255)]
+        public string DestinationCity { get; set; }
         [Required]
         public int CarId { get; set; }
         [ForeignKey(nameof(CarId))]
@@ -41,7 +50,7 @@ namespace NorthShoreSurfApp.ModelComponents
         [StringLength(255)]
         public string Comment { get; set; }
 
-        public List<CarpoolEvents_Events_Relation> CarpoolEvents_Events_Relations { get; set; }
+        public List<CarpoolRides_Events_Relation> CarpoolRides_Events_Relations { get; set; }
         public List<CarpoolConfirmation> CarpoolConfirmations { get; set; }
     }
 }

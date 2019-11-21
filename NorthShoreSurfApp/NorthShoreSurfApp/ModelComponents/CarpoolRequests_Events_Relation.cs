@@ -6,7 +6,7 @@ using System.Text;
 
 namespace NorthShoreSurfApp.ModelComponents
 {
-    public partial class CarpoolRequests_Events_Relations
+    public partial class CarpoolRequests_Events_Relation
     {
         [Key]
         [Required]

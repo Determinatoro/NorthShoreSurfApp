@@ -21,13 +21,10 @@ namespace NorthShoreSurfApp.ViewModels
         private string phoneNo;
         private string age;
         private int genderId;
-        private ObservableCollection<CarpoolEvent> carpoolEvents;
 
         public SignUpUserModel()
         {
-            carpoolEvents = new ObservableCollection<CarpoolEvent>();
-            carpoolEvents.Add(new CarpoolEvent() { ZipCode = "9000" });
-            carpoolEvents.Add(new CarpoolEvent() { ZipCode = "8000" });
+            
         }
 
         public string[] Genders
@@ -37,7 +34,6 @@ namespace NorthShoreSurfApp.ViewModels
                 return new string[] { Resources.AppResources.male, Resources.AppResources.female, Resources.AppResources.other };
             }
         }
-
         public string FirstName
         {
             get { return firstName; }
@@ -50,7 +46,6 @@ namespace NorthShoreSurfApp.ViewModels
                 }
             }
         }
-
         public string LastName
         {
             get { return lastName; }
@@ -63,7 +58,6 @@ namespace NorthShoreSurfApp.ViewModels
                 }
             }
         }
-
         public string PhoneNo
         {
             get { return phoneNo; }
@@ -76,7 +70,6 @@ namespace NorthShoreSurfApp.ViewModels
                 }
             }
         }
-
         public int GenderId
         {
             get { return genderId; }
@@ -89,7 +82,6 @@ namespace NorthShoreSurfApp.ViewModels
                 }
             }
         }
-
         public string Age
         {
             get { return age; }
@@ -99,19 +91,6 @@ namespace NorthShoreSurfApp.ViewModels
                 {
                     age = value;
                     OnPropertyChanged(nameof(Age));
-                }
-            }
-        }
-
-        public ObservableCollection<CarpoolEvent> CarpoolEvents
-        {
-            get { return carpoolEvents; }
-            set
-            {
-                if (carpoolEvents != value)
-                {
-                    carpoolEvents = value;
-                    OnPropertyChanged(nameof(CarpoolEvents));
                 }
             }
         }

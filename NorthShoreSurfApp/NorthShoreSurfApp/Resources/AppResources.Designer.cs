@@ -242,6 +242,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select {0}.
+        /// </summary>
+        internal static string select_parameter {
+            get {
+                return ResourceManager.GetString("select_parameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign up.
         /// </summary>
         internal static string sign_up {

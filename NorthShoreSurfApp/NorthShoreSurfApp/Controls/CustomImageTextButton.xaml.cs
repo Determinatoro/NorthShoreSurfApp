@@ -50,6 +50,8 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty TitleColorProperty = BindableProperty.Create(nameof(TitleColor), typeof(Color), typeof(CustomImageTextButton), null);
         public static readonly BindableProperty TitleSizeProperty = BindableProperty.Create(nameof(TitleSize), typeof(double), typeof(CustomImageTextButton), null);
 
+        public event EventHandler<EventArgs> Clicked;
+
         #endregion
 
         /*****************************************************************/
@@ -62,7 +64,11 @@ namespace NorthShoreSurfApp
             InitializeComponent();
 
             Color color = IconColor;
-            
+
+            button.Clicked += (sender, args) =>
+            {
+                Clicked?.Invoke(this, args);
+            };
         }
 
         #endregion
@@ -124,7 +130,7 @@ namespace NorthShoreSurfApp
             get { return (double)GetValue(TitleSizeProperty); }
             set { SetValue(TitleSizeProperty, value); }
         }
-
+        
         public Button Button { get => button; }
         public CachedImage Image { get => image; }
         public Label Label { get => label; }

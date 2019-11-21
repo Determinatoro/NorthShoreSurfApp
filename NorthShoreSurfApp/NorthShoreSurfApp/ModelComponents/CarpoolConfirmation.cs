@@ -24,8 +24,8 @@ namespace NorthShoreSurfApp.ModelComponents
         [ForeignKey(nameof(PassengerId))]
         public User Passenger { get; set; }
         [Required]
-        public int CarpoolEventId { get; set; }
-        [ForeignKey(nameof(CarpoolEventId))]
-        public CarpoolEvent CarpoolEvent { get; set; }
+        public int CarpoolRideId { get; set; }
+        [ForeignKey(nameof(CarpoolRideId))]
+        public CarpoolRide CarpoolRide { get; set; }
     }
 }
