@@ -3,13 +3,70 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NorthShoreSurfApp"             
              mc:Ignorable="d"
              x:Class="NorthShoreSurfApp.CarpoolConfirmationPage">
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout Margin="10, 0, 10, 0" HorizontalOptions="Fill" VerticalOptions="Center">
+                <local:CustomImageTextButton x:Name="btnNext"
+                                         Grid.Row="1" 
+                                         Margin="0, 0, 0, 0" 
+                                         HeightRequest="200" 
+                                         Background="{StaticResource NSSBlue}" 
+                                         CornerRadius="10" 
+                                         BackgroundPressed="#0067B0" 
+                                         Icon="ic_facebook.png"
+                                         TitleColor="Black"
+                                         Title="{local:Translate next}">
+                    
+                </local:CustomImageTextButton>
+                <local:CustomImageTextButton x:Name="btnNext1"
+                                         Grid.Row="1" 
+                                         Margin="0, 0, 0, 0" 
+                                         HeightRequest="200" 
+                                         Background="{StaticResource NSSBlue}" 
+                                         CornerRadius="10" 
+                                         BackgroundPressed="#0067B0" 
+                                         Icon="ic_facebook.png"
+                                         TitleColor="Black"
+                                         Title="{local:Translate next}">
+
+                </local:CustomImageTextButton>
+                <local:CustomImageTextButton x:Name="btnNext2"
+                                         Grid.Row="1" 
+                                         Margin="0, 0, 0, 0" 
+                                         HeightRequest="200" 
+                                         Background="{StaticResource NSSBlue}" 
+                                         CornerRadius="10" 
+                                         BackgroundPressed="#0067B0" 
+                                         Icon="ic_facebook.png"
+                                         TitleColor="Black"
+                                         Title="{local:Translate next}">
+
+                </local:CustomImageTextButton>
+                <local:CustomImageTextButton x:Name="btnNext3"
+                                         Grid.Row="1" 
+                                         Margin="0, 0, 0, 0" 
+                                         HeightRequest="200" 
+                                         Background="{StaticResource NSSBlue}" 
+                                         CornerRadius="10" 
+                                         BackgroundPressed="#0067B0" 
+                                         Icon="ic_facebook.png"
+                                         TitleColor="Black"
+                                         Title="{local:Translate next}">
+
+                </local:CustomImageTextButton>
+
+            </StackLayout>
+           
+        </Grid>
     </ContentPage.Content>
+
 </ContentPage>
