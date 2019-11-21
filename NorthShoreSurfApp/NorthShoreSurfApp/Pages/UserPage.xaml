@@ -3,13 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
              mc:Ignorable="d"
-             x:Class="NorthShoreSurfApp.UserPage">
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
+             x:Class="NorthShoreSurfApp.UserPage"
+             BackgroundColor="{StaticResource NSSBlue}">
+
+    <ContentPage.BindingContext>
+        <models:UserModel />
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <StackLayout Margin="20, 0, 20, 0" HorizontalOptions="Fill" VerticalOptions="Start">
+                <local:CustomImageTextButton x:Name="btnLogOut"
+                                         Margin="0, 20, 0, 0"
+                                         HeightRequest="60"
+                                         Background="#D21414"
+                                         CornerRadius="10"
+                                         BackgroundPressed="#BE1A1A" 
+                                         Icon="ic_log_out.png"
+                                         TitleColor="White"
+                                         Title="{local:Translate log_out}"
+                                         />
+                <local:CustomImageTextButton x:Name="btnDelAcc"
+                                         Margin="0, 20, 0, 20"
+                                         HeightRequest="60"
+                                         Background="DimGray"
+                                         CornerRadius="10"
+                                         BackgroundPressed="Black" 
+                                         Icon="ic_delete.png"
+                                         TitleColor="White"
+                                         Title="{local:Translate delete_account}"
+                                         />
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
