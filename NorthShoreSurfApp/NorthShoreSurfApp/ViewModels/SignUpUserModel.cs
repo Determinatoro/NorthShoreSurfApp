@@ -1,5 +1,7 @@
-﻿using System;
+﻿using NorthShoreSurfApp.ModelComponents;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 
@@ -19,6 +21,14 @@ namespace NorthShoreSurfApp.ViewModels
         private string phoneNo;
         private string age;
         private int genderId;
+        private ObservableCollection<CarpoolEvent> carpoolEvents;
+
+        public SignUpUserModel()
+        {
+            carpoolEvents = new ObservableCollection<CarpoolEvent>();
+            carpoolEvents.Add(new CarpoolEvent() { ZipCode = "9000" });
+            carpoolEvents.Add(new CarpoolEvent() { ZipCode = "8000" });
+        }
 
         public string[] Genders
         {
@@ -89,6 +99,19 @@ namespace NorthShoreSurfApp.ViewModels
                 {
                     age = value;
                     OnPropertyChanged(nameof(Age));
+                }
+            }
+        }
+
+        public ObservableCollection<CarpoolEvent> CarpoolEvents
+        {
+            get { return carpoolEvents; }
+            set
+            {
+                if (carpoolEvents != value)
+                {
+                    carpoolEvents = value;
+                    OnPropertyChanged(nameof(CarpoolEvents));
                 }
             }
         }

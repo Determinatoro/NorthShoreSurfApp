@@ -32,7 +32,6 @@ namespace NorthShoreSurfApp
 
         public DbSet<User> Users { get; set; }
         public DbSet<Gender> Genders { get; set; }
-        public DbSet<State> States { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<CarpoolEvent> CarpoolEvents { get; set; }
         public DbSet<CarpoolRequest> CarpoolRequests { get; set; }
@@ -40,5 +39,7 @@ namespace NorthShoreSurfApp
         public DbSet<Event> Events { get; set; }
         public DbSet<CarpoolEvents_Events_Relation> CarpoolEvents_Events_Relations { get; set; }
         public DbSet<CarpoolRequests_Events_Relations> CarpoolRequests_Events_Relations { get; set; }
+        public DbSet<ContactInfo> ContactInfos { get; set; }
+        public DbSet<OpeningHour> OpeningHours { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FFImageLoading.Forms;
+using FFImageLoading.Transformations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,9 +44,11 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty BackgroundPressedProperty = BindableProperty.Create(nameof(BackgroundPressed), typeof(Color), typeof(CustomImageTextButton), null);
         public static readonly BindableProperty BackgroundProperty = BindableProperty.Create(nameof(Background), typeof(Color), typeof(CustomImageTextButton), null);
         public static readonly BindableProperty IconProperty = BindableProperty.Create(nameof(Icon), typeof(ImageSource), typeof(CustomImageTextButton), null);
+        public static readonly BindableProperty IconColorProperty = BindableProperty.Create(nameof(Icon), typeof(Color), typeof(CustomImageTextButton), null);
         public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(CustomImageTextButton), null);
         public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(Title), typeof(string), typeof(CustomImageTextButton), null);
         public static readonly BindableProperty TitleColorProperty = BindableProperty.Create(nameof(TitleColor), typeof(Color), typeof(CustomImageTextButton), null);
+        public static readonly BindableProperty TitleSizeProperty = BindableProperty.Create(nameof(TitleSize), typeof(double), typeof(CustomImageTextButton), null);
 
         #endregion
 
@@ -56,6 +60,9 @@ namespace NorthShoreSurfApp
         public CustomImageTextButton()
         {
             InitializeComponent();
+
+            Color color = IconColor;
+            
         }
 
         #endregion
@@ -80,6 +87,23 @@ namespace NorthShoreSurfApp
             get { return (ImageSource)GetValue(IconProperty); }
             set { SetValue(IconProperty, value); }
         }
+        public Color IconColor
+        {
+            get { return (Color)GetValue(IconColorProperty); }
+            set
+            {
+                SetValue(IconColorProperty, value);
+                if (image.Source != null)
+                {
+                    TintTransformation tt = new TintTransformation();
+                    tt.R = (int)(value.R * 255);
+                    tt.G = (int)(value.G * 255);
+                    tt.B = (int)(value.B * 255);
+                    image.Transformations.Clear();
+                    image.Transformations.Add(tt);
+                }
+            }
+        }
         public float CornerRadius
         {
             get { return (float)GetValue(CornerRadiusProperty); }
@@ -95,9 +119,14 @@ namespace NorthShoreSurfApp
             get { return (Color)GetValue(TitleColorProperty); }
             set { SetValue(TitleColorProperty, value); }
         }
+        public double TitleSize
+        {
+            get { return (double)GetValue(TitleSizeProperty); }
+            set { SetValue(TitleSizeProperty, value); }
+        }
 
         public Button Button { get => button; }
-        public Image Image { get => image; }
+        public CachedImage Image { get => image; }
         public Label Label { get => label; }
 
         #endregion

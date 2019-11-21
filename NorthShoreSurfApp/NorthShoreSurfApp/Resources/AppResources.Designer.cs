@@ -196,6 +196,16 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Getting data.
+        ///Please wait....
+        /// </summary>
+        internal static string getting_data_please_wait {
+            get {
+                return ResourceManager.GetString("getting_data_please_wait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last name.
         /// </summary>
         internal static string last_name {

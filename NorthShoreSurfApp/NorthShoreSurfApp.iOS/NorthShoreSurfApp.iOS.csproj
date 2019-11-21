@@ -143,6 +143,15 @@
     <PackageReference Include="Xamarin.Facebook.iOS">
       <Version>5.6.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Forms">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.FFImageLoading.Transformations">
+      <Version>2.4.11.982</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Firebase.iOS.Auth">
       <Version>6.2.1.1</Version>
     </PackageReference>
@@ -156,5 +165,7 @@
       <Name>NorthShoreSurfApp</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_logo.png" />
+  </ItemGroup>
 </Project>

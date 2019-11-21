@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NorthShoreSurfApp.ModelComponents;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace NorthShoreSurfApp.Database
 {
@@ -18,125 +21,280 @@ namespace NorthShoreSurfApp.Database
             return context;
         }
 
-        public async Task<List<CarpoolConfirmation>> GetCarpoolConfirmations()
+        /// <summary>
+        /// Initialize Entity Framework context
+        /// </summary>
+        public void Initialize()
         {
             using (var context = CreateContext())
             {
-                return await context.CarpoolConfirmations
-                                    .Include(x => x.Passenger)
-                                    .Include(x => x.CarpoolEvent)
-                                    .AsNoTracking()
-                                    .ToListAsync();
+                var model = context.Model;
             }
         }
-
-        public async Task<List<CarpoolEvent>> GetCarpoolEvents()
+        
+        public void GetData<T1>(string progressMessage, bool showDialog, Func<Task<T1>> task, Action<T1> resultCallback)
         {
-            using (var context = CreateContext())
+            // Create dialog
+            CustomDialog customDialog = new CustomDialog(CustomDialogType.Progress, progressMessage);
+            Timer timer = null;
+            CancellationTokenSource cancellationToken = new CancellationTokenSource();
+
+            // Create new thread
+            Task.Run(async () =>
             {
-                return await context.CarpoolEvents
-                                    .Include(x => x.State)
-                                    .Include(x => x.Driver)
-                                    .Include(x => x.Car)
-                                    .Include(x => x.CarpoolConfirmations)
-                                    .Include(x => x.CarpoolEvents_Events_Relations).ThenInclude(x => x.Event)
-                                    .AsNoTracking()
-                                    .ToListAsync();
-            }
+                // Show dialog?
+                if (showDialog)
+                {
+                    // Timer thats waits before showing progress dialog
+                    timer = new Timer((state) =>
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            // Set cancel event
+                            customDialog.Canceled += (sender, args) =>
+                            {
+                                cancellationToken.Cancel();
+                            };
+                            // Show dialog
+                            PopupNavigation.Instance.PushAsync(customDialog, true);
+                        });
+                    },
+                    null,
+                    // Wait time before timer runs
+                    500,
+                    // No interval
+                    Timeout.Infinite);
+                }
+
+                try
+                {
+                    // Get response
+                    var response = await task();
+                    // Cancel requested
+                    if (cancellationToken.IsCancellationRequested)
+                        cancellationToken.Token.ThrowIfCancellationRequested();
+                    // Run on UI thread
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        // Return result to caller
+                        resultCallback(response);
+                    });
+                }
+                catch
+                {
+                    // Task cancelled
+                }
+
+                // Is a timer created
+                if (timer != null)
+                {
+                    // Stop timer
+                    timer.Change(Timeout.Infinite, Timeout.Infinite);
+                    timer.Dispose();
+                }
+
+                // Run on UI thread
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    // Close dialog
+                    if (PopupNavigation.Instance.PopupStack.Contains(customDialog))
+                        await PopupNavigation.Instance.RemovePageAsync(customDialog);
+                });
+            }, cancellationToken.Token);
         }
 
-        public async Task<List<CarpoolRequest>> GetCarpoolRequests()
+        public async Task<DataResponse<List<CarpoolConfirmation>>> GetCarpoolConfirmations()
         {
-            using (var context = CreateContext())
+            try
             {
-                return await context.CarpoolRequests
-                                    .Include(x => x.State)
-                                    .Include(x => x.Passenger)
-                                    .AsNoTracking()
-                                    .ToListAsync();
+                using (var context = CreateContext())
+                {
+                    // Get all carpool confirmations
+                    var carpoolConfirmations = await context.CarpoolConfirmations
+                                        .Include(x => x.Passenger)
+                                        .Include(x => x.CarpoolEvent)
+                                        .AsNoTracking()
+                                        .ToListAsync();
+                    // Return response
+                    return new DataResponse<List<CarpoolConfirmation>>(true, carpoolConfirmations);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<List<CarpoolConfirmation>>(1, mes.Message);
             }
         }
-
-        public async Task<List<Car>> GetCars()
+        public async Task<DataResponse<List<CarpoolEvent>>> GetCarpoolEvents()
         {
-            using (var context = CreateContext())
+            try
             {
-                return await context.Cars
-                                    .Include(x => x.State)
-                                    .Include(x => x.User)
-                                    .AsNoTracking()
-                                    .ToListAsync();
+                using (var context = CreateContext())
+                {
+                    // Get all carpool events
+                    var events = await context.CarpoolEvents
+                                        .Include(x => x.Driver)
+                                        .Include(x => x.Car)
+                                        .Include(x => x.CarpoolConfirmations)
+                                        .Include(x => x.CarpoolEvents_Events_Relations).ThenInclude(x => x.Event)
+                                        .AsNoTracking()
+                                        .ToListAsync();
+                    // Return response
+                    return new DataResponse<List<CarpoolEvent>>(true, events);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<List<CarpoolEvent>>(1, mes.Message);
             }
         }
-
-        public async Task<List<Event>> GetEvents()
+        public async Task<DataResponse<List<CarpoolRequest>>> GetCarpoolRequests()
         {
-            using (var context = CreateContext())
+            try
             {
-                return await context.Events
-                                    .AsNoTracking()
-                                    .ToListAsync();
+                using (var context = CreateContext())
+                {
+                    // Get all requests
+                    var requests = await context.CarpoolRequests
+                                        .Include(x => x.Passenger)
+                                        .AsNoTracking()
+                                        .ToListAsync();
+                    // Return response
+                    return new DataResponse<List<CarpoolRequest>>(true, requests);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<List<CarpoolRequest>>(1, mes.Message);
             }
         }
-
-        public async Task<List<Gender>> GetGenders()
+        public async Task<DataResponse<List<Car>>> GetCars()
         {
-            using (var context = CreateContext())
+            try
             {
-                return await context.Genders
-                                    .AsNoTracking()
-                                    .ToListAsync();
+                using (var context = CreateContext())
+                {
+                    Thread.Sleep(5000);
+                    // Get all cars
+                    var cars = await context.Cars
+                                        .Include(x => x.User)
+                                        .AsNoTracking()
+                                        .ToListAsync();
+                    // Return response
+                    return new DataResponse<List<Car>>(true, cars);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<List<Car>>(1, mes.Message);
             }
         }
-
-        public async Task<List<State>> GetStates()
+        public async Task<DataResponse<List<Event>>> GetEvents()
         {
-            using (var context = CreateContext())
+            try
             {
-                return await context.States
-                                    .AsNoTracking()
-                                    .ToListAsync();
+                using (var context = CreateContext())
+                {
+                    // Get all events
+                    var events = await context.Events
+                                        .AsNoTracking()
+                                        .ToListAsync();
+                    // Return response
+                    return new DataResponse<List<Event>>(true, events);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<List<Event>>(1, mes.Message);
             }
         }
-
-        public async Task<List<User>> GetUsers()
+        public async Task<DataResponse<List<Gender>>> GetGenders()
         {
-            using (var context = CreateContext())
+            try
             {
-                return await context.Users
-                                    .Include(x => x.State)
-                                    .Include(x => x.Gender)
-                                    .Include(x => x.Cars)
-                                    .AsNoTracking()
-                                    .ToListAsync();
+                using (var context = CreateContext())
+                {
+                    // Get all genders
+                    var genders = await context.Genders
+                                        .AsNoTracking()
+                                        .ToListAsync();
+                    // Return response
+                    return new DataResponse<List<Gender>>(true, genders);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<List<Gender>>(1, mes.Message);
             }
         }
-
+        public async Task<DataResponse<List<User>>> GetUsers()
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    // Get all users
+                    var users = await context.Users
+                                        .Include(x => x.Gender)
+                                        .Include(x => x.Cars)
+                                        .AsNoTracking()
+                                        .ToListAsync();
+                    // Return response
+                    return new DataResponse<List<User>>(true, users);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<List<User>>(1, mes.Message);
+            }
+        }
         public async Task<DataResponse> CheckPhoneNo(string phoneNo)
         {
-            using (var context = CreateContext())
+            try
             {
-                bool success = await context.Users.AnyAsync(x => x.PhoneNo == phoneNo);
-                return new DataResponse(success);
+                using (var context = CreateContext())
+                {
+                    // Check if phone no exist already
+                    bool success = await context.Users.AnyAsync(x => x.PhoneNo == phoneNo);
+                    // Return response
+                    return new DataResponse(success);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse(1, mes.Message);
             }
         }
-
         public async Task<DataResponse<User>> GetUser(string phoneNo)
         {
-            using (var context = CreateContext())
+            try
             {
-                // Get user from phone no.
-                User user = await context.Users.FirstOrDefaultAsync(x => x.PhoneNo == phoneNo);
-                // Return response
-                return new DataResponse<User>(user != null, user);
+                using (var context = CreateContext())
+                {
+                    // Get user from phone no.
+                    User user = await context.Users.FirstOrDefaultAsync(x => x.PhoneNo == phoneNo);
+                    // Return response
+                    return new DataResponse<User>(user != null, user);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<User>(1, mes.Message);
             }
         }
-
         public async Task<DataResponse> UpdateUser(int userId, string firstName, string lastName, string phoneNo, int age, int genderId)
         {
-            using (var context = CreateContext())
+            try
             {
-                try
+                using (var context = CreateContext())
                 {
                     // Get user from Id
                     User user = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
@@ -156,19 +314,18 @@ namespace NorthShoreSurfApp.Database
                     // Return response
                     return new DataResponse(true);
                 }
-                catch (Exception mes)
-                {
-                    // Return exception
-                    return new DataResponse(1, mes.Message);
-                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse(1, mes.Message);
             }
         }
-
         public async Task<DataResponse<User>> SignUpUser(string firstName, string lastName, string phoneNo, int age, int genderId)
         {
-            using (var context = CreateContext())
+            try
             {
-                try
+                using (var context = CreateContext())
                 {
                     // Check phone no.
                     DataResponse response = await CheckPhoneNo(phoneNo);
@@ -183,7 +340,7 @@ namespace NorthShoreSurfApp.Database
                         PhoneNo = phoneNo,
                         Age = age,
                         GenderId = genderId,
-                        StateId = 1
+                        IsActive = true
                     };
                     // Add new user
                     var entry = await context.Users.AddAsync(user);
@@ -192,19 +349,18 @@ namespace NorthShoreSurfApp.Database
                     // Return response
                     return new DataResponse<User>(true, entry.Entity);
                 }
-                catch (Exception mes)
-                {
-                    // Return exception
-                    return new DataResponse<User>(1, mes.Message);
-                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<User>(1, mes.Message);
             }
         }
-
         public async Task<DataResponse> DeleteUser(string phoneNo)
         {
-            using (var context = CreateContext())
+            try
             {
-                try
+                using (var context = CreateContext())
                 {
                     // Get user from phone no.
                     User user = await context.Users.FirstOrDefaultAsync(x => x.PhoneNo == phoneNo);
@@ -212,31 +368,30 @@ namespace NorthShoreSurfApp.Database
                     if (user == null)
                         return new DataResponse<User>(100, Resources.AppResources.user_not_found);
                     // Set user to inactive
-                    user.StateId = 2;
+                    user.IsActive = false;
                     // Save changes
                     await context.SaveChangesAsync();
                     // Return response
                     return new DataResponse(true);
                 }
-                catch (Exception mes)
-                {
-                    // Return exception
-                    return new DataResponse<User>(1, mes.Message);
-                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<User>(1, mes.Message);
             }
         }
-
         public async Task<DataResponse<Car>> CreateCar(int userId, string licensePlate, string color)
         {
-            using (var context = CreateContext())
+            try
             {
-                try
+                using (var context = CreateContext())
                 {
                     // Create car
                     Car car = new Car()
                     {
                         UserId = userId,
-                        StateId = 1,
+                        IsActive = true,
                         LicensePlate = licensePlate,
                         Color = color
                     };
@@ -247,19 +402,18 @@ namespace NorthShoreSurfApp.Database
                     // Return response
                     return new DataResponse<Car>(true, entry.Entity);
                 }
-                catch (Exception mes)
-                {
-                    // Return exception
-                    return new DataResponse<Car>(1, mes.Message);
-                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<Car>(1, mes.Message);
             }
         }
-
         public async Task<DataResponse<CarpoolEvent>> CreateCarpoolEvent(int userId, DateTime departureTime, string address, string zipCode, string city, int carId, int numberOfSeats, int pricePerPassenger, List<Event> events, string comment = null)
         {
-            using (var context = CreateContext())
+            try
             {
-                try
+                using (var context = CreateContext())
                 {
                     // Create carpool event
                     CarpoolEvent carpoolEvent = new CarpoolEvent()
@@ -272,7 +426,7 @@ namespace NorthShoreSurfApp.Database
                         NumberOfSeats = numberOfSeats,
                         PricePerPassenger = pricePerPassenger,
                         Comment = comment,
-                        StateId = 1
+                        IsActive = true
                     };
                     // Add new carpool event
                     var entry = await context.CarpoolEvents.AddAsync(carpoolEvent);
@@ -301,19 +455,18 @@ namespace NorthShoreSurfApp.Database
                     // Return response
                     return new DataResponse<CarpoolEvent>(true, entry.Entity);
                 }
-                catch (Exception mes)
-                {
-                    // Return exception
-                    return new DataResponse<CarpoolEvent>(1, mes.Message);
-                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<CarpoolEvent>(1, mes.Message);
             }
         }
-
         public async Task<DataResponse<CarpoolRequest>> CreateCarpoolRequest(int userId, DateTime fromTime, DateTime toTime, string zipCode, string city, List<Event> events)
         {
-            using (var context = CreateContext())
+            try
             {
-                try
+                using (var context = CreateContext())
                 {
                     // Create carpool request
                     CarpoolRequest carpoolRequest = new CarpoolRequest()
@@ -323,7 +476,7 @@ namespace NorthShoreSurfApp.Database
                         ToTime = toTime,
                         ZipCode = zipCode,
                         City = city,
-                        StateId = 1
+                        IsActive = true
                     };
                     // Add new carpool request
                     var entry = await context.CarpoolRequests.AddAsync(carpoolRequest);
@@ -352,31 +505,30 @@ namespace NorthShoreSurfApp.Database
                     // Return response
                     return new DataResponse<CarpoolRequest>(true, entry.Entity);
                 }
-                catch (Exception mes)
-                {
-                    // Return exception
-                    return new DataResponse<CarpoolRequest>(1, mes.Message);
-                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<CarpoolRequest>(1, mes.Message);
             }
         }
-
         public async Task<DataResponse> InvitePassenger(int carpoolRequestId, int carpoolEventId)
         {
-            using (var context = CreateContext())
+            try
             {
-                try
+                using (var context = CreateContext())
                 {
                     // Get carpool request
                     CarpoolRequest carpoolRequest = await context.CarpoolRequests.FirstOrDefaultAsync(x => x.Id == carpoolRequestId);
                     // Set carpool request to inactive
-                    carpoolRequest.StateId = 2;
+                    carpoolRequest.IsActive = false;
                     // Create carpool confirmation
                     CarpoolConfirmation carpoolConfirmation = new CarpoolConfirmation()
                     {
                         CarpoolEventId = carpoolEventId,
                         HasDriverAccepted = true,
                         HasPassengerAccepted = false,
-                        StateId = 1,
+                        IsActive = true,
                         PassengerId = carpoolRequest.PassengerId
                     };
                     // Add new carpool confirmation
@@ -389,19 +541,18 @@ namespace NorthShoreSurfApp.Database
                     // Return response
                     return new DataResponse(true);
                 }
-                catch (Exception mes)
-                {
-                    // Return exception
-                    return new DataResponse(1, mes.Message);
-                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse(1, mes.Message);
             }
         }
-
         public async Task<DataResponse> UninvitePassenger(int carpoolConfirmationId)
         {
-            using (var context = CreateContext())
+            try
             {
-                try
+                using (var context = CreateContext())
                 {
                     // Get carpool confirmation
                     CarpoolConfirmation carpoolConfirmation = await context.CarpoolConfirmations.FirstOrDefaultAsync(x => x.Id == carpoolConfirmationId);
@@ -415,19 +566,18 @@ namespace NorthShoreSurfApp.Database
                     // Return response
                     return new DataResponse(true);
                 }
-                catch (Exception mes)
-                {
-                    // Return exception
-                    return new DataResponse(1, mes.Message);
-                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse(1, mes.Message);
             }
         }
-
         public async Task<DataResponse> SignUpToCarpoolEvent(int carpoolEventId, int userId)
         {
-            using (var context = CreateContext())
+            try
             {
-                try
+                using (var context = CreateContext())
                 {
                     // Create carpool confirmation
                     CarpoolConfirmation carpoolConfirmation = new CarpoolConfirmation()
@@ -435,7 +585,7 @@ namespace NorthShoreSurfApp.Database
                         CarpoolEventId = carpoolEventId,
                         HasDriverAccepted = false,
                         HasPassengerAccepted = true,
-                        StateId = 1,
+                        IsActive = true,
                         PassengerId = userId
                     };
                     // Add new carpool confirmation
@@ -448,19 +598,18 @@ namespace NorthShoreSurfApp.Database
                     // Return response
                     return new DataResponse(true);
                 }
-                catch (Exception mes)
-                {
-                    // Return exception
-                    return new DataResponse(1, mes.Message);
-                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse(1, mes.Message);
             }
         }
-
         public async Task<DataResponse> UnsignFromCarpoolEvent(int carpoolConfirmationId)
         {
-            using (var context = CreateContext())
+            try
             {
-                try
+                using (var context = CreateContext())
                 {
                     // Get carpool confirmation
                     CarpoolConfirmation carpoolConfirmation = await context.CarpoolConfirmations.FirstOrDefaultAsync(x => x.Id == carpoolConfirmationId);
@@ -474,19 +623,18 @@ namespace NorthShoreSurfApp.Database
                     // Return response
                     return new DataResponse(true);
                 }
-                catch (Exception mes)
-                {
-                    // Return exception
-                    return new DataResponse(1, mes.Message);
-                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse(1, mes.Message);
             }
         }
-
         public async Task<DataResponse> AnswerCarpoolConfirmation(int userId, int carpoolConfirmationId, bool accept)
         {
-            using (var context = CreateContext())
+            try
             {
-                try
+                using (var context = CreateContext())
                 {
                     // Get carpool confirmation
                     CarpoolConfirmation carpoolConfirmation = await context.CarpoolConfirmations
@@ -521,11 +669,47 @@ namespace NorthShoreSurfApp.Database
                     // Return response
                     return new DataResponse(true);
                 }
-                catch (Exception mes)
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse(1, mes.Message);
+            }
+        }
+        public async Task<DataResponse<List<OpeningHour>>> GetOpeningHours()
+        {
+            try
+            {
+                using (var context = CreateContext())
                 {
-                    // Return exception
-                    return new DataResponse(1, mes.Message);
+                    // Get opening hours
+                    var openingHours = await context.OpeningHours.ToListAsync();
+                    // Return response
+                    return new DataResponse<List<OpeningHour>>(true, openingHours);
                 }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<List<OpeningHour>>(1, mes.Message);
+            }
+        }
+        public async Task<DataResponse<ContactInfo>> GetContactInfo()
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    // Get contact info
+                    var contactInfo = await context.ContactInfos.FirstOrDefaultAsync();
+                    // Return response
+                    return new DataResponse<ContactInfo>(contactInfo != null, contactInfo);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<ContactInfo>(1, mes.Message);
             }
         }
     }

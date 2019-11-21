@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NorthShoreSurfApp
@@ -54,14 +55,18 @@ namespace NorthShoreSurfApp
 
     public interface IDataService
     {
-        Task<List<User>> GetUsers();
-        Task<List<Gender>> GetGenders();
-        Task<List<State>> GetStates();
-        Task<List<CarpoolEvent>> GetCarpoolEvents();
-        Task<List<CarpoolRequest>> GetCarpoolRequests();
-        Task<List<CarpoolConfirmation>> GetCarpoolConfirmations();
-        Task<List<Event>> GetEvents();
-        Task<List<Car>> GetCars();
+        void Initialize();
+        void GetData<T>(string progressMessage, bool showDialog, Func<Task<T>> task, Action<T> resultCallback);
+
+        Task<DataResponse<List<User>>> GetUsers();
+        Task<DataResponse<List<Gender>>> GetGenders();
+        Task<DataResponse<List<CarpoolEvent>>> GetCarpoolEvents();
+        Task<DataResponse<List<CarpoolRequest>>> GetCarpoolRequests();
+        Task<DataResponse<List<CarpoolConfirmation>>> GetCarpoolConfirmations();
+        Task<DataResponse<List<Event>>> GetEvents();
+        Task<DataResponse<List<Car>>> GetCars();
+        Task<DataResponse<List<OpeningHour>>> GetOpeningHours();
+        Task<DataResponse<ContactInfo>> GetContactInfo();
 
         Task<DataResponse> CheckPhoneNo(string phoneNo);
         Task<DataResponse<User>> GetUser(string phoneNo);

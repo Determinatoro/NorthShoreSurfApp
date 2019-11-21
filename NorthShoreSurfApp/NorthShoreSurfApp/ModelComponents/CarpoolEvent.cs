@@ -11,26 +11,25 @@ namespace NorthShoreSurfApp.ModelComponents
         [Key]
         [Required]
         public int Id { get; set; }
-        [Required]
-        public int StateId { get; set; }
-        [ForeignKey(nameof(StateId))]
-        public State State { get; set; }
+        [NotMapped]
+        public bool IsActive { get => IsActiveColumn != 0; set => IsActiveColumn = value ? 1 : 0; }
+        [Column(nameof(IsActive))]
+        public int IsActiveColumn { get; set; }
         [Required]
         public int DriverId { get; set; }
         [ForeignKey(nameof(DriverId))]
         public User Driver { get; set; }
         [Required]
         public DateTime DepartureTime { get; set; }
-        [StringLength(255)]
         [Required]
+        [StringLength(255)]
         public string Address { get; set; }
+        [Required]
         [StringLength(4)]
-        [Required]
         public string ZipCode { get; set; }
-        [StringLength(255)]
         [Required]
+        [StringLength(255)]
         public string City { get; set; }       
-        public List<CarpoolConfirmation> CarpoolConfirmations { get; set; }
         [Required]
         public int CarId { get; set; }
         [ForeignKey(nameof(CarId))]
@@ -39,8 +38,10 @@ namespace NorthShoreSurfApp.ModelComponents
         public int NumberOfSeats { get; set; }
         [Required]
         public int PricePerPassenger { get; set; }
-        public List<CarpoolEvents_Events_Relation> CarpoolEvents_Events_Relations { get; set; }
         [StringLength(255)]
         public string Comment { get; set; }
+
+        public List<CarpoolEvents_Events_Relation> CarpoolEvents_Events_Relations { get; set; }
+        public List<CarpoolConfirmation> CarpoolConfirmations { get; set; }
     }
 }

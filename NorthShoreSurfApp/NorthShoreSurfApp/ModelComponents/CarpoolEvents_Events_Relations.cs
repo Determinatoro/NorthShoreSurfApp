@@ -10,9 +10,11 @@ namespace NorthShoreSurfApp.ModelComponents
     {
         [Key]
         public int Id { get; set; }
+        [Required]
         public int CarpoolEventId { get; set; }
         [ForeignKey(nameof(CarpoolEventId))]
         public CarpoolEvent CarpoolEvent { get; set; }
+        [Required]
         public int EventId { get; set; }
         [ForeignKey(nameof(EventId))]
         public Event Event { get; set; }

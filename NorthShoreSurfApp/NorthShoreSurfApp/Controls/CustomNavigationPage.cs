@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.AndroidSpecific.AppCompat;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace NorthShoreSurfApp
 {
-    public class CustomNavigationPage : NavigationPage
+    public class CustomNavigationPage : Xamarin.Forms.NavigationPage
     {
         /*****************************************************************/
         // VARIABLES
@@ -28,7 +31,7 @@ namespace NorthShoreSurfApp
             BarTextColor = Color.Black;
         }
 
-        public CustomNavigationPage(Page page) : base(page)
+        public CustomNavigationPage(Xamarin.Forms.Page page) : base(page)
         {
             Init();
         }
