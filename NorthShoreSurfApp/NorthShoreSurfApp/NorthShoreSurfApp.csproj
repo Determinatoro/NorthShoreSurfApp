@@ -23,6 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Pages\MyPage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Update="Controls\CustomDialog.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -69,7 +72,6 @@
 
   <ItemGroup>
     <Compile Remove="ViewModels\WelcomeModel.cs" />
-    <Compile Remove="ViewModels\EmptyClass.cs" />
     <Compile Remove="ViewModels\CarpoolingPage\CarpoolingRideCell.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,5 +86,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ViewModels\CarpoolingPage\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Pages\EmptyXmlFile.xml" />
   </ItemGroup>
 </Project>

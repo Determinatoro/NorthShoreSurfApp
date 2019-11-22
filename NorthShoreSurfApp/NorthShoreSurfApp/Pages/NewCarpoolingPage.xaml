@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
+             x:Class="NorthShoreSurfApp.NewCarpoolingPage">
+
+    
+    <ContentPage.Content>
+        <StackLayout>
+        <Frame BackgroundColor="#2b3d4e" Margin="15,15,15,0">
+            <StackLayout>
+                <Label Text="Departure Time:" TextColor="White"/>
+                <local:CustomTextBox />
+                <Label Text="Pickup Point:" TextColor="White"/>
+                <local:CustomTextBox/>
+                <Label Text="Price:" TextColor="White" />
+                <local:CustomTextBox/>
+                <Label Text="Number of Seats:" TextColor="White" />
+                <local:CustomTextBox/>
+                <Label Text="Comment:" TextColor="White" />
+                <local:CustomTextBox/>
+                <Label Text="Car:" TextColor="White" />
+                <local:CustomEntry Text="No car chosen" TextColor="#2b3d4f" BackgroundColor="White" />
+                <Button BackgroundColor="White" Text="Select Car" TextColor="#2b3d4e"/>
+                <Label Text="Events:" TextColor="White" />
+                <local:CustomEntry Text="Surfer's lounge" TextColor="#2b3d4f" BackgroundColor="White" />
+                <local:CustomEntry Text="Beginner surfer's lesson" TextColor="#2b3d4f" BackgroundColor="White" />
+                <Button BackgroundColor="White" Text ="Add event to carpool" TextColor="#2b3d4e"/>
+        </StackLayout>
+
+        </Frame>
+        <Button Text="Create Lift" TextColor="White" BackgroundColor="#2b3d4e" Margin="15,0,15,15"/>
+        </StackLayout>
+    </ContentPage.Content>
+
+
+
+</ContentPage>

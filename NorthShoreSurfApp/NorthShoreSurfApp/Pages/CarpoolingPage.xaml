@@ -13,6 +13,7 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
+        
         <ListView x:Name="rideList" ItemsSource="{Binding Rides}" HasUnevenRows="True" SeparatorVisibility="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -47,12 +48,17 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        
+
+ 
             
         
                         
-       
+    
     </ContentPage.Content>
+
+   
+
+
 </ContentPage>
 
 

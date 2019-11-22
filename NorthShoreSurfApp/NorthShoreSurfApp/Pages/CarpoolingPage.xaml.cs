@@ -17,20 +17,20 @@ namespace NorthShoreSurfApp
         {
             InitializeComponent();
 
-            rideList.ItemSelected += Ride_Clicked;
+            rideList.ItemTapped += Ride_Clicked;
         }
 
 
-        private void Ride_Clicked(object sender, EventArgs e)
+        private async void Ride_Clicked(object sender, EventArgs e)
         {
             if (sender == rideList)
             {
-                var model = CarpoolingPageViewModel;
-                
-          
+                await Navigation.PushAsync(new NavigationPage(new NewCarpoolingPage()));
             }
+
         }
 
+       
 
     }
 }
