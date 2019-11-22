@@ -196,6 +196,16 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Getting data.
+        ///Please wait....
+        /// </summary>
+        internal static string getting_data_please_wait {
+            get {
+                return ResourceManager.GetString("getting_data_please_wait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last name.
         /// </summary>
         internal static string last_name {
@@ -228,6 +238,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string other {
             get {
                 return ResourceManager.GetString("other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select {0}.
+        /// </summary>
+        internal static string select_parameter {
+            get {
+                return ResourceManager.GetString("select_parameter", resourceCulture);
             }
         }
         

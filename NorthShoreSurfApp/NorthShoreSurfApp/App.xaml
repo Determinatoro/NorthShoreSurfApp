@@ -9,5 +9,6 @@
         <Color x:Key="NSSBlue">#2C3B4E</Color>
         <Color x:Key="NSSBluePressed">#0067B0</Color>
         <Color x:Key="BarBackground">#F0F0F0</Color>
+        <Color x:Key="BarBackgroundPressed">#E0E0E0</Color>
     </Application.Resources>
 </Application>

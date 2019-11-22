@@ -162,6 +162,10 @@
   <data name="gender" xml:space="preserve">
     <value>Gender</value>
   </data>
+  <data name="getting_data_please_wait" xml:space="preserve">
+    <value>Getting data.
+Please wait...</value>
+  </data>
   <data name="last_name" xml:space="preserve">
     <value>Last name</value>
   </data>
@@ -173,6 +177,9 @@
   </data>
   <data name="other" xml:space="preserve">
     <value>Other</value>
+  </data>
+  <data name="select_parameter" xml:space="preserve">
+    <value>Select {0}</value>
   </data>
   <data name="sign_up" xml:space="preserve">
     <value>Sign up</value>

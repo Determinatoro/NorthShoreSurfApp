@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Name="this"
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
+             xmlns:converters="clr-namespace:NorthShoreSurfApp.Converters"
+             x:Class="NorthShoreSurfApp.CustomNavigationBar">
+    <!--Resources-->
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:NegateBooleanConverter x:Key="inverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <!--Content-->
+    <ContentView.Content>
+        <Grid 
+              HeightRequest="55" 
+              Padding="0, 5, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="55"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid x:Name="gridBack"                  
+                  HeightRequest="55"
+                  IsVisible="{Binding ShowBackButton, Source={x:Reference this}}" 
+                  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Frame
+                    x:Name="frameBack"
+                    Grid.RowSpan="3"
+                    Margin="5"
+                    CornerRadius="27.5"
+                    VerticalOptions="Fill"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="Transparent"
+                    HasShadow="False"
+                    />
+
+                <Image
+                    x:Name="imageBack"
+                    Grid.Row="1"
+                    VerticalOptions="Fill"
+                    HorizontalOptions="Center"
+                    Source="ic_back.png"
+                    Aspect="AspectFit"
+                    />
+
+                <Button
+                    x:Name="btnBack"
+                    Grid.Row="1"
+                    BackgroundColor="Transparent"
+                    VerticalOptions="Fill"
+                    HorizontalOptions="Center"
+                    >
+                    <Button.Triggers>
+                        <EventTrigger Event="Pressed">
+                            <local:BackButtonPressedTriggerAction />
+                        </EventTrigger>
+                        <EventTrigger Event="Released">
+                            <local:BackButtonReleasedTriggerAction />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+
+            </Grid>
+
+            <Grid x:Name="gridCenter" 
+                  Grid.ColumnSpan="2"
+                  Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="9*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    x:Name="lblTitle"
+                    Grid.Row="1"
+                    Text="{Binding Title, Source={x:Reference this}}"
+                    FontSize="{Binding TitleSize, Source={x:Reference this}}"
+                    TextColor="{Binding TitleColor, Source={x:Reference this}}"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding ShowLogo, Converter={StaticResource inverter}, Source={x:Reference this}}" 
+                    />
+
+                <Image 
+                    x:Name="imgLogo"
+                    Grid.Row="1"
+                    WidthRequest="70"                     
+                    Aspect="AspectFit"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Fill"
+                    IsVisible="{Binding ShowLogo, Source={x:Reference this}}" 
+                    />
+                
+            </Grid>
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>

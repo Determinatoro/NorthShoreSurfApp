@@ -100,8 +100,6 @@ namespace NorthShoreSurfApp.iOS.Renderers
 
             var path = UIBezierPath.FromRoundedRect(Bounds, roundedCorners, new CGSize(roundedCornerRadius, roundedCornerRadius));
             var mask = new CAShapeLayer { Path = path.CGPath };
-            mask.ShadowRadius = 0.0f;
-            mask.ShadowColor = CGColor.CreateSrgb(0, 0, 0, 0);
             NativeView.Layer.Mask = mask;
         }
     }

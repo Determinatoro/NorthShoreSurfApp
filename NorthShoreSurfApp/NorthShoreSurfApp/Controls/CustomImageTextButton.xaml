@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              xmlns:local="clr-namespace:NorthShoreSurfApp"
              x:Name="this"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="NorthShoreSurfApp.CustomImageTextButton">
   <ContentView.Content>
         <Grid 
@@ -24,8 +25,8 @@
                 BackgroundColor="{Binding Background, Source={x:Reference this}}"
                 Grid.ColumnSpan="2"
                 />
-            <!--Icon image-->    
-            <Image
+            <!--Icon image-->
+            <ffimageloading:CachedImage
                 x:Name="image"
                 BackgroundColor="Transparent"
                 Source="{Binding Icon, Source={x:Reference this}}"
@@ -37,7 +38,7 @@
                 Grid.Column="1"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
-                FontSize="18"
+                FontSize="{Binding TitleSize, Source={x:Reference this}}"
                 TextColor="{Binding TitleColor, Source={x:Reference this}}"
                 Text="{Binding Title, Source={x:Reference this}}"
                 />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Facebook.CoreKit;
+using FFImageLoading.Forms.Platform;
 using Foundation;
 using NorthShoreSurfApp.iOS.Services;
 using UIKit;
@@ -24,8 +25,14 @@ namespace NorthShoreSurfApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Rg.Plugins.Popup.Popup.Init();
+            CachedImageRenderer.Init();
 
             global::Xamarin.Forms.Forms.Init();
+
+            UINavigationBar.Appearance.TintColor = UIColor.White;
+
+            CachedImageRenderer.InitImageSourceHandler();
+
             LoadApplication(new App());
 
             Firebase.Core.App.Configure();

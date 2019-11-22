@@ -1,5 +1,7 @@
-﻿using System;
+﻿using NorthShoreSurfApp.ModelComponents;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 
@@ -20,6 +22,11 @@ namespace NorthShoreSurfApp.ViewModels
         private string age;
         private int genderId;
 
+        public SignUpUserModel()
+        {
+            
+        }
+
         public string[] Genders
         {
             get
@@ -27,7 +34,6 @@ namespace NorthShoreSurfApp.ViewModels
                 return new string[] { Resources.AppResources.male, Resources.AppResources.female, Resources.AppResources.other };
             }
         }
-
         public string FirstName
         {
             get { return firstName; }
@@ -40,7 +46,6 @@ namespace NorthShoreSurfApp.ViewModels
                 }
             }
         }
-
         public string LastName
         {
             get { return lastName; }
@@ -53,7 +58,6 @@ namespace NorthShoreSurfApp.ViewModels
                 }
             }
         }
-
         public string PhoneNo
         {
             get { return phoneNo; }
@@ -66,7 +70,6 @@ namespace NorthShoreSurfApp.ViewModels
                 }
             }
         }
-
         public int GenderId
         {
             get { return genderId; }
@@ -79,7 +82,6 @@ namespace NorthShoreSurfApp.ViewModels
                 }
             }
         }
-
         public string Age
         {
             get { return age; }

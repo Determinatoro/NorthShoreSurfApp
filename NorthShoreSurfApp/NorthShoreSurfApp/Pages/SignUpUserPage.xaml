@@ -7,36 +7,104 @@
              mc:Ignorable="d"
              xmlns:local="clr-namespace:NorthShoreSurfApp"
              x:Class="NorthShoreSurfApp.SignUpUserPage"
-             BackgroundColor="{StaticResource NSSBlue}">
+             BackgroundColor="{StaticResource BarBackground}"
+             >
 
+    <!--View model-->
     <ContentPage.BindingContext>
         <models:SignUpUserModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
+        <!--Root grid-->
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
-            <StackLayout Margin="20, 0, 20, 0" HorizontalOptions="Fill" VerticalOptions="Center">
-                <local:CustomTextBox Title="{local:Translate first_name}" TitleColor="White" TitleSize="18" Text="{Binding FirstName, Mode=TwoWay}" TextColor="Black" TextSize="24"/>
-                <local:CustomTextBox Title="{local:Translate last_name}" TitleColor="White" TitleSize="18" Text="{Binding LastName, Mode=TwoWay}" TextColor="Black" TextSize="24"/>
-                <local:CustomTextBox Keyboard="Numeric" Title="{local:Translate age}" TitleColor="White" TitleSize="18" Text="{Binding Age, Mode=TwoWay}" TextColor="Black" TextSize="24"/>
-                <Picker x:Name="Gender" HorizontalOptions="FillAndExpand" ItemsSource="{Binding Genders}"/>
-            </StackLayout>
-            <local:CustomImageTextButton x:Name="btnNext"
+
+            <!--Top navigation bar-->
+            <local:CustomNavigationBar x:Name="navigationBar"
+                                       BarBackgroundColor="{StaticResource BarBackground}"
+                                       ShowBackButton="True"
+                                       Title="{local:Translate sign_up}"
+                                       TitleColor="Black"
+                                       TitleSize="24"
+                                       ShowLogo="False"
+                                       Logo="ic_logo.png"
+                                       />
+
+            <!--Grid enter data-->
+            <Grid x:Name="gridEnterData" 
+                  VerticalOptions="Fill" 
+                  Grid.Row="1" 
+                  HorizontalOptions="Fill" 
+                  BackgroundColor="{StaticResource NSSBlue}"
+                  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--ScrollView-->
+                <ScrollView>
+
+                    <StackLayout Margin="20, 20, 20, 0" HorizontalOptions="Fill" VerticalOptions="Start">
+                        <!--First name input-->
+                        <local:CustomTextBox Title="{local:Translate first_name}" 
+                                         TitleColor="White" 
+                                         TitleSize="18" 
+                                         CornerRadius="10" 
+                                         Text="{Binding FirstName, Mode=TwoWay}" 
+                                         TextColor="Black" 
+                                         TextSize="24"
+                                         />
+                        <!--Last name input-->
+                        <local:CustomTextBox Title="{local:Translate last_name}" 
+                                         TitleColor="White" 
+                                         TitleSize="18" 
+                                         CornerRadius="10" 
+                                         Text="{Binding LastName, Mode=TwoWay}" 
+                                         TextColor="Black" 
+                                         TextSize="24"
+                                         />
+                        <!--Age input-->
+                        <local:CustomTextBox Keyboard="Numeric" 
+                                         Title="{local:Translate age}" 
+                                         TitleColor="White" 
+                                         TitleSize="18" 
+                                         CornerRadius="10" 
+                                         Text="{Binding Age, Mode=TwoWay}" 
+                                         TextColor="Black" 
+                                         TextSize="24"
+                                         />
+                        <!--Gender selection-->
+                        <local:CustomPicker x:Name="pickerGender" 
+                                            HorizontalOptions="FillAndExpand" 
+                                            ItemsSource="{Binding Genders}"
+                                            Title="{local:Translate gender}"                                                                                        
+                                            Text="Mand"
+                                            TitleColor="White"
+                                            />
+                    </StackLayout>
+
+                </ScrollView>
+
+                <!--Navigation button-->
+                <local:CustomImageTextButton x:Name="btnNext"
                                          Grid.Row="1" 
-                                         Margin="20, 2, 20, 20" 
+                                         Margin="20" 
                                          HeightRequest="60" 
                                          Background="White" 
-                                         CornerRadius="2" 
+                                         CornerRadius="10" 
                                          BackgroundPressed="#0067B0" 
                                          Icon="ic_facebook.png"
                                          TitleColor="Black"
+                                         TitleSize="24"
+                                         IconColor="{StaticResource NSSBlue}"
                                          Title="{local:Translate next}"
                                          />
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
