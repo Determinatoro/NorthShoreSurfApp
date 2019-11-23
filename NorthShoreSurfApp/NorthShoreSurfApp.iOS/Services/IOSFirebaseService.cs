@@ -128,10 +128,10 @@ namespace NorthShoreSurfApp.iOS.Services
         }
 
         /// <summary>
-        /// Sign out of firebase
+        /// Sign out 
         /// </summary>
         /// <param name="callBack">Firebase callback</param>
-        /// <returns>Firebase response</returns>
+        /// <returns></returns>
         public Task<FirebaseResponse> SignOut(IFirebaseServiceCallBack callBack)
         {
             try
@@ -142,7 +142,7 @@ namespace NorthShoreSurfApp.iOS.Services
                 Auth.DefaultInstance.SignOut(out NSError error);
                 if (error is NSError)
                 {
-                    // Return error
+                    // Return exception
                     return new Task<FirebaseResponse>(() => new FirebaseResponse(error.LocalizedDescription));
                 }
                 else

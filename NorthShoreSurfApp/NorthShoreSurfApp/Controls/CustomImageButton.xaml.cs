@@ -129,11 +129,7 @@ namespace NorthShoreSurfApp
         }
         public Color BorderColor
         {
-            get {
-                if (BorderThickness.VerticalThickness == 0 && BorderThickness.HorizontalThickness == 0)
-                    return Color.Transparent;
-                return (Color)GetValue(BorderColorProperty); 
-            }
+            get { return (Color)GetValue(BorderColorProperty); }
             set { SetValue(BorderColorProperty, value); }
         }
         public List<ITransformation> IconTransformations

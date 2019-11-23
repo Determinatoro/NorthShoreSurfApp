@@ -70,6 +70,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Approve.
+        /// </summary>
+        internal static string approve {
+            get {
+                return ResourceManager.GetString("approve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back.
         /// </summary>
         internal static string back {
@@ -196,6 +205,16 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Getting data.
+        ///Please wait....
+        /// </summary>
+        internal static string getting_data_please_wait {
+            get {
+                return ResourceManager.GetString("getting_data_please_wait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last name.
         /// </summary>
         internal static string last_name {
@@ -232,11 +251,38 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Phone no..
+        /// </summary>
+        internal static string phone_no {
+            get {
+                return ResourceManager.GetString("phone_no", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select {0}.
+        /// </summary>
+        internal static string select_parameter {
+            get {
+                return ResourceManager.GetString("select_parameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign up.
         /// </summary>
         internal static string sign_up {
             get {
                 return ResourceManager.GetString("sign_up", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SMS code.
+        /// </summary>
+        internal static string sms_code {
+            get {
+                return ResourceManager.GetString("sms_code", resourceCulture);
             }
         }
         

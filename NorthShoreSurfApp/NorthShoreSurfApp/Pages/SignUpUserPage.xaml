@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              xmlns:local="clr-namespace:NorthShoreSurfApp"
              x:Class="NorthShoreSurfApp.SignUpUserPage"
-             BackgroundColor="{StaticResource NSSBlue}">
+             BackgroundColor="{StaticResource BarBackground}">
 
     <ContentPage.BindingContext>
         <models:SignUpUserModel />
@@ -16,27 +16,194 @@
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
-            <StackLayout Margin="20, 0, 20, 0" HorizontalOptions="Fill" VerticalOptions="Center">
-                <local:CustomTextBox Title="{local:Translate first_name}" TitleColor="White" TitleSize="18" Text="{Binding FirstName, Mode=TwoWay}" TextColor="Black" TextSize="24"/>
-                <local:CustomTextBox Title="{local:Translate last_name}" TitleColor="White" TitleSize="18" Text="{Binding LastName, Mode=TwoWay}" TextColor="Black" TextSize="24"/>
-                <local:CustomTextBox Keyboard="Numeric" Title="{local:Translate age}" TitleColor="White" TitleSize="18" Text="{Binding Age, Mode=TwoWay}" TextColor="Black" TextSize="24"/>
-                <Picker x:Name="Gender" HorizontalOptions="FillAndExpand" ItemsSource="{Binding Genders}"/>
-            </StackLayout>
-            <local:CustomImageTextButton x:Name="btnNext"
+
+            <!--Top navigation bar-->
+            <local:CustomNavigationBar x:Name="navigationBar"
+                                       BarBackgroundColor="{StaticResource BarBackground}"
+                                       ShowBackButton="True"
+                                       Title="{local:Translate sign_up}"
+                                       TitleColor="Black"
+                                       TitleSize="24"
+                                       ShowLogo="False"
+                                       Logo="ic_logo.png"
+                                       />
+
+            <!--Grid enter data-->
+            <Grid x:Name="gridEnterData" 
+                  VerticalOptions="Fill" 
+                  Grid.Row="1" 
+                  HorizontalOptions="Fill" 
+                  IsVisible="True"
+                  BackgroundColor="{StaticResource NSSBlue}"
+                  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--ScrollView-->
+                <ScrollView>
+
+                    <StackLayout Padding="20" HorizontalOptions="Fill" VerticalOptions="Start">
+                        <!--First name input-->
+                        <local:CustomTextBox Title="{local:Translate first_name}" 
+                                         TitleColor="White" 
+                                         TitleSize="18" 
+                                         CornerRadius="10" 
+                                         Text="{Binding FirstName, Mode=TwoWay}" 
+                                         TextColor="Black" 
+                                         TextSize="24"
+                                         />
+                        <!--Last name input-->
+                        <local:CustomTextBox Title="{local:Translate last_name}" 
+                                         TitleColor="White" 
+                                         TitleSize="18" 
+                                         CornerRadius="10" 
+                                         Text="{Binding LastName, Mode=TwoWay}" 
+                                         TextColor="Black" 
+                                         TextSize="24"
+                                         />
+                        <!--Age input-->
+                        <local:CustomTextBox Keyboard="Numeric" 
+                                         Title="{local:Translate age}" 
+                                         TitleColor="White" 
+                                         TitleSize="18" 
+                                         CornerRadius="10" 
+                                         Text="{Binding Age, Mode=TwoWay}" 
+                                         TextColor="Black" 
+                                         TextSize="24"
+                                         />
+                        <!--Gender selection-->
+                        <local:CustomPicker x:Name="pickerGender" 
+                                            HorizontalOptions="FillAndExpand" 
+                                            ItemsSource="{Binding Genders}"
+                                            Title="{local:Translate gender}"    
+                                            ItemTemplate="{Binding GenderPickerItemTemplate}"
+                                            Text=""
+                                            TitleColor="White"
+                                            TextMargin="10, 0, 10, 0"
+                                            />
+                        <!--Phone no. input-->
+                        <local:CustomTextBox Keyboard="Telephone" 
+                                         Title="{local:Translate phone_no}" 
+                                         TitleColor="White" 
+                                         TitleSize="18" 
+                                         CornerRadius="10" 
+                                         Text="{Binding PhoneNo, Mode=TwoWay}" 
+                                         TextColor="Black" 
+                                         TextSize="24"
+                                         />
+
+                        <local:CustomImageButton HeightRequest="50"
+                                                 WidthRequest="50"
+                                                 BorderThickness="1"
+                                                 HorizontalOptions="Start"
+                                                 Icon="ic_car.png"
+                                                 IconColor="White"
+                                                 IconPadding="10"
+                                                 BorderColor="White"
+                                                 Background="{StaticResource NSSBlue}"
+                                                 BackgroundPressed="{StaticResource NSSBluePressed}"
+                                                 />
+
+                        <local:CustomToggleButton HeightRequest="60"
+                                                  TitleLeft="Rides"
+                                                  TitleLeftSize="18"                                                  
+                                                  TitleRight="Ride requests"
+                                                  TitleRightSize="18"
+                                                  IconLeft="ic_car.png"
+                                                  IconRight="ic_home.png"
+                                                  IconLeftPadding="10, 5, 5, 5"
+                                                  IconRightPadding="10, 5, 5, 5"
+                                                  CornerRadius="10"
+                                                  SelectedColor="{StaticResource NSSBlue}"
+                                                  UnselectedColor="White"
+                                                  BackgroundSelected="White"
+                                                  BackgroundUnselectedPressed="Orange"
+                                                  BackgroundSelectedPressed="Gray"
+                                                  BackgroundUnselected="{StaticResource NSSBlue}"
+                                                  BorderColor="White"
+                                                  BorderThickness="1"
+                                                  IconLeftWidth="50"
+                                                  IconRightWidth="50"
+                                                  Margin="0, 10, 0, 10"
+                                                  />
+                    </StackLayout>
+
+                </ScrollView>
+
+                <!--Navigation button-->
+                <local:CustomImageTextButton x:Name="btnNext"
+                                             Grid.Row="1" 
+                                             Margin="20" 
+                                             HeightRequest="60" 
+                                             Background="White" 
+                                             CornerRadius="10" 
+                                             BackgroundPressed="#0067B0" 
+                                             Icon="ic_facebook.png"
+                                             TitleColor="Black"
+                                             TitleSize="24"
+                                             IconColor="{StaticResource NSSBlue}"
+                                             Title="{local:Translate next}"
+                                             />
+            </Grid>
+
+            <!--Grid enter SMS code-->
+            <Grid x:Name="gridEnterSMSCode"
+                  BackgroundColor="{StaticResource NSSBlue}"
+                  VerticalOptions="Fill" 
+                  Grid.Row="1" 
+                  IsVisible="False"
+                  HorizontalOptions="Fill" 
+                  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--ScrollView-->
+                <ScrollView>
+                    <StackLayout Margin="20, 20, 20, 0">
+                        <Label Text="Verify phone number"
+                               HorizontalTextAlignment="Center"
+                               TextColor="White"
+                               Padding="0, 0, 0, 20"
+                               FontSize="24"
+                               />
+                        <!--SMS code input-->
+                        <local:CustomTextBox Keyboard="Numeric" 
+                                             Title="{local:Translate sms_code}" 
+                                             TitleColor="White" 
+                                             TitleSize="18" 
+                                             CornerRadius="10" 
+                                             Text="{Binding SMSCode, Mode=TwoWay}" 
+                                             TextColor="Black" 
+                                             TextSize="24"
+                                             />
+
+
+                    </StackLayout>
+                </ScrollView>
+
+                <!--Navigation button-->
+                <local:CustomImageTextButton x:Name="btnApprove"
                                          Grid.Row="1" 
-                                         Margin="20, 2, 20, 20" 
+                                         Margin="20" 
                                          HeightRequest="60" 
                                          Background="White" 
-                                         CornerRadius="2" 
+                                         CornerRadius="10" 
                                          BackgroundPressed="#0067B0" 
                                          Icon="ic_facebook.png"
                                          TitleColor="Black"
-                                         Title="{local:Translate next}"
+                                         TitleSize="24"
+                                         IconColor="{StaticResource NSSBlue}"
+                                         Title="{local:Translate approve}"
                                          />
+
+            </Grid>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

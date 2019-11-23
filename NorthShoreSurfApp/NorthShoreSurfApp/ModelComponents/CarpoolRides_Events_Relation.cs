@@ -6,13 +6,15 @@ using System.Text;
 
 namespace NorthShoreSurfApp.ModelComponents
 {
-    public class CarpoolEvents_Events_Relation
+    public class CarpoolRides_Events_Relation
     {
         [Key]
         public int Id { get; set; }
-        public int CarpoolEventId { get; set; }
-        [ForeignKey(nameof(CarpoolEventId))]
-        public CarpoolEvent CarpoolEvent { get; set; }
+        [Required]
+        public int CarpoolRideId { get; set; }
+        [ForeignKey(nameof(CarpoolRideId))]
+        public CarpoolRide CarpoolRide { get; set; }
+        [Required]
         public int EventId { get; set; }
         [ForeignKey(nameof(EventId))]
         public Event Event { get; set; }

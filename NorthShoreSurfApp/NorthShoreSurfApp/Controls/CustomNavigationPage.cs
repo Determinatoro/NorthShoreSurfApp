@@ -12,8 +12,8 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Variables
 
-        public static readonly BindableProperty IconSelectedProperty = BindableProperty.Create("IconSelectedResource", typeof(string), typeof(CustomNavigationPage), null);
-        public static readonly BindableProperty IconUnselectedProperty = BindableProperty.Create("IconUnselectedResource", typeof(string), typeof(CustomNavigationPage), null);
+        public static readonly BindableProperty IconSelectedProperty = BindableProperty.Create(nameof(IconSelectedSource), typeof(string), typeof(CustomNavigationPage), null);
+        public static readonly BindableProperty IconUnselectedProperty = BindableProperty.Create(nameof(IconUnselectedSource), typeof(string), typeof(CustomNavigationPage), null);
 
         #endregion
 

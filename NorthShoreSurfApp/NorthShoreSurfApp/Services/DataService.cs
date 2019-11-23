@@ -54,27 +54,31 @@ namespace NorthShoreSurfApp
 
     public interface IDataService
     {
-        Task<List<User>> GetUsers();
-        Task<List<Gender>> GetGenders();
-        Task<List<State>> GetStates();
-        Task<List<CarpoolEvent>> GetCarpoolEvents();
-        Task<List<CarpoolRequest>> GetCarpoolRequests();
-        Task<List<CarpoolConfirmation>> GetCarpoolConfirmations();
-        Task<List<Event>> GetEvents();
-        Task<List<Car>> GetCars();
+        void Initialize();
+        void GetData<T>(string progressMessage, bool showDialog, Func<Task<T>> task, Action<T> resultCallback);
+
+        Task<DataResponse<List<User>>> GetUsers();
+        Task<DataResponse<List<Gender>>> GetGenders();
+        Task<DataResponse<List<CarpoolRide>>> GetCarpoolRides();
+        Task<DataResponse<List<CarpoolRequest>>> GetCarpoolRequests();
+        Task<DataResponse<List<CarpoolConfirmation>>> GetCarpoolConfirmations();
+        Task<DataResponse<List<Event>>> GetEvents();
+        Task<DataResponse<List<Car>>> GetCars();
+        Task<DataResponse<List<OpeningHour>>> GetOpeningHours();
+        Task<DataResponse<ContactInfo>> GetContactInfo();
 
         Task<DataResponse> CheckPhoneNo(string phoneNo);
         Task<DataResponse<User>> GetUser(string phoneNo);
-        Task<DataResponse> UpdateUser(int userId, string firstName, string lastName, string phoneNo, int age, int genderId); 
+        Task<DataResponse> UpdateUser(int userId, string firstName, string lastName, string phoneNo, int age, int genderId);
         Task<DataResponse<User>> SignUpUser(string firstName, string lastName, string phoneNo, int age, int genderId);
-        Task<DataResponse> DeleteUser(string phoneNo);        
+        Task<DataResponse> DeleteUser(string phoneNo);
         Task<DataResponse<Car>> CreateCar(int userId, string licensePlate, string color);
-        Task<DataResponse<CarpoolEvent>> CreateCarpoolEvent(int userId, DateTime departureTime, string address, string zipCode, string city, int carId, int numberOfSeats, int pricePerPassenger, List<Event> events, string comment = null);
+        Task<DataResponse<CarpoolRide>> CreateCarpoolRide(int userId, DateTime departureTime, string address, string zipCode, string city, int carId, int numberOfSeats, int pricePerPassenger, List<Event> events, string comment = null);
         Task<DataResponse<CarpoolRequest>> CreateCarpoolRequest(int userId, DateTime fromTime, DateTime toTime, string zipCode, string city, List<Event> events);
-        Task<DataResponse> InvitePassenger(int carpoolRequestId, int carpoolEventId);
+        Task<DataResponse> InvitePassenger(int carpoolRequestId, int carpoolRideId);
         Task<DataResponse> UninvitePassenger(int carpoolConfirmationId);
-        Task<DataResponse> SignUpToCarpoolEvent(int carpoolEventId, int userId);
-        Task<DataResponse> UnsignFromCarpoolEvent(int carpoolConfirmationId);
+        Task<DataResponse> SignUpToCarpoolRide(int carpoolRideId, int userId);
+        Task<DataResponse> UnsignFromCarpoolRide(int carpoolConfirmationId);
         Task<DataResponse> AnswerCarpoolConfirmation(int userId, int carpoolConfirmationId, bool accept);
     }
 }

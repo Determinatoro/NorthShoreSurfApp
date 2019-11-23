@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              mc:Ignorable="d"
              xmlns:local="clr-namespace:NorthShoreSurfApp"
              x:Name="this"
@@ -28,7 +29,7 @@
                 Grid.ColumnSpan="2"
                 />
             <!--Icon image-->    
-            <Image
+            <ffimageloading:CachedImage
                 x:Name="image"
                 BackgroundColor="Transparent"
                 Transformations="{Binding IconTransformations, Source={x:Reference this}}"
@@ -41,7 +42,7 @@
                 Grid.Column="1"
                 VerticalOptions="Center"
                 HorizontalOptions="Center"
-                FontSize="18"
+                FontSize="{Binding TitleSize, Source={x:Reference this}}"
                 TextColor="{Binding TitleColor, Source={x:Reference this}}"
                 Text="{Binding Title, Source={x:Reference this}}"
                 />
