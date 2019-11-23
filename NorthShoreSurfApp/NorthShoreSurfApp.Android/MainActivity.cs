@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using NorthShoreSurfApp.Droid.Service;
 using NorthShoreSurfApp.Droid.Services;
 using Firebase;
+using Firebase.Auth;
 
 namespace NorthShoreSurfApp.Droid
 {

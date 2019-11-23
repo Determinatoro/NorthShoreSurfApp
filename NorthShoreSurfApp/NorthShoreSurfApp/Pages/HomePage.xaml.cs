@@ -20,9 +20,6 @@ namespace NorthShoreSurfApp
         public HomePage()
         {
             InitializeComponent();
-
-            citBtnFacebookLogin.Button.Clicked += button_Clicked;
-            btnFacebookLogout.Clicked += button_Clicked;
         }
 
         protected override void OnAppearing()
@@ -37,14 +34,7 @@ namespace NorthShoreSurfApp
 
         private void button_Clicked(object sender, EventArgs e)
         {
-            if (sender == citBtnFacebookLogin.Button)
-            {
-               
-            }
-            else if (sender == btnFacebookLogout)
-            {
-                
-            }
+            
         }
     }
 }

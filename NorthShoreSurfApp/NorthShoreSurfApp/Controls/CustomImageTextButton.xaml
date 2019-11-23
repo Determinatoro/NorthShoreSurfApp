@@ -9,8 +9,11 @@
              x:Class="NorthShoreSurfApp.CustomImageTextButton">
   <ContentView.Content>
         <Grid 
-            Grid.Row="2" 
             x:Name="grid"
+            RowSpacing="0"
+            ColumnSpacing="0"
+            Margin="0"
+            Padding="0"
             >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60"/>
@@ -28,8 +31,9 @@
             <Image
                 x:Name="image"
                 BackgroundColor="Transparent"
+                Transformations="{Binding IconTransformations, Source={x:Reference this}}"
                 Source="{Binding Icon, Source={x:Reference this}}"
-                Margin="5"
+                Margin="{Binding IconPadding, Source={x:Reference this}}"
                 />
             <!--Title-->
             <Label
@@ -52,9 +56,6 @@
                         <local:CustomButtonImageTextPressedTriggerAction />
                     </EventTrigger>
                     <EventTrigger Event="Released">
-                        <local:CustomButtonImageTextReleasedTriggerAction />
-                    </EventTrigger>
-                    <EventTrigger Event="Unfocused">
                         <local:CustomButtonImageTextReleasedTriggerAction />
                     </EventTrigger>
                 </Button.Triggers>
