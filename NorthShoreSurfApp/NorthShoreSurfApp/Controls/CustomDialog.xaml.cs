@@ -15,7 +15,7 @@ namespace NorthShoreSurfApp
     // ENUMS
     /*****************************************************************/
     #region Enums
-    
+
     public enum CustomDialogType
     {
         Progress,
@@ -62,7 +62,9 @@ namespace NorthShoreSurfApp
         #region Variables
 
         public static readonly BindableProperty MessageProperty = BindableProperty.Create(nameof(Message), typeof(string), typeof(CustomDialog), null);
+        public static readonly BindableProperty MessagePaddingProperty = BindableProperty.Create(nameof(MessagePadding), typeof(Thickness), typeof(CustomDialog), new Thickness(0));
         public static readonly BindableProperty CancelTitleProperty = BindableProperty.Create(nameof(CancelTitle), typeof(string), typeof(CustomDialog), null);
+
         public event EventHandler<EventArgs> Canceled;
 
         #endregion
@@ -83,6 +85,7 @@ namespace NorthShoreSurfApp
                     break;
                 case CustomDialogType.Message:
                     activityIndicator.IsVisible = false;
+                    MessagePadding = new Thickness(0, 10, 0, 10);
                     break;
             }
         }
@@ -123,6 +126,16 @@ namespace NorthShoreSurfApp
         {
             get { return (string)GetValue(MessageProperty); }
             set { SetValue(MessageProperty, value); }
+        }
+        public Thickness MessagePadding
+        {
+            get { return (Thickness)GetValue(MessagePaddingProperty); }
+            set { SetValue(MessagePaddingProperty, value); }
+        }
+        public string CancelTitle
+        {
+            get { return (string)GetValue(CancelTitleProperty); }
+            set { SetValue(CancelTitleProperty, value); }
         }
 
         public string CancelTitle

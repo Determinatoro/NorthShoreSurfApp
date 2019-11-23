@@ -17,77 +17,205 @@ using Xamarin.Forms.Xaml;
 namespace NorthShoreSurfApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SignUpUserPage : ContentPage
+    public partial class SignUpUserPage : ContentPage, IFirebaseServiceCallBack
     {
+        /*****************************************************************/
+        // ENUMS
+        /*****************************************************************/
+        #region Enums
+
+        private enum ContentSite
+        {
+            EnterData,
+            EnterSMSCode
+        }
+
+        #endregion
+
+        /*****************************************************************/
+        // VARIABLES
+        /*****************************************************************/
+        #region Variables
+
         public SignUpUserModel SignUpUserModel { get => (SignUpUserModel)this.BindingContext; }
+
+        private ContentSite CurrentContentSite { get; set; }
+
+        #endregion
+
+        /*****************************************************************/
+        // CONSTRUCTOR
+        /*****************************************************************/
+        #region Constructor
 
         public SignUpUserPage()
         {
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
             Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
+            // Use safe area on iOS
             On<iOS>().SetUseSafeArea(true);
+            // Get root grid
             Grid grid = (Grid)Content;
+            // Get safe area margins
             var safeAreaInset = On<iOS>().SafeAreaInsets();
+            // Set safe area margins
             grid.Margin = safeAreaInset;
 
-            Title = "Sign up";
-
-            SignUpUserModel.FirstName = "Jakob";
+            // Click events
             btnNext.Clicked += Button_Clicked;
+            btnApprove.Clicked += Button_Clicked;
 
-            navigationBar.BackButtonClicked += NavigationBar_BackButtonClicked;
+            // Back button click event
+            navigationBar.BackButtonClicked += (sender, args) =>
+            {
+                if (Navigation.NavigationStack.Count > 1)
+                    Navigation.RemovePage(this);
+                else
+                    SetCurrentContentSite(ContentSite.EnterData, true);
+            };
+
+            // List item tapped in gender picker
+            pickerGender.ListItemTapped += (sender, args) =>
+            {
+                var gender = (Gender)args.Item;
+                pickerGender.Text = gender.Name;
+                SignUpUserModel.GenderId = gender.Id;
+            };
+
+            // Set current content site
+            SetCurrentContentSite(ContentSite.EnterData, false);
         }
 
-        private void NavigationBar_BackButtonClicked(object sender, EventArgs e)
-        {
-            if (Navigation.NavigationStack.Count > 1)
-                Navigation.RemovePage(this);
-        }
+        #endregion
 
+        /*****************************************************************/
+        // OVERRIDE METHODS
+        /*****************************************************************/
+        #region Override methods
+
+        // OnAppearing
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            App.OrientationService.Portrait();            
+            App.OrientationService.Portrait();
         }
 
+        #endregion
+
+        /*****************************************************************/
+        // METHODS
+        /*****************************************************************/
+        #region Methods
+
+        /// <summary>
+        /// Set current content site in the page
+        /// </summary>
+        /// <param name="contentSite">The wanted content site</param>
+        /// <param name="animate">Animate the change</param>
+        private async void SetCurrentContentSite(ContentSite contentSite, bool animate = false)
+        {
+            CurrentContentSite = contentSite;
+
+            gridEnterData.IsVisible = false;
+            gridEnterSMSCode.IsVisible = false;
+
+            double displacement = gridEnterData.Width;
+            double displacement2 = gridEnterSMSCode.Width;
+
+            switch (CurrentContentSite)
+            {
+                case ContentSite.EnterData:
+                    if (animate)
+                    {
+                        gridEnterSMSCode.IsVisible = true;
+                        gridEnterData.IsVisible = false;
+
+                        await Task.WhenAll(
+                                    gridEnterSMSCode.FadeTo(0, 1),
+                                    gridEnterSMSCode.TranslateTo(0, 0, 1),
+                                    gridEnterData.FadeTo(0, 1),
+                                    gridEnterData.TranslateTo(-displacement, 0, 1),
+                                    gridEnterSMSCode.FadeTo(0, 250, Easing.Linear),
+                                    gridEnterSMSCode.TranslateTo(displacement2, 0, 250, Easing.CubicInOut)
+                                    );
+
+                        gridEnterData.IsVisible = true;
+                        gridEnterSMSCode.IsVisible = false;
+
+                        await Task.WhenAll(
+                                    gridEnterData.FadeTo(1, 250, Easing.Linear),
+                                    gridEnterData.TranslateTo(0, 0, 250, Easing.CubicInOut)
+                                    );
+                    }
+                    else
+                    {
+                        gridEnterData.IsVisible = true;
+                    }
+                    break;
+                case ContentSite.EnterSMSCode:
+                    if (animate)
+                    {
+                        gridEnterSMSCode.IsVisible = false;
+                        gridEnterData.IsVisible = true;
+
+                        await Task.WhenAll(
+                                    gridEnterData.FadeTo(0, 1),
+                                    gridEnterData.TranslateTo(0, 0, 1),
+                                    gridEnterData.FadeTo(0, 250, Easing.Linear),
+                                    gridEnterData.TranslateTo(-displacement, 0, 250, Easing.CubicInOut),
+                                    gridEnterSMSCode.TranslateTo(displacement2, 0, 1),
+                                    gridEnterSMSCode.FadeTo(0, 1)
+                                    );
+
+                        gridEnterData.IsVisible = false;
+                        gridEnterSMSCode.IsVisible = true;
+
+                        await Task.WhenAll(
+                                    gridEnterSMSCode.FadeTo(1, 250, Easing.Linear),
+                                    gridEnterSMSCode.TranslateTo(0, 0, 250, Easing.CubicInOut)
+                                    );
+                    }
+                    else
+                    {
+                        gridEnterSMSCode.IsVisible = true;
+                    }
+                    break;
+            }
+        }
+
+        #endregion
+
+        /*****************************************************************/
+        // EVENTS
+        /*****************************************************************/
+        #region Events
+
+        // Buttons clicked event
         private async void Button_Clicked(object sender, EventArgs e)
         {
             if (sender == btnNext)
             {
-                var genders = new List<Gender>();
-                genders.Add(new Gender()
-                {
-                    Id = 1,
-                    Name = NorthShoreSurfApp.Resources.AppResources.male
-                });
-                genders.Add(new Gender()
-                {
-                    Id = 2,
-                    Name = NorthShoreSurfApp.Resources.AppResources.female
-                });
-                genders.Add(new Gender()
-                {
-                    Id = 3,
-                    Name = NorthShoreSurfApp.Resources.AppResources.other
-                });
+                SetCurrentContentSite(ContentSite.EnterSMSCode, true);
+                return;
 
-                CustomListDialog customListDialog = new CustomListDialog(
-                    () => new GenderCustomViewCell(),
-                    genders,
-                    string.Format(NorthShoreSurfApp.Resources.AppResources.select_parameter, NorthShoreSurfApp.Resources.AppResources.gender.ToLower())
-                    );
+                if (SignUpUserModel.AllDataGiven)
+                {
+                    await App.FirebaseService.VerifyPhoneNo(this, SignUpUserModel.PhoneNo);
+                    SetCurrentContentSite(ContentSite.EnterSMSCode, true);
+                }
+                else
+                {
+                    await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, "Please enter data"));
+                }
 
-                await PopupNavigation.Instance.PushAsync(customListDialog);
                 return;
                 var page = new SignUpUserPage();
                 page.SignUpUserModel.LastName = "TEST";
                 await Navigation.PushAsync(page);
                 return;
 
-                try
-                {
-                    App.DataService.GetData(
+                App.DataService.GetData(
                         NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
                         true,
                         () => App.DataService.GetCars(),
@@ -95,12 +223,56 @@ namespace NorthShoreSurfApp
                         {
                             await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, response.Result.FirstOrDefault().LicensePlate));
                         });
-                }
-                catch (Exception mes)
+            }
+            else if (sender == btnApprove)
+            {
+                return;
+
+                var smsCode = SignUpUserModel.SMSCode;
+
+                if (smsCode != null && smsCode != string.Empty && smsCode.Length == 6)
                 {
-                    string test = "";
+                    var verId = App.LocalDataService.GetValue(nameof(LocalDataKeys.FirebaseAuthVerificationId));
+                    await App.FirebaseService.SignIn(this, verId, smsCode);
+                }
+                else
+                {
+                    await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, "Please enter SMS code"));
                 }
             }
         }
+
+        #endregion
+
+        /*****************************************************************/
+        // INTERFACE METHODS
+        /*****************************************************************/
+        #region Interface methods
+
+        // OnVerificationFailed
+        public async void OnVerificationFailed(string errorMessage)
+        {
+            await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, errorMessage));
+        }
+
+        // OnCodeSent
+        public void OnCodeSent(string verificationId)
+        {
+
+        }
+
+        // OnCodeAutoRetrievalTimeout
+        public void OnCodeAutoRetrievalTimeout(string verificationId)
+        {
+
+        }
+
+        // SignedIn
+        public async void SignedIn()
+        {
+            await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, "Signed in"));
+        }
+
+        #endregion
     }
 }

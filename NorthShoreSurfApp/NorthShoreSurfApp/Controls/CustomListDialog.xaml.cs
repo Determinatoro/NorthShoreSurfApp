@@ -26,9 +26,10 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty HeaderColorProperty = BindableProperty.Create(nameof(HeaderColor), typeof(Color), typeof(CustomDialog), Color.White);
         public static readonly BindableProperty HeaderDecorationsProperty = BindableProperty.Create(nameof(HeaderDecorations), typeof(TextDecorations), typeof(CustomDialog), TextDecorations.None);
         public static readonly BindableProperty HeaderFontAttributesProperty = BindableProperty.Create(nameof(HeaderDecorations), typeof(FontAttributes), typeof(CustomDialog), FontAttributes.None);
-        public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource), typeof(IList), typeof(CustomDialog), null);        
+        public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource), typeof(IList), typeof(CustomDialog), null);
 
         public event EventHandler<EventArgs> Canceled;
+        public event EventHandler<ItemTappedEventArgs> ItemTapped;
 
         #endregion
 
@@ -44,6 +45,13 @@ namespace NorthShoreSurfApp
             Header = header;
         }
 
+        public CustomListDialog(DataTemplate dataTemplate, IList itemsSource, string header) : this()
+        {
+            listView.ItemTemplate = dataTemplate;
+            ItemsSource = itemsSource;
+            Header = header;
+        }
+
         private CustomListDialog()
         {
             InitializeComponent();
@@ -53,6 +61,13 @@ namespace NorthShoreSurfApp
             {
                 await PopupNavigation.Instance.PopAsync();
                 Canceled?.Invoke(this, new EventArgs());
+            };
+
+            // Item tapped
+            listView.ItemTapped += async (sender, args) =>
+            {
+                await PopupNavigation.Instance.PopAsync();
+                ItemTapped?.Invoke(this, args);
             };
         }
 

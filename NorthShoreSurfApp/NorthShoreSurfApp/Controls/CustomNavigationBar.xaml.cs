@@ -46,6 +46,7 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty BarBackgroundColorProperty = BindableProperty.Create(nameof(BarBackgroundColor), typeof(Color), typeof(CustomImageTextButton), null);
         public static readonly BindableProperty ShowBackButtonProperty = BindableProperty.Create(nameof(ShowBackButton), typeof(bool), typeof(CustomImageTextButton), null);
         public static readonly BindableProperty ShowLogoProperty = BindableProperty.Create(nameof(ShowLogo), typeof(bool), typeof(CustomImageTextButton), null);
+
         public event EventHandler<EventArgs> BackButtonClicked;
 
         #endregion
@@ -64,8 +65,6 @@ namespace NorthShoreSurfApp
             {
                 BackButtonClicked(sender, args);
             };
-
-
         }
 
         #endregion

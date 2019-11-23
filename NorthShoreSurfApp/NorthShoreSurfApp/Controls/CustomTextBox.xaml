@@ -32,7 +32,7 @@
                 <!--TextBox-->
                 <local:CustomEntry HeightRequest="50" 
                                    x:Name="entry"
-                                   Margin="3, 1, 3, 0" 
+                                   Margin="{Binding TextMargin, Source={x:Reference this}}" 
                                    Keyboard="{Binding Keyboard, Source={x:Reference this}}"
                                    Text="{Binding Text, Source={x:Reference this}, Mode=TwoWay}" 
                                    FontSize="{Binding TextSize, Source={x:Reference this}}" 

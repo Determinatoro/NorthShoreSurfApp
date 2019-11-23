@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -16,8 +16,9 @@
     </ContentView.Resources>
     <!--Content-->
     <ContentView.Content>
-        <Grid 
-              HeightRequest="55" 
+        <Grid
+              HeightRequest="55"
+            BackgroundColor="{Binding BarBackgroundColor, Source={x:Reference this}}"
               Padding="0, 5, 0, 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="55"/>
@@ -25,10 +26,10 @@
                 <ColumnDefinition Width="55"/>
                 <ColumnDefinition Width="55"/>
             </Grid.ColumnDefinitions>
-            
+
             <Grid x:Name="gridBack"                  
                   HeightRequest="55"
-                  IsVisible="{Binding ShowBackButton, Source={x:Reference this}}" 
+                  IsVisible="{Binding ShowBackButton, Source={x:Reference this}}"
                   >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
@@ -75,7 +76,7 @@
 
             </Grid>
 
-            <Grid x:Name="gridCenter" 
+            <Grid x:Name="gridCenter"
                   Grid.ColumnSpan="2"
                   Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -93,19 +94,19 @@
                     FontAttributes="Bold"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    IsVisible="{Binding ShowLogo, Converter={StaticResource inverter}, Source={x:Reference this}}" 
+                    IsVisible="{Binding ShowLogo, Converter={StaticResource inverter}, Source={x:Reference this}}"
                     />
 
-                <Image 
+                <Image
                     x:Name="imgLogo"
                     Grid.Row="1"
-                    WidthRequest="70"                     
+                    WidthRequest="70"
                     Aspect="AspectFit"
                     HorizontalOptions="Center"
                     VerticalOptions="Fill"
-                    IsVisible="{Binding ShowLogo, Source={x:Reference this}}" 
+                    IsVisible="{Binding ShowLogo, Source={x:Reference this}}"
                     />
-                
+
             </Grid>
 
         </Grid>

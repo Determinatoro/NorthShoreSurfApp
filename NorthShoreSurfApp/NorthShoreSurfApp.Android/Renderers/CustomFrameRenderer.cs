@@ -6,6 +6,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Content.Res;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
@@ -15,6 +16,7 @@ using NorthShoreSurfApp;
 using NorthShoreSurfApp.Droid.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Xamarin.Forms.PlatformConfiguration;
 using FrameRenderer = Xamarin.Forms.Platform.Android.AppCompat.FrameRenderer;
 
 [assembly: ExportRenderer(typeof(CustomFrame), typeof(CustomFrameRenderer))]

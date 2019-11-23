@@ -77,8 +77,6 @@ namespace NorthShoreSurfApp.iOS.Services
             }
         }
 
-        
-
         /// <summary>
         /// Verify phone no.
         /// </summary>
@@ -121,6 +119,37 @@ namespace NorthShoreSurfApp.iOS.Services
                     );
                 // Return response
                 return new Task<FirebaseResponse>(() => new FirebaseResponse(true));
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new Task<FirebaseResponse>(() => new FirebaseResponse(mes.Message));
+            }
+        }
+
+        /// <summary>
+        /// Sign out 
+        /// </summary>
+        /// <param name="callBack">Firebase callback</param>
+        /// <returns></returns>
+        public Task<FirebaseResponse> SignOut(IFirebaseServiceCallBack callBack)
+        {
+            try
+            {
+                // Set callback
+                FirebaseServiceCallBack = callBack;
+                // Sign out
+                Auth.DefaultInstance.SignOut(out NSError error);
+                if (error is NSError)
+                {
+                    // Return exception
+                    return new Task<FirebaseResponse>(() => new FirebaseResponse(error.LocalizedDescription));
+                }
+                else
+                {
+                    // Return response
+                    return new Task<FirebaseResponse>(() => new FirebaseResponse(true));
+                }
             }
             catch (Exception mes)
             {

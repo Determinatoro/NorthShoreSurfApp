@@ -1,13 +1,69 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
+             xmlns:converters="clr-namespace:NorthShoreSurfApp.Converters"
              mc:Ignorable="d"
+             x:Name="this"
              x:Class="NorthShoreSurfApp.CustomImageButton">
-  <ContentView.Content>
-      <StackLayout>
-          <Label Text="Hello Xamarin.Forms!" />
-      </StackLayout>
-  </ContentView.Content>
+    <ContentView.Content>
+        <Grid
+            Margin="0"
+            Padding="0"
+            RowSpacing="0"
+            ColumnSpacing="0"
+            x:Name="grid"
+            >
+            <!--Border frame-->
+            <Frame
+                x:Name="frameBorder"
+                HasShadow="false"
+                VerticalOptions="FillAndExpand"
+                HorizontalOptions="FillAndExpand"
+                Margin="0"
+                CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"
+                BackgroundColor="{Binding BorderColor, Source={x:Reference this}}"
+                Padding="{Binding BorderThickness, Source={x:Reference this}}"
+                >
+                <!--Background frame-->
+                <Frame
+                    x:Name="frameBackground"
+                    VerticalOptions="FillAndExpand"
+                    HorizontalOptions="FillAndExpand"
+                    HasShadow="false"
+                    Margin="0"
+                    Padding="0"
+                    CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"
+                    BackgroundColor="{Binding Background, Source={x:Reference this}}"
+                    />
+            </Frame>
+
+            <!--Icon image-->
+            <ffimageloading:CachedImage
+                x:Name="image"
+                BackgroundColor="Transparent"
+                Transformations="{Binding IconTransformations, Source={x:Reference this}}"
+                Source="{Binding Icon, Source={x:Reference this}}"
+                Margin="{Binding IconPadding, Source={x:Reference this}}"
+                />
+            <!--Button-->
+            <Button
+                x:Name="button"
+                BackgroundColor="Transparent"
+                >
+                <Button.Triggers>
+                    <EventTrigger Event="Pressed">
+                        <local:CustomImageButtonTextPressedTriggerAction />
+                    </EventTrigger>
+                    <EventTrigger Event="Released">
+                        <local:CustomImageButtonReleasedTriggerAction />
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+
+        </Grid>
+    </ContentView.Content>
 </ContentView>

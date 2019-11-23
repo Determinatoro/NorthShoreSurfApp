@@ -1,9 +1,11 @@
 ﻿using NorthShoreSurfApp.ModelComponents;
+using NorthShoreSurfApp.ViewCells;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using Xamarin.Forms;
 
 namespace NorthShoreSurfApp.ViewModels
 {
@@ -20,18 +22,46 @@ namespace NorthShoreSurfApp.ViewModels
         private string lastName;
         private string phoneNo;
         private string age;
+        private string smsCode;
         private int genderId;
 
         public SignUpUserModel()
         {
-            
+
         }
 
-        public string[] Genders
+        public List<Gender> Genders
         {
             get
             {
-                return new string[] { Resources.AppResources.male, Resources.AppResources.female, Resources.AppResources.other };
+                var genders = new List<Gender>();
+                genders.Add(new Gender()
+                {
+                    Id = 1,
+                    Name = NorthShoreSurfApp.Resources.AppResources.male
+                });
+                genders.Add(new Gender()
+                {
+                    Id = 2,
+                    Name = NorthShoreSurfApp.Resources.AppResources.female
+                });
+                genders.Add(new Gender()
+                {
+                    Id = 3,
+                    Name = NorthShoreSurfApp.Resources.AppResources.other
+                });
+                return genders;
+            }
+        }
+        public bool AllDataGiven
+        {
+            get {
+                return
+                    firstName != null && firstName != string.Empty &&
+                    lastName != null && lastName != string.Empty &&
+                    age != null && age != string.Empty &&
+                    phoneNo != null && phoneNo != string.Empty &&
+                    genderId != 0;
             }
         }
         public string FirstName
@@ -93,6 +123,22 @@ namespace NorthShoreSurfApp.ViewModels
                     OnPropertyChanged(nameof(Age));
                 }
             }
+        }
+        public string SMSCode
+        {
+            get { return smsCode; }
+            set
+            {
+                if (smsCode != value)
+                {
+                    smsCode = value;
+                    OnPropertyChanged(nameof(SMSCode));
+                }
+            }
+        }
+        public DataTemplate GenderPickerItemTemplate
+        {
+            get { return new DataTemplate(() => new GenderCustomViewCell()); }
         }
     }
 }

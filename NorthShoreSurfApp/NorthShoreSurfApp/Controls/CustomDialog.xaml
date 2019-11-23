@@ -92,7 +92,8 @@
 
                     <!--Message label-->
                     <Label 
-                        Padding="0"
+                        x:Name="lblMessage"
+                        Padding="{Binding MessagePadding, Source={x:Reference this}}"
                         HorizontalOptions="Center" 
                         VerticalOptions="Center" 
                         FontSize="14"
