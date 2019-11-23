@@ -19,8 +19,8 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
 
         public CarpoolingPageViewModel()
         {
-            rides = new ObservableCollection<CarpoolEvent>();
-            rides.Add(new CarpoolEvent()
+            rides = new ObservableCollection<CarpoolRide>();
+            rides.Add(new CarpoolRide()
             {
                 ZipCode = "8000",
                 Address = "Aalborg",
@@ -29,7 +29,7 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
                 PricePerPassenger = 50
 
             });
-            rides.Add(new CarpoolEvent()
+            rides.Add(new CarpoolRide()
             {
                 ZipCode = "9000",
                 Address = "Hjørring",
@@ -40,10 +40,10 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
         }
 
 
-        private ObservableCollection<CarpoolEvent> rides;
+        private ObservableCollection<CarpoolRide> rides;
 
 
-        public ObservableCollection<CarpoolEvent> Rides
+        public ObservableCollection<CarpoolRide> Rides
         {
             get { return rides; }
             set

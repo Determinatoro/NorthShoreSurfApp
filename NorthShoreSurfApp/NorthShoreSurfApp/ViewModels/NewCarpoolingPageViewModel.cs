@@ -23,6 +23,39 @@ namespace NorthShoreSurfApp.ViewModels
         {
 
         }
+
+        private CarpoolRide newRide;
+
+        public CarpoolRide NewRide
+        {
+            get
+            {
+                return newRide;
+            }
+            set
+            {
+                newRide = value;
+                OnPropertyChanged(nameof(newRide));
+            }
+        }
+
+        private CarpoolRequest carpoolRequest;
+
+        public CarpoolRequest CarpoolRequest
+        {
+            get
+            {
+                return carpoolRequest;
+            }
+            set
+            {
+                carpoolRequest = value;
+                OnPropertyChanged(nameof(carpoolRequest));
+            }
+        }
+
+
+
     }
 }
 

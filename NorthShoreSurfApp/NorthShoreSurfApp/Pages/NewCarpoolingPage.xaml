@@ -6,10 +6,23 @@
              xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
              mc:Ignorable="d"
              xmlns:local="clr-namespace:NorthShoreSurfApp"
-             x:Class="NorthShoreSurfApp.NewCarpoolingPage">
+             x:Class="NorthShoreSurfApp.NewCarpoolingPage"
+             BackgroundColor="{StaticResource BarBackground}"
+             >
 
     
     <ContentPage.Content>
+        <Grid>
+
+            <local:CustomNavigationBar x:Name="navigationBar"
+                                       BarBackgroundColor="{StaticResource BarBackground}"
+                                       ShowBackButton="True"
+                                       Title="{local:Translate sign_up}"
+                                       TitleColor="Black"
+                                       TitleSize="24"
+                                       ShowLogo="False"
+                                       Logo="ic_logo.png"
+                                       />
         <StackLayout>
         <Frame BackgroundColor="#2b3d4e" Margin="15,15,15,0">
             <StackLayout>
@@ -35,6 +48,7 @@
         </Frame>
         <Button Text="Create Lift" TextColor="White" BackgroundColor="#2b3d4e" Margin="15,0,15,15"/>
         </StackLayout>
+        </Grid>
     </ContentPage.Content>
 
 
