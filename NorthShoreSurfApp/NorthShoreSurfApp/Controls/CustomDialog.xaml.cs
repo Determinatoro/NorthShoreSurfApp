@@ -138,11 +138,7 @@ namespace NorthShoreSurfApp
             set { SetValue(CancelTitleProperty, value); }
         }
 
-        public string CancelTitle
-        {
-            get { return (string)GetValue(CancelTitleProperty); }
-            set { SetValue(CancelTitleProperty, value); }
-        }
+      
 
         #endregion
     }
