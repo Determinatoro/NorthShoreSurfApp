@@ -5,9 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="NorthShoreSurfApp.WelcomePage">
-    <ContentPage.Content>
-        <StackLayout>
-            
-        </StackLayout>
-    </ContentPage.Content>
+    <StackLayout Spacing="10" BackgroundColor="White">
+        <BoxView Color="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+        <Button Text="Sign up" HeightRequest="" VerticalOptions="Center" HorizontalOptions="FillAndExpand" BackgroundColor="#2C3B4E" TextColor="White"/>
+        <Button Text="Sign in" VerticalOptions="Center" HorizontalOptions="FillAndExpand" BackgroundColor="#FFAA00" TextColor="White"/>
+        <Button Text="Continue as guest" VerticalOptions="Center" HorizontalOptions="FillAndExpand" BackgroundColor="#919191" TextColor="White"/>
+        <BoxView Color="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+    </StackLayout>
 </ContentPage>

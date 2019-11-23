@@ -8,40 +8,12 @@
              NavigationPage.HasNavigationBar="True"
              xmlns:local="clr-namespace:NorthShoreSurfApp"
              x:Class="NorthShoreSurfApp.HomePage">
-
     <Grid>
-        
-        
+        <Grid.RowDefinitions>
+            
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
 
-    <Grid
-            IsVisible="true"
-            VerticalOptions="Center" 
-            RowSpacing="0"
-            >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="60"/>
-            </Grid.RowDefinitions>
-
-            <Button
-                x:Name="btnFacebookLogout"       
-                Text="{local:Translate sign_up}"
-                Grid.Row="1"       
-                BackgroundColor="Orange"
-                />
-
-            <local:CustomImageTextButton 
-                x:Name="citBtnFacebookLogin"
-                Margin="20, 2, 20, 2"
-                Grid.Row="2"
-                HeightRequest="60"
-                />
-
-
-
-        </Grid>
-
+        </Grid.ColumnDefinitions>
     </Grid>
-
 </ContentPage>
