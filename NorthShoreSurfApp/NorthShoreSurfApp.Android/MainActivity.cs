@@ -40,6 +40,7 @@ namespace NorthShoreSurfApp.Droid
             App.FirebaseService = firebaseService;
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

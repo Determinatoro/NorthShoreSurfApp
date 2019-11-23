@@ -2,6 +2,7 @@
 using NorthShoreSurfApp.Database;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,15 +19,21 @@ namespace NorthShoreSurfApp
         public App()
         {
             InitializeComponent();
-            
+
             MainPage = new NavigationPage (new CarpoolingPage());
-            
+
             LocalDataService = DependencyService.Get<ILocalDataService>();
             OrientationService = DependencyService.Get<IOrientationService>();
 
             LocalDataService.InitializeFiles(true);
 
             DataService = new NSSDatabaseService<NSSDatabaseContext>();
+
+            // Initialize
+            Task.Run(() =>
+            {
+                DataService.Initialize();
+            });
         }
 
         protected override void OnStart()

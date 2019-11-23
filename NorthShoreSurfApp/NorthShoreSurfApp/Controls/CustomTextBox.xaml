@@ -26,7 +26,7 @@
                    Grid.Row="1" 
                    HasShadow="False"                   
                    BorderColor="Transparent"                   
-                   CornerRadius="2" 
+                   CornerRadius="{Binding CornerRadius, Source={x:Reference this}}" 
                    Margin="0"
                    >
                 <!--TextBox-->
