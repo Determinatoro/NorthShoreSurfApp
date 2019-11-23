@@ -17,10 +17,22 @@
 
     <ContentPage.Content>
         <Grid>
-
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+     
         
+        <local:CustomImageTextButton x:Name="RidesTab" Title="Rides" TitleSize="18" TitleColor="White" Background="{StaticResource NSSBlue}" Icon="ic_car.png" Grid.Row="0" Grid.Column="0"/>
+        <local:CustomImageTextButton x:Name="RequestsTab" Title="Requests" TitleSize="18" TitleColor="{StaticResource NSSBlue}"  Icon="request_icon_b.png" Grid.Row="0" Grid.Column="1"/>
+        </Grid>
+        <ListView x:Name="rideList" ItemsSource="{Binding Rides}" HasUnevenRows="True" SeparatorVisibility="None" Grid.Row="1">
 
-        <ListView x:Name="rideList" ItemsSource="{Binding Rides}" HasUnevenRows="True" SeparatorVisibility="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -36,16 +48,21 @@
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             
                             <Label Text="Today" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
                             <Label Text="{Binding DateTime}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
-                            <Label Text="50 DKK" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
+                            <Label Text="{Binding PricePerPassenger}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
                             <Label Text="{Binding NumberOfSeats}" TextColor="White" Grid.Row="3" Grid.Column="0"/>
-                            <Label Text="{Binding Address}" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill"/>
-                            <Label Text="{Binding City}" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill"/>
-                            <Label Text="North Shore Surf" TextColor="White" Grid.Row="2" Grid.Column="1" VerticalOptions="Fill"/>
-                            <Label Text="9480 Løkken" TextColor="White" Grid.Row="3" Grid.Column="1" VerticalOptions="Fill"/>
+                            <Label Text="{Binding City}" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill"/>
+                            <Label Text="{Binding ZipCode}" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill"/>
+                            <Label Text="{Binding Address}" TextColor="White" Grid.Row="2" Grid.Column="1" VerticalOptions="Fill"/>
+                            <Label Text="{Binding DestinationCity}" TextColor="White" Grid.Row="3" Grid.Column="1" VerticalOptions="Fill"/>
+                            <Label Text="{Binding DestinationZipcode}" TextColor="White" Grid.Row="4" Grid.Column="1" VerticalOptions="Fill"/>
+                            <Label Text="{Binding DestinationAddress}" TextColor="White" Grid.Row="5" Grid.Column="1" VerticalOptions="Fill"/>
+                            
                             
                         </Grid>
                         

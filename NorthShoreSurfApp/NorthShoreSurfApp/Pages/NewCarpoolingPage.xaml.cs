@@ -20,9 +20,15 @@ namespace NorthShoreSurfApp
         public NewCarpoolingPage()
         {
 
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+            Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
+            On<iOS>().SetUseSafeArea(true);
+            Grid grid = (Grid)Content;
+            var safeAreaInset = On<iOS>().SafeAreaInsets();
+            grid.Margin = safeAreaInset; 
 
-            navigationBar.BackButtonClicked += NavigationBar_BackButtonClicked;
+            carpoolNavigationBar.BackButtonClicked += NavigationBar_BackButtonClicked;
         }
 
 

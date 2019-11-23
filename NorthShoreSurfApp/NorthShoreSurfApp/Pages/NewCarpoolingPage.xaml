@@ -10,32 +10,43 @@
              BackgroundColor="{StaticResource BarBackground}"
              >
 
-    
+
+     <ContentPage.BindingContext>
+        <models:NewCarpoolingPageViewModel />
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
         <Grid>
 
-            <local:CustomNavigationBar x:Name="navigationBar"
+        <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+        <local:CustomNavigationBar x:Name="carpoolNavigationBar"
                                        BarBackgroundColor="{StaticResource BarBackground}"
                                        ShowBackButton="True"
-                                       Title="{local:Translate sign_up}"
+                                       Title="New carpool event"
                                        TitleColor="Black"
                                        TitleSize="24"
                                        ShowLogo="False"
-                                       Logo="ic_logo.png"
+                                       Logo="ic_home.png"
                                        />
-        <StackLayout>
+
+        <ScrollView Grid.Row="1" x:Name="newEventOrRequest">
+        <StackLayout x:Name="newEvent">
         <Frame BackgroundColor="#2b3d4e" Margin="15,15,15,0">
             <StackLayout>
                 <Label Text="Departure Time:" TextColor="White"/>
-                <local:CustomTextBox />
+                <local:CustomTextBox Text="{Binding DepartureTime, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
                 <Label Text="Pickup Point:" TextColor="White"/>
-                <local:CustomTextBox/>
+                <local:CustomTextBox Text="{Binding Address, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
                 <Label Text="Price:" TextColor="White" />
-                <local:CustomTextBox/>
+                <local:CustomTextBox Text="{Binding PricePerPasenger, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
                 <Label Text="Number of Seats:" TextColor="White" />
-                <local:CustomTextBox/>
+                <local:CustomTextBox Text="{Binding NumberOfSeats, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
                 <Label Text="Comment:" TextColor="White" />
-                <local:CustomTextBox/>
+                <local:CustomTextBox Text="{Binding Comment, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
                 <Label Text="Car:" TextColor="White" />
                 <local:CustomEntry Text="No car chosen" TextColor="#2b3d4f" BackgroundColor="White" />
                 <Button BackgroundColor="White" Text="Select Car" TextColor="#2b3d4e"/>
@@ -44,11 +55,17 @@
                 <local:CustomEntry Text="Beginner surfer's lesson" TextColor="#2b3d4f" BackgroundColor="White" />
                 <Button BackgroundColor="White" Text ="Add event to carpool" TextColor="#2b3d4e"/>
         </StackLayout>
-
         </Frame>
         <Button Text="Create Lift" TextColor="White" BackgroundColor="#2b3d4e" Margin="15,0,15,15"/>
         </StackLayout>
+
+       
+
+
+        </ScrollView>
         </Grid>
+
+
     </ContentPage.Content>
 
 

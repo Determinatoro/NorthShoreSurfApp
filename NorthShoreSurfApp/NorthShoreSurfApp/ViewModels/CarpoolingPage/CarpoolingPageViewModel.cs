@@ -23,7 +23,11 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
             rides.Add(new CarpoolRide()
             {
                 ZipCode = "8000",
-                Address = "Aalborg",
+                Address = "Parkvej",
+                City = "Aalborg",
+                DestinationZipCode ="9480",
+                DestinationAddress ="North Shore Surf",
+                DestinationCity = "Løkken",
                 NumberOfSeats = 2,
                 DepartureTime = new DateTime(2019, 1, 1,13,0,0),
                 PricePerPassenger = 50
@@ -32,7 +36,11 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
             rides.Add(new CarpoolRide()
             {
                 ZipCode = "9000",
-                Address = "Hjørring",
+                Address = "Æblevej",
+                City = "Aalborg",
+                DestinationZipCode = "9480",
+                DestinationAddress = "North Shore Surf",
+                DestinationCity = "Løkken",
                 NumberOfSeats = 5,
                 DepartureTime = new DateTime(2019,1,1,14,30,0),
                 PricePerPassenger = 50

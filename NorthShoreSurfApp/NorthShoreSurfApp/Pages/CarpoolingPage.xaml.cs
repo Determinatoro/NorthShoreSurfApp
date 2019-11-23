@@ -19,17 +19,15 @@ namespace NorthShoreSurfApp
         public CarpoolingPageViewModel CarpoolingPageViewModel { get => (CarpoolingPageViewModel)this.BindingContext; }
         public CarpoolingPage()
         {
-            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
-            Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
+          
             InitializeComponent();
-            On<iOS>().SetUseSafeArea(true);
-            Grid grid = (Grid)Content;
-            var safeAreaInset = On<iOS>().SafeAreaInsets();
-            grid.Margin = safeAreaInset;
-
+            
+           
             
 
             rideList.ItemTapped += Ride_Clicked;
+            RidesTab.Clicked += RidesTab_Clicked;
+            RequestsTab.Clicked += RequestsTab_Clicked;
         }
 
 
@@ -39,6 +37,20 @@ namespace NorthShoreSurfApp
             {
                 await Navigation.PushAsync(new NewCarpoolingPage());
             }
+
+        }
+
+        private void RidesTab_Clicked(object sender, EventArgs e)
+        {
+            if(sender == RidesTab)
+            {
+                RidesTab.Background = Color.White;
+                
+            }
+        }
+
+        private void RequestsTab_Clicked(object sender, EventArgs e)
+        {
 
         }
 
