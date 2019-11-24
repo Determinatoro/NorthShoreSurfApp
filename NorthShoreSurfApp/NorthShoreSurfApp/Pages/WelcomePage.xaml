@@ -4,12 +4,35 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="NorthShoreSurfApp.WelcomePage">
-    <StackLayout Spacing="10" BackgroundColor="White">
+             x:Class="NorthShoreSurfApp.WelcomePage"
+             BackgroundColor="White">
+    <StackLayout Spacing="10" BackgroundColor="White" Margin="10,0,10,0">
         <BoxView Color="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-        <Button Text="Sign up" HeightRequest="" VerticalOptions="Center" HorizontalOptions="FillAndExpand" BackgroundColor="#2C3B4E" TextColor="White"/>
-        <Button Text="Sign in" VerticalOptions="Center" HorizontalOptions="FillAndExpand" BackgroundColor="#FFAA00" TextColor="White"/>
-        <Button Text="Continue as guest" VerticalOptions="Center" HorizontalOptions="FillAndExpand" BackgroundColor="#919191" TextColor="White"/>
-        <BoxView Color="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+        <Image Source="C:\Users\musta\Desktop\ezgif-3-ee8bd71bbb1c.png"/>
+        <Button Text="Sign up" 
+                VerticalOptions="Center" 
+                HorizontalOptions="FillAndExpand" 
+                BackgroundColor="#2C3B4E" 
+                TextColor="White"
+                CornerRadius="10"
+                FontSize="Title"
+                Padding="0,10"/>
+        <Button Text="Sign in" 
+                VerticalOptions="Center" 
+                HorizontalOptions="FillAndExpand" 
+                BackgroundColor="#FFAA00" 
+                TextColor="White"
+                CornerRadius="10"
+                FontSize="Title"
+                Padding="0,10"/>
+        <Button Text="Continue as guest" 
+                VerticalOptions="Center" 
+                HorizontalOptions="FillAndExpand" 
+                BackgroundColor="#919191" 
+                TextColor="White"
+                CornerRadius="10"
+                FontSize="Title"
+                Padding="0,10"/>
+        <BoxView Color="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
     </StackLayout>
 </ContentPage>
