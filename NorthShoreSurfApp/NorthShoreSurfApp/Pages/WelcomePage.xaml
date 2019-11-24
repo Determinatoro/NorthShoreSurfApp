@@ -8,7 +8,9 @@
              BackgroundColor="White">
     <StackLayout Spacing="10" BackgroundColor="White" Margin="10,0,10,0">
         <BoxView Color="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-        <Image Source="C:\Users\musta\Desktop\ezgif-3-ee8bd71bbb1c.png"/>
+        <Image Source="C:\Users\musta\Desktop\ezgif-3-ee8bd71bbb1c.png"
+               Aspect="AspectFill"
+               HeightRequest="250"/>
         <Button Text="Sign up" 
                 VerticalOptions="Center" 
                 HorizontalOptions="FillAndExpand" 
