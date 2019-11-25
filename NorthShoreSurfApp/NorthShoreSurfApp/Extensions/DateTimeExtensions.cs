@@ -10,7 +10,7 @@ namespace NorthShoreSurfApp
 {
     public static class DateTimeExtensions
     {
-        public static string toCarpoolingFormat(this DateTime dateTime)
+        public static string ToCarpoolingFormat(this DateTime dateTime)
         {
             if( (dateTime - DateTime.Today).TotalDays < 8)
             {
