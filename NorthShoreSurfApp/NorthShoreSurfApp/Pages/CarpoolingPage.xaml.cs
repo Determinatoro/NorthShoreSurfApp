@@ -31,15 +31,23 @@ namespace NorthShoreSurfApp
 
             rideList.ItemTapped += Ride_Clicked;
             RidesTab.Toggled += RidesTab_Clicked;
+            carpoolPageNavigationBar.ButtonOne.Clicked += Plus_Clicked;
             
         }
 
+        private async void Plus_Clicked(object sender, EventArgs e)
+        {
+           
+                
+                await Navigation.PushAsync(new NewCarpoolingPage());
+            
+        }
 
         private async void Ride_Clicked(object sender, EventArgs e)
         {
             if (sender == rideList)
             {
-                await Navigation.PushAsync(new NewCarpoolingPage());
+                
             }
 
         }
