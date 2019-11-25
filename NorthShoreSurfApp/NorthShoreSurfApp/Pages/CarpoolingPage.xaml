@@ -21,22 +21,18 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-     
+       
+            
+    
+
+        <local:CustomToggleButton x:Name="RidesTab" TitleRight="Rides" TitleRightSize="18" TitleLeft="Requests" TitleLeftSize="18"  SelectedColor="White" BackgroundSelected="{StaticResource NSSBlue}" UnselectedColor="{StaticResource NSSBlue}" BackgroundUnselected="White" IconLeft="ic_car_white.png" IconRight="request_icon_w.png" Grid.Row="0" Margin="5,10,5,0"/>
         
-        <local:CustomImageTextButton x:Name="RidesTab" Title="Rides" TitleSize="18" TitleColor="White" Background="{StaticResource NSSBlue}" Icon="ic_car.png" Grid.Row="0" Grid.Column="0"/>
-        <local:CustomImageTextButton x:Name="RequestsTab" Title="Requests" TitleSize="18" TitleColor="{StaticResource NSSBlue}"  Icon="request_icon_b.png" Grid.Row="0" Grid.Column="1"/>
-        </Grid>
         <ListView x:Name="rideList" ItemsSource="{Binding Rides}" HasUnevenRows="True" SeparatorVisibility="None" Grid.Row="1">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid BackgroundColor="#2b3d4e" Margin="10,5,5,10" Padding="5">
+                        <Grid BackgroundColor="{StaticResource NSSBlue}" Margin="10,5,5,10" Padding="5">
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -52,7 +48,7 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             
-                            <Label Text="Today" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
+                            <Label Text="{Binding DateTime} " LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
                             <Label Text="{Binding DateTime}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
                             <Label Text="{Binding PricePerPassenger}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
                             <Label Text="{Binding NumberOfSeats}" TextColor="White" Grid.Row="3" Grid.Column="0"/>

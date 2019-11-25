@@ -26,8 +26,8 @@ namespace NorthShoreSurfApp
             
 
             rideList.ItemTapped += Ride_Clicked;
-            RidesTab.Clicked += RidesTab_Clicked;
-            RequestsTab.Clicked += RequestsTab_Clicked;
+            RidesTab.Toggled += RidesTab_Clicked;
+            
         }
 
 
@@ -44,15 +44,12 @@ namespace NorthShoreSurfApp
         {
             if(sender == RidesTab)
             {
-                RidesTab.Background = Color.White;
+               
                 
             }
         }
 
-        private void RequestsTab_Clicked(object sender, EventArgs e)
-        {
-
-        }
+       
 
        
 
