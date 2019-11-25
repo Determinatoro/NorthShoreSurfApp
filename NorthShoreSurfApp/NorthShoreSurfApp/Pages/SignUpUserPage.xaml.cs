@@ -74,6 +74,8 @@ namespace NorthShoreSurfApp
                 else
                     SetCurrentContentSite(ContentSite.EnterData, true);
             };
+            navigationBar.ButtonOneIsVisible = true;
+            navigationBar.ButtonTwoIsVisible = true;
 
             // List item tapped in gender picker
             pickerGender.ListItemTapped += (sender, args) =>
@@ -218,14 +220,25 @@ namespace NorthShoreSurfApp
                 App.DataService.GetData(
                         NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
                         true,
-                        () => App.DataService.GetCars(),
+                        () => App.DataService.CreateCar(1, "AM60657", "Midnight Blue"),
                         async (response) =>
                         {
-                            await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, response.Result.FirstOrDefault().LicensePlate));
+                            if (response.Success)
+                            {
+                                await Navigation.PopAsync();
+                            } 
+                            else
+                            {
+                                CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                                await PopupNavigation.Instance.PushAsync(customDialog);
+                            }
+                            
+                            await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, response.Result.LicensePlate));
                         });
             }
             else if (sender == btnApprove)
             {
+                App.Current.MainPage = new RootTabbedPage();
                 return;
 
                 var smsCode = SignUpUserModel.SMSCode;

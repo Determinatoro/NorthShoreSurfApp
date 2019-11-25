@@ -9,6 +9,12 @@
              mc:Ignorable="d"
              x:Name="this"
              x:Class="NorthShoreSurfApp.CustomImageButton">
+    <!--Resources-->
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:SmallerCornerRadiusConverter x:Key="cornerRadiusConverter" Substraction="0.3"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
     <ContentView.Content>
         <Grid
             Margin="0"

@@ -9,14 +9,14 @@
              x:Class="NorthShoreSurfApp.SignUpUserPage"
              BackgroundColor="{StaticResource BarBackground}">
 
-    <!--View model-->
     <ContentPage.BindingContext>
         <models:SignUpUserModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <!--Root grid-->
-        <Grid>
+        <Grid RowSpacing="0"
+              Margin="0"
+              Padding="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -34,10 +34,10 @@
                                        />
 
             <!--Grid enter data-->
-            <Grid x:Name="gridEnterData"
-                  VerticalOptions="Fill"
-                  Grid.Row="1"
-                  HorizontalOptions="Fill"
+            <Grid x:Name="gridEnterData" 
+                  VerticalOptions="Fill" 
+                  Grid.Row="1" 
+                  HorizontalOptions="Fill" 
                   IsVisible="True"
                   BackgroundColor="{StaticResource NSSBlue}"
                   >
@@ -51,51 +51,51 @@
 
                     <StackLayout Padding="20" HorizontalOptions="Fill" VerticalOptions="Start">
                         <!--First name input-->
-                        <local:CustomTextBox Title="{local:Translate first_name}"
-                                         TitleColor="White"
-                                         TitleSize="18"
-                                         CornerRadius="10"
-                                         Text="{Binding FirstName, Mode=TwoWay}"
-                                         TextColor="Black"
+                        <local:CustomTextBox Title="{local:Translate first_name}" 
+                                         TitleColor="White" 
+                                         TitleSize="18" 
+                                         CornerRadius="10" 
+                                         Text="{Binding FirstName, Mode=TwoWay}" 
+                                         TextColor="Black" 
                                          TextSize="24"
                                          />
                         <!--Last name input-->
-                        <local:CustomTextBox Title="{local:Translate last_name}"
-                                         TitleColor="White"
-                                         TitleSize="18"
-                                         CornerRadius="10"
-                                         Text="{Binding LastName, Mode=TwoWay}"
-                                         TextColor="Black"
+                        <local:CustomTextBox Title="{local:Translate last_name}" 
+                                         TitleColor="White" 
+                                         TitleSize="18" 
+                                         CornerRadius="10" 
+                                         Text="{Binding LastName, Mode=TwoWay}" 
+                                         TextColor="Black" 
                                          TextSize="24"
                                          />
                         <!--Age input-->
-                        <local:CustomTextBox Keyboard="Numeric"
-                                         Title="{local:Translate age}"
-                                         TitleColor="White"
-                                         TitleSize="18"
-                                         CornerRadius="10"
-                                         Text="{Binding Age, Mode=TwoWay}"
-                                         TextColor="Black"
+                        <local:CustomTextBox Keyboard="Numeric" 
+                                         Title="{local:Translate age}" 
+                                         TitleColor="White" 
+                                         TitleSize="18" 
+                                         CornerRadius="10" 
+                                         Text="{Binding Age, Mode=TwoWay}" 
+                                         TextColor="Black" 
                                          TextSize="24"
                                          />
                         <!--Gender selection-->
-                        <local:CustomPicker x:Name="pickerGender"
-                                            HorizontalOptions="FillAndExpand"
+                        <local:CustomPicker x:Name="pickerGender" 
+                                            HorizontalOptions="FillAndExpand" 
                                             ItemsSource="{Binding Genders}"
-                                            Title="{local:Translate gender}"
+                                            Title="{local:Translate gender}"    
                                             ItemTemplate="{Binding GenderPickerItemTemplate}"
                                             Text=""
                                             TitleColor="White"
                                             TextMargin="10, 0, 10, 0"
                                             />
                         <!--Phone no. input-->
-                        <local:CustomTextBox Keyboard="Telephone"
-                                         Title="{local:Translate phone_no}"
-                                         TitleColor="White"
-                                         TitleSize="18"
-                                         CornerRadius="10"
-                                         Text="{Binding PhoneNo, Mode=TwoWay}"
-                                         TextColor="Black"
+                        <local:CustomTextBox Keyboard="Telephone" 
+                                         Title="{local:Translate phone_no}" 
+                                         TitleColor="White" 
+                                         TitleSize="18" 
+                                         CornerRadius="10" 
+                                         Text="{Binding PhoneNo, Mode=TwoWay}" 
+                                         TextColor="Black" 
                                          TextSize="24"
                                          />
 
@@ -113,7 +113,7 @@
 
                         <local:CustomToggleButton HeightRequest="60"
                                                   TitleLeft="Rides"
-                                                  TitleLeftSize="18"
+                                                  TitleLeftSize="18"                                                  
                                                   TitleRight="Ride requests"
                                                   TitleRightSize="18"
                                                   IconLeft="ic_car.png"
@@ -139,12 +139,12 @@
 
                 <!--Navigation button-->
                 <local:CustomImageTextButton x:Name="btnNext"
-                                             Grid.Row="1"
-                                             Margin="20"
-                                             HeightRequest="60"
-                                             Background="White"
-                                             CornerRadius="10"
-                                             BackgroundPressed="#0067B0"
+                                             Grid.Row="1" 
+                                             Margin="20" 
+                                             HeightRequest="60" 
+                                             Background="White" 
+                                             CornerRadius="10" 
+                                             BackgroundPressed="#0067B0" 
                                              Icon="ic_facebook.png"
                                              TitleColor="Black"
                                              TitleSize="24"
@@ -156,10 +156,10 @@
             <!--Grid enter SMS code-->
             <Grid x:Name="gridEnterSMSCode"
                   BackgroundColor="{StaticResource NSSBlue}"
-                  VerticalOptions="Fill"
-                  Grid.Row="1"
+                  VerticalOptions="Fill" 
+                  Grid.Row="1" 
                   IsVisible="False"
-                  HorizontalOptions="Fill"
+                  HorizontalOptions="Fill" 
                   >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -168,7 +168,7 @@
 
                 <!--ScrollView-->
                 <ScrollView>
-                    <StackLayout Margin="20, 20, 20, 0">
+                    <StackLayout Margin="20">
                         <Label Text="Verify phone number"
                                HorizontalTextAlignment="Center"
                                TextColor="White"
@@ -176,13 +176,13 @@
                                FontSize="24"
                                />
                         <!--SMS code input-->
-                        <local:CustomTextBox Keyboard="Numeric"
-                                             Title="{local:Translate sms_code}"
-                                             TitleColor="White"
-                                             TitleSize="18"
-                                             CornerRadius="10"
-                                             Text="{Binding SMSCode, Mode=TwoWay}"
-                                             TextColor="Black"
+                        <local:CustomTextBox Keyboard="Numeric" 
+                                             Title="{local:Translate sms_code}" 
+                                             TitleColor="White" 
+                                             TitleSize="18" 
+                                             CornerRadius="10" 
+                                             Text="{Binding SMSCode, Mode=TwoWay}" 
+                                             TextColor="Black" 
                                              TextSize="24"
                                              />
 
@@ -192,12 +192,12 @@
 
                 <!--Navigation button-->
                 <local:CustomImageTextButton x:Name="btnApprove"
-                                         Grid.Row="1"
+                                         Grid.Row="1" 
                                          Margin="20" 
-                                         HeightRequest="60"
-                                         Background="White"
-                                         CornerRadius="10"
-                                         BackgroundPressed="#0067B0"
+                                         HeightRequest="60" 
+                                         Background="White" 
+                                         CornerRadius="10" 
+                                         BackgroundPressed="#0067B0" 
                                          Icon="ic_facebook.png"
                                          TitleColor="Black"
                                          TitleSize="24"

@@ -236,5 +236,14 @@ namespace NorthShoreSurfApp.Resources {
                 return ResourceManager.GetString("user_not_found", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weather.
+        /// </summary>
+        internal static string weather {
+            get {
+                return ResourceManager.GetString("weather", resourceCulture);
+            }
+        }
     }
 }

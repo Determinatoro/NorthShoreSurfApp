@@ -8,12 +8,21 @@ namespace NorthShoreSurfApp
 {
     public class CustomTabbedPage : TabbedPage
     {
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            SetIcons();
+        }
+
         protected override void OnCurrentPageChanged()
         {
             base.OnCurrentPageChanged();
+            SetIcons();
+        }
 
+        private void SetIcons()
+        {
             var list = Children.ToList();
-
             foreach (var page in list)
             {
                 if (page is CustomNavigationPage)

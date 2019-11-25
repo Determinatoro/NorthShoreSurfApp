@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LibVLCSharp.Shared;
+using Microsoft.EntityFrameworkCore;
 using NorthShoreSurfApp.Database;
 using System;
 using System.IO;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,8 +19,9 @@ namespace NorthShoreSurfApp
         public App()
         {
             InitializeComponent();
-
-            MainPage = new CustomNavigationPage(new CarpoolingPage());
+            
+            MainPage = new CustomNavigationPage(new SignUpUserPage());
+            Core.Initialize();
 
             LocalDataService = DependencyService.Get<ILocalDataService>();
             OrientationService = DependencyService.Get<IOrientationService>();
@@ -28,12 +29,6 @@ namespace NorthShoreSurfApp
             LocalDataService.InitializeFiles(true);
 
             DataService = new NSSDatabaseService<NSSDatabaseContext>();
-
-            // Initialize
-            Task.Run(() =>
-            {
-                DataService.Initialize();
-            });
         }
 
         protected override void OnStart()
