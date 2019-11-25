@@ -33,15 +33,15 @@ namespace NorthShoreSurfApp
             RidesTab.Toggled += RidesTab_Clicked;
             carpoolPageNavigationBar.ButtonOne.Clicked += Plus_Clicked;
 
-            App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait, false, () => App.DataService.GetCarpoolRides, (response) =>
+            /* App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait, false, () => App.DataService.GetCarpoolRides(), (response) =>
             {
                 if(response.Success)
                 {
                     //CarpoolingPageViewModel.Rides = response.Result;
-                    return (null);
+                    
                 }
-                return(null);
-            }
+                
+            } */
 
 
             
