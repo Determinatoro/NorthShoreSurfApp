@@ -19,11 +19,15 @@ namespace NorthShoreSurfApp
         public CarpoolingPageViewModel CarpoolingPageViewModel { get => (CarpoolingPageViewModel)this.BindingContext; }
         public CarpoolingPage()
         {
-          
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+            Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
-            
-           
-            
+            On<iOS>().SetUseSafeArea(true);
+            Grid grid = (Grid)Content;
+            var safeAreaInset = On<iOS>().SafeAreaInsets();
+            grid.Margin = safeAreaInset;
+
+
 
             rideList.ItemTapped += Ride_Clicked;
             RidesTab.Toggled += RidesTab_Clicked;

@@ -19,15 +19,28 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
        
             
-    
 
-        <local:CustomToggleButton x:Name="RidesTab" TitleRight="Rides" TitleRightSize="18" TitleLeft="Requests" TitleLeftSize="18"  SelectedColor="White" BackgroundSelected="{StaticResource NSSBlue}" UnselectedColor="{StaticResource NSSBlue}" BackgroundUnselected="White" IconLeft="ic_car_white.png" IconRight="request_icon_w.png" Grid.Row="0" Margin="5,10,5,0"/>
+          <local:CustomNavigationBar x:Name="carpoolPageNavigationBar"
+                                       BarBackgroundColor="{StaticResource BarBackground}"
+                                       ShowBackButton="False"
+                                       Title="Carpooling Page"
+                                       TitleColor="Black"
+                                       TitleSize="24"
+                                       ShowLogo="False"
+                                       Logo="ic_home.png"
+                                       Grid.Row="0"
+                                       
+                                     />
+
+
+        <local:CustomToggleButton x:Name="RidesTab" TitleRight="Rides" TitleRightSize="18" TitleLeft="Requests" TitleLeftSize="18"  SelectedColor="White" BackgroundSelected="{StaticResource NSSBlue}" UnselectedColor="{StaticResource NSSBlue}" BackgroundUnselected="White" IconLeft="ic_car_white.png" IconRight="request_icon_w.png" Grid.Row="1" Margin="5,10,5,0"/>
         
-        <ListView x:Name="rideList" ItemsSource="{Binding Rides}" HasUnevenRows="True" SeparatorVisibility="None" Grid.Row="1">
+        <ListView x:Name="rideList" ItemsSource="{Binding Rides}" HasUnevenRows="True" SeparatorVisibility="None" Grid.Row="2">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
