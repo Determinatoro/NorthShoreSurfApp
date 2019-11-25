@@ -32,6 +32,19 @@ namespace NorthShoreSurfApp
             rideList.ItemTapped += Ride_Clicked;
             RidesTab.Toggled += RidesTab_Clicked;
             carpoolPageNavigationBar.ButtonOne.Clicked += Plus_Clicked;
+
+            App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait, false, () => App.DataService.GetCarpoolRides, (response) =>
+            {
+                if(response.Success)
+                {
+                    //CarpoolingPageViewModel.Rides = response.Result;
+                    return (null);
+                }
+                return(null);
+            }
+
+
+            
             
         }
 
@@ -39,7 +52,7 @@ namespace NorthShoreSurfApp
         {
            
                 
-                await Navigation.PushAsync(new NewCarpoolingPage());
+                await Navigation.PushAsync(new Xamarin.Forms.NavigationPage(new NewCarpoolingPage()));
             
         }
 

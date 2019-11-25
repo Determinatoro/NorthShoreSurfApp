@@ -45,6 +45,8 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
                 DepartureTime = new DateTime(2019,1,1,14,30,0),
                 PricePerPassenger = 50
             });
+
+            
         }
 
 

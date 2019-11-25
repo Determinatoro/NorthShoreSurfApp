@@ -199,7 +199,7 @@ namespace NorthShoreSurfApp
             if (sender == btnNext)
             {
                 SetCurrentContentSite(ContentSite.EnterSMSCode, true);
-                return;
+                
 
                 if (SignUpUserModel.AllDataGiven)
                 {

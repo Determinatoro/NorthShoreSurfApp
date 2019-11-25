@@ -80,6 +80,9 @@
     <BundleResource Include="Resources\request_icon_b.png" />
     <BundleResource Include="Resources\request_icon_w.png" />
     <BundleResource Include="Resources\Mail.png" />
+    <BundleResource Include="Resources\location.png" />
+    <BundleResource Include="Resources\destination.png" />
+    <BundleResource Include="Resources\destination2.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
