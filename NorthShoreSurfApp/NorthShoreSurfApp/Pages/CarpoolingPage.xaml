@@ -3,13 +3,82 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels.CarpoolingPage"
              mc:Ignorable="d"
-             x:Class="NorthShoreSurfApp.CarpoolingPage">
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
+             x:Class="NorthShoreSurfApp.CarpoolingPage"
+             BackgroundColor="{StaticResource BarBackground}"
+             >
+            
+
+     <ContentPage.BindingContext>
+        <models:CarpoolingPageViewModel />
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+       
+            
+    
+
+        <local:CustomToggleButton x:Name="RidesTab" TitleRight="Rides" TitleRightSize="18" TitleLeft="Requests" TitleLeftSize="18"  SelectedColor="White" BackgroundSelected="{StaticResource NSSBlue}" UnselectedColor="{StaticResource NSSBlue}" BackgroundUnselected="White" IconLeft="ic_car_white.png" IconRight="request_icon_w.png" Grid.Row="0" Margin="5,10,5,0"/>
+        
+        <ListView x:Name="rideList" ItemsSource="{Binding Rides}" HasUnevenRows="True" SeparatorVisibility="None" Grid.Row="1">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid BackgroundColor="{StaticResource NSSBlue}" Margin="10,5,5,10" Padding="5">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            
+                            <Label Text="{Binding DateTime} " LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
+                            <Label Text="{Binding DateTime}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
+                            <Label Text="{Binding PricePerPassenger}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
+                            <Label Text="{Binding NumberOfSeats}" TextColor="White" Grid.Row="3" Grid.Column="0"/>
+                            <Label Text="{Binding City}" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill"/>
+                            <Label Text="{Binding ZipCode}" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill"/>
+                            <Label Text="{Binding Address}" TextColor="White" Grid.Row="2" Grid.Column="1" VerticalOptions="Fill"/>
+                            <Label Text="{Binding DestinationCity}" TextColor="White" Grid.Row="3" Grid.Column="1" VerticalOptions="Fill"/>
+                            <Label Text="{Binding DestinationZipcode}" TextColor="White" Grid.Row="4" Grid.Column="1" VerticalOptions="Fill"/>
+                            <Label Text="{Binding DestinationAddress}" TextColor="White" Grid.Row="5" Grid.Column="1" VerticalOptions="Fill"/>
+                            
+                            
+                        </Grid>
+                        
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        </Grid>
+ 
+            
+        
+                        
+    
     </ContentPage.Content>
+
+
+
 </ContentPage>
+
+
+
+
