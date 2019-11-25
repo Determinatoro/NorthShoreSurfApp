@@ -11,21 +11,21 @@
 namespace NorthShoreSurfApp.Resources {
     using System;
     using System.Reflection;
-
-
+    
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppResources {
-
+        
         private static System.Resources.ResourceManager resourceMan;
-
+        
         private static System.Globalization.CultureInfo resourceCulture;
-
+        
         [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal AppResources() {
         }
-
+        
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static System.Resources.ResourceManager ResourceManager {
             get {
@@ -36,7 +36,7 @@ namespace NorthShoreSurfApp.Resources {
                 return resourceMan;
             }
         }
-
+        
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         internal static System.Globalization.CultureInfo Culture {
             get {
@@ -46,200 +46,169 @@ namespace NorthShoreSurfApp.Resources {
                 resourceCulture = value;
             }
         }
-
+        
         internal static string age {
             get {
                 return ResourceManager.GetString("age", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Approve.
-        /// </summary>
+        
         internal static string approve {
             get {
                 return ResourceManager.GetString("approve", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Back.
-        /// </summary>
+        
         internal static string back {
             get {
                 return ResourceManager.GetString("back", resourceCulture);
             }
         }
-
+        
         internal static string cancel {
             get {
                 return ResourceManager.GetString("cancel", resourceCulture);
             }
         }
-
+        
         internal static string could_not_add_events_to_carpool_event {
             get {
                 return ResourceManager.GetString("could_not_add_events_to_carpool_event", resourceCulture);
             }
         }
-
+        
         internal static string could_not_add_events_to_carpool_request {
             get {
                 return ResourceManager.GetString("could_not_add_events_to_carpool_request", resourceCulture);
             }
         }
-
+        
         internal static string could_not_answer_confirmation {
             get {
                 return ResourceManager.GetString("could_not_answer_confirmation", resourceCulture);
             }
         }
-
+        
         internal static string could_not_create_carpool_event {
             get {
                 return ResourceManager.GetString("could_not_create_carpool_event", resourceCulture);
             }
         }
-
+        
         internal static string could_not_create_carpool_request {
             get {
                 return ResourceManager.GetString("could_not_create_carpool_request", resourceCulture);
             }
         }
-
+        
         internal static string could_not_delete_invite {
             get {
                 return ResourceManager.GetString("could_not_delete_invite", resourceCulture);
             }
         }
-
+        
         internal static string could_not_invite_passenger {
             get {
                 return ResourceManager.GetString("could_not_invite_passenger", resourceCulture);
             }
         }
-
+        
         internal static string could_not_sign_up_to_carpool {
             get {
                 return ResourceManager.GetString("could_not_sign_up_to_carpool", resourceCulture);
             }
         }
-
+        
         internal static string could_not_unsign_from_carpool {
             get {
                 return ResourceManager.GetString("could_not_unsign_from_carpool", resourceCulture);
             }
         }
-
+        
         internal static string female {
             get {
                 return ResourceManager.GetString("female", resourceCulture);
             }
         }
-
+        
         internal static string first_name {
             get {
                 return ResourceManager.GetString("first_name", resourceCulture);
             }
         }
-
+        
         internal static string gender {
             get {
                 return ResourceManager.GetString("gender", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Getting data.
-        ///Please wait....
-        /// </summary>
+        
         internal static string getting_data_please_wait {
             get {
                 return ResourceManager.GetString("getting_data_please_wait", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Last name.
-        /// </summary>
+        
         internal static string last_name {
             get {
                 return ResourceManager.GetString("last_name", resourceCulture);
             }
         }
-
+        
         internal static string male {
             get {
                 return ResourceManager.GetString("male", resourceCulture);
             }
         }
-
+        
         internal static string next {
             get {
                 return ResourceManager.GetString("next", resourceCulture);
             }
         }
-
+        
         internal static string other {
             get {
                 return ResourceManager.GetString("other", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Phone no..
-        /// </summary>
+        
         internal static string phone_no {
             get {
                 return ResourceManager.GetString("phone_no", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Select {0}.
-        /// </summary>
+        
         internal static string select_parameter {
             get {
                 return ResourceManager.GetString("select_parameter", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Sign up.
-        /// </summary>
+        
         internal static string sign_up {
             get {
                 return ResourceManager.GetString("sign_up", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to SMS code.
-        /// </summary>
+        
         internal static string sms_code {
             get {
                 return ResourceManager.GetString("sms_code", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to User already exist.
-        /// </summary>
+        
         internal static string user_already_exist {
             get {
                 return ResourceManager.GetString("user_already_exist", resourceCulture);
             }
         }
-
+        
         internal static string user_not_found {
             get {
                 return ResourceManager.GetString("user_not_found", resourceCulture);
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Weather.
-        /// </summary>
         internal static string weather {
             get {
                 return ResourceManager.GetString("weather", resourceCulture);
