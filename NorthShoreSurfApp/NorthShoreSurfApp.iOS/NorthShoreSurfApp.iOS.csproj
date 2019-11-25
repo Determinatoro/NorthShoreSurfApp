@@ -78,6 +78,7 @@
     <BundleResource Include="Resources\NSS.db" />
     <BundleResource Include="Resources\ic_car_white.png" />
     <BundleResource Include="Resources\request_icon_b.png" />
+    <BundleResource Include="Resources\request_icon_w.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
