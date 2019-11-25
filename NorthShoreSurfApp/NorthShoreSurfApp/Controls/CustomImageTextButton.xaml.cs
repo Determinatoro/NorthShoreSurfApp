@@ -48,7 +48,7 @@ namespace NorthShoreSurfApp
         // VARIABLES
         /*****************************************************************/
         #region Variables
-               
+
         public static readonly BindableProperty BackgroundPressedProperty = BindableProperty.Create(nameof(BackgroundPressed), typeof(Color), typeof(CustomImageTextButton), Color.Gray);
         public static readonly BindableProperty BackgroundProperty = BindableProperty.Create(nameof(Background), typeof(Color), typeof(CustomImageTextButton), Color.White);
         public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(Title), typeof(string), typeof(CustomImageTextButton), null);
@@ -130,7 +130,7 @@ namespace NorthShoreSurfApp
         {
             get { return (Color)GetValue(TitleColorProperty); }
             set { SetValue(TitleColorProperty, value); }
-        }       
+        }
         public double TitleSize
         {
             get { return (double)GetValue(TitleSizeProperty); }

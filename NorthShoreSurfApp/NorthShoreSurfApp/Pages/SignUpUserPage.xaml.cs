@@ -38,7 +38,7 @@ namespace NorthShoreSurfApp
         #region Variables
 
         public SignUpUserModel SignUpUserModel { get => (SignUpUserModel)this.BindingContext; }
-        
+
         private ContentSite CurrentContentSite { get; set; }
 
         #endregion

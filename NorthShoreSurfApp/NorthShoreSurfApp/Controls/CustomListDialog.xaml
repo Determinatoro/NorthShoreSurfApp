@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:d="http://xamarin.com/schemas/2014/forms/design"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
@@ -7,10 +7,10 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:local="clr-namespace:NorthShoreSurfApp"
                  mc:Ignorable="d"
-                 x:Name="this"                 
+                 x:Name="this"
                  x:Class="NorthShoreSurfApp.CustomListDialog">
     <pages:PopupPage.Animation>
-        <animations:ScaleAnimation 
+        <animations:ScaleAnimation
             PositionIn="Center"
             PositionOut="Center"
             ScaleIn="1"
@@ -35,9 +35,9 @@
         </Grid.RowDefinitions>
 
         <!--Dialog grid-->
-        <Grid Grid.Column="1" 
+        <Grid Grid.Column="1"
               Grid.Row="1"
-              ColumnSpacing="0" 
+              ColumnSpacing="0"
               RowSpacing="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="55"/>
@@ -46,26 +46,26 @@
             </Grid.RowDefinitions>
 
             <!--Header-->
-            <local:CustomFrame 
-                CornerRadius="10,10,0,0"  
+            <local:CustomFrame
+                CornerRadius="10,10,0,0"
                 BackgroundColor="{Binding HeaderBackgroundColor, Source={x:Reference this}}"
                 VerticalOptions="Fill"
                 Padding="0"
                 HorizontalOptions="Fill">
-                <StackLayout Padding="0" 
+                <StackLayout Padding="0"
                              Spacing="0"
-                             VerticalOptions="Fill" 
+                             VerticalOptions="Fill"
                              >
                 <!--Header label-->
-                <Label 
-                     HorizontalOptions="Fill" 
-                     VerticalOptions="CenterAndExpand" 
+                <Label
+                     HorizontalOptions="Fill"
+                     VerticalOptions="CenterAndExpand"
                      FontSize="{Binding HeaderSize, Source={x:Reference this}}"
                      VerticalTextAlignment="Center"
                      HorizontalTextAlignment="Center"
                     FontAttributes="{Binding HeaderFontAttributes, Source={x:Reference this}}"
                     TextDecorations="{Binding HeaderDecorations, Source={x:Reference this}}"
-                     Text="{Binding Header, Source={x:Reference this}}" 
+                     Text="{Binding Header, Source={x:Reference this}}"
                      TextColor="{Binding HeaderColor, Source={x:Reference this}}"/>
                 </StackLayout>
 
@@ -81,30 +81,30 @@
                       SeparatorColor="{StaticResource NSSBlue}"
                       Footer=""
                       BackgroundColor="White"
-                      ItemsSource="{Binding ItemsSource, Source={x:Reference this}}" 
+                      ItemsSource="{Binding ItemsSource, Source={x:Reference this}}"
                       />
 
             <!--Cancel button frame-->
-            <local:CustomFrame 
+            <local:CustomFrame
                 x:Name="frameCancel"
                 Grid.Row="2"
                 Padding="0"
-                CornerRadius="0,0,10,10"                
+                CornerRadius="0,0,10,10"
                 BackgroundColor="{StaticResource NSSBlue}"
                 HorizontalOptions="Fill">
 
                 <!--Cancel button text-->
-                <Label 
-                    HorizontalOptions="Center" 
-                    VerticalOptions="Center" 
-                    FontSize="24"                    
-                    Text="{local:Translate cancel}" 
+                <Label
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    FontSize="24"
+                    Text="{local:Translate cancel}"
                     TextColor="White"/>
 
             </local:CustomFrame>
 
             <!--Button-->
-            <Button 
+            <Button
                 x:Name="btnCancel"
                 Grid.Row="2"
                 BackgroundColor="Transparent">

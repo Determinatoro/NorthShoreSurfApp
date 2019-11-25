@@ -15,7 +15,7 @@ namespace NorthShoreSurfApp
     // ENUMS
     /*****************************************************************/
     #region Enums
-    
+
     public enum CustomDialogType
     {
         Progress,
@@ -137,6 +137,8 @@ namespace NorthShoreSurfApp
             get { return (string)GetValue(CancelTitleProperty); }
             set { SetValue(CancelTitleProperty, value); }
         }
+
+      
 
         #endregion
     }

@@ -62,6 +62,11 @@ namespace NorthShoreSurfApp
             get { return (double)GetValue(TitleSizeProperty); }
             set { SetValue(TitleSizeProperty, value); }
         }
+        public float CornerRadius
+        {
+            get { return (float)GetValue(CornerRadiusProperty); }
+            set { SetValue(CornerRadiusProperty, value); }
+        }
         public string Text
         {
             get { return (string)GetValue(TextProperty); }
@@ -82,11 +87,7 @@ namespace NorthShoreSurfApp
             get { return (Keyboard)GetValue(KeyboardProperty); }
             set { SetValue(KeyboardProperty, value); }
         }
-        public float CornerRadius
-        {
-            get { return (float)GetValue(CornerRadiusProperty); }
-            set { SetValue(CornerRadiusProperty, value); }
-        }
+        
         public Thickness TextMargin
         {
             get { return (Thickness)GetValue(TextMarginProperty); }

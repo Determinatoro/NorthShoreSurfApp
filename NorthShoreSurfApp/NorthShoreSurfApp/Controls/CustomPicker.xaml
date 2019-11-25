@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,22 +13,22 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
+
             <!--Title-->
-            <Label x:Name="lblTitle"                   
-                   Text="{Binding Title, Source={x:Reference this}}" 
-                   TextColor="{Binding TitleColor, Source={x:Reference this}}" 
+            <Label x:Name="lblTitle"
+                   Text="{Binding Title, Source={x:Reference this}}"
+                   TextColor="{Binding TitleColor, Source={x:Reference this}}"
                    FontSize="{Binding TitleSize, Source={x:Reference this}}"
-                   Margin="0, 0, 0, 3" 
+                   Margin="0, 0, 0, 3"
                    />
             <!--Border-->
             <Frame x:Name="frameSelectedText"
-                   Padding="0" 
-                   Grid.Row="1" 
-                   HasShadow="False"     
-                   BorderColor="Transparent"                   
+                   Padding="0"
+                   Grid.Row="1"
+                   HasShadow="False"
+                   BorderColor="Transparent"
                    BackgroundColor="{Binding TextBackgroundColor, Source={x:Reference this}}"
-                   CornerRadius="{Binding CornerRadius, Source={x:Reference this}}" 
+                   CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"
                    Margin="0"
                    >
 
@@ -37,17 +37,17 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="50"/>
                     </Grid.ColumnDefinitions>
-                
+
                    <!--Selected text-->
-                   <Label HeightRequest="50" 
-                          x:Name="lblSelectedText"                          
-                          Margin="{Binding TextMargin, Source={x:Reference this}}" 
+                   <Label HeightRequest="50"
+                          x:Name="lblSelectedText"
+                          Margin="{Binding TextMargin, Source={x:Reference this}}"
                           VerticalOptions="CenterAndExpand"
                           VerticalTextAlignment="Center"
                           HorizontalTextAlignment="Start"
                           HorizontalOptions="StartAndExpand"
-                          Text="{Binding Text, Source={x:Reference this}}" 
-                          FontSize="{Binding TextSize, Source={x:Reference this}}" 
+                          Text="{Binding Text, Source={x:Reference this}}"
+                          FontSize="{Binding TextSize, Source={x:Reference this}}"
                           TextColor="{Binding TextColor, Source={x:Reference this}}"
                           />
                     <!--Down arrow-->
@@ -62,16 +62,16 @@
 
             <Frame x:Name="frameOverlay"
                    Padding="0"
-                   Grid.Row="1" 
-                   HasShadow="False"     
-                   BorderColor="Transparent"  
+                   Grid.Row="1"
+                   HasShadow="False"
+                   BorderColor="Transparent"
                    BackgroundColor="Transparent"
-                   CornerRadius="{Binding CornerRadius, Source={x:Reference this}}" 
+                   CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"
                    Margin="0"
                    />
 
             <!--Button-->
-            <Button 
+            <Button
                 x:Name="buttonOverlay"
                 Grid.Row="1"
                 BackgroundColor="Transparent"

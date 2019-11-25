@@ -2,6 +2,7 @@
 using NorthShoreSurfApp.ViewCells;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using Xamarin.Forms;
@@ -63,7 +64,6 @@ namespace NorthShoreSurfApp.ViewModels
                     genderId != 0;
             }
         }
-
         public string FirstName
         {
             get { return firstName; }
@@ -76,7 +76,6 @@ namespace NorthShoreSurfApp.ViewModels
                 }
             }
         }
-
         public string LastName
         {
             get { return lastName; }
@@ -89,7 +88,6 @@ namespace NorthShoreSurfApp.ViewModels
                 }
             }
         }
-
         public string PhoneNo
         {
             get { return phoneNo; }
@@ -102,7 +100,6 @@ namespace NorthShoreSurfApp.ViewModels
                 }
             }
         }
-
         public int GenderId
         {
             get { return genderId; }
@@ -115,7 +112,6 @@ namespace NorthShoreSurfApp.ViewModels
                 }
             }
         }
-
         public string Age
         {
             get { return age; }
