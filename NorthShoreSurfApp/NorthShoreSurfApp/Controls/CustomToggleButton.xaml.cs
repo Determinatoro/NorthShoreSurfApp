@@ -95,14 +95,24 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty IconRightPaddingProperty = BindableProperty.Create(nameof(IconRightPadding), typeof(Thickness), typeof(CustomToggleButton), new Thickness(5));
         public static readonly BindableProperty IconRightTransformationsProperty = BindableProperty.Create(nameof(IconRightTransformations), typeof(List<ITransformation>), typeof(CustomToggleButton), null);
         public static readonly BindableProperty IconLeftTransformationsProperty = BindableProperty.Create(nameof(IconLeftTransformations), typeof(List<ITransformation>), typeof(CustomToggleButton), null);
-        public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(CustomToggleButton), 10.0f, propertyChanged:
+        public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(CustomToggleButton), new CornerRadius(10), propertyChanged:
             (b, oldValue, newValue) =>
             {
                 var button = (CustomToggleButton)b;
                 button.SetCornerRadius();
             });
+        public static readonly BindableProperty CornerRadiusLeftProperty = BindableProperty.Create(nameof(CornerRadiusLeft), typeof(CornerRadius), typeof(CustomToggleButton), new CornerRadius(10, 0, 10, 0));
+        public static readonly BindableProperty CornerRadiusRightProperty = BindableProperty.Create(nameof(CornerRadiusRight), typeof(CornerRadius), typeof(CustomToggleButton), new CornerRadius(0, 10, 0, 10));
+
         public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(CustomToggleButton), Color.Black);
-        public static readonly BindableProperty BorderThicknessProperty = BindableProperty.Create(nameof(BorderThickness), typeof(Thickness), typeof(CustomToggleButton), new Thickness(0.5));
+        public static readonly BindableProperty BorderThicknessProperty = BindableProperty.Create(nameof(BorderThickness), typeof(float), typeof(CustomToggleButton), 1.0f, propertyChanged:
+            (b, oldValue, newValue) =>
+            {
+                var button = (CustomToggleButton)b;
+                var value = (double)newValue;
+                button.ContentPadding = new Thickness(value);
+            });
+        public static readonly BindableProperty ContentPaddingProperty = BindableProperty.Create(nameof(ContentPadding), typeof(Thickness), typeof(CustomToggleButton), new Thickness(1));
 
         public static readonly BindableProperty BackgroundUnselectedProperty = BindableProperty.Create(nameof(BackgroundUnselected), typeof(Color), typeof(CustomToggleButton), Color.White);
         public static readonly BindableProperty BackgroundSelectedProperty = BindableProperty.Create(nameof(BackgroundSelected), typeof(Color), typeof(CustomToggleButton), Color.Black, propertyChanged:
@@ -145,7 +155,7 @@ namespace NorthShoreSurfApp
 
             btnLeft.Clicked += Button_Clicked;
             btnRight.Clicked += Button_Clicked;
-
+            
             SelectedToggleType = ToggleType.Left;
             SetCornerRadius();
             imageLeft.BitmapOptimizations = false;
@@ -234,16 +244,12 @@ namespace NorthShoreSurfApp
         }
         public Color BorderColor
         {
-            get {
-                if (BorderThickness.VerticalThickness == 0 && BorderThickness.HorizontalThickness == 0)
-                    return Color.Transparent;
-                return (Color)GetValue(BorderColorProperty); 
-            }
+            get { return (Color)GetValue(BorderColorProperty); }
             set { SetValue(BorderColorProperty, value); }
         }
-        public Thickness BorderThickness
+        public float BorderThickness
         {
-            get { return (Thickness)GetValue(BorderThicknessProperty); }
+            get { return (float)GetValue(BorderThicknessProperty); }
             set { SetValue(BorderThicknessProperty, value); }
         }
         public Color BackgroundUnselected
@@ -276,10 +282,20 @@ namespace NorthShoreSurfApp
             get { return (Color)GetValue(UnselectedColorProperty); }
             set { SetValue(UnselectedColorProperty, value); }
         }
-        public float CornerRadius
+        public CornerRadius CornerRadius
         {
-            get { return (float)GetValue(CornerRadiusProperty); }
+            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
             set { SetValue(CornerRadiusProperty, value); }
+        }
+        public CornerRadius CornerRadiusLeft
+        {
+            get { return (CornerRadius)GetValue(CornerRadiusLeftProperty); }
+            private set { SetValue(CornerRadiusLeftProperty, value); }
+        }
+        public CornerRadius CornerRadiusRight
+        {
+            get { return (CornerRadius)GetValue(CornerRadiusRightProperty); }
+            private set { SetValue(CornerRadiusRightProperty, value); }
         }
         public List<ITransformation> IconRightTransformations
         {
@@ -301,6 +317,11 @@ namespace NorthShoreSurfApp
             get { return (GridLength)GetValue(IconRightWidthProperty); }
             set { SetValue(IconRightWidthProperty, value); }
         }
+        public Thickness ContentPadding
+        {
+            get { return (Thickness)GetValue(ContentPaddingProperty); }
+            private set { SetValue(ContentPaddingProperty, value); }
+        }
 
         #endregion
 
@@ -312,8 +333,8 @@ namespace NorthShoreSurfApp
         private void SetCornerRadius()
         {
             var newValue = CornerRadius;
-            frameSelectedLeft.CornerRadius = new CornerRadius(newValue, 0, newValue, 0);
-            frameSelectedRight.CornerRadius = new CornerRadius(0, newValue, 0, newValue);
+            CornerRadiusLeft = new CornerRadius(newValue.TopLeft, 0, newValue.BottomLeft, 0);
+            CornerRadiusRight = new CornerRadius(0, newValue.TopRight, 0, newValue.BottomRight);
         }
 
         private void UpdateLayout(bool toggleTypeChanged = false)
