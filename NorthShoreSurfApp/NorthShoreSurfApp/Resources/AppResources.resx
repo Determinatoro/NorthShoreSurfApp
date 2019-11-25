@@ -199,4 +199,7 @@ Please wait...</value>
   <data name="user_not_found" xml:space="preserve">
     <value>User not found</value>
   </data>
+  <data name="weather" xml:space="preserve">
+    <value>Weather</value>
+  </data>
 </root>

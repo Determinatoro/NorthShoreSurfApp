@@ -4,11 +4,98 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:shared="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
              mc:Ignorable="d"
-             x:Class="NorthShoreSurfApp.SurfingConditionsPage">
+             x:Class="NorthShoreSurfApp.SurfingConditionsPage"
+             >
     <ContentPage.Content>
-        <Grid>
-            <shared:VideoView x:Name="vvWebcam"/>
+        <Grid RowSpacing="0"
+              Margin="0"
+              Padding="0"
+              BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Top navigation bar-->
+            <local:CustomNavigationBar x:Name="navigationBar"
+                                       BarBackgroundColor="{StaticResource BarBackground}"
+                                       ShowBackButton="True"
+                                       ShowLogo="True"
+                                       Logo="ic_logo.png"
+                                       />
+
+            <Grid RowSpacing="0"
+                  Margin="0"
+                  Padding="0"
+                  ColumnSpacing="0"
+                  VerticalOptions="Fill" 
+                  Grid.Row="1" 
+                  HorizontalOptions="Fill" 
+                  >
+
+                <!--ScrollView-->
+                <ScrollView>
+                    <StackLayout Margin="20">
+                        <!--Navigation button-->
+                        <local:CustomImageTextButton x:Name="btnApprove"
+                                                     Grid.Row="1" 
+                                                     HeightRequest="60" 
+                                                     Background="{StaticResource NSSBlue}" 
+                                                     CornerRadius="10" 
+                                                     BackgroundPressed="{StaticResource NSSBluePressed}" 
+                                                     Icon="ic_webcam.png"
+                                                     IconPadding="10"
+                                                     TitleColor="White"
+                                                     TitleSize="24"
+                                                     IconColor="White"
+                                                     Title="{local:Translate approve}"
+                                                     />
+
+                        <Frame Margin="0, 20, 0, 0"
+                               Padding="0"                               
+                               CornerRadius="10"
+                               BackgroundColor="{StaticResource NSSBlue}"
+                               >
+
+                            <local:CustomWebView x:Name="wvWeatherInfo"
+                                                 Margin="10"
+                                                 />
+
+                        </Frame>
+
+                        <Frame Margin="0, 20, 0, 0"
+                               Padding="0"
+                               HeightRequest="200"
+                               CornerRadius="10"
+                               BackgroundColor="{StaticResource NSSBlue}"
+                               >
+
+
+                        </Frame>
+
+                        <Frame Margin="0, 20, 0, 0"
+                               Padding="0"
+                               BackgroundColor="{StaticResource NSSBlue}"
+                               >
+
+
+                        </Frame>
+
+                    </StackLayout>
+                </ScrollView>
+
+                
+
+            </Grid>
+
+            <shared:VideoView x:Name="vvWebcam"
+                              Grid.Row="1"
+                              IsVisible="False"
+                              />
+            
+            <!--<WebView x:Name="wvWebCam"/>-->
         </Grid>
     </ContentPage.Content>
 </ContentPage>

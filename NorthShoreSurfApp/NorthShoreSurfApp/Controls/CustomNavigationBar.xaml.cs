@@ -39,13 +39,15 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Variables
 
-        public static readonly BindableProperty LogoProperty = BindableProperty.Create(nameof(Logo), typeof(ImageSource), typeof(CustomImageTextButton), null);
-        public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(Title), typeof(string), typeof(CustomImageTextButton), null);
-        public static readonly BindableProperty TitleSizeProperty = BindableProperty.Create(nameof(TitleSize), typeof(double), typeof(CustomImageTextButton), null);
-        public static readonly BindableProperty TitleColorProperty = BindableProperty.Create(nameof(TitleColor), typeof(Color), typeof(CustomImageTextButton), null);
-        public static readonly BindableProperty BarBackgroundColorProperty = BindableProperty.Create(nameof(BarBackgroundColor), typeof(Color), typeof(CustomImageTextButton), null);
-        public static readonly BindableProperty ShowBackButtonProperty = BindableProperty.Create(nameof(ShowBackButton), typeof(bool), typeof(CustomImageTextButton), null);
-        public static readonly BindableProperty ShowLogoProperty = BindableProperty.Create(nameof(ShowLogo), typeof(bool), typeof(CustomImageTextButton), null);
+        public static readonly BindableProperty LogoProperty = BindableProperty.Create(nameof(Logo), typeof(ImageSource), typeof(CustomNavigationBar), null);
+        public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(Title), typeof(string), typeof(CustomNavigationBar), null);
+        public static readonly BindableProperty TitleSizeProperty = BindableProperty.Create(nameof(TitleSize), typeof(double), typeof(CustomNavigationBar), null);
+        public static readonly BindableProperty TitleColorProperty = BindableProperty.Create(nameof(TitleColor), typeof(Color), typeof(CustomNavigationBar), null);
+        public static readonly BindableProperty BarBackgroundColorProperty = BindableProperty.Create(nameof(BarBackgroundColor), typeof(Color), typeof(CustomNavigationBar), null);
+        public static readonly BindableProperty ShowBackButtonProperty = BindableProperty.Create(nameof(ShowBackButton), typeof(bool), typeof(CustomNavigationBar), null);
+        public static readonly BindableProperty ShowLogoProperty = BindableProperty.Create(nameof(ShowLogo), typeof(bool), typeof(CustomNavigationBar), null);
+        public static readonly BindableProperty ButtonOneIsVisibleProperty = BindableProperty.Create(nameof(ButtonOneIsVisible), typeof(bool), typeof(CustomNavigationBar), false);
+        public static readonly BindableProperty ButtonTwoIsVisibleProperty = BindableProperty.Create(nameof(ButtonTwoIsVisible), typeof(bool), typeof(CustomNavigationBar), false);
 
         public event EventHandler<EventArgs> BackButtonClicked;
 
@@ -63,7 +65,7 @@ namespace NorthShoreSurfApp
             // Back button clicked
             btnBack.Clicked += (sender, args) =>
             {
-                BackButtonClicked(sender, args);
+                BackButtonClicked?.Invoke(sender, args);
             };
         }
 
@@ -73,6 +75,16 @@ namespace NorthShoreSurfApp
         // PROPERTIES
         /*****************************************************************/
         #region Properties
+
+        public CustomImageButton ButtonOne
+        {
+            get => btn1;
+        }
+
+        public CustomImageButton ButtonTwo
+        {
+            get => btn2;
+        }
 
         public ImageSource Logo
         {
@@ -108,6 +120,16 @@ namespace NorthShoreSurfApp
         {
             get { return (bool)GetValue(ShowLogoProperty); }
             set { SetValue(ShowLogoProperty, value); }
+        }
+        public bool ButtonOneIsVisible
+        {
+            get { return (bool)GetValue(ButtonOneIsVisibleProperty); }
+            set { SetValue(ButtonOneIsVisibleProperty, value); }
+        }
+        public bool ButtonTwoIsVisible
+        {
+            get { return (bool)GetValue(ButtonTwoIsVisibleProperty); }
+            set { SetValue(ButtonTwoIsVisibleProperty, value); }
         }
 
         #endregion

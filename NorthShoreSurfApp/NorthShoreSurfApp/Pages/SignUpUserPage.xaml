@@ -14,7 +14,9 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <Grid>
+        <Grid RowSpacing="0"
+              Margin="0"
+              Padding="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -166,7 +168,7 @@
 
                 <!--ScrollView-->
                 <ScrollView>
-                    <StackLayout Margin="20, 20, 20, 0">
+                    <StackLayout Margin="20">
                         <Label Text="Verify phone number"
                                HorizontalTextAlignment="Center"
                                TextColor="White"

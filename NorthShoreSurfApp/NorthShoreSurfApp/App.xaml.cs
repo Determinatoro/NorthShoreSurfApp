@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LibVLCSharp.Shared;
+using Microsoft.EntityFrameworkCore;
 using NorthShoreSurfApp.Database;
 using System;
 using System.IO;
@@ -20,7 +21,8 @@ namespace NorthShoreSurfApp
             InitializeComponent();
             
             MainPage = new CustomNavigationPage(new SignUpUserPage());
-            
+            Core.Initialize();
+
             LocalDataService = DependencyService.Get<ILocalDataService>();
             OrientationService = DependencyService.Get<IOrientationService>();
 
