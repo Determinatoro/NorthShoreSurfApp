@@ -107,6 +107,29 @@ namespace NorthShoreSurfApp.Droid.Services
             auth.SignInWithCredential(phoneAuthCredential).AddOnCompleteListener(Activity, this);
         }
 
+        /// <summary>
+        /// Sign out of firebase
+        /// </summary>
+        /// <param name="callBack">Firebase callback</param>
+        /// <returns>Firebase response</returns>
+        public Task<FirebaseResponse> SignOut(IFirebaseServiceCallBack callBack)
+        {
+            try
+            {
+                // Set callback
+                FirebaseServiceCallBack = callBack;
+                // Sign out
+                FirebaseAuth.Instance.SignOut();
+                // Return response
+                return new Task<FirebaseResponse>(() => new FirebaseResponse(true));
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new Task<FirebaseResponse>(() => new FirebaseResponse(mes.Message));
+            }
+        }
+
         #endregion
 
         /*****************************************************************/

@@ -120,6 +120,9 @@
   <data name="age" xml:space="preserve">
     <value>Age</value>
   </data>
+  <data name="approve" xml:space="preserve">
+    <value>Approve</value>
+  </data>
   <data name="back" xml:space="preserve">
     <value>Back</value>
   </data>
@@ -162,6 +165,10 @@
   <data name="gender" xml:space="preserve">
     <value>Gender</value>
   </data>
+  <data name="getting_data_please_wait" xml:space="preserve">
+    <value>Getting data.
+Please wait...</value>
+  </data>
   <data name="last_name" xml:space="preserve">
     <value>Last name</value>
   </data>
@@ -174,8 +181,17 @@
   <data name="other" xml:space="preserve">
     <value>Other</value>
   </data>
+  <data name="phone_no" xml:space="preserve">
+    <value>Phone no.</value>
+  </data>
+  <data name="select_parameter" xml:space="preserve">
+    <value>Select {0}</value>
+  </data>
   <data name="sign_up" xml:space="preserve">
     <value>Sign up</value>
+  </data>
+  <data name="sms_code" xml:space="preserve">
+    <value>SMS code</value>
   </data>
   <data name="user_already_exist" xml:space="preserve">
     <value>User already exist</value>

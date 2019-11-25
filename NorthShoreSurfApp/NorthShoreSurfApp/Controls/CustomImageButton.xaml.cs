@@ -1,7 +1,6 @@
-﻿using System;
-﻿using FFImageLoading.Forms;
-using FFImageLoading.Transformations;
+﻿using FFImageLoading.Transformations;
 using FFImageLoading.Work;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,23 +17,23 @@ namespace NorthShoreSurfApp
     #region Trigger actions
 
     // Button pressed trigger
-    public class CustomButtonImageTextPressedTriggerAction : TriggerAction<Button>
+    public class CustomImageButtonTextPressedTriggerAction : TriggerAction<Button>
     {
         protected override void Invoke(Button button)
         {
-            var parent = button.FindParentWithType<CustomImageTextButton>();
-            var frame = parent.FindByName<Frame>("frame");
+            var parent = button.FindParentWithType<CustomImageButton>();
+            var frame = parent.FindByName<Frame>("frameBackground");
             frame.BackgroundColor = parent.BackgroundPressed;
         }
     }
 
     // Button released trigger
-    public class CustomButtonImageTextReleasedTriggerAction : TriggerAction<Button>
+    public class CustomImageButtonReleasedTriggerAction : TriggerAction<Button>
     {
         protected override void Invoke(Button button)
         {
-            var parent = button.FindParentWithType<CustomImageTextButton>();
-            var frame = parent.FindByName<Frame>("frame");
+            var parent = button.FindParentWithType<CustomImageButton>();
+            var frame = parent.FindByName<Frame>("frameBackground");
             frame.BackgroundColor = parent.Background;
         }
     }
@@ -42,28 +41,27 @@ namespace NorthShoreSurfApp
     #endregion
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CustomImageTextButton : ContentView
+    public partial class CustomImageButton : ContentView
     {
         /*****************************************************************/
         // VARIABLES
         /*****************************************************************/
         #region Variables
-               
-        public static readonly BindableProperty BackgroundPressedProperty = BindableProperty.Create(nameof(BackgroundPressed), typeof(Color), typeof(CustomImageTextButton), Color.Gray);
-        public static readonly BindableProperty BackgroundProperty = BindableProperty.Create(nameof(Background), typeof(Color), typeof(CustomImageTextButton), Color.White);
-        public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(Title), typeof(string), typeof(CustomImageTextButton), null);
-        public static readonly BindableProperty TitleColorProperty = BindableProperty.Create(nameof(TitleColor), typeof(Color), typeof(CustomImageTextButton), Color.Black);
-        public static readonly BindableProperty TitleSizeProperty = BindableProperty.Create(nameof(TitleSize), typeof(double), typeof(CustomImageTextButton), 24.0);
-        public static readonly BindableProperty IconProperty = BindableProperty.Create(nameof(Icon), typeof(Xamarin.Forms.ImageSource), typeof(CustomImageTextButton), null);
-        public static readonly BindableProperty IconColorProperty = BindableProperty.Create(nameof(IconColor), typeof(Color), typeof(CustomImageTextButton), Color.White, propertyChanged:
+
+        public static readonly BindableProperty BackgroundPressedProperty = BindableProperty.Create(nameof(BackgroundPressed), typeof(Color), typeof(CustomImageButton), Color.Gray);
+        public static readonly BindableProperty BackgroundProperty = BindableProperty.Create(nameof(Background), typeof(Color), typeof(CustomImageButton), Color.White);
+        public static readonly BindableProperty IconProperty = BindableProperty.Create(nameof(Icon), typeof(Xamarin.Forms.ImageSource), typeof(CustomImageButton), null);
+        public static readonly BindableProperty IconColorProperty = BindableProperty.Create(nameof(Icon), typeof(Color), typeof(CustomImageButton), Color.White, propertyChanged:
             (b, oldValue, newValue) =>
             {
-                var button = (CustomImageTextButton)b;
+                var button = (CustomImageButton)b;
                 button.IconTransformations = button.GetTransformations();
             });
-        public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(CustomImageTextButton), 10.0f);
-        public static readonly BindableProperty IconPaddingProperty = BindableProperty.Create(nameof(IconPadding), typeof(Thickness), typeof(CustomImageTextButton), new Thickness(5));
-        public static readonly BindableProperty IconTransformationsProperty = BindableProperty.Create(nameof(IconTransformations), typeof(List<ITransformation>), typeof(CustomImageTextButton), null);
+        public static readonly BindableProperty IconPaddingProperty = BindableProperty.Create(nameof(IconPadding), typeof(Thickness), typeof(CustomImageButton), new Thickness(5));
+        public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(CustomImageButton), 10.0f);
+        public static readonly BindableProperty BorderThicknessProperty = BindableProperty.Create(nameof(BorderThickness), typeof(Thickness), typeof(CustomImageButton), new Thickness(0));
+        public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(CustomImageButton), Color.Black);
+        public static readonly BindableProperty IconTransformationsProperty = BindableProperty.Create(nameof(IconTransformations), typeof(List<ITransformation>), typeof(CustomImageButton), null);
 
         public event EventHandler<EventArgs> Clicked;
 
@@ -74,11 +72,9 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Constructor
 
-        public CustomImageTextButton()
+        public CustomImageButton()
         {
             InitializeComponent();
-
-            Color color = IconColor;
 
             // Button clicked
             button.Clicked += (sender, args) =>
@@ -121,25 +117,20 @@ namespace NorthShoreSurfApp
             get { return (float)GetValue(CornerRadiusProperty); }
             set { SetValue(CornerRadiusProperty, value); }
         }
-        public string Title
+        public Thickness BorderThickness
         {
-            get { return (string)GetValue(TitleProperty); }
-            set { SetValue(TitleProperty, value); }
-        }
-        public Color TitleColor
-        {
-            get { return (Color)GetValue(TitleColorProperty); }
-            set { SetValue(TitleColorProperty, value); }
-        }       
-        public double TitleSize
-        {
-            get { return (double)GetValue(TitleSizeProperty); }
-            set { SetValue(TitleSizeProperty, value); }
+            get { return (Thickness)GetValue(BorderThicknessProperty); }
+            set { SetValue(BorderThicknessProperty, value); }
         }
         public Thickness IconPadding
         {
             get { return (Thickness)GetValue(IconPaddingProperty); }
             set { SetValue(IconPaddingProperty, value); }
+        }
+        public Color BorderColor
+        {
+            get { return (Color)GetValue(BorderColorProperty); }
+            set { SetValue(BorderColorProperty, value); }
         }
         public List<ITransformation> IconTransformations
         {
@@ -155,7 +146,7 @@ namespace NorthShoreSurfApp
         #region Methods
 
         /// <summary>
-        /// Get transformations for image
+        /// Set icon color
         /// </summary>
         private List<ITransformation> GetTransformations()
         {
