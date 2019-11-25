@@ -51,7 +51,8 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty ShowLogoProperty = BindableProperty.Create(nameof(ShowLogo), typeof(bool), typeof(CustomNavigationBar), null);
         public static readonly BindableProperty ButtonOneIsVisibleProperty = BindableProperty.Create(nameof(ButtonOneIsVisible), typeof(bool), typeof(CustomNavigationBar), false);
         public static readonly BindableProperty ButtonTwoIsVisibleProperty = BindableProperty.Create(nameof(ButtonTwoIsVisible), typeof(bool), typeof(CustomNavigationBar), false);
-
+        public static readonly BindableProperty ButtonOneImageProperty = BindableProperty.Create(nameof(ButtonOneImage), typeof(ImageSource), typeof(CustomNavigationBar), null);
+        public static readonly BindableProperty ButtonTwoImageProperty = BindableProperty.Create(nameof(ButtonTwoImage), typeof(ImageSource), typeof(CustomNavigationBar), null);
         public event EventHandler<EventArgs> BackButtonClicked;
 
         #endregion
@@ -70,6 +71,9 @@ namespace NorthShoreSurfApp
             {
                 BackButtonClicked?.Invoke(sender, args);
             };
+
+            
+
         }
 
         #endregion
@@ -79,6 +83,17 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Properties
 
+        public ImageSource ButtonOneImage
+        {
+            get { return (ImageSource)GetValue(ButtonOneImageProperty); }
+            set { SetValue(ButtonOneImageProperty, value); }
+        }
+
+        public ImageSource ButtonTwoImage
+        {
+            get { return (ImageSource)GetValue(ButtonTwoImageProperty); }
+            set { SetValue(ButtonTwoImageProperty, value); }
+        }
         public CustomImageButton ButtonOne
         {
             get => btn1;

@@ -28,13 +28,14 @@
           <local:CustomNavigationBar x:Name="carpoolPageNavigationBar"
                                        BarBackgroundColor="{StaticResource BarBackground}"
                                        ShowBackButton="False"
-                                       Title="Carpooling Page"
                                        TitleColor="Black"
                                        TitleSize="24"
                                        ShowLogo="False"
                                        Logo="ic_home.png"
                                        Grid.Row="0"
-                                       
+                                       ButtonOneIsVisible="True"
+                                       ButtonTwoIsVisible="True"
+                                       ButtonTwoImage="Mail.png"
                                      />
 
 
@@ -61,7 +62,7 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
                             
-                            <Label Text="{Binding DateTime} " LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
+                            <Label Text="{Binding DepartureTimeString} " LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
                             <Label Text="{Binding DateTime}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
                             <Label Text="{Binding PricePerPassenger}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
                             <Label Text="{Binding NumberOfSeats}" TextColor="White" Grid.Row="3" Grid.Column="0"/>

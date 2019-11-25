@@ -142,13 +142,13 @@
                     Margin="1"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    Background="White"
+                    BackgroundColor="White"
                     BackgroundPressed="{StaticResource BarBackground}"
                     BorderColor="{StaticResource NSSBlue}"
                     BorderThickness="1"
-                    IconColor="{StaticResource NSSBlue}"
                     IconPadding="10"
-                    Icon="ic_surfing.png"
+                    IconColor="{StaticResource NSSBlue}"
+                    Icon="{Binding ButtonTwoImage, Source={x:Reference this}}"
                     />
 
                 <local:CustomImageButton
@@ -161,13 +161,15 @@
                     WidthRequest="55"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    Background="White"
+                    BackgroundColor="White"
                     BackgroundPressed="{StaticResource BarBackground}"
                     BorderColor="{StaticResource NSSBlue}"
                     BorderThickness="1"
-                    IconColor="{StaticResource NSSBlue}"
                     IconPadding="10"
-                    Icon="ic_surfing.png"
+                    IconColor="{StaticResource NSSBlue}"
+                    Icon="{Binding ButtonOneImage, Source={x:Reference this}}"
+                    
+                   
                     />
 
             </Grid>

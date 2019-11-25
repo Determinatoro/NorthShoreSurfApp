@@ -79,6 +79,7 @@
     <BundleResource Include="Resources\ic_car_white.png" />
     <BundleResource Include="Resources\request_icon_b.png" />
     <BundleResource Include="Resources\request_icon_w.png" />
+    <BundleResource Include="Resources\Mail.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

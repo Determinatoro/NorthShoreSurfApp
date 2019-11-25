@@ -31,7 +31,7 @@
                                        TitleSize="24"
                                        ShowLogo="False"
                                        Logo="ic_home.png"
-                                       
+                                       Grid.Row="0"
                                        />
 
         <ScrollView Grid.Row="1" x:Name="newEventOrRequest">
