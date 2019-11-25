@@ -10,11 +10,6 @@
              x:Name="this"
              x:Class="NorthShoreSurfApp.CustomImageButton">
     <!--Resources-->
-    <ContentView.Resources>
-        <ResourceDictionary>
-            <converters:SmallerCornerRadiusConverter x:Key="cornerRadiusConverter" Substraction="0.3"/>
-        </ResourceDictionary>
-    </ContentView.Resources>
     <ContentView.Content>
         <Grid
             Margin="0"
@@ -23,29 +18,18 @@
             ColumnSpacing="0"
             x:Name="grid"
             >
-            <!--Border frame-->
-            <Frame
-                x:Name="frameBorder"
+            <!--Frame-->
+            <local:CustomFrame
+                x:Name="frame"
                 HasShadow="false"
                 VerticalOptions="FillAndExpand"
                 HorizontalOptions="FillAndExpand"
                 Margin="0"
+                BorderWidth="{Binding BorderThickness, Source={x:Reference this}}"
+                BorderColor="{Binding BorderColor, Source={x:Reference this}}"
                 CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"
-                BackgroundColor="{Binding BorderColor, Source={x:Reference this}}"
-                Padding="{Binding BorderThickness, Source={x:Reference this}}"
-                >
-                <!--Background frame-->
-                <Frame
-                    x:Name="frameBackground"
-                    VerticalOptions="FillAndExpand"
-                    HorizontalOptions="FillAndExpand"
-                    HasShadow="false"
-                    Margin="0"
-                    Padding="0"
-                    CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"
-                    BackgroundColor="{Binding Background, Source={x:Reference this}}"
-                    />
-            </Frame>
+                BackgroundColor="{Binding Background, Source={x:Reference this}}"
+                />
 
             <!--Icon image-->
             <ffimageloading:CachedImage

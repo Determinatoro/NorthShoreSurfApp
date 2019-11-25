@@ -22,7 +22,7 @@ namespace NorthShoreSurfApp
         protected override void Invoke(Button button)
         {
             var parent = button.FindParentWithType<CustomImageButton>();
-            var frame = parent.FindByName<Frame>("frameBackground");
+            var frame = parent.FindByName<Frame>("frame");
             frame.BackgroundColor = parent.BackgroundPressed;
         }
     }
@@ -33,7 +33,7 @@ namespace NorthShoreSurfApp
         protected override void Invoke(Button button)
         {
             var parent = button.FindParentWithType<CustomImageButton>();
-            var frame = parent.FindByName<Frame>("frameBackground");
+            var frame = parent.FindByName<Frame>("frame");
             frame.BackgroundColor = parent.Background;
         }
     }
@@ -58,10 +58,16 @@ namespace NorthShoreSurfApp
                 button.IconTransformations = button.GetTransformations();
             });
         public static readonly BindableProperty IconPaddingProperty = BindableProperty.Create(nameof(IconPadding), typeof(Thickness), typeof(CustomImageButton), new Thickness(5));
-        public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(CustomImageButton), 10.0f);
-        public static readonly BindableProperty BorderThicknessProperty = BindableProperty.Create(nameof(BorderThickness), typeof(Thickness), typeof(CustomImageButton), new Thickness(0));
+        public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(CustomImageButton), new CornerRadius(10));
+        public static readonly BindableProperty BorderThicknessProperty = BindableProperty.Create(nameof(BorderThickness), typeof(float), typeof(CustomImageButton), 0.0f);
         public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(CustomImageButton), Color.Black);
         public static readonly BindableProperty IconTransformationsProperty = BindableProperty.Create(nameof(IconTransformations), typeof(List<ITransformation>), typeof(CustomImageButton), null);
+        public static readonly BindableProperty UseOverlayColorProperty = BindableProperty.Create(nameof(UseOverlayColor), typeof(bool), typeof(CustomImageButton), true, propertyChanged:
+            (b, oldValue, newValue) =>
+            {
+                var button = (CustomImageButton)b;
+                button.IconTransformations = button.GetTransformations();
+            });
 
         public event EventHandler<EventArgs> Clicked;
 
@@ -112,14 +118,14 @@ namespace NorthShoreSurfApp
             get { return (Color)GetValue(IconColorProperty); }
             set { SetValue(IconColorProperty, value); }
         }
-        public float CornerRadius
+        public CornerRadius CornerRadius
         {
-            get { return (float)GetValue(CornerRadiusProperty); }
+            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
             set { SetValue(CornerRadiusProperty, value); }
         }
-        public Thickness BorderThickness
+        public float BorderThickness
         {
-            get { return (Thickness)GetValue(BorderThicknessProperty); }
+            get { return (float)GetValue(BorderThicknessProperty); }
             set { SetValue(BorderThicknessProperty, value); }
         }
         public Thickness IconPadding
@@ -137,6 +143,11 @@ namespace NorthShoreSurfApp
             get { return (List<ITransformation>)GetValue(IconTransformationsProperty); }
             private set { SetValue(IconTransformationsProperty, value); }
         }
+        public bool UseOverlayColor
+        {
+            get { return (bool)GetValue(UseOverlayColorProperty); }
+            set { SetValue(UseOverlayColorProperty, value); }
+        }
 
         #endregion
 
@@ -150,6 +161,9 @@ namespace NorthShoreSurfApp
         /// </summary>
         private List<ITransformation> GetTransformations()
         {
+            if (!UseOverlayColor)
+                return new List<ITransformation>();
+
             TintTransformation tt = new TintTransformation();
             tt.EnableSolidColor = true;
             tt.R = (int)(IconColor.R * 255);

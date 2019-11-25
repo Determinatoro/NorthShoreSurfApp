@@ -199,7 +199,7 @@ namespace NorthShoreSurfApp
             if (sender == btnNext)
             {
                 SetCurrentContentSite(ContentSite.EnterSMSCode, true);
-                
+                return;
 
                 if (SignUpUserModel.AllDataGiven)
                 {
@@ -226,13 +226,13 @@ namespace NorthShoreSurfApp
                             if (response.Success)
                             {
                                 await Navigation.PopAsync();
-                            } 
+                            }
                             else
                             {
                                 CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
                                 await PopupNavigation.Instance.PushAsync(customDialog);
                             }
-                            
+
                             await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, response.Result.LicensePlate));
                         });
             }
