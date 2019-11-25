@@ -22,7 +22,7 @@ namespace NorthShoreSurfApp.iOS.Renderers
         {
             base.LayoutSubviews();
 
-            UpdateCornerRadius();
+            UpdateLayout();
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -32,7 +32,7 @@ namespace NorthShoreSurfApp.iOS.Renderers
             if (e.PropertyName == nameof(CustomFrame.CornerRadius) ||
                 e.PropertyName == nameof(CustomFrame))
             {
-                UpdateCornerRadius();
+                UpdateLayout();
             }
         }
 
@@ -83,7 +83,7 @@ namespace NorthShoreSurfApp.iOS.Renderers
             return roundedCorners;
         }
 
-        private void UpdateCornerRadius()
+        private void UpdateLayout()
         {
             var cornerRadius = (Element as CustomFrame)?.CornerRadius;
             if (!cornerRadius.HasValue)
@@ -97,11 +97,31 @@ namespace NorthShoreSurfApp.iOS.Renderers
                 return;
             }
 
+            var frame = (Element as CustomFrame);
+
             var roundedCorners = RetrieveRoundedCorners(cornerRadius.Value);
 
             var path = UIBezierPath.FromRoundedRect(Bounds, roundedCorners, new CGSize(roundedCornerRadius, roundedCornerRadius));
-            var mask = new CAShapeLayer { Path = path.CGPath };
+
+            var mask = new CAShapeLayer
+            {
+                Path = path.CGPath,
+                Frame = Bounds
+            };
             NativeView.Layer.Mask = mask;
+
+            var borderLayer = new CAShapeLayer { 
+                Path = mask.Path,
+                LineWidth = frame.BorderWidth * 2,
+                StrokeColor = frame.BorderColor.ToCGColor(),
+                FillColor = UIColor.Clear.CGColor,
+                Frame = Bounds
+            };
+            
+            NativeView.Layer.AddSublayer(borderLayer);
+            // Remove default border width on frame
+            NativeView.Layer.BorderWidth = 0;
+            NativeView.Layer.BorderColor = UIColor.Clear.CGColor;
         }
     }
 }

@@ -200,7 +200,7 @@ namespace NorthShoreSurfApp
             {
                 SetCurrentContentSite(ContentSite.EnterSMSCode, true);
                 return;
-
+                
                 if (SignUpUserModel.AllDataGiven)
                 {
                     await App.FirebaseService.VerifyPhoneNo(this, SignUpUserModel.PhoneNo);

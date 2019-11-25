@@ -35,7 +35,7 @@ namespace NorthShoreSurfApp.Droid.Renderers
 
             if (e.NewElement != null && Control != null)
             {
-                UpdateCornerRadius();
+                UpdateLayout();
             }
         }
 
@@ -46,11 +46,11 @@ namespace NorthShoreSurfApp.Droid.Renderers
             if (e.PropertyName == nameof(CustomFrame.CornerRadius) ||
                 e.PropertyName == nameof(CustomFrame))
             {
-                UpdateCornerRadius();
+                UpdateLayout();
             }
         }
 
-        private void UpdateCornerRadius()
+        private void UpdateLayout()
         {
             if (Control.Background is GradientDrawable backgroundGradient)
             {
@@ -80,7 +80,12 @@ namespace NorthShoreSurfApp.Droid.Renderers
                     bottomLeftCorner,
                 };
 
+                var frame = (Element as CustomFrame);
+
+                var strokeWidth = Context.ToPixels(frame.BorderWidth);
+
                 backgroundGradient.SetCornerRadii(cornerRadii);
+                backgroundGradient.SetStroke((int)strokeWidth, frame.BorderColor.ToAndroid());
             }
         }
     }
