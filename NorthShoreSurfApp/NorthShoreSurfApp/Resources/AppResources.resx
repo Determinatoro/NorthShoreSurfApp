@@ -202,4 +202,13 @@ Please wait...</value>
   <data name="weather" xml:space="preserve">
     <value>Weather</value>
   </data>
+  <data name="licenseplate" xml:space="preserve">
+    <value>License plate</value>
+  </data>
+  <data name="color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="add_car" xml:space="preserve">
+    <value>Add car</value>
+  </data>
 </root>
