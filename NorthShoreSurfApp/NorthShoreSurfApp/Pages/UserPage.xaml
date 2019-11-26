@@ -3,13 +3,128 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
              mc:Ignorable="d"
-             x:Class="NorthShoreSurfApp.UserPage">
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
+             x:Class="NorthShoreSurfApp.UserPage"
+             BackgroundColor="White">
+
+    <ContentPage.BindingContext>
+        <models:UserViewModel />
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <StackLayout Margin="20, 20, 20, 0" HorizontalOptions="Fill" VerticalOptions="Start">
+                <Frame CornerRadius="10" Padding="10" BackgroundColor="{StaticResource NSSBlue}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Text="Name"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               FontAttributes="Bold"
+                               FontSize="24"
+                               TextColor="White"
+                               />
+                        <Label Text="Phone"
+                               Grid.Row="2"
+                               Grid.Column="0"
+                               FontAttributes="Bold"
+                               FontSize="24"
+                               TextColor="White"
+                               />
+                        <Label Text="Age"
+                               Grid.Row="4"
+                               Grid.Column="0"
+                               FontAttributes="Bold"
+                               FontSize="24"
+                               TextColor="White"
+                               />
+                        <Label Text="Gender"
+                               Grid.Row="6"
+                               Grid.Column="0"
+                               FontAttributes="Bold"
+                               FontSize="24"
+                               TextColor="White"
+                               />
+                        <Label Text="{Binding FirstName}"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               FontSize="24"
+                               TextColor="White"
+                               />
+                        <Label Text="{Binding PhoneNo}"
+                               Grid.Row="3"
+                               Grid.Column="0"
+                               FontSize="24"
+                               TextColor="White"
+                               />
+                        <Label Text="{Binding Age}"
+                               Grid.Row="5"
+                               Grid.Column="0"
+                               FontSize="24"
+                               TextColor="White"
+                               />
+                        <Label Text="{Binding Gender}"
+                               Grid.Row="7"
+                               Grid.Column="0"
+                               FontSize="24"
+                               TextColor="White"
+                               />
+                        <local:CustomImageButton x:Name="btnEdit"
+                                     Grid.Row="0"
+                                     Grid.Column="1"
+                                     Grid.RowSpan="8"
+                                     Icon="ic_edit.png"
+                                     VerticalOptions="Start"
+                                     HorizontalOptions="End"
+                                     HeightRequest="70"
+                                     WidthRequest="70"
+                                     Background="{StaticResource NSSBlue}"
+                                     BackgroundColor="Transparent"
+                                     BackgroundPressed="{StaticResource NSSBluePressed}"
+                                     BorderColor="Transparent"
+                                     BorderThickness="3"
+                                     IconPadding="10"
+                                     />
+                    </Grid>
+                </Frame>
+                <local:CustomImageTextButton x:Name="btnLogOut"
+                                             Margin="0, 20, 0, 0"
+                                             HeightRequest="60"
+                                             Background="#D21414"
+                                             CornerRadius="10"
+                                             BackgroundPressed="#BE1A1A" 
+                                             Icon="ic_log_out.png"
+                                             IconPadding="10"
+                                             TitleColor="White"
+                                             Title="create account"
+                                             />
+                <local:CustomImageTextButton x:Name="btnDelAcc"
+                                             Margin="0, 20, 0, 20"
+                                             HeightRequest="60"
+                                             Background="DimGray"
+                                             CornerRadius="10"
+                                             BackgroundPressed="Black" 
+                                             Icon="ic_delete.png"
+                                             IconPadding="10"
+                                             TitleColor="White"
+                                             Title="{local:Translate delete_account}"
+                                             />
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

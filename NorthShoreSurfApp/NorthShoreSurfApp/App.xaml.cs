@@ -20,7 +20,7 @@ namespace NorthShoreSurfApp
         {
             InitializeComponent();
             
-            MainPage = new CustomNavigationPage(new SignUpUserPage());
+            MainPage = new CustomNavigationPage(new UserPage("29711907"));
             Core.Initialize();
 
             LocalDataService = DependencyService.Get<ILocalDataService>();
