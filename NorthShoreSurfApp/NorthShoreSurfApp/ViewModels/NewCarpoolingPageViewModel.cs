@@ -5,6 +5,7 @@ using Xamarin.Forms;
 using System.Diagnostics;
 using NorthShoreSurfApp.ModelComponents;
 using System.Collections.ObjectModel;
+
 namespace NorthShoreSurfApp.ViewModels
 {
 

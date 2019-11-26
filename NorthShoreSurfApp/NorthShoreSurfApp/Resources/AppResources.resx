@@ -169,6 +169,9 @@
     <value>Getting data.
 Please wait...</value>
   </data>
+  <data name="join_ride" xml:space="preserve">
+    <value>Join ride</value>
+  </data>
   <data name="last_name" xml:space="preserve">
     <value>Last name</value>
   </data>
@@ -183,6 +186,9 @@ Please wait...</value>
   </data>
   <data name="phone_no" xml:space="preserve">
     <value>Phone no.</value>
+  </data>
+  <data name="ride" xml:space="preserve">
+    <value>Ride</value>
   </data>
   <data name="select_parameter" xml:space="preserve">
     <value>Select {0}</value>
