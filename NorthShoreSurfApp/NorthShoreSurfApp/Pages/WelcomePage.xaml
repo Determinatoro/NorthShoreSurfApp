@@ -7,10 +7,10 @@
              x:Class="NorthShoreSurfApp.WelcomePage"
              BackgroundColor="White">
     <StackLayout Spacing="10" BackgroundColor="White" Margin="10,0,10,0">
-        <BoxView Color="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-        <Image Source="C:\Users\musta\Desktop\ezgif-3-ee8bd71bbb1c.png"
+        <BoxView Color="Transparent" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HeightRequest="60"/>
+        <Image Source="C:\Users\musta\source\repos\Determinatoro\NorthShoreSurfApp\NorthShoreSurfApp\NorthShoreSurfApp\Icons\NSSlogo.png"
                Aspect="AspectFill"
-               HeightRequest="250"/>
+               HeightRequest="280"/>
         <Button Text="Sign up" 
                 VerticalOptions="Center" 
                 HorizontalOptions="FillAndExpand" 
@@ -18,7 +18,8 @@
                 TextColor="White"
                 CornerRadius="10"
                 FontSize="Title"
-                Padding="0,10"/>
+                Padding="0,10"
+                Clicked="SignUpClicked"/>
         <Button Text="Sign in" 
                 VerticalOptions="Center" 
                 HorizontalOptions="FillAndExpand" 
@@ -26,7 +27,8 @@
                 TextColor="White"
                 CornerRadius="10"
                 FontSize="Title"
-                Padding="0,10"/>
+                Padding="0,10"
+                Clicked="SingInClicked"/>
         <Button Text="Continue as guest" 
                 VerticalOptions="Center" 
                 HorizontalOptions="FillAndExpand" 
@@ -34,7 +36,8 @@
                 TextColor="White"
                 CornerRadius="10"
                 FontSize="Title"
-                Padding="0,10"/>
+                Padding="0,10"
+                Clicked="ContinueAsGuestClicked"/>
         <BoxView Color="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
     </StackLayout>
 </ContentPage>

@@ -99,6 +99,10 @@
                        TextColor="#FFAA00"
                        FontSize="Large"
                        HorizontalTextAlignment="Center"/>
+                <Label Text="Click here to read about all the available courses"
+                       TextColor="White"
+                       FontSize="Default"
+                       HorizontalTextAlignment="Center"/>
             </StackLayout>
         </Frame>
         <Frame BackgroundColor="#2B3C4E" 
