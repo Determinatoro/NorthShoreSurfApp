@@ -8,117 +8,129 @@
              NavigationPage.HasNavigationBar="True"
              xmlns:local="clr-namespace:NorthShoreSurfApp"
              x:Class="NorthShoreSurfApp.HomePage">
-    <Grid BackgroundColor="White" 
-          ColumnSpacing="10" 
-          RowSpacing="10"
-          Margin="10,10,10,10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Frame BackgroundColor="#2B3C4E"
-                 Grid.Row="0"
-                 Grid.Column="0"
-                 Grid.ColumnSpan="2"
-                 CornerRadius="10">
-            <Label Text="WELCOME TO NORTH SHORE SURF LØKKEN"
-                   TextColor="White"
-                   FontSize="32"
-                   HorizontalTextAlignment="Center"
-                   VerticalTextAlignment="Center"/>
-        </Frame>
-        <Frame BackgroundColor="#2B3C4E"
-                 Grid.Row="1"
-                 Grid.Column="0"
-                 CornerRadius="10">
-            <StackLayout>
-                <Label Text="Opening Hours"
-                       TextColor="#FFAA00"
-                       FontSize="Large"
-                       HorizontalTextAlignment="Center"/>
-                <Label Text="Today:"
+    <ContentPage.Content>
+        <Grid BackgroundColor="White" 
+              ColumnSpacing="10" 
+              RowSpacing="10"
+              Margin="10,10,10,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <local:CustomNavigationBar x:Name="navigationBar"
+                                       BarBackgroundColor="{StaticResource BarBackground}"
+                                       ShowBackButton="True"
+                                       Title="{local:Translate sign_up}"
+                                       TitleColor="Black"
+                                       TitleSize="24"
+                                       ShowLogo="False"
+                                       Logo="ic_logo.png"/>
+            
+            <Frame BackgroundColor="#2B3C4E"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   CornerRadius="10">
+                <Label Text="WELCOME TO NORTH SHORE SURF LØKKEN"
                        TextColor="White"
-                       FontSize="Title"
-                       HorizontalTextAlignment="Center"/>
-                <Label Text="11-16"
-                       TextColor="White"
-                       FontSize="Title"
-                       HorizontalTextAlignment="Center"/>
-                <Label Text="Click for more info"
-                       TextColor="White"
-                       FontSize="Default"
-                       HorizontalTextAlignment="Center"/>
-            </StackLayout>
-        </Frame>
-        <Frame BackgroundColor="#2B3C4E"
-                 Grid.Row="1"
-                 Grid.Column="1"
-                 CornerRadius="10">
-            <StackLayout>
-                <Label Text="Next ride to Løkken:"
-                       TextColor="#FFAA00"
-                       FontSize="Large"
-                       HorizontalTextAlignment="Center"/>
-                <Label Text="Some fucking time"
-                       TextColor="White"
-                       FontSize="Title"
-                       HorizontalTextAlignment="Center"/>
-            </StackLayout>
-        </Frame>
-        <Frame BackgroundColor="#2B3C4E"
-                 Grid.Row="2"
-                 Grid.Column="0"
-                 CornerRadius="10">
-            <Grid>
+                       FontSize="32"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"/>
+            </Frame>
+            <Frame BackgroundColor="#2B3C4E"
+                     Grid.Row="1"
+                     Grid.Column="0"
+                     CornerRadius="10">
+                <StackLayout>
+                    <Label Text="Opening Hours"
+                           TextColor="#FFAA00"
+                           FontSize="Large"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Text="Today:"
+                           TextColor="White"
+                           FontSize="Title"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Text="11-16"
+                           TextColor="White"
+                           FontSize="Title"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Text="Click for more info"
+                           TextColor="White"
+                           FontSize="Default"
+                           HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+            <Frame BackgroundColor="#2B3C4E"
+                     Grid.Row="1"
+                     Grid.Column="1"
+                     CornerRadius="10">
+                <StackLayout>
+                    <Label Text="Next ride to Løkken:"
+                           TextColor="#FFAA00"
+                           FontSize="Large"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Text="Some fucking time"
+                           TextColor="White"
+                           FontSize="Title"
+                           HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+            <Frame BackgroundColor="#2B3C4E"
+                     Grid.Row="2"
+                     Grid.Column="0"
+                     CornerRadius="10">
+                <Grid>
                 
-            </Grid>
-        </Frame>
-        <Frame BackgroundColor="#2B3C4E"
-                 Grid.Row="2"
-                 Grid.Column="1"
-                 CornerRadius="10">
-            <StackLayout>
-                <Label Text="Webcam:"
-                       TextColor="#FFAA00"
-                       FontSize="Large"
-                       HorizontalTextAlignment="Center"/>
-            </StackLayout>
-        </Frame>
-        <Frame BackgroundColor="#2B3C4E"
-                 Grid.Row="3"
-                 Grid.Column="0"
-                 CornerRadius="10">
-            <StackLayout>
-                <Label Text="SURF &amp; SUP courses"
-                       TextColor="#FFAA00"
-                       FontSize="Large"
-                       HorizontalTextAlignment="Center"/>
-                <Label Text="Click here to read about all the available courses"
-                       TextColor="White"
-                       FontSize="Default"
-                       HorizontalTextAlignment="Center"/>
-            </StackLayout>
-        </Frame>
-        <Frame BackgroundColor="#2B3C4E" 
-                 Grid.Row="3"
-                 Grid.Column="1"
-                 CornerRadius="10">
-            <StackLayout>
-                <Label Text="Contact us"
-                       TextColor="#FFAA00"
-                       FontSize="Large"
-                       HorizontalTextAlignment="Center"/>
-                <Label Text="Click here to find out how to contact us"
-                       TextColor="White"
-                       FontSize="Default"
-                       HorizontalTextAlignment="Center"/>
-            </StackLayout>
-        </Frame>
-    </Grid>
+                </Grid>
+            </Frame>
+            <Frame BackgroundColor="#2B3C4E"
+                     Grid.Row="2"
+                     Grid.Column="1"
+                     CornerRadius="10">
+                <StackLayout>
+                    <Label Text="Webcam:"
+                           TextColor="#FFAA00"
+                           FontSize="Large"
+                           HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+            <Frame BackgroundColor="#2B3C4E"
+                     Grid.Row="3"
+                     Grid.Column="0"
+                     CornerRadius="10">
+                <StackLayout>
+                    <Label Text="SURF &amp; SUP courses"
+                           TextColor="#FFAA00"
+                           FontSize="Large"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Text="Click here to read about all the available courses"
+                           TextColor="White"
+                           FontSize="Default"
+                           HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+            <Frame BackgroundColor="#2B3C4E" 
+                     Grid.Row="3"
+                     Grid.Column="1"
+                     CornerRadius="10">
+                <StackLayout>
+                    <Label Text="Contact us"
+                           TextColor="#FFAA00"
+                           FontSize="Large"
+                           HorizontalTextAlignment="Center"/>
+                    <Label Text="Click here to find out how to contact us"
+                           TextColor="White"
+                           FontSize="Default"
+                           HorizontalTextAlignment="Center"/>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>
