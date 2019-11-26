@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
+             xmlns:converters="clr-namespace:NorthShoreSurfApp.Converters"
+             mc:Ignorable="d"
+             x:Name="this"             
+             x:Class="NorthShoreSurfApp.CustomToggleButton">
+    <ContentView.Content>
+        <Grid Margin="0"
+              Padding="0"
+              RowSpacing="0"
+              ColumnSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        <local:CustomFrame x:Name="frameBackground"
+                           Grid.ColumnSpan="2"
+                           BackgroundColor="{Binding BackgroundUnselected, Source={x:Reference this}}"
+                           CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"
+                           />
+
+            <!--Frame selected-->
+            <local:CustomFrame x:Name="frameSelectedLeft"
+                               CornerRadius="{Binding CornerRadiusLeft, Source={x:Reference this}}"
+                               BackgroundColor="Transparent"
+                               BorderWidth="0"
+                               />
+
+            <!--Frame selected-->
+            <local:CustomFrame x:Name="frameSelectedRight"
+                               Grid.Column="1"
+                               CornerRadius="{Binding CornerRadiusRight, Source={x:Reference this}}"                            
+                               BackgroundColor="Transparent"
+                               BorderWidth="0"
+                               />
+
+            <!--Border frame-->
+        <local:CustomFrame x:Name="frameBorder"               
+                           HasShadow="false"               
+                           Grid.ColumnSpan="2"
+                           VerticalOptions="FillAndExpand"
+                           HorizontalOptions="FillAndExpand"
+                           Margin="0"
+                           BackgroundColor="Transparent"
+                           BorderWidth="{Binding BorderThickness, Source={x:Reference this}}"
+                           Padding="{Binding ContentPadding, Source={x:Reference this}}"
+                           CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"
+                           BorderColor="{Binding BorderColor, Source={x:Reference this}}"
+                           >
+            <Grid HorizontalOptions="FillAndExpand"
+                  x:Name="grid"
+                  Margin="0"
+                  Padding="0"
+                  RowSpacing="0" 
+                  ColumnSpacing="0"
+                  >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Left toggle button-->
+                <Grid BackgroundColor="Transparent"
+                          RowSpacing="0" 
+                          ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="colLeft" Width="{Binding IconLeftWidth, Source={x:Reference this}}"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!--Icon image-->
+                    <ffimageloading:CachedImage
+                            x:Name="imageLeft"
+                            BackgroundColor="Transparent"
+                            Transformations="{Binding IconLeftTransformations, Source={x:Reference this}}"
+                            Source="{Binding IconLeft, Source={x:Reference this}}"
+                            Margin="{Binding IconLeftPadding, Source={x:Reference this}}"
+                            />
+
+                    <!--Title-->
+                    <Label
+                            x:Name="lblTitleLeft"
+                            Grid.Column="1"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding TitleLeft, Source={x:Reference this}}"
+                            TextColor="{Binding TitleSelectedColor, Source={x:Reference this}}"
+                            FontSize="{Binding TitleLeftSize, Source={x:Reference this}}"
+                            />
+
+                    <!--Button-->
+                    <Button 
+                            x:Name="btnLeft"
+                            ClassId="Left"
+                            Grid.ColumnSpan="2"
+                            BackgroundColor="Transparent"
+                            >
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <local:CustomToggleButtonPressedTriggerAction/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                </Grid>
+
+                <!--Right toggle button-->
+                <Grid Grid.Column="1" 
+                          RowSpacing="0" 
+                          ColumnSpacing="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition x:Name="colRight" Width="{Binding IconRightWidth, Source={x:Reference this}}"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                    
+                        <!--Icon image-->
+                    <ffimageloading:CachedImage
+                            x:Name="imageRight"
+                            BackgroundColor="Transparent"
+                            Transformations="{Binding IconRightTransformations, Source={x:Reference this}}"
+                            Source="{Binding IconRight, Source={x:Reference this}}"
+                            Margin="{Binding IconRightPadding, Source={x:Reference this}}"
+                            />
+
+                    <!--Title-->
+                    <Label
+                            x:Name="lblTitleRight"
+                            Grid.Column="1"
+                            VerticalTextAlignment="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding TitleRight, Source={x:Reference this}}"
+                            TextColor="{Binding TitleSelectedColor, Source={x:Reference this}}"
+                            FontSize="{Binding TitleRightSize, Source={x:Reference this}}"
+                            />
+
+                    <!--Button-->
+                    <Button 
+                            x:Name="btnRight"
+                            Grid.ColumnSpan="2"
+                            ClassId="Right"
+                            BackgroundColor="Transparent">
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <local:CustomToggleButtonPressedTriggerAction/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                </Grid>
+
+            </Grid>
+        </local:CustomFrame>
+
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>

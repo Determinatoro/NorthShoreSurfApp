@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Name="this"
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
+             xmlns:converters="clr-namespace:NorthShoreSurfApp.Converters"
+             x:Class="NorthShoreSurfApp.CustomNavigationBar"
+             >
+    <!--Resources-->
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <converters:NegateBooleanConverter x:Key="inverter"/>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <!--Content-->
+    <ContentView.Content>
+        <Grid 
+            ColumnSpacing="0"
+            RowSpacing="0"
+            Margin="0"
+            HeightRequest="65"
+            BackgroundColor="{Binding BarBackgroundColor, Source={x:Reference this}}"
+            Padding="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="55"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid x:Name="gridCenter" 
+                  Grid.ColumnSpan="2"
+                  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="9*"/>
+                    <RowDefinition Height="0.5*"/>
+                </Grid.RowDefinitions>
+
+                <Label
+                    x:Name="lblTitle"
+                    Grid.Row="1"
+                    Text="{Binding Title, Source={x:Reference this}}"
+                    FontSize="{Binding TitleSize, Source={x:Reference this}}"
+                    TextColor="{Binding TitleColor, Source={x:Reference this}}"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding ShowLogo, Converter={StaticResource inverter}, Source={x:Reference this}}" 
+                    />
+
+                <Image 
+                    x:Name="imgLogo"
+                    Grid.Row="1"
+                    WidthRequest="70"                     
+                    Aspect="AspectFit"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Fill"
+                    Source="{Binding Logo, Source={x:Reference this}}"
+                    IsVisible="{Binding ShowLogo, Source={x:Reference this}}" 
+                    />
+
+            </Grid>
+
+            <Grid x:Name="gridButtons"
+                  Margin="0"
+                  Padding="0"
+                  ColumnSpacing="0"
+                  RowSpacing="0"
+                  Grid.ColumnSpan="2"
+                  HeightRequest="65"
+                  VerticalOptions="Fill"
+                  HorizontalOptions="Fill">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="65"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="55"/>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition Width="55"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid x:Name="gridBack"   
+                      HeightRequest="65"
+                      Grid.RowSpan="3"
+                      RowSpacing="0"
+                      Margin="0"
+                      Padding="0"
+                      IsVisible="{Binding ShowBackButton, Source={x:Reference this}}" 
+                      >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.25*"/>
+                        <RowDefinition Height="7.5*"/>
+                        <RowDefinition Height="1.25*"/>
+                    </Grid.RowDefinitions>
+
+                    <Frame
+                    x:Name="frameBack"
+                    Grid.RowSpan="3"
+                    Margin="5"
+                    CornerRadius="27.5"
+                    VerticalOptions="Fill"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="Transparent"
+                    HasShadow="False"
+                    />
+
+                    <Image
+                    x:Name="imageBack"
+                    Grid.Row="1"
+                        Margin="3"
+                    VerticalOptions="Fill"
+                    HorizontalOptions="Center"
+                    Source="ic_back.png"
+                    Aspect="AspectFit"
+                    />
+
+                    <Button
+                    x:Name="btnBack"
+                    Grid.Row="1"
+                    BackgroundColor="Transparent"
+                    VerticalOptions="Fill"
+                    HorizontalOptions="Center"
+                    >
+                        <Button.Triggers>
+                            <EventTrigger Event="Pressed">
+                                <local:BackButtonPressedTriggerAction />
+                            </EventTrigger>
+                            <EventTrigger Event="Released">
+                                <local:BackButtonReleasedTriggerAction />
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                </Grid>
+
+                <local:CustomImageButton
+                    x:Name="btn1"
+                    Grid.Column="2"
+                    Grid.Row="1"
+                    IsVisible="{Binding ButtonOneIsVisible, Source={x:Reference this}}"
+                    HeightRequest="55"
+                    WidthRequest="55"
+                    Margin="1"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Background="White"
+                    BackgroundPressed="{StaticResource BarBackground}"
+                    BorderColor="{StaticResource NSSBlue}"
+                    BorderThickness="1"
+                    IconColor="{StaticResource NSSBlue}"
+                    IconPadding="10"
+                    Icon="ic_surfing.png"
+                    />
+
+                <local:CustomImageButton
+                    x:Name="btn2"
+                    Grid.Column="4"
+                    Grid.Row="1"
+                    Margin="1"
+                    HeightRequest="55"
+                    IsVisible="{Binding ButtonTwoIsVisible, Source={x:Reference this}}"
+                    WidthRequest="55"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Background="White"
+                    BackgroundPressed="{StaticResource BarBackground}"
+                    BorderColor="{StaticResource NSSBlue}"
+                    BorderThickness="1"
+                    IconColor="{StaticResource NSSBlue}"
+                    IconPadding="10"
+                    Icon="ic_surfing.png"
+                    />
+
+            </Grid>
+
+        </Grid>
+    </ContentView.Content>
+</ContentView>

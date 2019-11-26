@@ -6,6 +6,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Content.Res;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
@@ -15,6 +16,7 @@ using NorthShoreSurfApp;
 using NorthShoreSurfApp.Droid.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Xamarin.Forms.PlatformConfiguration;
 using FrameRenderer = Xamarin.Forms.Platform.Android.AppCompat.FrameRenderer;
 
 [assembly: ExportRenderer(typeof(CustomFrame), typeof(CustomFrameRenderer))]
@@ -33,7 +35,7 @@ namespace NorthShoreSurfApp.Droid.Renderers
 
             if (e.NewElement != null && Control != null)
             {
-                UpdateCornerRadius();
+                UpdateLayout();
             }
         }
 
@@ -44,11 +46,11 @@ namespace NorthShoreSurfApp.Droid.Renderers
             if (e.PropertyName == nameof(CustomFrame.CornerRadius) ||
                 e.PropertyName == nameof(CustomFrame))
             {
-                UpdateCornerRadius();
+                UpdateLayout();
             }
         }
 
-        private void UpdateCornerRadius()
+        private void UpdateLayout()
         {
             if (Control.Background is GradientDrawable backgroundGradient)
             {
@@ -78,7 +80,12 @@ namespace NorthShoreSurfApp.Droid.Renderers
                     bottomLeftCorner,
                 };
 
+                var frame = (Element as CustomFrame);
+
+                var strokeWidth = Context.ToPixels(frame.BorderWidth);
+
                 backgroundGradient.SetCornerRadii(cornerRadii);
+                backgroundGradient.SetStroke((int)strokeWidth, frame.BorderColor.ToAndroid());
             }
         }
     }

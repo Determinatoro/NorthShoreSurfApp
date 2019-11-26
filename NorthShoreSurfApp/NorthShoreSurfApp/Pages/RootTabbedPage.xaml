@@ -16,9 +16,9 @@
         </x:Arguments>
     </local:CustomNavigationPage>
 
-    <local:CustomNavigationPage IconImageSource="ic_surfing.png" Title="Surfing">
+    <local:CustomNavigationPage IconSelectedSource="ic_surfing_selected.png" IconUnselectedSource="ic_surfing.png" Title="{local:Translate weather}">
         <x:Arguments>
-            <local:SurfingConditionsPage Title="Surfing" NavigationPage.HasNavigationBar="True"/>
+            <local:SurfingConditionsPage Title="{local:Translate weather}"/>
         </x:Arguments>
     </local:CustomNavigationPage>
 

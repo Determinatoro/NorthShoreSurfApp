@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using NorthShoreSurfApp.Droid.Service;
 using NorthShoreSurfApp.Droid.Services;
 using Firebase;
+using Firebase.Auth;
 
 namespace NorthShoreSurfApp.Droid
 {
@@ -40,6 +41,7 @@ namespace NorthShoreSurfApp.Droid
             App.FirebaseService = firebaseService;
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);

@@ -65,6 +65,7 @@ namespace NorthShoreSurfApp
     {
         Task<FirebaseResponse> VerifyPhoneNo(IFirebaseServiceCallBack callBack, string phoneNo);
         Task<FirebaseResponse> SignIn(IFirebaseServiceCallBack callBack, string verificationId, string code);
+        Task<FirebaseResponse> SignOut(IFirebaseServiceCallBack callBack);
     }
 
     public interface IFirebaseServiceCallBack
