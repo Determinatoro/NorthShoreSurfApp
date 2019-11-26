@@ -42,8 +42,8 @@
                   BackgroundColor="White"
                   >
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
                 <!--ScrollView-->
@@ -53,7 +53,7 @@
 
                         <Frame
                            BackgroundColor="{StaticResource NSSBlue}" 
-                            HeightRequest="60"
+                            HeightRequest="50"
                             HorizontalOptions="Fill"
                             HasShadow="True"
                             CornerRadius="10">
@@ -66,14 +66,14 @@
                                 </Grid.RowDefinitions>
 
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <Label Text="{Binding GetName}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" Margin="0,0,5,0"/>
                                 <Label Text="{Binding PhoneNo}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Center"/>
-                                <Label Text="{Binding Age}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Center"/>
-                                <Label Text="{Binding Gender}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Center"/>
+                                <Label Text="{Binding Age}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                                <Label Text="{Binding Gender}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
 
                             </Grid>
 
@@ -101,28 +101,27 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Text="{Binding Address}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" Margin="0,0,5,0"/>
-                                <Label Text="{Binding PhoneNo}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Center"/>
-                                <Label Text="{Binding Age}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Center"/>
-                                <Label Text="{Binding Gender}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Center"/>
+                                <Label Text="{Binding Address}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="StartAndExpand"/>
+                                <Label Text="{Binding PhoneNo}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="StartAndExpand"/>
+                                <Label Text="{Binding Age}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="EndAndExpand"/>
+                                <Label Text="{Binding Gender}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="EndAndExpand"/>
 
-                                <local:CustomFrame
-                                    IsVisible="True"
+                                <local:CustomImageButton
+                                    Icon="ic_destination"
+                                    IsEnabled="True"
+                                    HorizontalOptions="EndAndExpand"
                                     Grid.Column="2"
-                                    HeightRequest="100"
-                                    WidthRequest="20"
-                                    
-                                    >
+                                    Grid.Row="0"
+                                    ></local:CustomImageButton>
 
-                                    <local:CustomImageButton
-                                        Icon="ic_destination.png"
-                                        >
-                                    </local:CustomImageButton>
-    
-            
-                                    
-                                </local:CustomFrame>
-                                    
+                                <local:CustomImageButton
+                                    Icon="ic_destination"
+                                    IsEnabled="True"
+                                    HorizontalOptions="EndAndExpand"
+                                    Grid.Column="2"
+                                    Grid.Row="3"
+                                    ></local:CustomImageButton>
+
                             </Grid>
 
                         </Frame>
