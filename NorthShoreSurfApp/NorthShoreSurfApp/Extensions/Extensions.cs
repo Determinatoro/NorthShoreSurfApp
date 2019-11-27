@@ -23,7 +23,7 @@ namespace NorthShoreSurfApp
         }
     }
 
-    public static class Extensions
+    public static class Extensions 
     {
         public static T FindParentWithType<T>(this View view)
         {

@@ -57,7 +57,7 @@
                 <Button BackgroundColor="White" Text ="Add event to carpool" TextColor="#2b3d4e"/>
         </StackLayout>
         </Frame>
-        <Button Text="Create Lift" TextColor="White" BackgroundColor="#2b3d4e" Margin="15,0,15,15"/>
+        <Button x:Name="CreateEventButton" Text="Create Lift" TextColor="White" BackgroundColor="#2b3d4e" Margin="15,0,15,15"/>
         </StackLayout>
 
        

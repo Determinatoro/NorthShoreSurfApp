@@ -20,7 +20,7 @@ namespace NorthShoreSurfApp
         {
             InitializeComponent();
             
-            MainPage = new NavigationPage(new CarpoolingPage());
+            
             Core.Initialize();
 
             LocalDataService = DependencyService.Get<ILocalDataService>();
@@ -29,6 +29,7 @@ namespace NorthShoreSurfApp
             LocalDataService.InitializeFiles(true);
 
             DataService = new NSSDatabaseService<NSSDatabaseContext>();
+            MainPage = new NavigationPage(new CarpoolingPage());
         }
 
         protected override void OnStart()

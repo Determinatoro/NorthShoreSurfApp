@@ -8,7 +8,7 @@ using System.Resources;
 using System.Text;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-namespace NorthShoreSurfApp.Extensions
+namespace NorthShoreSurfApp
 {
     public static class ObservableExtension
     {

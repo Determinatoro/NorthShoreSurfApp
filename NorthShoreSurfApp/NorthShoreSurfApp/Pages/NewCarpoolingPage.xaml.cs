@@ -37,5 +37,16 @@ namespace NorthShoreSurfApp
             if (Navigation.NavigationStack.Count > 1)
                 Navigation.RemovePage(this);
         }
+
+        private void CreateEvent_ButtonClicked(object sender, EventArgs e)
+        {
+            if(sender == CreateEventButton)
+            {
+                /* App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.could_not_create_carpool_event, false, () => App.DataService.CreateCarpoolRide) */
+            }
+        }
+
+
+
     }
 }
