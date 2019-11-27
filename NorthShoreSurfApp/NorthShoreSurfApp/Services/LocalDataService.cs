@@ -13,7 +13,8 @@ namespace NorthShoreSurfApp
 
     public enum LocalDataKeys
     {
-        FirebaseAuthVerificationId
+        FirebaseAuthVerificationId,
+        UserId
     }
 
     public interface ILocalDataService

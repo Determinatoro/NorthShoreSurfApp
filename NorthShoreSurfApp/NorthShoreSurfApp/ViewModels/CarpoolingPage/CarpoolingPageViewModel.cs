@@ -10,27 +10,35 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
 {
     public class CarpoolingPageViewModel : INotifyPropertyChanged
     {
+        /*****************************************************************/
+        // VARIABLES
+        /*****************************************************************/
+        #region Variables
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        private ObservableCollection<CarpoolRide> rides;
+        private ObservableCollection<CarpoolRequest> requests;
+
+        #endregion
+
+        /*****************************************************************/
+        // CONSTRUCTOR
+        /*****************************************************************/
+        #region Constructor
 
         public CarpoolingPageViewModel()
         {
             rides = new ObservableCollection<CarpoolRide>();
             requests = new ObservableCollection<CarpoolRequest>();
-
-
-            
-
-            
         }
 
+        #endregion
 
-        /* private ObservableCollection<CarpoolRide> rides;
-
+        /*****************************************************************/
+        // PROPERTIES
+        /*****************************************************************/
+        #region Properties
 
         public ObservableCollection<CarpoolRide> Rides
         {
@@ -38,23 +46,9 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
             set
             {
                 rides = value;
-                OnPropertyChanged(nameof(rides));
-            }
-        } */
-
-        private ObservableCollection<CarpoolRide> rides;
-
-        public ObservableCollection<CarpoolRide> Rides
-        {
-            get { return rides; }
-            set
-            {
-                rides = value;
-                OnPropertyChanged(nameof(rides));
+                OnPropertyChanged(nameof(Rides));
             }
         }
-
-        private ObservableCollection<CarpoolRequest> requests;
 
         public ObservableCollection<CarpoolRequest> Requests
         {
@@ -62,10 +56,22 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
             set
             {
                 requests = value;
-                OnPropertyChanged(nameof(requests));
+                OnPropertyChanged(nameof(Requests));
             }
         }
 
+        #endregion
 
+        /*****************************************************************/
+        // METHODS
+        /*****************************************************************/
+        #region Methods
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
     }
 }

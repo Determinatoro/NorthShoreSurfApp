@@ -75,7 +75,7 @@
     <BundleResource Include="GoogleService-Info.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <BundleResource Include="Resources\NSS.db" />
+    <AndroidAsset Include="Resources\NSS.db" />
     <BundleResource Include="Resources\ic_car_white.png" />
     <BundleResource Include="Resources\request_icon_b.png" />
     <BundleResource Include="Resources\request_icon_w.png" />
@@ -83,7 +83,7 @@
     <BundleResource Include="Resources\location.png" />
     <BundleResource Include="Resources\destination.png" />
     <BundleResource Include="Resources\destination2.png" />
-    <BundleResource Include="Resources\Seat_red.png" />
+    <BundleResource Include="Resources\ic_seat_red.png" />
     <BundleResource Include="Resources\Delete icon.png" />
     <BundleResource Include="Resources\Wave 2 b.png" />
     <BundleResource Include="Resources\Seat.png" />

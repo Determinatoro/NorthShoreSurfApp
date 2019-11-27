@@ -24,7 +24,7 @@
 
     <local:CustomNavigationPage Title="Carpool" IconUnselectedSource="ic_car.png" IconSelectedSource="ic_car_selected" IconImageSource="ic_car.png">
         <x:Arguments>
-            <local:CarpoolingPage  Title="Carpool" NavigationPage.HasNavigationBar="True"/>
+            <local:CarpoolingPage  Title="Carpool"/>
         </x:Arguments>
     </local:CustomNavigationPage>
 

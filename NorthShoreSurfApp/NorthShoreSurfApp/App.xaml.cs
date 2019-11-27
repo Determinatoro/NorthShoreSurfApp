@@ -19,7 +19,7 @@ namespace NorthShoreSurfApp
         public App()
         {
             InitializeComponent();
-            
+
             MainPage = new RootTabbedPage();
             Core.Initialize();
 
@@ -29,6 +29,10 @@ namespace NorthShoreSurfApp
             LocalDataService.InitializeFiles(true);
 
             DataService = new NSSDatabaseService<NSSDatabaseContext>();
+            DataService.Initialize();
+
+            // TEST
+            LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), "1");
         }
 
         protected override void OnStart()

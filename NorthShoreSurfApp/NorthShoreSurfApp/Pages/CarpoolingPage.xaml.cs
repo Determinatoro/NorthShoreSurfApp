@@ -13,6 +13,7 @@ using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using NorthShoreSurfApp.ViewModels.CarpoolingPage;
 using NorthShoreSurfApp.ModelComponents;
 using System.Collections.ObjectModel;
+using FFImageLoading.Forms;
 
 namespace NorthShoreSurfApp
 {
@@ -30,67 +31,63 @@ namespace NorthShoreSurfApp
             var safeAreaInset = On<iOS>().SafeAreaInsets();
             grid.Margin = safeAreaInset;
 
-
-
             rideList.ItemTapped += Ride_Clicked;
             RidesTab.Toggled += RidesTab_Clicked;
-            carpoolPageNavigationBar.ButtonOne.Clicked += Plus_Clicked;
+            navigationBar.ButtonOne.Clicked += Plus_Clicked;
 
+            var userId = int.Parse(App.LocalDataService.GetValue(nameof(LocalDataKeys.UserId)));
+        }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
 
-
-            App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait, false, () => App.DataService.GetCarpoolRides(), (response) =>
-            {
-                if (response.Success)
+            App.DataService.GetData(
+                NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
+                false, () => App.DataService.GetCarpoolRides(),
+                async (response) =>
                 {
-                    CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
-                     
-
-                } else
-                {
-                    CarpoolingPageViewModel.Rides.Add(new CarpoolRide()
+                    if (response.Success)
                     {
-                        ZipCode = "8000",
-                        Address = "Parkvej",
-                        City = "Aalborg",
-                        DestinationZipCode = "9480",
-                        DestinationAddress = "North Shore Surf",
-                        DestinationCity = "Løkken",
-                        NumberOfSeats = 2,
-                        DepartureTime = new DateTime(2019, 1, 1, 13, 0, 0),
-                        PricePerPassenger = 50
+                        response.Result.Add(new CarpoolRide()
+                        {
+                            ZipCode = "8000",
+                            Address = "Parkvej",
+                            City = "Aalborg",
+                            DestinationZipCode = "9480",
+                            DestinationAddress = "North Shore Surf",
+                            DestinationCity = "Løkken",
+                            NumberOfSeats = 2,
+                            DepartureTime = new DateTime(2019, 1, 1, 13, 0, 0),
+                            PricePerPassenger = 50
 
-                    });
-                    CarpoolingPageViewModel.Rides.Add(new CarpoolRide()
+                        });
+                        response.Result.Add(new CarpoolRide()
+                        {
+                            ZipCode = "9000",
+                            Address = "Æblevej",
+                            City = "Aalborg",
+                            DestinationZipCode = "9480",
+                            DestinationAddress = "North Shore Surf",
+                            DestinationCity = "Løkken",
+                            NumberOfSeats = 5,
+                            DepartureTime = new DateTime(2019, 1, 1, 14, 30, 0),
+                            PricePerPassenger = 50
+                        });
+                        CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
+                    }
+                    else
                     {
-                        ZipCode = "9000",
-                        Address = "Æblevej",
-                        City = "Aalborg",
-                        DestinationZipCode = "9480",
-                        DestinationAddress = "North Shore Surf",
-                        DestinationCity = "Løkken",
-                        NumberOfSeats = 5,
-                        DepartureTime = new DateTime(2019, 1, 1, 14, 30, 0),
-                        PricePerPassenger = 50
-                    });
-                }
-
-            });
-
-
-
-
-    }
+                        CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                        await PopupNavigation.Instance.PushAsync(customDialog);
+                    }
+                });
+        }
 
         private async void Plus_Clicked(object sender, EventArgs e)
         {
-           
-                
-                await Navigation.PushAsync(new Xamarin.Forms.NavigationPage(new NewCarpoolingPage()));
-            
+            await Navigation.PushAsync(new NewCarpoolingPage());
         }
-
-
 
         private void Ride_Clicked(object sender, EventArgs e)
         {
@@ -103,27 +100,18 @@ namespace NorthShoreSurfApp
                         CarpoolingPageViewModel.Requests = new ObservableCollection<CarpoolRequest>(response.Result);
                         rideList.IsVisible = false;
                         requestList.IsVisible = true;
-                        
-
                     }
 
                 });
             }
-
         }
 
         private void RidesTab_Clicked(object sender, EventArgs e)
         {
-            if(sender == RidesTab)
+            if (sender == RidesTab)
             {
-               
-                
+
             }
         }
-
-       
-
-       
-
     }
 }
