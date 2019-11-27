@@ -32,35 +32,35 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <Label Text="Name"
+                        <Label Text="{local:Translate full_name}"
                                Grid.Row="0"
                                Grid.Column="0"
                                FontAttributes="Bold"
                                FontSize="24"
                                TextColor="White"
                                />
-                        <Label Text="Phone"
+                        <Label Text="{local:Translate phone_number}"
                                Grid.Row="2"
                                Grid.Column="0"
                                FontAttributes="Bold"
                                FontSize="24"
                                TextColor="White"
                                />
-                        <Label Text="Age"
+                        <Label Text="{local:Translate age}"
                                Grid.Row="4"
                                Grid.Column="0"
                                FontAttributes="Bold"
                                FontSize="24"
                                TextColor="White"
                                />
-                        <Label Text="Gender"
+                        <Label Text="{local:Translate gender}"
                                Grid.Row="6"
                                Grid.Column="0"
                                FontAttributes="Bold"
                                FontSize="24"
                                TextColor="White"
                                />
-                        <Label Text="{Binding FirstName}"
+                        <Label Text="{Binding FullName}"
                                Grid.Row="1"
                                Grid.Column="0"
                                FontSize="24"
@@ -111,7 +111,7 @@
                                              Icon="ic_log_out.png"
                                              IconPadding="10"
                                              TitleColor="White"
-                                             Title="create account"
+                                             Title="{local:Translate log_out}"
                                              />
                 <local:CustomImageTextButton x:Name="btnDelAcc"
                                              Margin="0, 20, 0, 20"

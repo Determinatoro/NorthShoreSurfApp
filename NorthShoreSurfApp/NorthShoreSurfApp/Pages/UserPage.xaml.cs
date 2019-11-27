@@ -24,7 +24,8 @@ namespace NorthShoreSurfApp
         public UserPage(string phoneNo)
         {
             PhoneNo = phoneNo;
-            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, true);
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+            Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
 
             // Click events

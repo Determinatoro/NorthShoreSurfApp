@@ -20,14 +20,9 @@ namespace NorthShoreSurfApp.ViewModels
         private string age = "21";
         private string gender = "Male";
 
-        public string FirstName
+        public string FullName
         {
-            get { return firstName; }
-        }
-
-        public string LastName
-        {
-            get { return lastName; }
+            get { return firstName + lastName; }
         }
 
         public string PhoneNo
