@@ -5,9 +5,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:shared="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
              xmlns:local="clr-namespace:NorthShoreSurfApp"
+             xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
              mc:Ignorable="d"
              x:Class="NorthShoreSurfApp.SurfingConditionsPage"
              >
+    <ContentPage.BindingContext>
+        <models:SurfingConditionsViewModel />
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
         <Grid RowSpacing="0"
               Margin="0"
@@ -24,6 +29,7 @@
                                        ShowBackButton="True"
                                        ShowLogo="True"
                                        Logo="ic_logo.png"
+                                       ButtonOneIsVisible="True"
                                        />
 
             <Grid RowSpacing="0"
@@ -37,49 +43,123 @@
 
                 <!--ScrollView-->
                 <ScrollView>
-                    <StackLayout Margin="20">
+                    <StackLayout Padding="20">
                         <!--Navigation button-->
-                        <local:CustomImageTextButton x:Name="btnApprove"
+                        <local:CustomImageTextButton x:Name="btnSeeWebcam"
                                                      Grid.Row="1" 
                                                      HeightRequest="60" 
                                                      Background="{StaticResource NSSBlue}" 
                                                      CornerRadius="10" 
                                                      BackgroundPressed="{StaticResource NSSBluePressed}" 
                                                      Icon="ic_webcam.png"
-                                                     IconPadding="10"
+                                                     IconPadding="12"
                                                      TitleColor="White"
                                                      TitleSize="24"
                                                      IconColor="White"
-                                                     Title="{local:Translate approve}"
+                                                     Title="{local:Translate see_webcam}"
                                                      />
 
-                        <Frame Margin="0, 20, 0, 0"
+                        <Frame Margin="0, 10, 0, 0"
                                Padding="0"                               
                                CornerRadius="10"
                                BackgroundColor="{StaticResource NSSBlue}"
                                >
 
-                            <local:CustomWebView x:Name="wvWeatherInfo"
-                                                 Margin="10"
-                                                 />
+                            <Grid Margin="0"
+                                  Padding="0"
+                                  RowSpacing="0"
+                                  ColumnSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Text="{local:Translate weather_conditions}"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Start"
+                                       Padding="10, 5, 10, 5"
+                                       FontSize="20"
+                                       TextColor="{StaticResource NSSOrange}"
+                                       />
+
+                                <local:CustomWebView x:Name="wvWeatherInfo"
+                                                     Margin="10, 0, 10, 10"
+                                                     Grid.Row="1"
+                                                     Source="{Binding WeatherInfoUrl}"
+                                                     />
+
+                            </Grid>
+
+                            
 
                         </Frame>
 
-                        <Frame Margin="0, 20, 0, 0"
+                        <Frame Margin="0, 10, 0, 0"
                                Padding="0"
-                               HeightRequest="200"
                                CornerRadius="10"
                                BackgroundColor="{StaticResource NSSBlue}"
                                >
 
+                            <Grid Margin="0"
+                                  Padding="0"
+                                  RowSpacing="0"
+                                  ColumnSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Text="{local:Translate ocean_conditions}"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Start"
+                                       Padding="10, 5, 10, 5"
+                                       FontSize="20"
+                                       TextColor="{StaticResource NSSOrange}"
+                                       />
+
+                                <local:CustomWebView x:Name="wvOceanInfo"
+                                                     Margin="10, 0, 10, 10"
+                                                     Grid.Row="1"
+                                                     Source="{Binding OceanInfoUrl}"
+                                                     />
+
+                            </Grid>
 
                         </Frame>
 
-                        <Frame Margin="0, 20, 0, 0"
+                        <Frame Margin="0, 10, 0, 0"
                                Padding="0"
+                               CornerRadius="10"
                                BackgroundColor="{StaticResource NSSBlue}"
                                >
 
+                            <Grid Margin="0"
+                                  Padding="0"
+                                  RowSpacing="0"
+                                  ColumnSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Text="{local:Translate what_are_good_surfing_conditions}"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Start"
+                                       Padding="10, 5, 10, 5"
+                                       FontSize="20"
+                                       TextColor="{StaticResource NSSOrange}"
+                                       />
+
+                                <Label Text="{local:Translate what_are_good_surfing_conditions_description}"
+                                       VerticalTextAlignment="Center"
+                                       HorizontalTextAlignment="Start"
+                                       Padding="10, 0, 10, 10"
+                                       Grid.Row="1"
+                                       FontSize="20"
+                                       TextColor="White"
+                                       />
+
+                            </Grid>
 
                         </Frame>
 
@@ -94,8 +174,6 @@
                               Grid.Row="1"
                               IsVisible="False"
                               />
-            
-            <!--<WebView x:Name="wvWebCam"/>-->
         </Grid>
     </ContentPage.Content>
 </ContentPage>

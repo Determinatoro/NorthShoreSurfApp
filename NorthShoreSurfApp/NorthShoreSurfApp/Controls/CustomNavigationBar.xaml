@@ -142,7 +142,7 @@
 
                 <local:CustomImageButton
                     x:Name="btn1"
-                    Grid.Column="2"
+                    Grid.Column="4"
                     Grid.Row="1"
                     IsVisible="{Binding ButtonOneIsVisible, Source={x:Reference this}}"
                     HeightRequest="55"
@@ -161,7 +161,7 @@
 
                 <local:CustomImageButton
                     x:Name="btn2"
-                    Grid.Column="4"
+                    Grid.Column="2"
                     Grid.Row="1"
                     Margin="1"
                     HeightRequest="55"
