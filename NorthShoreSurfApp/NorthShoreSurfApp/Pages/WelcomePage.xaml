@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              x:Class="NorthShoreSurfApp.WelcomePage"
              BackgroundColor="White">
-    <StackLayout Spacing="10" BackgroundColor="White" Margin="10,0,10,0">
+    <StackLayout Spacing="10" BackgroundColor="White" Margin="10,0,10,10">
         <BoxView Color="Transparent" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HeightRequest="60"/>
         <Image Source="C:\Users\musta\source\repos\Determinatoro\NorthShoreSurfApp\NorthShoreSurfApp\NorthShoreSurfApp\Icons\NSSlogo.png"
                Aspect="AspectFill"
@@ -14,7 +14,7 @@
         <Button Text="Sign up" 
                 VerticalOptions="Center" 
                 HorizontalOptions="FillAndExpand" 
-                BackgroundColor="#2C3B4E" 
+                BackgroundColor="{StaticResource NSSBlue}" 
                 TextColor="White"
                 CornerRadius="10"
                 FontSize="Title"
@@ -29,6 +29,7 @@
                 FontSize="Title"
                 Padding="0,10"
                 Clicked="SingInClicked"/>
+        <BoxView Color="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
         <Button Text="Continue as guest" 
                 VerticalOptions="Center" 
                 HorizontalOptions="FillAndExpand" 
@@ -38,6 +39,5 @@
                 FontSize="Title"
                 Padding="0,10"
                 Clicked="ContinueAsGuestClicked"/>
-        <BoxView Color="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
     </StackLayout>
 </ContentPage>
