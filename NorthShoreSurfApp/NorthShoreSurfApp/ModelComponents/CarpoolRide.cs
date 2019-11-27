@@ -54,6 +54,18 @@ namespace NorthShoreSurfApp.ModelComponents
         public List<CarpoolConfirmation> CarpoolConfirmations { get; set; }
 
         [NotMapped]
-        public string DepartureTimeString { get => DepartureTime.ToCarpoolingFormat(); }
+        public string DepartureTimeDayString { get => DepartureTime.ToCarpoolingFormat(); }
+
+        [NotMapped]
+        public string DepartureTimeHourString { get => DepartureTime.ToString("HH:mm"); }
+
+        [NotMapped]
+        public string PricePerPassengerString { get => String.Format("{0} DKK", PricePerPassenger); }
+
+        [NotMapped]
+        public string ZipcodeCityString { get => String.Format("{0} {1}", ZipCode, City); }
+
+        [NotMapped]
+        public string DestinationZipcodeCityString { get => String.Format("{0} {1}", DestinationZipCode, DestinationCity); }
     }
 }

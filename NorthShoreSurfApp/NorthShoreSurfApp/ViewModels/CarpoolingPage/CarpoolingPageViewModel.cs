@@ -20,35 +20,16 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
         public CarpoolingPageViewModel()
         {
             rides = new ObservableCollection<CarpoolRide>();
-            rides.Add(new CarpoolRide()
-            {
-                ZipCode = "8000",
-                Address = "Parkvej",
-                City = "Aalborg",
-                DestinationZipCode ="9480",
-                DestinationAddress ="North Shore Surf",
-                DestinationCity = "Løkken",
-                NumberOfSeats = 2,
-                DepartureTime = new DateTime(2019, 1, 1,13,0,0),
-                PricePerPassenger = 50
+            requests = new ObservableCollection<CarpoolRequest>();
 
-            });
-            rides.Add(new CarpoolRide()
-            {
-                ZipCode = "9000",
-                Address = "Æblevej",
-                City = "Aalborg",
-                DestinationZipCode = "9480",
-                DestinationAddress = "North Shore Surf",
-                DestinationCity = "Løkken",
-                NumberOfSeats = 5,
-                DepartureTime = new DateTime(2019,1,1,14,30,0),
-                PricePerPassenger = 50
-            });
+
+            
+
+            
         }
 
 
-        private ObservableCollection<CarpoolRide> rides;
+        /* private ObservableCollection<CarpoolRide> rides;
 
 
         public ObservableCollection<CarpoolRide> Rides
@@ -58,6 +39,30 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
             {
                 rides = value;
                 OnPropertyChanged(nameof(rides));
+            }
+        } */
+
+        private ObservableCollection<CarpoolRide> rides;
+
+        public ObservableCollection<CarpoolRide> Rides
+        {
+            get { return rides; }
+            set
+            {
+                rides = value;
+                OnPropertyChanged(nameof(rides));
+            }
+        }
+
+        private ObservableCollection<CarpoolRequest> requests;
+
+        public ObservableCollection<CarpoolRequest> Requests
+        {
+            get { return requests; }
+            set
+            {
+                requests = value;
+                OnPropertyChanged(nameof(requests));
             }
         }
 

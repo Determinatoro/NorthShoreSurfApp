@@ -27,5 +27,7 @@ namespace NorthShoreSurfApp.ModelComponents
         [Required]
         [StringLength(255)]
         public string City { get; set; }
+
+        
     }
 }
