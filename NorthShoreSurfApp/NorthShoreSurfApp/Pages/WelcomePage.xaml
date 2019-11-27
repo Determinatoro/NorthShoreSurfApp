@@ -4,10 +4,40 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="NorthShoreSurfApp.WelcomePage">
-    <ContentPage.Content>
-        <StackLayout>
-            
-        </StackLayout>
-    </ContentPage.Content>
+             x:Class="NorthShoreSurfApp.WelcomePage"
+             BackgroundColor="White">
+    <StackLayout Spacing="10" BackgroundColor="White" Margin="10,0,10,10">
+        <BoxView Color="Transparent" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HeightRequest="60"/>
+        <Image Source="C:\Users\musta\source\repos\Determinatoro\NorthShoreSurfApp\NorthShoreSurfApp\NorthShoreSurfApp\Icons\NSSlogo.png"
+               Aspect="AspectFill"
+               HeightRequest="280"/>
+        <Button Text="Sign up" 
+                VerticalOptions="Center" 
+                HorizontalOptions="FillAndExpand" 
+                BackgroundColor="{StaticResource NSSBlue}" 
+                TextColor="White"
+                CornerRadius="10"
+                FontSize="Title"
+                Padding="0,10"
+                Clicked="SignUpClicked"/>
+        <Button Text="Sign in" 
+                VerticalOptions="Center" 
+                HorizontalOptions="FillAndExpand" 
+                BackgroundColor="#FFAA00" 
+                TextColor="White"
+                CornerRadius="10"
+                FontSize="Title"
+                Padding="0,10"
+                Clicked="SingInClicked"/>
+        <BoxView Color="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+        <Button Text="Continue as guest" 
+                VerticalOptions="Center" 
+                HorizontalOptions="FillAndExpand" 
+                BackgroundColor="#919191" 
+                TextColor="White"
+                CornerRadius="10"
+                FontSize="Title"
+                Padding="0,10"
+                Clicked="ContinueAsGuestClicked"/>
+    </StackLayout>
 </ContentPage>
