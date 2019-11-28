@@ -254,22 +254,25 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse<List<User>>(1, mes.Message);
             }
         }
-        public async Task<DataResponse> CheckPhoneNo(string phoneNo)
+        public async Task<DataResponse> CheckIfPhoneIsNotUsedAlready(string phoneNo)
         {
             try
             {
                 using (var context = CreateContext())
                 {
                     // Check if phone no exist already
-                    bool success = await context.Users.AnyAsync(x => x.PhoneNo == phoneNo);
+                    var phoneNoAlreadyInDatabase = await context.Users.AnyAsync(x => x.PhoneNo == phoneNo);
                     // Return response
-                    return new DataResponse(success);
+                    if (phoneNoAlreadyInDatabase)
+                        return new DataResponse(101, Resources.AppResources.user_already_exist);
+                    // Return response
+                    return new DataResponse(true);
                 }
             }
             catch (Exception mes)
             {
                 // Return exception
-                return new DataResponse(1, mes.Message);
+                return new DataResponse<User>(1, mes.Message);
             }
         }
         public async Task<DataResponse<User>> GetUser(string phoneNo)
@@ -328,10 +331,10 @@ namespace NorthShoreSurfApp.Database
                 using (var context = CreateContext())
                 {
                     // Check phone no.
-                    DataResponse response = await CheckPhoneNo(phoneNo);
+                    DataResponse response = await CheckIfPhoneIsNotUsedAlready(phoneNo);
                     // User already exist
-                    if (response.Success)
-                        return new DataResponse<User>(101, Resources.AppResources.user_already_exist);
+                    if (!response.Success)
+                        return new DataResponse<User>(response.ErrorCode, response.ErrorMessage);
                     // Create user
                     User user = new User()
                     {

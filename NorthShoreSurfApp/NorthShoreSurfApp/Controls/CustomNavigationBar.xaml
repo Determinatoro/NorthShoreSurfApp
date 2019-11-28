@@ -142,7 +142,7 @@
 
                 <local:CustomImageButton
                     x:Name="btn1"
-                    Grid.Column="2"
+                    Grid.Column="4"
                     Grid.Row="1"
                     IsVisible="{Binding ButtonOneIsVisible, Source={x:Reference this}}"
                     HeightRequest="55"
@@ -150,18 +150,18 @@
                     Margin="1"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    BackgroundColor="White"
+                    Background="White"
                     BackgroundPressed="{StaticResource BarBackground}"
                     BorderColor="{StaticResource NSSBlue}"
                     BorderThickness="1"
-                    IconPadding="10"
                     IconColor="{StaticResource NSSBlue}"
-                    Icon="{Binding ButtonTwoImage, Source={x:Reference this}}"
+                    IconPadding="10"
+                    Icon="ic_surfing.png"
                     />
 
                 <local:CustomImageButton
                     x:Name="btn2"
-                    Grid.Column="4"
+                    Grid.Column="2"
                     Grid.Row="1"
                     Margin="1"
                     HeightRequest="55"
@@ -169,20 +169,16 @@
                     WidthRequest="55"
                     VerticalOptions="Center"
                     HorizontalOptions="Center"
-                    BackgroundColor="White"
+                    Background="White"
                     BackgroundPressed="{StaticResource BarBackground}"
                     BorderColor="{StaticResource NSSBlue}"
                     BorderThickness="1"
-                    IconPadding="10"
                     IconColor="{StaticResource NSSBlue}"
-                    Icon="{Binding ButtonOneImage, Source={x:Reference this}}"
-                    
-                   
+                    IconPadding="10"
+                    Icon="ic_surfing.png"
                     />
 
             </Grid>
-
-            
 
         </Grid>
     </ContentView.Content>

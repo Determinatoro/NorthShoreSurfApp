@@ -1,4 +1,5 @@
 ﻿using LibVLCSharp.Shared;
+using NorthShoreSurfApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,13 @@ namespace NorthShoreSurfApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SurfingConditionsPage : ContentPage
     {
+        /*****************************************************************/
+        // VARIABLES
+        /*****************************************************************/
         #region Variables
+
+        private SurfingConditionsViewModel SurfingConditionsViewModel { get => (SurfingConditionsViewModel)this.BindingContext; }
+
         private LibVLC LibVLC { get; set; }
         
         private const string CamOnLiveVideoUrl = "rtsp://127.0.0.1:8080/video/h264";
@@ -23,6 +30,9 @@ namespace NorthShoreSurfApp
 
         #endregion
 
+        /*****************************************************************/
+        // CONSTRUCTOR
+        /*****************************************************************/
         #region Constructor
 
         public SurfingConditionsPage()
@@ -41,31 +51,47 @@ namespace NorthShoreSurfApp
 
             // VLC setup
             LibVLC = new LibVLC();
-            
-            wvWeatherInfo.Source = "https://servlet.dmi.dk/byvejr/servlet/byvejr_dag1?by=9021&tabel=dag1&mode=long";
+
+            navigationBar.ButtonOne.Clicked += (sender, args) =>
+            {
+                wvOceanInfo.Reload();
+                wvWeatherInfo.Reload();
+            };
+
+            wvOceanInfo.Focused += (s, e) =>
+            {
+                DisplayAlert("TEST", "TEST", "Cancel");
+                wvOceanInfo.Unfocus();
+            };
         }
 
         #endregion
 
+        /*****************************************************************/
+        // OVERRIDE METHODS
+        /*****************************************************************/
         #region Override methods
 
         protected override void OnAppearing()   
         {
             base.OnAppearing();
 
-            vvWebcam.MediaPlayer = new MediaPlayer(LibVLC);
-            vvWebcam.MediaPlayer.Fullscreen = true;
-            vvWebcam.MediaPlayer.Play(new Media(LibVLC, CamOnLiveVideoUrl, FromType.FromLocation));
+            //vvWebcam.MediaPlayer = new MediaPlayer(LibVLC);
+            //vvWebcam.MediaPlayer.Fullscreen = true;
+            //vvWebcam.MediaPlayer.Play(new Media(LibVLC, CamOnLiveVideoUrl, FromType.FromLocation));
 
             wvWeatherInfo.SizeChanged += (sender, args) =>
             {
                 var webview = ((WebView)sender);
-                var width = webview.Width;
-
-                webview.HeightRequest = width * 0.5625;
+                // Set width/height ratio to wrap the weather info from DMI
+                webview.HeightRequest = webview.Width * 0.5625;
             };
-
-            
+            wvOceanInfo.SizeChanged += (sender, args) =>
+            {
+                var webview = ((WebView)sender);
+                // Set width/height ratio to wrap the ocean info from DMI
+                webview.HeightRequest = webview.Width * 0.3984375;
+            };
         }
 
         #endregion

@@ -129,6 +129,13 @@
   <data name="cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="carpool" xml:space="preserve">
+    <value>Carpool</value>
+  </data>
+  <data name="checking_phone_no_please_wait" xml:space="preserve">
+    <value>Checking phone no.
+Please wait...</value>
+  </data>
   <data name="could_not_add_events_to_carpool_event" xml:space="preserve">
     <value>Could not add events to carpool event</value>
   </data>
@@ -156,6 +163,10 @@
   <data name="could_not_unsign_from_carpool" xml:space="preserve">
     <value>Could not unsign from carpool event</value>
   </data>
+  <data name="creating_account_please_wait" xml:space="preserve">
+    <value>Creating account.
+Please wait...</value>
+  </data>
   <data name="female" xml:space="preserve">
     <value>Female</value>
   </data>
@@ -169,6 +180,9 @@
     <value>Getting data.
 Please wait...</value>
   </data>
+  <data name="home" xml:space="preserve">
+    <value>Home</value>
+  </data>
   <data name="last_name" xml:space="preserve">
     <value>Last name</value>
   </data>
@@ -178,11 +192,23 @@ Please wait...</value>
   <data name="next" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="ocean_conditions" xml:space="preserve">
+    <value>Ocean conditions</value>
+  </data>
   <data name="other" xml:space="preserve">
     <value>Other</value>
   </data>
   <data name="phone_no" xml:space="preserve">
     <value>Phone no.</value>
+  </data>
+  <data name="please_fill_out_all_the_empty_fields" xml:space="preserve">
+    <value>Please fill out all the empty fields</value>
+  </data>
+  <data name="profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="see_webcam" xml:space="preserve">
+    <value>See webcam</value>
   </data>
   <data name="select_parameter" xml:space="preserve">
     <value>Select {0}</value>
@@ -201,5 +227,15 @@ Please wait...</value>
   </data>
   <data name="weather" xml:space="preserve">
     <value>Weather</value>
+  </data>
+  <data name="weather_conditions" xml:space="preserve">
+    <value>Weather conditions</value>
+  </data>
+  <data name="what_are_good_surfing_conditions" xml:space="preserve">
+    <value>What are good surfing conditions</value>
+  </data>
+  <data name="what_are_good_surfing_conditions_description" xml:space="preserve">
+    <value>Good surfing conditions are present when the wave and swell size are close to each other.
+Surfing is possible at all temperatures, but it is important to dress according to the weather.</value>
   </data>
 </root>

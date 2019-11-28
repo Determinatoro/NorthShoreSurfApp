@@ -67,6 +67,7 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\CustomEntryRenderer.cs" />
     <Compile Include="Renderers\CustomFrameRenderer.cs" />
+    <Compile Include="Renderers\CustomWebViewRenderer.cs" />
     <Compile Include="Services\IOSFirebaseService.cs" />
     <Compile Include="Services\IOSLocalDataService.cs" />
     <Compile Include="Services\IOSFacebookService.cs" />
@@ -75,7 +76,7 @@
     <BundleResource Include="GoogleService-Info.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <BundleResource Include="Resources\NSS.db" />
+    <AndroidAsset Include="Resources\NSS.db" />
     <BundleResource Include="Resources\ic_car_white.png" />
     <BundleResource Include="Resources\request_icon_b.png" />
     <BundleResource Include="Resources\request_icon_w.png" />
@@ -83,7 +84,7 @@
     <BundleResource Include="Resources\location.png" />
     <BundleResource Include="Resources\destination.png" />
     <BundleResource Include="Resources\destination2.png" />
-    <BundleResource Include="Resources\Seat_red.png" />
+    <BundleResource Include="Resources\ic_seat_red.png" />
     <BundleResource Include="Resources\Delete icon.png" />
     <BundleResource Include="Resources\Wave 2 b.png" />
     <BundleResource Include="Resources\Seat.png" />
@@ -94,19 +95,14 @@
     <BundleResource Include="Resources\Request icon w.png" />
     <BundleResource Include="Resources\surfvejr.png" />
     <BundleResource Include="Resources\Car s - Kopi.png" />
-    <BundleResource Include="Resources\Home.png" />
     <BundleResource Include="Resources\User.png" />
     <BundleResource Include="Resources\Car - Kopi.png" />
-    <BundleResource Include="Resources\car icon 2 b.png" />
-    <BundleResource Include="Resources\Home s - Kopi.png" />
     <BundleResource Include="Resources\live icon.png" />
     <BundleResource Include="Resources\vejr.png" />
-    <BundleResource Include="Resources\car icon 2.png" />
     <BundleResource Include="Resources\User s - Kopi.png" />
     <BundleResource Include="Resources\Wave.png" />
     <BundleResource Include="Resources\Seat full.png" />
     <BundleResource Include="Resources\Car.png" />
-    <BundleResource Include="Resources\Home - Kopi.png" />
     <BundleResource Include="Resources\Car s.png" />
     <BundleResource Include="Resources\livecam mini.png" />
     <BundleResource Include="Resources\Surf.png" />
@@ -118,7 +114,6 @@
     <BundleResource Include="Resources\User s.png" />
     <BundleResource Include="Resources\User - Kopi.png" />
     <BundleResource Include="Resources\Live.png" />
-    <BundleResource Include="Resources\Home s.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -215,9 +210,6 @@
     <BundleResource Include="Resources\ic_back.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_car.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\ic_down_arrow.png" />
   </ItemGroup>
   <ItemGroup>
@@ -225,5 +217,56 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_surfing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_surfing%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_surfing%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_home%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_home%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_surfing_selected%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_surfing_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_surfing_selected%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_carpooling.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_carpooling%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_carpooling%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_carpooling_selected%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_carpooling_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_carpooling_selected%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_home_selected%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_home_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_home_selected%402x.png" />
   </ItemGroup>
 </Project>

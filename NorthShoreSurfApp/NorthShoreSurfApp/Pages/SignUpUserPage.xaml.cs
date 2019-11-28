@@ -16,6 +16,20 @@ using Xamarin.Forms.Xaml;
 
 namespace NorthShoreSurfApp
 {
+    /*****************************************************************/
+    // ENUMS
+    /*****************************************************************/
+    #region Enums
+
+    public enum SignUpUserPageType
+    {
+        SignUp,
+        Login,
+        EditInformation
+    }
+
+    #endregion
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SignUpUserPage : ContentPage, IFirebaseServiceCallBack
     {
@@ -37,7 +51,7 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Variables
 
-        public SignUpUserModel SignUpUserModel { get => (SignUpUserModel)this.BindingContext; }
+        public SignUpUserViewModel SignUpUserModel { get => (SignUpUserViewModel)this.BindingContext; }
 
         private ContentSite CurrentContentSite { get; set; }
 
@@ -48,7 +62,7 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Constructor
 
-        public SignUpUserPage()
+        public SignUpUserPage(SignUpUserPageType signUpUserPageType, User existingUser = null)
         {
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
             Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
@@ -61,6 +75,9 @@ namespace NorthShoreSurfApp
             var safeAreaInset = On<iOS>().SafeAreaInsets();
             // Set safe area margins
             grid.Margin = safeAreaInset;
+
+            // Set page type
+            SignUpUserModel.SetPageType(signUpUserPageType, existingUser);
 
             // Click events
             btnNext.Clicked += Button_Clicked;
@@ -121,6 +138,16 @@ namespace NorthShoreSurfApp
 
             gridEnterData.IsVisible = false;
             gridEnterSMSCode.IsVisible = false;
+
+            switch (SignUpUserModel.PageType)
+            {
+                case SignUpUserPageType.Login:
+                    tbAge.IsVisible = false;
+                    tbFirstName.IsVisible = false;
+                    tbLastName.IsVisible = false;
+                    pickerGender.IsVisible = false;
+                    break;
+            }
 
             double displacement = gridEnterData.Width;
             double displacement2 = gridEnterSMSCode.Width;
@@ -198,43 +225,39 @@ namespace NorthShoreSurfApp
         {
             if (sender == btnNext)
             {
-                SetCurrentContentSite(ContentSite.EnterSMSCode, true);
-                return;
-
                 if (SignUpUserModel.AllDataGiven)
                 {
-                    await App.FirebaseService.VerifyPhoneNo(this, SignUpUserModel.PhoneNo);
-                    SetCurrentContentSite(ContentSite.EnterSMSCode, true);
-                }
-                else
-                {
-                    await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, "Please enter data"));
-                }
-
-                return;
-                var page = new SignUpUserPage();
-                page.SignUpUserModel.LastName = "TEST";
-                await Navigation.PushAsync(page);
-                return;
-
-                App.DataService.GetData(
-                        NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
+                    // Check if phone no. already exist
+                    App.DataService.GetData(
+                        NorthShoreSurfApp.Resources.AppResources.checking_phone_no_please_wait,
                         true,
-                        () => App.DataService.CreateCar(1, "AM60657", "Midnight Blue"),
+                        () => App.DataService.CheckIfPhoneIsNotUsedAlready(SignUpUserModel.PhoneNo),
                         async (response) =>
                         {
                             if (response.Success)
                             {
-                                await Navigation.PopAsync();
+                                await App.FirebaseService.VerifyPhoneNo(this, SignUpUserModel.PhoneNo);
+                                SetCurrentContentSite(ContentSite.EnterSMSCode);
                             }
                             else
                             {
                                 CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
                                 await PopupNavigation.Instance.PushAsync(customDialog);
                             }
-
-                            await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, response.Result.LicensePlate));
                         });
+                }
+                else
+                {
+                    // Tell the user to fill out all fields on the page
+                    await PopupNavigation.Instance.PushAsync(
+                        new CustomDialog(
+                            CustomDialogType.Message, 
+                            NorthShoreSurfApp.Resources.AppResources.please_fill_out_all_the_empty_fields
+                            )
+                        );
+                }
+
+                return;
             }
             else if (sender == btnApprove)
             {
@@ -281,9 +304,40 @@ namespace NorthShoreSurfApp
         }
 
         // SignedIn
-        public async void SignedIn()
+        public void SignedIn()
         {
-            await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, "Signed in"));
+            switch (SignUpUserModel.PageType)
+            {
+                case SignUpUserPageType.SignUp:
+                    {
+                        App.DataService.GetData(
+                        NorthShoreSurfApp.Resources.AppResources.creating_account_please_wait,
+                        true,
+                        SignUpUserModel.SignUpUserTask,
+                        async (response) =>
+                        {
+                            if (response.Success)
+                            {
+
+                            }
+                            else
+                            {
+                                CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                                await PopupNavigation.Instance.PushAsync(customDialog);
+                            }
+                        });
+
+                        break;
+                    }
+                case SignUpUserPageType.Login:
+                    {
+
+
+                        break;
+                    }
+                case SignUpUserPageType.EditInformation:
+                    break;
+            }
         }
 
         #endregion

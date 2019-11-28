@@ -28,10 +28,9 @@ namespace NorthShoreSurfApp
             ErrorCode = 0;
             ErrorMessage = null;
         }
-
         public DataResponse()
         {
-
+            
         }
     }
 
@@ -68,7 +67,7 @@ namespace NorthShoreSurfApp
         Task<DataResponse<List<OpeningHour>>> GetOpeningHours();
         Task<DataResponse<ContactInfo>> GetContactInfo();
 
-        Task<DataResponse> CheckPhoneNo(string phoneNo);
+        Task<DataResponse> CheckIfPhoneIsNotUsedAlready(string phoneNo);
         Task<DataResponse<User>> GetUser(string phoneNo);
         Task<DataResponse> UpdateUser(int userId, string firstName, string lastName, string phoneNo, int age, int genderId);
         Task<DataResponse<User>> SignUpUser(string firstName, string lastName, string phoneNo, int age, int genderId);

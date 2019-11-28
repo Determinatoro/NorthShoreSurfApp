@@ -23,7 +23,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-        <local:CustomNavigationBar x:Name="carpoolNavigationBar"
+        <local:CustomNavigationBar x:Name="navigationBar"
                                        BarBackgroundColor="{StaticResource BarBackground}"
                                        ShowBackButton="True"
                                        Title="New carpool event"
