@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace NorthShoreSurfApp.ViewModels
 {
-    public class NewCarModel : INotifyPropertyChanged
+    public class NewCarViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

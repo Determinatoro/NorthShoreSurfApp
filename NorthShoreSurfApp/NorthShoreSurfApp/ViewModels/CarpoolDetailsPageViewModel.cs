@@ -105,10 +105,10 @@ namespace NorthShoreSurfApp.ViewModels
 
         public string DepatureTime
         {
-            get { return carpoolRide.DepartureTimeString; }
+            get { return carpoolRide.DepartureTimeDayString; }
             set
             {
-                if(carpoolRide.DepartureTimeString != value)
+                if(carpoolRide.DepartureTimeDayString != value)
                 {
                     depatureTime = value;
                     OnPropertyChanged(nameof(DepatureTime));

@@ -10,7 +10,7 @@
              BackgroundColor="{StaticResource BarBackground}">
 
     <ContentPage.BindingContext>
-        <models:SignUpUserModel />
+        <models:NewCarViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
