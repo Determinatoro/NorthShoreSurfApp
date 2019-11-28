@@ -34,6 +34,7 @@ namespace NorthShoreSurfApp
             //rideList.ItemSelected
             RidesTab.Toggled += RidesTab_Clicked;
             navigationBar.ButtonOne.Clicked += Plus_Clicked;
+            navigationBar.ButtonTwo.Clicked += Confirmations_Clicked;
 
             CarpoolingPageViewModel.Rides.Add(new CarpoolRide()
             {
@@ -77,7 +78,7 @@ namespace NorthShoreSurfApp
                     if (response.Success)
                     {
                         
-                        //CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
+                        CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
                     }
                     else
                     {
@@ -92,6 +93,11 @@ namespace NorthShoreSurfApp
         private async void Plus_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new NewCarpoolingPage());
+
+        }
+        private async void Confirmations_Clicked(object sender, EventArgs e)
+        {
+            // await Navigation.PushAsync(new ());
         }
 
         private void rideSelected(object sender, EventArgs e)
@@ -101,7 +107,7 @@ namespace NorthShoreSurfApp
 
 
                 CarpoolRide SelectedRide = (CarpoolRide)rideList.SelectedItem;
-               
+                Console.WriteLine(SelectedRide.DepartureTimeHourString);
                 
             }
         }
