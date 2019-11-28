@@ -14,6 +14,8 @@ namespace NorthShoreSurfApp
     {
         public CarpoolDetailsPage()
         {
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+            Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
         }
     }

@@ -22,7 +22,13 @@ namespace NorthShoreSurfApp.ViewModels
         private string depatureTime;
         private string price;
         private string address;
+        private string city;
+        private string addressZip;
         private string destinationAddress;
+        private string destinationCity;
+        private string destinationZip;
+        private string zipAndCity;
+        private string zipAndCityDestination;
         private int numberOfSeats;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -43,7 +49,12 @@ namespace NorthShoreSurfApp.ViewModels
                     PhoneNo = "22278273"
                 },
                 Address = "Godsbanen",
-                DestinationAddress = "Løkken",
+                DestinationAddress = "Strand",
+                PricePerPassenger = 50,
+                ZipCode = "9000",
+                DestinationZipCode = "9480",
+                City = "Aalborg",
+                DestinationCity = "Løkken"
                 
             };
 
@@ -118,7 +129,7 @@ namespace NorthShoreSurfApp.ViewModels
 
         public string Price
         {
-            get { return carpoolRide.PricePerPassenger.ToString(); }
+            get { return carpoolRide.PricePerPassenger.ToString() + " DKK"; }
             set
             {
                 if (price != value)
@@ -142,6 +153,19 @@ namespace NorthShoreSurfApp.ViewModels
             }
         }
 
+        public string DestinationAddress
+        {
+            get { return carpoolRide.DestinationAddress; }
+            set
+            {
+                if (destinationAddress != value)
+                {
+                    destinationAddress = value;
+                    OnPropertyChanged(nameof(DestinationAddress));
+                }
+            }
+        }
+
         public int NumberOfSeats
         {
             get { return carpoolRide.NumberOfSeats; }
@@ -155,15 +179,81 @@ namespace NorthShoreSurfApp.ViewModels
             }
         }
 
-        public string DestinationAddress
+        public string AddressZip
         {
-            get { return carpoolRide.DestinationAddress; }
+            get { return carpoolRide.ZipCode; }
             set
             {
-                if (destinationAddress != value)
+                if (addressZip != value)
                 {
-                    destinationAddress = value;
-                    OnPropertyChanged(nameof(DestinationAddress));
+                    addressZip = value;
+                    OnPropertyChanged(nameof(AddressZip));
+                }
+            }
+        }
+
+        public string DestinationZip
+        {
+            get { return carpoolRide.DestinationZipCode; }
+            set
+            {
+                if (destinationZip != value)
+                {
+                    destinationZip = value;
+                    OnPropertyChanged(nameof(DestinationZip));
+                }
+            }
+        }
+
+
+        public string City
+        {
+            get { return carpoolRide.City; }
+            set
+            {
+                if (city != value)
+                {
+                    city = value;
+                    OnPropertyChanged(nameof(City));
+                }
+            }
+        }
+
+        public string DestinationCity
+        {
+            get { return "Godsbanen"; }
+            set
+            {
+                if (destinationCity != value)
+                {
+                    destinationCity = value;
+                    OnPropertyChanged(nameof(DestinationCity));
+                }
+            }
+        }
+
+        public string ZipAndCity
+        {
+            get { return "9000 Aalborg"; }
+            set
+            {
+                if ($"{carpoolRide.ZipCode} {carpoolRide.City}" != value)
+                {
+                    zipAndCity = value;
+                    OnPropertyChanged(nameof(ZipAndCity));
+                }
+            }
+        }
+
+        public string ZipAndCityDestination
+        {
+            get { return $"{carpoolRide.DestinationZipCode} {carpoolRide.DestinationCity}"; }
+            set
+            {
+                if ($"{carpoolRide.DestinationZipCode} {carpoolRide.DestinationCity}" != value)
+                {
+                    zipAndCityDestination = value;
+                    OnPropertyChanged(nameof(ZipAndCityDestination));
                 }
             }
         }

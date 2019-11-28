@@ -35,6 +35,9 @@
                                        />
             <!--Grid enter data-->
             <Grid x:Name="gridEnterData" 
+                  RowSpacing="0"
+                  Margin="0"
+                  Padding="0"
                   VerticalOptions="Fill" 
                   Grid.Row="1" 
                   HorizontalOptions="Fill" 
@@ -59,7 +62,10 @@
                             CornerRadius="10">
 
 
-                            <Grid>
+                            <Grid
+                                RowSpacing="0"
+                                Margin="0"
+                                Padding="0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
@@ -81,13 +87,18 @@
 
                         <Frame
                            BackgroundColor="{StaticResource NSSBlue}" 
-                            HeightRequest="100"
+                            HeightRequest="90"
                             HorizontalOptions="Fill"
                             HasShadow="True"
                             CornerRadius="10">
 
 
-                            <Grid>
+                            <Grid
+                                
+                                RowSpacing="0"
+                                Margin="0"
+                                Padding="0">
+
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
@@ -101,26 +112,46 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Text="{Binding Address}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="StartAndExpand"/>
-                                <Label Text="{Binding PhoneNo}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="StartAndExpand"/>
-                                <Label Text="{Binding Age}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="EndAndExpand"/>
-                                <Label Text="{Binding Gender}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="EndAndExpand"/>
+                                <Label Text="{Binding DepatureTime}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="StartAndExpand"/>
+                                <Label Text="{Binding DepatureTime}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="StartAndExpand"/>
+                                <Label Text="{Binding Price}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="EndAndExpand"/>
+                                <Label Text="{Binding NumberOfSeats}" LineHeight="0.8" TextColor="White" Grid.Row="3" Grid.Column="0" VerticalOptions="EndAndExpand"/>
+                                <Label Text="{Binding Address}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="End"/>
+                                <Label Text="{Binding ZipAndCity}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="EndAndExpand"/>
+                                <Label Text="{Binding DestinationAddress}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="EndAndExpand"/>
+                                <Label Text="{Binding ZipAndCityDestination }" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Start" HorizontalOptions="EndAndExpand"/>
 
-                                <local:CustomImageButton
-                                    Icon="ic_destination"
-                                    IsEnabled="True"
-                                    HorizontalOptions="EndAndExpand"
-                                    Grid.Column="2"
-                                    Grid.Row="0"
-                                    ></local:CustomImageButton>
-
-                                <local:CustomImageButton
-                                    Icon="ic_destination"
-                                    IsEnabled="True"
-                                    HorizontalOptions="EndAndExpand"
-                                    Grid.Column="2"
-                                    Grid.Row="3"
-                                    ></local:CustomImageButton>
+                                <local:CustomImageButton x:Name="btnEdit1"
+                                     Grid.Row="0"
+                                     Grid.Column="2"
+                                     Icon="ic_location.png"
+                                     VerticalOptions="Center"
+                                     HorizontalOptions="EndAndExpand"
+                                     HeightRequest="70"
+                                     WidthRequest="70"
+                                     Background="{StaticResource NSSBlue}"
+                                     BackgroundColor="Transparent"
+                                     BackgroundPressed="{StaticResource NSSBluePressed}"
+                                     BorderColor="Transparent"
+                                     BorderThickness="1"
+                                     IconPadding="1"
+                                     />
+                                
+                                <local:CustomImageButton x:Name="btnEdit"
+                                     Grid.Row="3"
+                                     Grid.Column="2"
+                                     Icon="ic_destination.png"
+                                     VerticalOptions="StartAndExpand"
+                                     HorizontalOptions="EndAndExpand"
+                                     HeightRequest="70"
+                                     WidthRequest="70"
+                                     Background="{StaticResource NSSBlue}"
+                                     BackgroundColor="Transparent"
+                                     BackgroundPressed="{StaticResource NSSBluePressed}"
+                                     BorderColor="Transparent"
+                                     BorderThickness="1"
+                                     IconPadding="1"
+                                     />
 
                             </Grid>
 
