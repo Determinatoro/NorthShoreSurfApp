@@ -25,7 +25,7 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Variables
 
-        public NewCarModel NewCarModel { get => (NewCarModel)this.BindingContext; }
+        public NewCarViewModel NewCarModel { get => (NewCarViewModel)this.BindingContext; }
 
         //private ContentSite CurrentContentSite { get; set; }
 
