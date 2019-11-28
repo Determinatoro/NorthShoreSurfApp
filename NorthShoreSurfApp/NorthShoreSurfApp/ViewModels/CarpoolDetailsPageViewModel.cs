@@ -103,15 +103,15 @@ namespace NorthShoreSurfApp.ViewModels
             }
         }
 
-        public string DepatureTime
+        public string DepartureTime
         {
-            get { return carpoolRide.DepartureTimeString; }
+            get { return carpoolRide.DepartureTimeDayString; }
             set
             {
-                if(carpoolRide.DepartureTimeString != value)
+                if(carpoolRide.DepartureTimeDayString != value)
                 {
                     depatureTime = value;
-                    OnPropertyChanged(nameof(DepatureTime));
+                    OnPropertyChanged(nameof(DepartureTime));
                 }
             }
         }
