@@ -44,6 +44,22 @@ namespace NorthShoreSurfApp
 
             App.DataService.GetData(
                 NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
+                false, () => App.DataService.CreateCarpoolRide(userId, DateTime.Now, "Ribevej 3", "9220", "Aalborg Øst", "Løkkenvej 1", "9440", "Løkken", 1, 3, 50, new List<Event>(), "Dette er en test"),
+                async (response) =>
+                {
+                    if (response.Success)
+                    {
+                        var list = App.DataService.GetCarpoolRides().Result;
+                    }
+                    else
+                    {
+                        CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                        await PopupNavigation.Instance.PushAsync(customDialog);
+                    }
+                });
+
+            /*App.DataService.GetData(
+                NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
                 false, () => App.DataService.GetCarpoolRides(),
                 async (response) =>
                 {
@@ -81,7 +97,7 @@ namespace NorthShoreSurfApp
                         CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
                         await PopupNavigation.Instance.PushAsync(customDialog);
                     }
-                });
+                });*/
         }
 
         private async void Plus_Clicked(object sender, EventArgs e)

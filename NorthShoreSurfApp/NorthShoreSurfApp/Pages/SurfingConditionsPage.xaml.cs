@@ -63,6 +63,19 @@ namespace NorthShoreSurfApp
                 DisplayAlert("TEST", "TEST", "Cancel");
                 wvOceanInfo.Unfocus();
             };
+
+            wvWeatherInfo.Loaded += (sender, args) =>
+            {
+                var webview = ((WebView)sender);
+                // Set width/height ratio to wrap the weather info from DMI
+                webview.HeightRequest = webview.Width * 0.5625;
+            };
+            wvOceanInfo.SizeChanged += (sender, args) =>
+            {
+                var webview = ((WebView)sender);
+                // Set width/height ratio to wrap the ocean info from DMI
+                webview.HeightRequest = webview.Width * 0.3984375;
+            };
         }
 
         #endregion
@@ -79,19 +92,8 @@ namespace NorthShoreSurfApp
             //vvWebcam.MediaPlayer = new MediaPlayer(LibVLC);
             //vvWebcam.MediaPlayer.Fullscreen = true;
             //vvWebcam.MediaPlayer.Play(new Media(LibVLC, CamOnLiveVideoUrl, FromType.FromLocation));
-
-            wvWeatherInfo.SizeChanged += (sender, args) =>
-            {
-                var webview = ((WebView)sender);
-                // Set width/height ratio to wrap the weather info from DMI
-                webview.HeightRequest = webview.Width * 0.5625;
-            };
-            wvOceanInfo.SizeChanged += (sender, args) =>
-            {
-                var webview = ((WebView)sender);
-                // Set width/height ratio to wrap the ocean info from DMI
-                webview.HeightRequest = webview.Width * 0.3984375;
-            };
+            var width = wvWeatherInfo.Width;
+            
         }
 
         #endregion

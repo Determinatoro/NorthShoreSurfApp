@@ -76,7 +76,7 @@
     <BundleResource Include="GoogleService-Info.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <AndroidAsset Include="Resources\NSS.db" />
+    <BundleResource Include="Resources\NSS.db" />
     <BundleResource Include="Resources\ic_car_white.png" />
     <BundleResource Include="Resources\request_icon_b.png" />
     <BundleResource Include="Resources\request_icon_w.png" />
