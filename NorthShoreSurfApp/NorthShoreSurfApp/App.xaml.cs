@@ -39,7 +39,7 @@ namespace NorthShoreSurfApp
 
         protected override void OnStart()
         {
-            NorthShoreSurfApp.App.DataService.CreateCarpoolRide(100, new DateTime(2019, 1, 1, 13, 0, 0), "Æblevej", "9000", "Aalborg", 1, 5, 50, new List<ModelComponents.Event>(), "Hook me up!");
+            NorthShoreSurfApp.App.DataService.CreateCarpoolRide(100, new DateTime(2019, 1, 1, 13, 0, 0), "Æblevej", "9000", "Aalborg", "Løkkenvej 1", "9440", "Løkken", 1, 5, 50, new List<ModelComponents.Event>(), "Hook me up!");
 
         }
 

@@ -82,7 +82,7 @@ namespace NorthShoreSurfApp.Droid.Renderers
         public override void Draw(Canvas canvas)
         {
             base.Draw(canvas);
-            customWebView.FinishedLoading?.Invoke(customWebView, new EventArgs());
+            customWebView.FinishedLoading();
         }
 
         #endregion
