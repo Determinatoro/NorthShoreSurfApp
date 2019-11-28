@@ -136,6 +136,9 @@
     <value>Checking phone no.
 Please wait...</value>
   </data>
+  <data name="confirmations" xml:space="preserve">
+    <value>Confirmations</value>
+  </data>
   <data name="could_not_add_events_to_carpool_event" xml:space="preserve">
     <value>Could not add events to carpool event</value>
   </data>
@@ -182,6 +185,9 @@ Please wait...</value>
   </data>
   <data name="home" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="join_ride" xml:space="preserve">
+    <value>Join ride</value>
   </data>
   <data name="last_name" xml:space="preserve">
     <value>Last name</value>

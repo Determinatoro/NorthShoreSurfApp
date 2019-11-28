@@ -56,10 +56,12 @@
                             HeightRequest="50"
                             HorizontalOptions="Fill"
                             HasShadow="True"
-                            CornerRadius="10">
+                            CornerRadius="10"
+                            >
 
 
-                            <Grid>
+                            <Grid
+                                >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>

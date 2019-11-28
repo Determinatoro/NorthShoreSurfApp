@@ -104,11 +104,8 @@ namespace NorthShoreSurfApp
         {
             if (sender == rideList)
             {
-
-
                 CarpoolRide SelectedRide = (CarpoolRide)rideList.SelectedItem;
-                Console.WriteLine(SelectedRide.DepartureTimeHourString);
-                
+                Console.WriteLine(SelectedRide.ToString());
             }
         }
 
@@ -127,6 +124,11 @@ namespace NorthShoreSurfApp
 
                 });
             }
+        }
+
+        private void rideList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+
         }
     }
 }

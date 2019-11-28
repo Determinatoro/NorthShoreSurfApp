@@ -13,7 +13,6 @@ namespace NorthShoreSurfApp.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         public CarpoolRide carpoolRide;
-
         private string fullName;
         private string phoneNo;
         private int age;
@@ -32,23 +31,7 @@ namespace NorthShoreSurfApp.ViewModels
 
         public CarpoolDetailsPageViewModel()
         {
-            carpoolRide = new CarpoolRide
-            {
-                Driver = new User
-                {
-                    FirstName = "Thomas",
-                    LastName = "Schjødte",
-                    Gender = new Gender { Name = Resources.AppResources.male },
-                    Age = 20,
-                    PhoneNo = "22278273"
-                },
-                Address = "Godsbanen",
-                DestinationAddress = "Løkken",
-                
-            };
-
-
-
+            
         }
 
         public string GetName

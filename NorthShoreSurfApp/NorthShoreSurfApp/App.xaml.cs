@@ -21,7 +21,7 @@ namespace NorthShoreSurfApp
         {
             InitializeComponent();
 
-            MainPage = new RootTabbedPage();
+            MainPage = new CarpoolingPage();
             Core.Initialize();
 
             LocalDataService = DependencyService.Get<ILocalDataService>();

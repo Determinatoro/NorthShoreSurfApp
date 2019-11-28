@@ -116,6 +116,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirmations.
+        /// </summary>
+        internal static string confirmations {
+            get {
+                return ResourceManager.GetString("confirmations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not add events to carpool event.
         /// </summary>
         internal static string could_not_add_events_to_carpool_event {
@@ -249,6 +258,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string home {
             get {
                 return ResourceManager.GetString("home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join ride.
+        /// </summary>
+        internal static string join_ride {
+            get {
+                return ResourceManager.GetString("join_ride", resourceCulture);
             }
         }
         
