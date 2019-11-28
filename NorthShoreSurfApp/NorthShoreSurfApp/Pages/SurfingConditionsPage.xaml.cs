@@ -76,9 +76,9 @@ namespace NorthShoreSurfApp
         {
             base.OnAppearing();
 
-            vvWebcam.MediaPlayer = new MediaPlayer(LibVLC);
-            vvWebcam.MediaPlayer.Fullscreen = true;
-            vvWebcam.MediaPlayer.Play(new Media(LibVLC, CamOnLiveVideoUrl, FromType.FromLocation));
+            //vvWebcam.MediaPlayer = new MediaPlayer(LibVLC);
+            //vvWebcam.MediaPlayer.Fullscreen = true;
+            //vvWebcam.MediaPlayer.Play(new Media(LibVLC, CamOnLiveVideoUrl, FromType.FromLocation));
 
             wvWeatherInfo.SizeChanged += (sender, args) =>
             {

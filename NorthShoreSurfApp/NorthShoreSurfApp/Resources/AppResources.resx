@@ -129,6 +129,9 @@
   <data name="cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="carpool" xml:space="preserve">
+    <value>Carpool</value>
+  </data>
   <data name="checking_phone_no_please_wait" xml:space="preserve">
     <value>Checking phone no.
 Please wait...</value>
@@ -177,6 +180,9 @@ Please wait...</value>
     <value>Getting data.
 Please wait...</value>
   </data>
+  <data name="home" xml:space="preserve">
+    <value>Home</value>
+  </data>
   <data name="last_name" xml:space="preserve">
     <value>Last name</value>
   </data>
@@ -197,6 +203,9 @@ Please wait...</value>
   </data>
   <data name="please_fill_out_all_the_empty_fields" xml:space="preserve">
     <value>Please fill out all the empty fields</value>
+  </data>
+  <data name="profile" xml:space="preserve">
+    <value>Profile</value>
   </data>
   <data name="see_webcam" xml:space="preserve">
     <value>See webcam</value>

@@ -10,9 +10,9 @@
             BarBackgroundColor="#F0F0F0"
             >
     <!--Pages can be added as references or inline-->
-    <local:CustomNavigationPage IconImageSource="ic_home.png" Title="Home">
+    <local:CustomNavigationPage IconSelectedSource="ic_home_selected.png" IconUnselectedSource="ic_home.png" Title="{local:Translate home}">
         <x:Arguments>
-            <local:HomePage Title="Home" NavigationPage.HasNavigationBar="True"/>
+            <local:HomePage Title="{local:Translate home}"/>
         </x:Arguments>
     </local:CustomNavigationPage>
 
@@ -22,10 +22,12 @@
         </x:Arguments>
     </local:CustomNavigationPage>
 
-    <local:CustomNavigationPage Title="Carpool" IconUnselectedSource="ic_car.png" IconSelectedSource="ic_car_selected" IconImageSource="ic_car.png">
+    <local:CustomNavigationPage IconSelectedSource="ic_carpooling_selected.png" IconUnselectedSource="ic_carpooling.png" Title="{local:Translate carpool}">
         <x:Arguments>
-            <local:CarpoolingPage  Title="Carpool"/>
+            <local:CarpoolingPage  Title="{local:Translate carpool}"/>
         </x:Arguments>
     </local:CustomNavigationPage>
+    
+    
 
 </local:CustomTabbedPage>

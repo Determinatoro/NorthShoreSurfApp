@@ -34,13 +34,13 @@ namespace NorthShoreSurfApp
             rideList.ItemTapped += Ride_Clicked;
             RidesTab.Toggled += RidesTab_Clicked;
             navigationBar.ButtonOne.Clicked += Plus_Clicked;
-
-            var userId = int.Parse(App.LocalDataService.GetValue(nameof(LocalDataKeys.UserId)));
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
+
+            var userId = int.Parse(App.LocalDataService.GetValue(nameof(LocalDataKeys.UserId)));
 
             App.DataService.GetData(
                 NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,

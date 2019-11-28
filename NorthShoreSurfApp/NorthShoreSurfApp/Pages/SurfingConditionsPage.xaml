@@ -60,7 +60,8 @@
                                                      />
 
                         <Frame Margin="0, 10, 0, 0"
-                               Padding="0"                               
+                               Padding="0"  
+                               HasShadow="False"
                                CornerRadius="10"
                                BackgroundColor="{StaticResource NSSBlue}"
                                >
@@ -90,12 +91,11 @@
 
                             </Grid>
 
-                            
-
                         </Frame>
 
                         <Frame Margin="0, 10, 0, 0"
                                Padding="0"
+                               HasShadow="False"
                                CornerRadius="10"
                                BackgroundColor="{StaticResource NSSBlue}"
                                >
@@ -129,6 +129,7 @@
 
                         <Frame Margin="0, 10, 0, 0"
                                Padding="0"
+                               HasShadow="False"
                                CornerRadius="10"
                                BackgroundColor="{StaticResource NSSBlue}"
                                >

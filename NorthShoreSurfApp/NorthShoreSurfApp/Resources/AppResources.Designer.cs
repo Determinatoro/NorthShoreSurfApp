@@ -97,6 +97,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Carpool.
+        /// </summary>
+        internal static string carpool {
+            get {
+                return ResourceManager.GetString("carpool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Checking phone no.
         ///Please wait....
         /// </summary>
@@ -235,6 +244,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        internal static string home {
+            get {
+                return ResourceManager.GetString("home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last name.
         /// </summary>
         internal static string last_name {
@@ -294,6 +312,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string please_fill_out_all_the_empty_fields {
             get {
                 return ResourceManager.GetString("please_fill_out_all_the_empty_fields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        internal static string profile {
+            get {
+                return ResourceManager.GetString("profile", resourceCulture);
             }
         }
         
