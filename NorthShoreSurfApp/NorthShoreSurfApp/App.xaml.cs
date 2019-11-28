@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using NorthShoreSurfApp.Database;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -32,22 +33,24 @@ namespace NorthShoreSurfApp
             DataService.Initialize();
 
             // TEST
-            LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), "1");
+            //LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), "1");
+            
         }
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            NorthShoreSurfApp.App.DataService.CreateCarpoolRide(100, new DateTime(2019, 1, 1, 13, 0, 0), "Æblevej", "9000", "Aalborg", 1, 5, 50, new List<ModelComponents.Event>(), "Hook me up!");
+
         }
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+
         }
 
         protected override void OnResume()
         {
-            // Handle when your app resumes
+
         }
     }
 }

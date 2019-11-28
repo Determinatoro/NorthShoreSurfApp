@@ -78,7 +78,7 @@ namespace NorthShoreSurfApp
                     if (response.Success)
                     {
                         
-                        CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
+                        //CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
                     }
                     else
                     {
@@ -121,7 +121,7 @@ namespace NorthShoreSurfApp
                     if (response.Success)
                     {
                         CarpoolingPageViewModel.Requests = new ObservableCollection<CarpoolRequest>(response.Result);
-                        rideList.IsVisible = false;
+                        
                         
                     }
 
