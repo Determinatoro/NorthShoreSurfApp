@@ -31,9 +31,36 @@ namespace NorthShoreSurfApp
             var safeAreaInset = On<iOS>().SafeAreaInsets();
             grid.Margin = safeAreaInset;
 
-            rideList.ItemSelected += Ride_Clicked;
+            //rideList.ItemSelected
             RidesTab.Toggled += RidesTab_Clicked;
             navigationBar.ButtonOne.Clicked += Plus_Clicked;
+
+            CarpoolingPageViewModel.Rides.Add(new CarpoolRide()
+            {
+                ZipCode = "8000",
+                Address = "Parkvej",
+                City = "Aalborg",
+                DestinationZipCode = "9480",
+                DestinationAddress = "North Shore Surf",
+                DestinationCity = "Løkken",
+                NumberOfSeats = 2,
+                DepartureTime = new DateTime(2019, 1, 1, 13, 0, 0),
+                PricePerPassenger = 50
+
+            });
+            CarpoolingPageViewModel.Rides.Add(new CarpoolRide()
+            {
+                ZipCode = "9000",
+                Address = "Æblevej",
+                City = "Aalborg",
+                DestinationZipCode = "9480",
+                DestinationAddress = "North Shore Surf",
+                DestinationCity = "Løkken",
+                NumberOfSeats = 5,
+                DepartureTime = new DateTime(2019, 1, 1, 14, 30, 0),
+                PricePerPassenger = 50
+            });
+
         }
 
         protected override void OnAppearing()
@@ -49,32 +76,8 @@ namespace NorthShoreSurfApp
                 {
                     if (response.Success)
                     {
-                        response.Result.Add(new CarpoolRide()
-                        {
-                            ZipCode = "8000",
-                            Address = "Parkvej",
-                            City = "Aalborg",
-                            DestinationZipCode = "9480",
-                            DestinationAddress = "North Shore Surf",
-                            DestinationCity = "Løkken",
-                            NumberOfSeats = 2,
-                            DepartureTime = new DateTime(2019, 1, 1, 13, 0, 0),
-                            PricePerPassenger = 50
-
-                        });
-                        response.Result.Add(new CarpoolRide()
-                        {
-                            ZipCode = "9000",
-                            Address = "Æblevej",
-                            City = "Aalborg",
-                            DestinationZipCode = "9480",
-                            DestinationAddress = "North Shore Surf",
-                            DestinationCity = "Løkken",
-                            NumberOfSeats = 5,
-                            DepartureTime = new DateTime(2019, 1, 1, 14, 30, 0),
-                            PricePerPassenger = 50
-                        });
-                        CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
+                        
+                        //CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
                     }
                     else
                     {
@@ -82,6 +85,8 @@ namespace NorthShoreSurfApp
                         await PopupNavigation.Instance.PushAsync(customDialog);
                     }
                 });
+
+            
         }
 
         private async void Plus_Clicked(object sender, EventArgs e)
@@ -89,10 +94,14 @@ namespace NorthShoreSurfApp
             await Navigation.PushAsync(new NewCarpoolingPage());
         }
 
-        private void Ride_Clicked(object sender, EventArgs e)
+        private void rideSelected(object sender, EventArgs e)
         {
-            if (sender == rideList.SelectedItem)
+            if (sender == rideList)
             {
+
+
+                CarpoolRide SelectedRide = (CarpoolRide)rideList.SelectedItem;
+               
                 
             }
         }
@@ -107,7 +116,7 @@ namespace NorthShoreSurfApp
                     {
                         CarpoolingPageViewModel.Requests = new ObservableCollection<CarpoolRequest>(response.Result);
                         rideList.IsVisible = false;
-                        requestList.IsVisible = true;
+                        
                     }
 
                 });
