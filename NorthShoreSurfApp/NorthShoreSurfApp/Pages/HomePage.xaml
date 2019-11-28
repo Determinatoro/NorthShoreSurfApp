@@ -5,133 +5,203 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"            
              IconImageSource="ic_car.png"
-             NavigationPage.HasNavigationBar="True"
+             NavigationPage.HasNavigationBar="False"
              xmlns:local="clr-namespace:NorthShoreSurfApp"
              x:Class="NorthShoreSurfApp.HomePage">
     <ContentPage.Content>
-        <Grid BackgroundColor="White" 
-              ColumnSpacing="10" 
-              RowSpacing="10"
-              Margin="10,10,10,10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            
-            <local:CustomNavigationBar x:Name="navigationBar"
-                                       BarBackgroundColor="{StaticResource BarBackground}"
-                                       ShowBackButton="True"
-                                       Title="{local:Translate Home_page}"
-                                       TitleColor="Black"
-                                       TitleSize="24"
-                                       ShowLogo="True"
-                                       Logo="ic_logo.png"/>
-            
-            <Frame BackgroundColor="#2B3C4E"
-                   Grid.Row="1"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   CornerRadius="10">
-                <Label Text="WELCOME TO NORTH SHORE SURF LØKKEN"
-                       TextColor="White"
-                       FontSize="32"
-                       HorizontalTextAlignment="Center"
-                       VerticalTextAlignment="Center"/>
-            </Frame>
-            <Frame BackgroundColor="#2B3C4E"
-                     Grid.Row="2"
-                     Grid.Column="0"
-                     CornerRadius="10">
-                <StackLayout>
-                    <Label Text="Opening Hours"
-                           TextColor="#FFAA00"
-                           FontSize="Large"
-                           HorizontalTextAlignment="Center"/>
-                    <Label Text="Today:"
+        <ScrollView>
+            <Grid BackgroundColor="White" 
+                  ColumnSpacing="10" 
+                  RowSpacing="10"
+                  Margin="10,10,10,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <local:CustomNavigationBar x:Name="navigationBar"
+                                           BarBackgroundColor="{StaticResource BarBackground}"
+                                           ShowBackButton="True"
+                                           Title="{local:Translate Home_page}"
+                                           TitleColor="Black"
+                                           TitleSize="24"
+                                           ShowLogo="True"
+                                           Logo="ic_logo.png"/>
+                <Frame Name="Title"
+                       BackgroundColor="#2B3C4E"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       CornerRadius="10">
+                    <Label Text="WELCOME TO NORTH SHORE SURF LØKKEN"
                            TextColor="White"
-                           FontSize="Title"
-                           HorizontalTextAlignment="Center"/>
-                    <Label Text="11-16"
-                           TextColor="White"
-                           FontSize="Title"
-                           HorizontalTextAlignment="Center"/>
-                    <Label Text="Click for more info"
-                           TextColor="White"
-                           FontSize="Default"
-                           HorizontalTextAlignment="Center"/>
-                </StackLayout>
-            </Frame>
-            <Frame BackgroundColor="#2B3C4E"
-                     Grid.Row="2"
-                     Grid.Column="1"
-                     CornerRadius="10">
-                <StackLayout>
-                    <Label Text="Next ride to Løkken:"
-                           TextColor="#FFAA00"
-                           FontSize="Large"
-                           HorizontalTextAlignment="Center"/>
-                    <Label Text="Some fucking time"
-                           TextColor="White"
-                           FontSize="Title"
-                           HorizontalTextAlignment="Center"/>
-                </StackLayout>
-            </Frame>
-            <Frame BackgroundColor="#2B3C4E"
-                     Grid.Row="3"
-                     Grid.Column="0"
-                     CornerRadius="10">
-                <Grid>
-                
-                </Grid>
-            </Frame>
-            <Frame BackgroundColor="#2B3C4E"
-                     Grid.Row="3"
-                     Grid.Column="1"
-                     CornerRadius="10">
-                <StackLayout>
-                    <Label Text="Webcam:"
-                           TextColor="#FFAA00"
-                           FontSize="Large"
-                           HorizontalTextAlignment="Center"/>
-                </StackLayout>
-            </Frame>
-            <Frame BackgroundColor="#2B3C4E"
-                     Grid.Row="4"
-                     Grid.Column="0"
-                     CornerRadius="10">
-                <StackLayout>
-                    <Label Text="SURF &amp; SUP courses"
-                           TextColor="#FFAA00"
-                           FontSize="Large"
-                           HorizontalTextAlignment="Center"/>
-                    <Label Text="Click here to read about all the available courses"
-                           TextColor="White"
-                           FontSize="Default"
-                           HorizontalTextAlignment="Center"/>
-                </StackLayout>
-            </Frame>
-            <Frame BackgroundColor="#2B3C4E" 
-                     Grid.Row="4"
-                     Grid.Column="1"
-                     CornerRadius="10">
-                <StackLayout>
-                    <Label Text="Contact us"
-                           TextColor="#FFAA00"
-                           FontSize="Large"
-                           HorizontalTextAlignment="Center"/>
-                    <Label Text="Click here to find out how to contact us"
-                           TextColor="White"
-                           FontSize="Default"
-                           HorizontalTextAlignment="Center"/>
-                </StackLayout>
-            </Frame>
-        </Grid>
+                           FontSize="32"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center"/>
+                </Frame>
+                <Frame Name="Opening Hours"
+                       BackgroundColor="#2B3C4E"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       CornerRadius="10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OpeningHoursClicked"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Label Text="Opening Hours"
+                               TextColor="#FFAA00"
+                               FontSize="Large"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Today:"
+                               TextColor="White"
+                               FontSize="Title"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="11-16"
+                               TextColor="White"
+                               FontSize="Title"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Click for more info"
+                               TextColor="White"
+                               FontSize="Default"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Name="Next Ride"
+                       BackgroundColor="#2B3C4E"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       CornerRadius="10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="NextRideClicked"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Label Text="Next ride to Løkken:"
+                               TextColor="#FFAA00"
+                               FontSize="Large"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Some fucking time"
+                               TextColor="White"
+                               FontSize="Title"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Name="Instagram pictures"
+                       BackgroundColor="#2B3C4E"
+                       Grid.Row="3"
+                       Grid.Column="0"
+                       CornerRadius="10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="InstagramClicked"/>
+                    </Frame.GestureRecognizers>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Frame BackgroundColor="Transparent"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               CornerRadius="10">
+                            <Image Source=""
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Frame>
+                        <Frame BackgroundColor="Transparent"
+                               Grid.Row="0"
+                               Grid.Column="1"
+                               CornerRadius="10">
+                            <Image Source=""
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Frame>
+                        <Frame BackgroundColor="Transparent"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               CornerRadius="10">
+                            <Image Source=""
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Frame>
+                        <Frame BackgroundColor="Transparent"
+                               Grid.Row="1"
+                               Grid.Column="1"
+                               CornerRadius="10">
+                            <Image Source=""
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Frame>
+                    </Grid>
+                </Frame>
+                <Frame Name="Webcam"
+                       BackgroundColor="#2B3C4E"
+                       Grid.Row="3"
+                       Grid.Column="1"
+                       CornerRadius="10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="WebcamClicked"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Label Text="Webcam:"
+                               TextColor="#FFAA00"
+                               FontSize="Large"
+                               HorizontalTextAlignment="Center"/>
+                        <Frame BackgroundColor="Transparent"
+                               CornerRadius="10">
+                            <Image Source=""
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"/>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+                <Frame Name="Surf and SUP courses"
+                       BackgroundColor="#2B3C4E"
+                       Grid.Row="4"
+                       Grid.Column="0"
+                       CornerRadius="10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SurfCoursesClicked"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Label Text="SURF &amp; SUP courses"
+                               TextColor="#FFAA00"
+                               FontSize="Large"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Click here to read about all the available courses"
+                               TextColor="White"
+                               FontSize="Default"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Name="Contact us"
+                       BackgroundColor="#2B3C4E" 
+                       Grid.Row="4"
+                       Grid.Column="1"
+                       CornerRadius="10">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ContactUsClicked"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Label Text="Contact us"
+                               TextColor="#FFAA00"
+                               FontSize="Large"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Text="Click here to find out how to contact us"
+                               TextColor="White"
+                               FontSize="Default"
+                               HorizontalTextAlignment="Center"/>
+                    </StackLayout>
+                </Frame>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
