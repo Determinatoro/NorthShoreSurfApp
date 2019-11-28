@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
+             x:Class="NorthShoreSurfApp.NewCarPage"
+             BackgroundColor="{StaticResource BarBackground}">
+
+    <ContentPage.BindingContext>
+        <models:SignUpUserModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <Grid RowSpacing="0"
+              Margin="0"
+              Padding="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Top navigation bar-->
+            <local:CustomNavigationBar x:Name="navigationBar"
+                                       BarBackgroundColor="{StaticResource BarBackground}"
+                                       ShowBackButton="True"
+                                       Title="{local:Translate add_car}"
+                                       TitleColor="Black"
+                                       TitleSize="24"
+                                       ShowLogo="False"
+                                       Logo="ic_logo.png"
+                                       />
+
+            <!--Grid enter data-->
+            <Grid x:Name="gridEnterData" 
+                  VerticalOptions="Fill" 
+                  Grid.Row="1" 
+                  HorizontalOptions="Fill" 
+                  IsVisible="True"
+                  BackgroundColor="{StaticResource NSSBlue}"
+                  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--ScrollView-->
+                <ScrollView>
+
+                    <StackLayout Padding="20" HorizontalOptions="Fill" VerticalOptions="Start">
+                        <!--First name input-->
+                        <local:CustomTextBox Title="{local:Translate licenseplate}" 
+                                         TitleColor="White" 
+                                         TitleSize="18" 
+                                         CornerRadius="10" 
+                                         Text="{Binding LicensePlate, Mode=TwoWay}" 
+                                         TextColor="Black" 
+                                         TextSize="24"
+                                         />
+                        <!--Last name input-->
+                        <local:CustomTextBox Title="{local:Translate color}" 
+                                         TitleColor="White" 
+                                         TitleSize="18" 
+                                         CornerRadius="10" 
+                                         Text="{Binding Color, Mode=TwoWay}" 
+                                         TextColor="Black" 
+                                         TextSize="24"
+                                         />
+                    </StackLayout>
+
+                </ScrollView>
+
+                <!--Navigation button-->
+                <local:CustomImageTextButton x:Name="btnNext"
+                                             Grid.Row="1" 
+                                             Margin="20" 
+                                             HeightRequest="60" 
+                                             Background="White" 
+                                             CornerRadius="10" 
+                                             BackgroundPressed="#0067B0" 
+                                             Icon="ic_facebook.png"
+                                             TitleColor="Black"
+                                             TitleSize="24"
+                                             IconColor="{StaticResource NSSBlue}"
+                                             Title="{local:Translate add_car}"
+                                             />
+            </Grid>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -27,7 +27,13 @@
             <local:CarpoolingPage  Title="{local:Translate carpool}"/>
         </x:Arguments>
     </local:CustomNavigationPage>
-    
-    
+
+    <local:CustomNavigationPage IconSelectedSource="ic_carpooling_selected.png" IconUnselectedSource="ic_carpooling.png" Title="{local:Translate profile}">
+        <x:Arguments>
+            <local:UserPage  Title="{local:Translate profile}"/>
+        </x:Arguments>
+    </local:CustomNavigationPage>
+
+
 
 </local:CustomTabbedPage>
