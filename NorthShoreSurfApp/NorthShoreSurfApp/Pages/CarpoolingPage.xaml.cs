@@ -31,7 +31,7 @@ namespace NorthShoreSurfApp
             var safeAreaInset = On<iOS>().SafeAreaInsets();
             grid.Margin = safeAreaInset;
 
-            rideList.ItemTapped += Ride_Clicked;
+            rideList.ItemSelected += Ride_Clicked;
             RidesTab.Toggled += RidesTab_Clicked;
             navigationBar.ButtonOne.Clicked += Plus_Clicked;
         }
@@ -91,7 +91,15 @@ namespace NorthShoreSurfApp
 
         private void Ride_Clicked(object sender, EventArgs e)
         {
-            if (sender == rideList)
+            if (sender == rideList.SelectedItem)
+            {
+                
+            }
+        }
+
+        private void RidesTab_Clicked(object sender, EventArgs e)
+        {
+            if (sender == RidesTab)
             {
                 App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait, false, () => App.DataService.GetCarpoolRequests(), (response) =>
                 {
@@ -103,14 +111,6 @@ namespace NorthShoreSurfApp
                     }
 
                 });
-            }
-        }
-
-        private void RidesTab_Clicked(object sender, EventArgs e)
-        {
-            if (sender == RidesTab)
-            {
-
             }
         }
     }
