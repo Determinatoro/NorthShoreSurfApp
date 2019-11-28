@@ -31,9 +31,37 @@ namespace NorthShoreSurfApp
             var safeAreaInset = On<iOS>().SafeAreaInsets();
             grid.Margin = safeAreaInset;
 
-            rideList.ItemTapped += Ride_Clicked;
+            //rideList.ItemSelected
             RidesTab.Toggled += RidesTab_Clicked;
             navigationBar.ButtonOne.Clicked += Plus_Clicked;
+            navigationBar.ButtonTwo.Clicked += Confirmations_Clicked;
+
+            CarpoolingPageViewModel.Rides.Add(new CarpoolRide()
+            {
+                ZipCode = "8000",
+                Address = "Parkvej",
+                City = "Aalborg",
+                DestinationZipCode = "9480",
+                DestinationAddress = "North Shore Surf",
+                DestinationCity = "Løkken",
+                NumberOfSeats = 2,
+                DepartureTime = new DateTime(2019, 1, 1, 13, 0, 0),
+                PricePerPassenger = 50
+
+            });
+            CarpoolingPageViewModel.Rides.Add(new CarpoolRide()
+            {
+                ZipCode = "9000",
+                Address = "Æblevej",
+                City = "Aalborg",
+                DestinationZipCode = "9480",
+                DestinationAddress = "North Shore Surf",
+                DestinationCity = "Løkken",
+                NumberOfSeats = 5,
+                DepartureTime = new DateTime(2019, 1, 1, 14, 30, 0),
+                PricePerPassenger = 50
+            });
+
         }
 
         protected override void OnAppearing()
@@ -44,81 +72,43 @@ namespace NorthShoreSurfApp
 
             App.DataService.GetData(
                 NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                false, () => App.DataService.CreateCarpoolRide(userId, DateTime.Now, "Ribevej 3", "9220", "Aalborg Øst", "Løkkenvej 1", "9440", "Løkken", 1, 3, 50, new List<Event>(), "Dette er en test"),
-                async (response) =>
-                {
-                    if (response.Success)
-                    {
-                        var list = App.DataService.GetCarpoolRides().Result;
-                    }
-                    else
-                    {
-                        CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                        await PopupNavigation.Instance.PushAsync(customDialog);
-                    }
-                });
-
-            /*App.DataService.GetData(
-                NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
                 false, () => App.DataService.GetCarpoolRides(),
                 async (response) =>
                 {
                     if (response.Success)
                     {
-                        response.Result.Add(new CarpoolRide()
-                        {
-                            ZipCode = "8000",
-                            Address = "Parkvej",
-                            City = "Aalborg",
-                            DestinationZipCode = "9480",
-                            DestinationAddress = "North Shore Surf",
-                            DestinationCity = "Løkken",
-                            NumberOfSeats = 2,
-                            DepartureTime = new DateTime(2019, 1, 1, 13, 0, 0),
-                            PricePerPassenger = 50
-
-                        });
-                        response.Result.Add(new CarpoolRide()
-                        {
-                            ZipCode = "9000",
-                            Address = "Æblevej",
-                            City = "Aalborg",
-                            DestinationZipCode = "9480",
-                            DestinationAddress = "North Shore Surf",
-                            DestinationCity = "Løkken",
-                            NumberOfSeats = 5,
-                            DepartureTime = new DateTime(2019, 1, 1, 14, 30, 0),
-                            PricePerPassenger = 50
-                        });
-                        CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
+                        
+                        //CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
                     }
                     else
                     {
                         CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
                         await PopupNavigation.Instance.PushAsync(customDialog);
                     }
-                });*/
+                });
+
+            
         }
 
         private async void Plus_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new NewCarpoolingPage());
+
+        }
+        private async void Confirmations_Clicked(object sender, EventArgs e)
+        {
+            // await Navigation.PushAsync(new ());
         }
 
-        private void Ride_Clicked(object sender, EventArgs e)
+        private void rideSelected(object sender, EventArgs e)
         {
             if (sender == rideList)
             {
-                App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait, false, () => App.DataService.GetCarpoolRequests(), (response) =>
-                {
-                    if (response.Success)
-                    {
-                        CarpoolingPageViewModel.Requests = new ObservableCollection<CarpoolRequest>(response.Result);
-                        rideList.IsVisible = false;
-                        requestList.IsVisible = true;
-                    }
 
-                });
+
+                CarpoolRide SelectedRide = (CarpoolRide)rideList.SelectedItem;
+                Console.WriteLine(SelectedRide.DepartureTimeHourString);
+                
             }
         }
 
@@ -126,7 +116,16 @@ namespace NorthShoreSurfApp
         {
             if (sender == RidesTab)
             {
+                App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait, false, () => App.DataService.GetCarpoolRequests(), (response) =>
+                {
+                    if (response.Success)
+                    {
+                        CarpoolingPageViewModel.Requests = new ObservableCollection<CarpoolRequest>(response.Result);
+                        
+                        
+                    }
 
+                });
             }
         }
     }
