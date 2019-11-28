@@ -39,14 +39,25 @@ namespace NorthShoreSurfApp
 
 
 
+           
+
+
+
+
+    }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
             App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait, false, () => App.DataService.GetCarpoolRides(), (response) =>
             {
                 if (response.Success)
                 {
                     CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
-                     
 
-                } else
+
+                }
+                else
                 {
                     CarpoolingPageViewModel.Rides.Add(new CarpoolRide()
                     {
@@ -76,11 +87,7 @@ namespace NorthShoreSurfApp
                 }
 
             });
-
-
-
-
-    }
+        }
 
         private async void Plus_Clicked(object sender, EventArgs e)
         {
