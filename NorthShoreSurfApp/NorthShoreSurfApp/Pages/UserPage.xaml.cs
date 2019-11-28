@@ -21,17 +21,16 @@ namespace NorthShoreSurfApp
     public partial class UserPage : ContentPage
     {
         string PhoneNo;
-        public UserPage(string phoneNo)
+        public UserPage()
         {
-            PhoneNo = phoneNo;
-            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, true);
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+            Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
 
             // Click events
             btnEdit.Clicked += Button_Clicked;
             btnLogOut.Clicked += Button_Clicked;
             btnDelAcc.Clicked += Button_Clicked;
-
         }
 
         private void Button_Clicked(object sender, EventArgs e)
