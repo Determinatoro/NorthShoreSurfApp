@@ -10,7 +10,28 @@
              x:Class="NorthShoreSurfApp.CoursesPage">
     <ContentPage.Content>
         <ScrollView>
-           
+            <StackLayout>
+                <local:CustomNavigationBar x:Name="navigationBar"
+                                           BarBackgroundColor="{StaticResource BarBackground}"
+                                           ShowBackButton="True"
+                                           Title="{local:Translate Home_page}"
+                                           TitleColor="Black"
+                                           TitleSize="24"
+                                           ShowLogo="True"
+                                           Logo="ic_logo.png"/>
+                <StackLayout Margin="10,10,10,10">
+                    <Frame x:Name="Frame for the contact information"
+                           BackgroundColor="#2B3C4E"
+                           CornerRadius="10">
+                        <StackLayout>
+                            <Label Text="SURF &amp; SUP courses"
+                                   TextColor="#FFAA00"
+                                   FontSize="Title"
+                                   HorizontalTextAlignment="Center"/>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>
