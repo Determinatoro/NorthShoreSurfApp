@@ -32,11 +32,15 @@
                                    TextColor="White"
                                    HorizontalOptions="Center"
                                    FontSize="Body"/>
-                            <Label Text="this is number"
+                            <Label Text="this is address but on a new line"
                                    TextColor="White"
                                    HorizontalOptions="Center"
                                    FontSize="Body"/>
-                            <Label Text="this is email"
+                            <Label Text="+45 this is number but in orange"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   FontSize="Body"/>
+                            <Label Text="this_is@email.something"
                                    TextColor="White"
                                    HorizontalOptions="Center"
                                    FontSize="Body"/>
