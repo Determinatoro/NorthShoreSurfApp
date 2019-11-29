@@ -68,8 +68,6 @@ namespace NorthShoreSurfApp
         {
             base.OnAppearing();
 
-            var userId = int.Parse(App.LocalDataService.GetValue(nameof(LocalDataKeys.UserId)));
-
             App.DataService.GetData(
                 NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
                 false, () => App.DataService.GetCarpoolRides(),
