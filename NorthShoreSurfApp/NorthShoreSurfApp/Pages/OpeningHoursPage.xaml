@@ -20,7 +20,7 @@
                                            ShowLogo="True"
                                            Logo="ic_logo.png"/>
                 <StackLayout Margin="10,10,10,10">
-                    <Frame x:Name="Frame for the contact information"
+                    <Frame x:Name="Frame for the Opening dates"
                            BackgroundColor="#2B3C4E"
                            CornerRadius="10">
                         <StackLayout>
@@ -28,19 +28,19 @@
                                    TextColor="#FFAA00"
                                    FontSize="Title"
                                    HorizontalTextAlignment="Center"/>
-                            <Label Text="this is address"
+                            <Label Text="We're open all holidays all year and for bookings - contact us"
                                    TextColor="White"
                                    HorizontalOptions="Center"
                                    FontSize="Body"/>
-                            <Label Text="this is address but on a new line"
+                            <Label Text="the whole fucking lineup of dates"
                                    TextColor="White"
                                    HorizontalOptions="Center"
                                    FontSize="Body"/>
-                            <Label Text="+45 this is number but in orange"
+                            <Label Text="Weather might force us to close up sometimes"
                                    TextColor="White"
                                    HorizontalOptions="Center"
                                    FontSize="Body"/>
-                            <Label Text="this_is@email.something"
+                            <Label Text="Our Foodtruck is open in June, July, August, and September"
                                    TextColor="White"
                                    HorizontalOptions="Center"
                                    FontSize="Body"/>

@@ -93,6 +93,12 @@
     <Compile Remove="ViewModels\CarpoolingPage\CarpoolingRideCell.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Pages\OpeningHoursPage.xaml.cs">
+      <DependentUpon>OpeningHoursPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\CoursesPage.xaml.cs">
+      <DependentUpon>CoursesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
