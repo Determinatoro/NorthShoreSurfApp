@@ -28,6 +28,9 @@ namespace NorthShoreSurfApp.ModelComponents
         [StringLength(255)]
         public string City { get; set; }
 
-        
+        [NotMapped]
+        public string TimeInterval { get => String.Format("{0} - {1}", FromTime.ToString("HH:mm"), ToTime.ToString("HH:mm")); }
+        [NotMapped]
+        public string DepartureTimeDayString { get => FromTime.ToCarpoolingFormat(); }
     }
 }

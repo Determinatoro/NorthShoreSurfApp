@@ -48,7 +48,11 @@ namespace NorthShoreSurfApp
             NorthShoreSurfApp.App.DataService.CreateCarpoolRide(1, new DateTime(2019, 1, 1, 17, 30, 0), "Smutvejen", "9000", "Aalborg", "Løkkenvej 1", "9440", "Løkken", 1, 5, 100, new List<ModelComponents.Event>(), "Hook me up!");
             NorthShoreSurfApp.App.DataService.CreateCarpoolRide(1, new DateTime(2019, 10, 5, 19, 0, 0), "Ved Stranden", "9000", "Aalborg", "Løkkenvej 1", "9440", "Løkken", 1, 5, 10, new List<ModelComponents.Event>(), "Hook me up!");
             NorthShoreSurfApp.App.DataService.CreateCarpoolRide(1, new DateTime(2019, 1, 1, 7, 0, 0), "Æblevej", "9000", "Aalborg", "Løkkenvej 1", "9440", "Løkken", 1, 5, 4, new List<ModelComponents.Event>(), "Hook me up!");
-            NorthShoreSurfApp.App.DataService.CreateCarpoolRequest(1, new DateTime(2019, 1, 1, 7, 0, 0), new DateTime(2019, 1, 1, 8, 0, 0), "9000", "Aalborg", new List<ModelComponents.Event>());
+            NorthShoreSurfApp.App.DataService.CreateCarpoolRequest(1, new DateTime(2019, 1, 5, 7, 0, 0), new DateTime(2019, 1, 1, 8, 0, 0), "9000", "Aalborg", new List<ModelComponents.Event>());
+            NorthShoreSurfApp.App.DataService.CreateCarpoolRequest(1, new DateTime(2019, 2, 6, 10, 0, 0), new DateTime(2019, 1, 1, 11, 0, 0), "9000", "Aalborg", new List<ModelComponents.Event>());
+            NorthShoreSurfApp.App.DataService.CreateCarpoolRequest(1, new DateTime(2019, 8, 3, 11, 0, 0), new DateTime(2019, 1, 1, 13, 0, 0), "9000", "Aalborg", new List<ModelComponents.Event>());
+            NorthShoreSurfApp.App.DataService.CreateCarpoolRequest(1, new DateTime(2019, 4, 9, 15, 0, 0), new DateTime(2019, 1, 1, 17, 0, 0), "9400", "Nørresundby", new List<ModelComponents.Event>());
+
         }
 
         protected override void OnSleep()

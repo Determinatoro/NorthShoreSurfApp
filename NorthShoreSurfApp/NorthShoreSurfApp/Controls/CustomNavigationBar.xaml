@@ -156,7 +156,7 @@
                     BorderThickness="1"
                     IconColor="{StaticResource NSSBlue}"
                     IconPadding="10"
-                    Icon="ic_surfing.png"
+                    Icon="{Binding ButtonOneImage}"
                     />
 
                 <local:CustomImageButton
@@ -175,7 +175,7 @@
                     BorderThickness="1"
                     IconColor="{StaticResource NSSBlue}"
                     IconPadding="10"
-                    Icon="ic_surfing.png"
+                    Icon="{Binding ButtonTwoImage}"
                     />
 
             </Grid>

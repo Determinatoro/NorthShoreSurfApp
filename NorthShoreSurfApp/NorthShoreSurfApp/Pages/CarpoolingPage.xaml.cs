@@ -37,6 +37,7 @@ namespace NorthShoreSurfApp
             navigationBar.ButtonTwo.Clicked += Confirmations_Clicked;
 
             
+            
 
         }
 
@@ -55,6 +56,8 @@ namespace NorthShoreSurfApp
                     {
                         
                         CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
+                        
+                        
                     }
                     else
                     {
@@ -90,18 +93,22 @@ namespace NorthShoreSurfApp
 
         private void RidesTab_Clicked(object sender, EventArgs e)
         {
-            if (sender == RidesTab)
+            if (RidesTab.SelectedToggleType == ToggleType.Right)
             {
                 App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait, false, () => App.DataService.GetCarpoolRequests(), (response) =>
                 {
                     if (response.Success)
                     {
                         CarpoolingPageViewModel.Requests = new ObservableCollection<CarpoolRequest>(response.Result);
-                        
-                        
+                        rideList.IsVisible = false;
+                        requestList.IsVisible = true; 
                     }
 
                 });
+            } else if (RidesTab.SelectedToggleType == ToggleType.Left)
+            {
+                rideList.IsVisible = true;
+                requestList.IsVisible = false;
             }
         }
     }
