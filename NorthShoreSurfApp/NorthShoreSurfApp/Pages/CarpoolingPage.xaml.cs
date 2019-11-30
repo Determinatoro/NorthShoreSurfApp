@@ -36,31 +36,7 @@ namespace NorthShoreSurfApp
             navigationBar.ButtonOne.Clicked += Plus_Clicked;
             navigationBar.ButtonTwo.Clicked += Confirmations_Clicked;
 
-            CarpoolingPageViewModel.Rides.Add(new CarpoolRide()
-            {
-                ZipCode = "8000",
-                Address = "Parkvej",
-                City = "Aalborg",
-                DestinationZipCode = "9480",
-                DestinationAddress = "North Shore Surf",
-                DestinationCity = "Løkken",
-                NumberOfSeats = 2,
-                DepartureTime = new DateTime(2019, 1, 1, 13, 0, 0),
-                PricePerPassenger = 50
-
-            });
-            CarpoolingPageViewModel.Rides.Add(new CarpoolRide()
-            {
-                ZipCode = "9000",
-                Address = "Æblevej",
-                City = "Aalborg",
-                DestinationZipCode = "9480",
-                DestinationAddress = "North Shore Surf",
-                DestinationCity = "Løkken",
-                NumberOfSeats = 5,
-                DepartureTime = new DateTime(2019, 1, 1, 14, 30, 0),
-                PricePerPassenger = 50
-            });
+            
 
         }
 
@@ -68,7 +44,7 @@ namespace NorthShoreSurfApp
         {
             base.OnAppearing();
 
-            var userId = int.Parse(App.LocalDataService.GetValue(nameof(LocalDataKeys.UserId)));
+            // var userId = int.Parse(App.LocalDataService.GetValue(nameof(LocalDataKeys.UserId)));
 
             App.DataService.GetData(
                 NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
@@ -78,7 +54,7 @@ namespace NorthShoreSurfApp
                     if (response.Success)
                     {
                         
-                        //CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
+                        CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
                     }
                     else
                     {

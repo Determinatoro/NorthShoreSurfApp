@@ -32,15 +32,23 @@ namespace NorthShoreSurfApp
             DataService = new NSSDatabaseService<NSSDatabaseContext>();
             DataService.Initialize();
 
-            // TEST
-            //LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), "1");
             
+            LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), "1");
+            
+
+
         }
 
         protected override void OnStart()
         {
-            NorthShoreSurfApp.App.DataService.CreateCarpoolRide(100, new DateTime(2019, 1, 1, 13, 0, 0), "Æblevej", "9000", "Aalborg", "Løkkenvej 1", "9440", "Løkken", 1, 5, 50, new List<ModelComponents.Event>(), "Hook me up!");
-
+            NorthShoreSurfApp.App.DataService.CreateCarpoolRide(1, new DateTime(2019, 1, 1, 13, 0, 0), "Gundorslund", "9000", "Aalborg", "Løkkenvej 1", "9440", "Løkken", 1, 5, 50, new List<ModelComponents.Event>(), "Hook me up!");
+            NorthShoreSurfApp.App.DataService.CreateCarpoolRide(1, new DateTime(2019, 5, 6, 10, 0, 0), "Østerå", "9000", "Aalborg", "Løkkenvej 1", "9440", "Løkken", 1, 5, 50, new List<ModelComponents.Event>(), "Hook me up!");
+            NorthShoreSurfApp.App.DataService.CreateCarpoolRide(1, new DateTime(2019, 5, 6, 11, 30, 0), "Jomfru Ane Gade", "9000", "Aalborg", "Løkkenvej 1", "9440", "Løkken", 1, 5, 70, new List<ModelComponents.Event>(), "Hook me up!");
+            NorthShoreSurfApp.App.DataService.CreateCarpoolRide(1, new DateTime(2019, 8, 9, 13, 0, 0), "Skelagervej", "9000", "Aalborg", "Løkkenvej 1", "9440", "Løkken", 1, 5, 90, new List<ModelComponents.Event>(), "Hook me up!");
+            NorthShoreSurfApp.App.DataService.CreateCarpoolRide(1, new DateTime(2019, 1, 1, 17, 30, 0), "Smutvejen", "9000", "Aalborg", "Løkkenvej 1", "9440", "Løkken", 1, 5, 100, new List<ModelComponents.Event>(), "Hook me up!");
+            NorthShoreSurfApp.App.DataService.CreateCarpoolRide(1, new DateTime(2019, 10, 5, 19, 0, 0), "Ved Stranden", "9000", "Aalborg", "Løkkenvej 1", "9440", "Løkken", 1, 5, 10, new List<ModelComponents.Event>(), "Hook me up!");
+            NorthShoreSurfApp.App.DataService.CreateCarpoolRide(1, new DateTime(2019, 1, 1, 7, 0, 0), "Æblevej", "9000", "Aalborg", "Løkkenvej 1", "9440", "Løkken", 1, 5, 4, new List<ModelComponents.Event>(), "Hook me up!");
+            NorthShoreSurfApp.App.DataService.CreateCarpoolRequest(1, new DateTime(2019, 1, 1, 7, 0, 0), new DateTime(2019, 1, 1, 8, 0, 0), "9000", "Aalborg", new List<ModelComponents.Event>());
         }
 
         protected override void OnSleep()
