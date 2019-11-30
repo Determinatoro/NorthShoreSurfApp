@@ -104,8 +104,8 @@ namespace NorthShoreSurfApp
                         rideList.IsVisible = false;
                         requestList.IsVisible = true;
                     }
-
                 });
+                
             } else if (RidesTab.SelectedToggleType == ToggleType.Left)
             {
                 rideList.IsVisible = true;

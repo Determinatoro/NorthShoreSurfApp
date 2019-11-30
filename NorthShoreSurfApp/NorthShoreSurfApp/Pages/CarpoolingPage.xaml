@@ -109,7 +109,7 @@
                                    </StackLayout> -->
 
 
-                                <local:CustomStackLayout Grid.Row="3" NumberOfSeats="{Binding NumberOfSeats}" AvailableSeats="1"/>
+                                <local:CustomStackLayout Grid.Row="3" Grid.Column="0" NumberOfSeats="4" AvailableSeats="2"/>
 
 
                                 <Label Text="{Binding Address}" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill"/>
