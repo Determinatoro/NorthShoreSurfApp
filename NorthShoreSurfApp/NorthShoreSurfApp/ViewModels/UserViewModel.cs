@@ -14,29 +14,54 @@ namespace NorthShoreSurfApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string fullName = "Emil";
-        private string phoneNo = "29711907";
-        private string age = "21";
-        private string gender = "Male";
+        private string fullName;
+        private string phoneNo;
+        private string age;
+        private string gender;
 
         public string FullName
         {
             get { return fullName; }
+            set
+            {
+                fullName = value;
+                OnPropertyChanged(nameof(FullName));
+            }
+        }
+
+        public UserViewModel()
+        {
+            
         }
 
         public string PhoneNo
         {
             get { return phoneNo; }
+            set
+            {
+                phoneNo = value;
+                OnPropertyChanged(nameof(PhoneNo));
+            }
         }
 
         public string Age
         {
             get { return age; }
+            set
+            {
+                age = value;
+                OnPropertyChanged(nameof(Age));
+            }
         }
 
         public string Gender
         {
             get { return gender; }
+            set
+            {
+                gender = value;
+                OnPropertyChanged(nameof(Gender));
+            }
         }
     }
 }

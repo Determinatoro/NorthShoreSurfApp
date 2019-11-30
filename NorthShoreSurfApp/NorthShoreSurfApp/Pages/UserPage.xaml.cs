@@ -38,7 +38,24 @@ namespace NorthShoreSurfApp
             base.OnAppearing();
 
             App.DataService.GetUser("29711907");
-
+            App.DataService.GetData(
+                    NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
+                    false, () => App.DataService.GetUser("29711907"),
+                    async (response) =>
+                    {
+                        if (response.Success)
+                        {
+                            UserViewModel.FullName = response.Result.FirstName + " " + response.Result.LastName;
+                            UserViewModel.PhoneNo = response.Result.PhoneNo;
+                            UserViewModel.Age = response.Result.Age.ToString();
+                            response.Result.Gender = response.Result.Gender;
+                        }
+                        else
+                        {
+                            CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                            await PopupNavigation.Instance.PushAsync(customDialog);
+                        }
+                    });
 
         }
 
