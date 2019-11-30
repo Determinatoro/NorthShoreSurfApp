@@ -20,7 +20,7 @@
                                            ShowLogo="True"
                                            Logo="ic_logo.png"/>
                 <StackLayout Margin="10,10,10,10">
-                    <Frame x:Name="Frame for the contact information"
+                    <Frame x:Name="ContactInfo"
                            BackgroundColor="#2B3C4E"
                            CornerRadius="10">
                         <StackLayout>

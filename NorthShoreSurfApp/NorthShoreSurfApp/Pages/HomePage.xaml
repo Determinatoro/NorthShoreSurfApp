@@ -45,7 +45,7 @@
                            HorizontalTextAlignment="Center"
                            VerticalTextAlignment="Center"/>
                 </Frame>
-                <Frame x:Name="Opening Hours"
+                <Frame x:Name="OpeningHours"
                        BackgroundColor="#2B3C4E"
                        Grid.Row="2"
                        Grid.Column="0"
@@ -72,7 +72,7 @@
                                HorizontalTextAlignment="Center"/>
                     </StackLayout>
                 </Frame>
-                <Frame x:Name="Next Ride"
+                <Frame x:Name="NextRide"
                        BackgroundColor="#2B3C4E"
                        Grid.Row="2"
                        Grid.Column="1"
@@ -91,7 +91,7 @@
                                HorizontalTextAlignment="Center"/>
                     </StackLayout>
                 </Frame>
-                <Frame x:Name="Instagram pictures"
+                <Frame x:Name="Instagram"
                        BackgroundColor="#2B3C4E"
                        Grid.Row="3"
                        Grid.Column="0"
@@ -163,7 +163,7 @@
                         </Frame>
                     </StackLayout>
                 </Frame>
-                <Frame x:Name="Surf and SUP courses"
+                <Frame x:Name="SurfCourses"
                        BackgroundColor="#2B3C4E"
                        Grid.Row="4"
                        Grid.Column="0"
@@ -182,7 +182,7 @@
                                HorizontalTextAlignment="Center"/>
                     </StackLayout>
                 </Frame>
-                <Frame x:Name="Contact us"
+                <Frame x:Name="ContactUs"
                        BackgroundColor="#2B3C4E" 
                        Grid.Row="4"
                        Grid.Column="1"
