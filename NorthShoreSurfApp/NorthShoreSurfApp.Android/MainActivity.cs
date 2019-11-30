@@ -14,10 +14,15 @@ using NorthShoreSurfApp.Droid.Service;
 using NorthShoreSurfApp.Droid.Services;
 using Firebase;
 using Firebase.Auth;
+using Rg.Plugins.Popup.Services;
+using Xamarin.Forms.Platform.Android;
+using Plugin.CurrentActivity;
+using Android.Content.Res;
+using Plugin.DeviceOrientation;
 
 namespace NorthShoreSurfApp.Droid
 {
-    [Activity(Label = "NorthShoreSurfApp", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "NorthShoreSurfApp", Icon = "@mipmap/icon", Theme = "@style/splashscreen", ScreenOrientation = ScreenOrientation.Unspecified, MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         private AndroidFacebookService facebookService;
@@ -26,10 +31,14 @@ namespace NorthShoreSurfApp.Droid
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            base.SetTheme(Resource.Style.MainTheme);
+
             Instance = this;
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-            
+
+            CrossCurrentActivity.Current.Activity = this;
+
             base.OnCreate(savedInstanceState);
 
             FirebaseApp.InitializeApp(this);
@@ -60,6 +69,13 @@ namespace NorthShoreSurfApp.Droid
             facebookService.CallbackManager.OnActivityResult(requestCode, Convert.ToInt32(resultCode), data);
         }
 
+        public override void OnConfigurationChanged(Configuration newConfig)
+        {
+            base.OnConfigurationChanged(newConfig);
+
+            DeviceOrientationImplementation.NotifyOrientationChange(newConfig.Orientation);
+        }
+
         public override void OnBackPressed()
         {
             if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
@@ -68,7 +84,7 @@ namespace NorthShoreSurfApp.Droid
             }
             else
             {
-                base.OnBackPressed();
+                //base.OnBackPressed();
             }
         }
 

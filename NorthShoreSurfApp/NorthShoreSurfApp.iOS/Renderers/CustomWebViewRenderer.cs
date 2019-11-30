@@ -15,12 +15,21 @@ namespace NorthShoreSurfApp.iOS.Renderers
 {
     public class CustomWebViewRenderer : WebViewRenderer
     {
+        /*****************************************************************/
+        // VARIABLES
+        /*****************************************************************/
         #region Variables
 
         private CustomWebView CustomWebView { get; set; }
 
         #endregion
 
+        /*****************************************************************/
+        // OVERRIDE METHODS
+        /*****************************************************************/
+        #region Override methods
+
+        // OnElementChanged
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
             base.OnElementChanged(e);
@@ -30,13 +39,17 @@ namespace NorthShoreSurfApp.iOS.Renderers
             {
                 return;
             }
+            
             this.ScalesPageToFit = true;
         }
 
+        // Draw
         public override void Draw(CGRect rect)
         {
             base.Draw(rect);
             CustomWebView.FinishedLoading();
         }
+
+        #endregion
     }
 }

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:shared="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
              xmlns:local="clr-namespace:NorthShoreSurfApp"
              xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
              mc:Ignorable="d"
@@ -26,10 +25,11 @@
             <!--Top navigation bar-->
             <local:CustomNavigationBar x:Name="navigationBar"
                                        BarBackgroundColor="{StaticResource BarBackground}"
-                                       ShowBackButton="True"
+                                       ShowBackButton="False"
                                        ShowLogo="True"
                                        Logo="ic_logo.png"
                                        ButtonOneIsVisible="True"
+                                       ButtonOneImage="ic_refresh.png"
                                        />
 
             <Grid RowSpacing="0"
@@ -43,7 +43,10 @@
 
                 <!--ScrollView-->
                 <ScrollView>
-                    <StackLayout Padding="20">
+                    <StackLayout Padding="20" 
+                                 VerticalOptions="Start"
+                                 Spacing="0"
+                                 >
                         <!--Navigation button-->
                         <local:CustomImageTextButton x:Name="btnSeeWebcam"
                                                      Grid.Row="1" 
@@ -66,7 +69,8 @@
                                BackgroundColor="{StaticResource NSSBlue}"
                                >
 
-                            <Grid Margin="0"
+                            <Grid x:Name="gridWeatherInfo"
+                                  Margin="0"
                                   Padding="0"
                                   RowSpacing="0"
                                   ColumnSpacing="0">
@@ -90,6 +94,12 @@
                                                      Source="{Binding WeatherInfoUrl}"
                                                      />
 
+                                <Grid Grid.Row="1"
+                                      BackgroundColor="Transparent"
+                                      HeightRequest="{Binding Height, Source={x:Reference wvWeatherInfo}}"
+                                      HorizontalOptions="Fill"
+                                      />
+
                             </Grid>
 
                         </Frame>
@@ -101,7 +111,8 @@
                                BackgroundColor="{StaticResource NSSBlue}"
                                >
 
-                            <Grid Margin="0"
+                            <Grid x:Name="gridOceanInfo"
+                                  Margin="0"
                                   Padding="0"
                                   RowSpacing="0"
                                   ColumnSpacing="0">
@@ -121,8 +132,15 @@
                                 <local:CustomWebView x:Name="wvOceanInfo"
                                                      Margin="10, 0, 10, 10"
                                                      Grid.Row="1"
+                                                     HeightRequest="10"
                                                      Source="{Binding OceanInfoUrl}"
                                                      />
+
+                                <Grid Grid.Row="1"
+                                      BackgroundColor="Transparent"
+                                      HeightRequest="{Binding Height, Source={x:Reference wvOceanInfo}}"
+                                      HorizontalOptions="Fill"
+                                      />
 
                             </Grid>
 
@@ -135,34 +153,28 @@
                                BackgroundColor="{StaticResource NSSBlue}"
                                >
 
-                            <Grid Margin="0"
-                                  Padding="0"
-                                  RowSpacing="0"
-                                  ColumnSpacing="0">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="Auto"/>
-                                </Grid.RowDefinitions>
+                            <StackLayout Spacing="0"
+                                         Padding="0"
+                                         Margin="0">
 
                                 <Label Text="{local:Translate what_are_good_surfing_conditions}"
-                                       VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Start"
+                                       HorizontalOptions="FillAndExpand"
+                                       LineBreakMode="WordWrap"
                                        Padding="10, 5, 10, 5"
                                        FontSize="20"
                                        TextColor="{StaticResource NSSOrange}"
                                        />
 
-                                <Label Text="{local:Translate what_are_good_surfing_conditions_description}"
-                                       VerticalTextAlignment="Center"
-                                       HorizontalTextAlignment="Start"
-                                       Padding="10, 0, 10, 10"
-                                       Grid.Row="1"
-                                       FontSize="20"
-                                       TextColor="White"
-                                       />
+                                <Label 
+                                    x:Name="lblDescription"
+                                    Text="{local:Translate what_are_good_surfing_conditions_description}"
+                                    Padding="10, 0, 10, 10"
+                                    Grid.Row="1"
+                                    FontSize="16"
+                                    TextColor="White"
+                                    />
 
-                            </Grid>
-
+                            </StackLayout>
                         </Frame>
 
                     </StackLayout>
@@ -172,10 +184,7 @@
 
             </Grid>
 
-            <shared:VideoView x:Name="vvWebcam"
-                              Grid.Row="1"
-                              IsVisible="False"
-                              />
+            
         </Grid>
     </ContentPage.Content>
 </ContentPage>

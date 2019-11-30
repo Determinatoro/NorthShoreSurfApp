@@ -18,13 +18,19 @@ namespace NorthShoreSurfApp.iOS.Renderers
 {
     public class CustomFrameRenderer : FrameRenderer
     {
+        /*****************************************************************/
+        // OVERRIDE METHODS
+        /*****************************************************************/
+        #region Override methods
+
+        // LayoutSubviews
         public override void LayoutSubviews()
         {
             base.LayoutSubviews();
-
             UpdateLayout();
         }
 
+        // OnElementPropertyChanged
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             base.OnElementPropertyChanged(sender, e);
@@ -36,7 +42,18 @@ namespace NorthShoreSurfApp.iOS.Renderers
             }
         }
 
-        // A very basic way of retrieving same one value for all of the corners
+        #endregion
+
+        /*****************************************************************/
+        // METHODS
+        /*****************************************************************/
+        #region Methods
+
+        /// <summary>
+        /// A very basic way of retrieving same one value for all of the corners
+        /// </summary>
+        /// <param name="cornerRadius">CornerRadius object</param>
+        /// <returns></returns>
         private double RetrieveCommonCornerRadius(CornerRadius cornerRadius)
         {
             var commonCornerRadius = cornerRadius.TopLeft;
@@ -56,33 +73,33 @@ namespace NorthShoreSurfApp.iOS.Renderers
             return commonCornerRadius;
         }
 
+        /// <summary>
+        /// Create a UIRectCorner object from cornerradius
+        /// </summary>
+        /// <param name="cornerRadius">CornerRadius object</param>
+        /// <returns></returns>
         private UIRectCorner RetrieveRoundedCorners(CornerRadius cornerRadius)
         {
             var roundedCorners = default(UIRectCorner);
 
             if (cornerRadius.TopLeft > 0)
-            {
                 roundedCorners |= UIRectCorner.TopLeft;
-            }
 
             if (cornerRadius.TopRight > 0)
-            {
                 roundedCorners |= UIRectCorner.TopRight;
-            }
 
             if (cornerRadius.BottomLeft > 0)
-            {
                 roundedCorners |= UIRectCorner.BottomLeft;
-            }
 
             if (cornerRadius.BottomRight > 0)
-            {
                 roundedCorners |= UIRectCorner.BottomRight;
-            }
 
             return roundedCorners;
         }
 
+        /// <summary>
+        /// Update layout for frame
+        /// </summary>
         private void UpdateLayout()
         {
             var cornerRadius = (Element as CustomFrame)?.CornerRadius;
@@ -123,5 +140,7 @@ namespace NorthShoreSurfApp.iOS.Renderers
             NativeView.Layer.BorderWidth = 0;
             NativeView.Layer.BorderColor = UIColor.Clear.CGColor;
         }
+
+        #endregion
     }
 }

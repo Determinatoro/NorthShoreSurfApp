@@ -3,12 +3,16 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:local="clr-namespace:NorthShoreSurfApp"
             mc:Ignorable="d"
             x:Class="NorthShoreSurfApp.RootTabbedPage"
-            xmlns:local="clr-namespace:NorthShoreSurfApp"
-            BackgroundColor="#FFFFFF"
-            BarBackgroundColor="#F0F0F0"
+            BackgroundColor="White"
+            BarBackgroundColor="{StaticResource BarBackground}"
             >
+    <TabbedPage.Effects>
+        <local:NoShiftEffect />
+    </TabbedPage.Effects>
+
     <!--Pages can be added as references or inline-->
     <local:CustomNavigationPage IconSelectedSource="ic_home_selected.png" IconUnselectedSource="ic_home.png" Title="{local:Translate home}">
         <x:Arguments>
@@ -28,7 +32,7 @@
         </x:Arguments>
     </local:CustomNavigationPage>
 
-    <local:CustomNavigationPage IconSelectedSource="ic_carpooling_selected.png" IconUnselectedSource="ic_carpooling.png" Title="{local:Translate profile}">
+    <local:CustomNavigationPage IconSelectedSource="ic_profile_selected.png" IconUnselectedSource="ic_profile.png" Title="{local:Translate profile}">
         <x:Arguments>
             <local:UserPage  Title="{local:Translate profile}"/>
         </x:Arguments>

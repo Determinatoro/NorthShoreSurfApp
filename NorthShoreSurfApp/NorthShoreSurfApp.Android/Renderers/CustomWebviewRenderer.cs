@@ -22,13 +22,19 @@ namespace NorthShoreSurfApp.Droid.Renderers
 {
     public class CustomWebViewRenderer : WebViewRenderer
     {
+        /*****************************************************************/
+        // VARIABLES
+        /*****************************************************************/
         #region Variables
 
-        static CustomWebView customWebView = null;
-        WebView webView;
+        private static CustomWebView customWebView = null;
+        private WebView webView;
 
         #endregion
 
+        /*****************************************************************/
+        // CONSTRUCTOR
+        /*****************************************************************/
         #region Constructor
 
         public CustomWebViewRenderer(Context context)
@@ -38,6 +44,9 @@ namespace NorthShoreSurfApp.Droid.Renderers
 
         #endregion
 
+        /*****************************************************************/
+        // CLASSES
+        /*****************************************************************/
         #region Classes
 
         private class CustomWebViewClient : WebViewClient
@@ -57,6 +66,9 @@ namespace NorthShoreSurfApp.Droid.Renderers
 
         #endregion
 
+        /*****************************************************************/
+        // OVERRIDE METHODS
+        /*****************************************************************/
         #region Override methods
 
         // ElementChanged
