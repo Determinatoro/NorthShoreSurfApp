@@ -101,7 +101,7 @@
                             BackgroundColor="Transparent"
                             >
                         <Button.Triggers>
-                            <EventTrigger Event="Pressed">
+                            <EventTrigger Event="leftPressed">
                                 <local:CustomToggleButtonPressedTriggerAction/>
                             </EventTrigger>
                         </Button.Triggers>

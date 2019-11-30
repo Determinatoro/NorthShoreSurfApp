@@ -323,6 +323,7 @@ namespace NorthShoreSurfApp
             private set { SetValue(ContentPaddingProperty, value); }
         }
 
+        
         #endregion
 
         /*****************************************************************/
