@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -21,38 +22,65 @@ namespace NorthShoreSurfApp.Droid.Renderers
 {
     public class CustomWebViewRenderer : WebViewRenderer
     {
+        /*****************************************************************/
+        // VARIABLES
+        /*****************************************************************/
+        #region Variables
+
+        private static CustomWebView customWebView = null;
+        private WebView webView;
+
+        #endregion
+
+        /*****************************************************************/
+        // CONSTRUCTOR
+        /*****************************************************************/
+        #region Constructor
+
         public CustomWebViewRenderer(Context context)
             : base(context)
         {
         }
 
-        static CustomWebView _xwebView = null;
-        WebView _webView;
+        #endregion
 
-        class CustomWebViewClient : WebViewClient
+        /*****************************************************************/
+        // CLASSES
+        /*****************************************************************/
+        #region Classes
+
+        private class CustomWebViewClient : WebViewClient
         {
             public async override void OnPageFinished(WebView view, string url)
             {
-                if (_xwebView != null)
+                if (customWebView != null)
                 {
                     view.Settings.JavaScriptEnabled = true;
                     await Task.Delay(100);
-                    string result = await _xwebView.EvaluateJavaScriptAsync("(function(){return document.body.scrollHeight;})()");
-                    _xwebView.HeightRequest = Convert.ToDouble(result);
+                    string result = await customWebView.EvaluateJavaScriptAsync("(function(){return document.body.scrollHeight;})()");
+                    customWebView.HeightRequest = Convert.ToDouble(result);
                 }
                 base.OnPageFinished(view, url);
             }
         }
 
+        #endregion
+
+        /*****************************************************************/
+        // OVERRIDE METHODS
+        /*****************************************************************/
+        #region Override methods
+
+        // ElementChanged
         protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.WebView> e)
         {
             base.OnElementChanged(e);
-            _xwebView = e.NewElement as CustomWebView;
-            _webView = Control;
+            customWebView = e.NewElement as CustomWebView;
+            webView = Control;
 
             if (Control != null)
             {
-                _webView.SetWebViewClient(new CustomWebViewClient());
+                webView.SetWebViewClient(new CustomWebViewClient());
 
                 Control.Settings.BuiltInZoomControls = true;
                 Control.Settings.DisplayZoomControls = false;
@@ -61,5 +89,14 @@ namespace NorthShoreSurfApp.Droid.Renderers
                 Control.Settings.UseWideViewPort = true;
             }
         }
+
+        // Draw
+        public override void Draw(Canvas canvas)
+        {
+            base.Draw(canvas);
+            customWebView.FinishedLoading();
+        }
+
+        #endregion
     }
 }

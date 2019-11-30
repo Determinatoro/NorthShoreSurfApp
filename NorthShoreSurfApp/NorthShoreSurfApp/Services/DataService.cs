@@ -73,7 +73,7 @@ namespace NorthShoreSurfApp
         Task<DataResponse<User>> SignUpUser(string firstName, string lastName, string phoneNo, int age, int genderId);
         Task<DataResponse> DeleteUser(string phoneNo);
         Task<DataResponse<Car>> CreateCar(int userId, string licensePlate, string color);
-        Task<DataResponse<CarpoolRide>> CreateCarpoolRide(int userId, DateTime departureTime, string address, string zipCode, string city, int carId, int numberOfSeats, int pricePerPassenger, List<Event> events, string comment = null);
+        Task<DataResponse<CarpoolRide>> CreateCarpoolRide(int userId, DateTime departureTime, string address, string zipCode, string city, string destinationAddress, string destinationZipCode, string destinationCity, int carId, int numberOfSeats, int pricePerPassenger, List<Event> events, string comment = null);
         Task<DataResponse<CarpoolRequest>> CreateCarpoolRequest(int userId, DateTime fromTime, DateTime toTime, string zipCode, string city, List<Event> events);
         Task<DataResponse> InvitePassenger(int carpoolRequestId, int carpoolRideId);
         Task<DataResponse> UninvitePassenger(int carpoolConfirmationId);

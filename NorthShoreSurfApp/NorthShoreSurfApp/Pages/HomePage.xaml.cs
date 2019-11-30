@@ -32,9 +32,34 @@ namespace NorthShoreSurfApp
             
         }
 
-        private void button_Clicked(object sender, EventArgs e)
+        void OpeningHoursClicked(object sender, EventArgs e)
         {
-            
+
+        }
+
+        async void NextRideClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        async void InstagramClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        async void WebcamClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        void SurfCoursesClicked(object sender, EventArgs e)
+        {
+
+        }
+
+        void ContactUsClicked(object sender, EventArgs e)
+        {
+
         }
     }
 }

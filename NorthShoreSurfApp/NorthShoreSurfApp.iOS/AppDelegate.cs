@@ -4,6 +4,7 @@ using System.Linq;
 using Facebook.CoreKit;
 using FFImageLoading.Forms.Platform;
 using Foundation;
+using LibVLCSharp.Forms.Shared;
 using NorthShoreSurfApp.iOS.Services;
 using UIKit;
 
@@ -24,19 +25,20 @@ namespace NorthShoreSurfApp.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            // Popup dialog library
             Rg.Plugins.Popup.Popup.Init();
+            // Cached image library
             CachedImageRenderer.Init();
+            // VLC library
+            LibVLCSharpFormsRenderer.Init();
 
             global::Xamarin.Forms.Forms.Init();
 
             UINavigationBar.Appearance.TintColor = UIColor.White;
-
             CachedImageRenderer.InitImageSourceHandler();
-
             LoadApplication(new App());
-
+            // Configure firebase
             Firebase.Core.App.Configure();
-
             return base.FinishedLaunching(app, options);
         }
 
@@ -44,6 +46,13 @@ namespace NorthShoreSurfApp.iOS
         {
             // We need to handle URLs by passing them to their own OpenUrl in order to make the SSO authentication works.
             return ApplicationDelegate.SharedInstance.OpenUrl(application, url, sourceApplication, annotation);
+        }
+
+        // Details: https://github.com/wcoder/Xamarin.Plugin.DeviceOrientation#xamarinforms-ios
+        [Export("application:supportedInterfaceOrientationsForWindow:")]
+        public UIInterfaceOrientationMask GetSupportedInterfaceOrientations(UIApplication application, IntPtr forWindow)
+        {
+            return Plugin.DeviceOrientation.DeviceOrientationImplementation.SupportedInterfaceOrientations;
         }
     }
 }

@@ -67,16 +67,17 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Renderers\CustomEntryRenderer.cs" />
     <Compile Include="Renderers\CustomFrameRenderer.cs" />
+    <Compile Include="Renderers\CustomLabelRenderer.cs" />
     <Compile Include="Renderers\CustomWebViewRenderer.cs" />
     <Compile Include="Services\IOSFirebaseService.cs" />
     <Compile Include="Services\IOSLocalDataService.cs" />
     <Compile Include="Services\IOSFacebookService.cs" />
-    <Compile Include="Services\IOSOrientationService.cs" />
+    <Compile Include="Services\IOSScreenService.cs" />
     <None Include="Entitlements.plist" />
     <BundleResource Include="GoogleService-Info.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <AndroidAsset Include="Resources\NSS.db" />
+    <BundleResource Include="Resources\NSS.db" />
     <BundleResource Include="Resources\ic_car_white.png" />
     <BundleResource Include="Resources\request_icon_b.png" />
     <BundleResource Include="Resources\request_icon_w.png" />
@@ -86,37 +87,124 @@
     <BundleResource Include="Resources\destination2.png" />
     <BundleResource Include="Resources\ic_seat_red.png" />
     <BundleResource Include="Resources\Delete icon.png" />
-    <BundleResource Include="Resources\Wave 2 b.png" />
     <BundleResource Include="Resources\Seat.png" />
     <BundleResource Include="Resources\Seat empty.png" />
-    <BundleResource Include="Resources\Surf s.png" />
     <BundleResource Include="Resources\Car h.png" />
     <BundleResource Include="Resources\Request icon b.png" />
     <BundleResource Include="Resources\Request icon w.png" />
-    <BundleResource Include="Resources\surfvejr.png" />
     <BundleResource Include="Resources\Car s - Kopi.png" />
-    <BundleResource Include="Resources\User.png" />
     <BundleResource Include="Resources\Car - Kopi.png" />
-    <BundleResource Include="Resources\live icon.png" />
-    <BundleResource Include="Resources\vejr.png" />
-    <BundleResource Include="Resources\User s - Kopi.png" />
-    <BundleResource Include="Resources\Wave.png" />
     <BundleResource Include="Resources\Seat full.png" />
     <BundleResource Include="Resources\Car.png" />
     <BundleResource Include="Resources\Car s.png" />
-    <BundleResource Include="Resources\livecam mini.png" />
-    <BundleResource Include="Resources\Surf.png" />
     <BundleResource Include="Resources\edit.png" />
     <BundleResource Include="Resources\NSS logo.png" />
     <BundleResource Include="Resources\Logout icon.png" />
-    <BundleResource Include="Resources\Wave 2.png" />
-    <BundleResource Include="Resources\Wave s.png" />
-    <BundleResource Include="Resources\User s.png" />
-    <BundleResource Include="Resources\User - Kopi.png" />
-    <BundleResource Include="Resources\Live.png" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <ImageAsset Include="Assets.xcassets\ic_carpooling.imageset\ic_carpooling.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_carpooling.imageset\ic_carpooling@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_carpooling.imageset\ic_carpooling@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_carpooling_selected.imageset\ic_carpooling_selected.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_carpooling_selected.imageset\ic_carpooling_selected@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_carpooling_selected.imageset\ic_carpooling_selected@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_home.imageset\ic_home.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_home.imageset\ic_home@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_home.imageset\ic_home@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_home_selected.imageset\ic_home_selected.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_home_selected.imageset\ic_home_selected@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_home_selected.imageset\ic_home_selected@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_profile.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_profile.imageset\ic_profile.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_profile.imageset\ic_profile@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_profile.imageset\ic_profile@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_home.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_home_selected.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_profile_selected.imageset\ic_profile_selected.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_profile_selected.imageset\ic_profile_selected@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_profile_selected.imageset\ic_profile_selected@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_surfing.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_surfing.imageset\ic_surfing.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_surfing.imageset\ic_surfing@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_surfing.imageset\ic_surfing@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_surfing_selected.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_surfing_selected.imageset\ic_surfing_selected.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_surfing_selected.imageset\ic_surfing_selected@2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_surfing_selected.imageset\ic_surfing_selected@3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_profile_selected.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_carpooling.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_carpooling_selected.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\splash_screen.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\splash_screen.imageset\splash_screen.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -172,6 +260,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
     </PackageReference>
+    <PackageReference Include="Plugin.DeviceOrientation">
+      <Version>1.0.7</Version>
+    </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>1.2.0.223</Version>
     </PackageReference>
@@ -204,9 +295,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_home.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BundleResource Include="Resources\ic_back.png" />
   </ItemGroup>
   <ItemGroup>
@@ -219,54 +307,12 @@
     <BundleResource Include="Resources\ic_logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_surfing.png" />
+    <BundleResource Include="Resources\ic_webcam.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_surfing%402x.png" />
+    <BundleResource Include="Resources\ic_cross.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_surfing%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_home%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_home%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_surfing_selected%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_surfing_selected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_surfing_selected%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_carpooling.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_carpooling%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_carpooling%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_carpooling_selected%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_carpooling_selected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_carpooling_selected%402x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_home_selected%403x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_home_selected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\ic_home_selected%402x.png" />
+    <BundleResource Include="Resources\ic_refresh.png" />
   </ItemGroup>
 </Project>

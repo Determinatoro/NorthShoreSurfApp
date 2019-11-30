@@ -21,8 +21,9 @@ namespace NorthShoreSurfApp
             InitializeComponent();
 
             On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
-            UnselectedTabColor = Color.FromHex("0067B0");
-            SelectedTabColor = Color.FromHex("0067B0");           
+            Color barIconsAndTextColor = (Color)App.Current.Resources["NSSBlue"];
+            UnselectedTabColor = barIconsAndTextColor;
+            SelectedTabColor = barIconsAndTextColor;           
         }
     }
 }

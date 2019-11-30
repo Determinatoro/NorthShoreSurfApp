@@ -16,6 +16,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.6" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Plugin.DeviceOrientation" Version="1.0.7" />
     <PackageReference Include="Rg.Plugins.Popup" Version="1.2.0.223" />
     <PackageReference Include="sqlite-net-pcl" Version="1.6.292" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
@@ -49,10 +50,16 @@
     <EmbeddedResource Update="Pages\CarpoolDetailsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Pages\ContactUs.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\NewCarPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\SignUpUserPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\SurfingConditionsFullscreenPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\UserPage.xaml">
@@ -93,6 +100,12 @@
     <Compile Remove="Controls\MyView.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Pages\OpeningHoursPage.xaml.cs">
+      <DependentUpon>OpeningHoursPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\CoursesPage.xaml.cs">
+      <DependentUpon>CoursesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>

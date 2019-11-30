@@ -15,6 +15,10 @@ namespace NorthShoreSurfApp.ModelComponents
         public bool IsActive { get => IsActiveColumn != 0; set => IsActiveColumn = value ? 1 : 0; }
         [Column(nameof(IsActive))]
         public int IsActiveColumn { get; set; }
+        [NotMapped]
+        public bool IsLocked { get => IsLockedColumn != 0; set => IsLockedColumn = value ? 1 : 0; }
+        [Column(nameof(IsLocked))]
+        public int IsLockedColumn { get; set; }
         [Required]
         public int DriverId { get; set; }
         [ForeignKey(nameof(DriverId))]
