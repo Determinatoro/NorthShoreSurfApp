@@ -21,10 +21,7 @@ namespace NorthShoreSurfApp.ViewModels
 
         public string FullName
         {
-            get
-            {
-                return fullName;
-            }
+            get { return fullName; }
         }
 
         public string PhoneNo

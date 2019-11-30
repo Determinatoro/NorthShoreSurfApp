@@ -20,6 +20,7 @@ namespace NorthShoreSurfApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UserPage : ContentPage
     {
+        public UserViewModel UserViewModel { get => (UserViewModel)this.BindingContext; }
         public UserPage()
         {
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
@@ -30,6 +31,15 @@ namespace NorthShoreSurfApp
             btnEdit.Clicked += Button_Clicked;
             btnLogOut.Clicked += Button_Clicked;
             btnDelAcc.Clicked += Button_Clicked;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            App.DataService.GetUser("29711907");
+
+
         }
 
         private void Button_Clicked(object sender, EventArgs e)
