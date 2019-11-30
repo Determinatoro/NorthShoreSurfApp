@@ -15,6 +15,7 @@ using NorthShoreSurfApp.ModelComponents;
 using System.Collections.ObjectModel;
 using FFImageLoading.Forms;
 
+
 namespace NorthShoreSurfApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -78,7 +79,17 @@ namespace NorthShoreSurfApp
                     if (response.Success)
                     {
                         
+<<<<<<< Updated upstream
                         //CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
+=======
+                        CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
+
+                        
+                        
+
+                        
+                        
+>>>>>>> Stashed changes
                     }
                     else
                     {

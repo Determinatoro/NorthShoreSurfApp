@@ -39,12 +39,56 @@
 
             <local:CustomToggleButton x:Name="RidesTab" TitleRight="Requests" TitleRightSize="18" TitleLeft="Rides" TitleLeftSize="18"  SelectedColor="White" BackgroundSelected="{StaticResource NSSBlue}" UnselectedColor="{StaticResource NSSBlue}" BackgroundUnselected="White" IconLeft="ic_car_white.png" IconRight="request_icon_w.png" Grid.Row="1" Margin="5,10,5,0"/>
 
+<<<<<<< Updated upstream
             <!-- <StackLayout x:Name="slSeats" 
                          Grid.Row="2"
                          Padding="0"
                          Margin="0"
                          HeightRequest="20"
                          Orientation="Horizontal">
+=======
+            
+
+            <ListView x:Name="rideList" 
+                  ItemsSource="{Binding Rides}" 
+                  HasUnevenRows="True" 
+                  SeparatorVisibility="None" 
+                      IsVisible="True"
+                  Grid.Row="2"
+                  ItemSelected="rideSelected">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <Grid BackgroundColor="{StaticResource NSSBlue}" Margin="10,5,5,10" Padding="5">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Text="{Binding DepartureTimeDayString} " LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
+                                <Label Text="{Binding DepartureTimeHourString}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
+                                <Label Text="{Binding PricePerPassengerString}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
+                                <!-- <StackLayout x:Name="Seats" 
+                                    Grid.Row="3"
+                                    Padding="0"
+                                    Margin="0"
+                                    HeightRequest="20"
+                                    Orientation="Horizontal"
+                                    bindin       >
+>>>>>>> Stashed changes
                 
                 <ffimageloading:CachedImage
                                          BackgroundColor="Transparent"
@@ -52,6 +96,11 @@
                                          HeightRequest="20"
                                          Aspect="AspectFit"
                                          Margin="2"
+<<<<<<< Updated upstream
+=======
+                                         IsVisible="false"
+                                        
+>>>>>>> Stashed changes
                                          />
                 
                 <ffimageloading:CachedImage
@@ -60,7 +109,12 @@
                                          HeightRequest="20"
                                          Aspect="AspectFit"
                                          Margin="2"
+<<<<<<< Updated upstream
                                          />
+=======
+                                         IsVisible="false"
+                                         /> 
+>>>>>>> Stashed changes
 
                 <ffimageloading:CachedImage
                                          BackgroundColor="Transparent"
@@ -68,9 +122,22 @@
                                          HeightRequest="20"
                                          Aspect="AspectFit"
                                          Margin="2"
+                                         IsVisible="{Binding "
                                          />
 
+<<<<<<< Updated upstream
             </StackLayout> -->
+=======
+                                   </StackLayout> -->
+                                
+                                
+                                <Label Text="{Binding Address}" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill"/>
+                                <Label Text="{Binding ZipcodeCityString}" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill"/>
+
+                                <Label Text="{Binding DestinationZipcodeCityString}" TextColor="White" Grid.Row="4" Grid.Column="1" VerticalOptions="Fill"/>
+                                <Label Text="{Binding DestinationAddress}" TextColor="White" Grid.Row="5" Grid.Column="1" VerticalOptions="Fill"/>
+                            </Grid>
+>>>>>>> Stashed changes
 
             <ListView x:Name="rideList" 
                   ItemsSource="{Binding Rides}" 

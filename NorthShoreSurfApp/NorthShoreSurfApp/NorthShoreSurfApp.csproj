@@ -27,6 +27,8 @@
 
   <ItemGroup>
     <EmbeddedResource Remove="Pages\MyPage.xaml" />
+    <EmbeddedResource Remove="ViewCells\MyViewCell.xaml" />
+    <EmbeddedResource Remove="Controls\MyView.xaml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Controls\CustomDialog.xaml">
@@ -88,6 +90,7 @@
   <ItemGroup>
     <Compile Remove="ViewModels\WelcomeModel.cs" />
     <Compile Remove="ViewModels\CarpoolingPage\CarpoolingRideCell.cs" />
+    <Compile Remove="Controls\MyView.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Pages\HomePage.xaml.cs">

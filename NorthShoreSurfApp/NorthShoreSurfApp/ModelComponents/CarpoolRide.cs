@@ -67,5 +67,8 @@ namespace NorthShoreSurfApp.ModelComponents
 
         [NotMapped]
         public string DestinationZipcodeCityString { get => String.Format("{0} {1}", DestinationZipCode, DestinationCity); }
+
+        [NotMapped]
+        public int AvailableSeats { get; set; }
     }
 }
