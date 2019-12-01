@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Text;
 
 namespace NorthShoreSurfApp.ModelComponents
@@ -73,6 +74,18 @@ namespace NorthShoreSurfApp.ModelComponents
         public string DestinationZipcodeCityString { get => String.Format("{0} {1}", DestinationZipCode, DestinationCity); }
 
         [NotMapped]
-        public int AvailableSeats { get; set; }
+        public int AvailableSeats
+        {
+            get
+            {
+                if (CarpoolConfirmations == null)
+                    return 0;
+                var count = CarpoolConfirmations.Where(x => x.IsConfirmed).Count();
+                count = NumberOfSeats - count;
+                if (count > NumberOfSeats || count < 0)
+                    return NumberOfSeats;
+                return count;
+            }
+        }
     }
 }

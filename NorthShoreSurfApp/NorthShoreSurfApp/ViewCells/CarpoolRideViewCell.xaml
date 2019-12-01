@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:local="clr-namespace:NorthShoreSurfApp"
+          mc:Ignorable="d"
+          x:Class="NorthShoreSurfApp.ViewCells.CarpoolRideViewCell">
+    <ViewCell.View>
+        <Frame Padding="5"
+               CornerRadius="10"
+               Margin="10,5,10,5"
+               BackgroundColor="{StaticResource NSSBlue}"
+               HasShadow="False">
+            <Grid Padding="5"
+                  Margin="0"
+                  RowSpacing="0"
+                  ColumnSpacing="0">
+                <!--Column definitions-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Left column-->
+                <Grid Margin="0"
+                      Padding="0"
+                      HorizontalOptions="Fill"
+                      Grid.Column="0"
+                      ColumnSpacing="0"
+                      RowSpacing="0">
+                    <!--Row definitions-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--Departure time day-->
+                    <Label Text="{Binding DepartureTimeDayString}" 
+                           MaxLines="1"
+                           Padding="0, 2, 0, 0"
+                           LineBreakMode="TailTruncation"
+                           TextColor="White" 
+                           HorizontalOptions="Fill"
+                           Grid.Row="0" 
+                           />
+                    <!--Departure time hour-->
+                    <Label Text="{Binding DepartureTimeHourString}" 
+                           MaxLines="1"
+                           Padding="0, 2, 0, 0"
+                           LineBreakMode="TailTruncation"
+                           TextColor="White"
+                           HorizontalOptions="Fill"
+                           Grid.Row="1" 
+                           />
+                    <!--Price per passenger-->
+                    <Label Text="{Binding PricePerPassengerString}" 
+                           MaxLines="1"
+                           LineBreakMode="TailTruncation"
+                           TextColor="White" 
+                           HorizontalOptions="Fill"
+                           Grid.Row="3" 
+                           />
+                    <!--Seats-->
+                    <local:CarpoolingSeatLayout Grid.Row="4" 
+                                                VerticalOptions="Start"
+                                                HorizontalOptions="Start"
+                                                Padding="0, 2, 0, 0"
+                                                ColumnSpacing="0"
+                                                RowSpacing="2"
+                                                NumberOfSeats="{Binding NumberOfSeats}" 
+                                                AvailableSeats="{Binding AvailableSeats}"
+                                                />
+                </Grid>
+
+                <!--Right column-->
+                <Grid Margin="0"
+                      Padding="0"
+                      HorizontalOptions="Fill"
+                      Grid.Column="1"
+                      ColumnSpacing="0"
+                      RowSpacing="0"
+                      >
+                    <!--Row definitions-->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Departure address-->
+                    <Label Text="{Binding Address}" 
+                           TextColor="White" 
+                           MaxLines="1"
+                           Padding="0, 2, 0, 0"
+                           HorizontalOptions="FillAndExpand"
+                           HorizontalTextAlignment="End"
+                           LineBreakMode="TailTruncation"
+                           Grid.Row="0" 
+                           />
+                    <!--Departure city-->
+                    <Label Text="{Binding ZipcodeCityString}" 
+                           TextColor="White" 
+                           MaxLines="1"
+                           Padding="0, 2, 0, 0"
+                           HorizontalOptions="FillAndExpand"
+                           HorizontalTextAlignment="End"
+                           LineBreakMode="TailTruncation"
+                           Grid.Row="1" 
+                           />
+                    <!--Destination zipcode-->
+                    <Label Text="{Binding DestinationZipcodeCityString}" 
+                           TextColor="White" 
+                           MaxLines="1"
+                           Padding="0, 0, 0, 0"
+                           HorizontalOptions="FillAndExpand"
+                           HorizontalTextAlignment="End"
+                           LineBreakMode="TailTruncation"
+                           Grid.Row="3" 
+                           />
+                    <!--Destination address-->
+                    <Label Text="{Binding DestinationAddress}" 
+                           TextColor="White" 
+                           MaxLines="1"
+                           Padding="0, 2, 0, 0"
+                           HorizontalOptions="FillAndExpand"
+                           HorizontalTextAlignment="End"
+                           LineBreakMode="TailTruncation"
+                           Grid.Row="4" 
+                           />
+                </Grid>
+            </Grid>
+        </Frame>
+    </ViewCell.View>
+</ViewCell>

@@ -5,8 +5,10 @@ using Xamarin.Forms;
 using System.Diagnostics;
 using NorthShoreSurfApp.ModelComponents;
 using System.Collections.ObjectModel;
+using NorthShoreSurfApp.ViewCells;
+using System.Runtime.CompilerServices;
 
-namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
+namespace NorthShoreSurfApp.ViewModels
 {
     public class CarpoolingPageViewModel : INotifyPropertyChanged
     {
@@ -36,6 +38,19 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
         #endregion
 
         /*****************************************************************/
+        // METHODS
+        /*****************************************************************/
+        #region Methods
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            if (propertyName != null)
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        #endregion
+
+        /*****************************************************************/
         // PROPERTIES
         /*****************************************************************/
         #region Properties
@@ -46,7 +61,7 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
             set
             {
                 rides = value;
-                OnPropertyChanged(nameof(Rides));
+                OnPropertyChanged();
             }
         }
 
@@ -56,20 +71,13 @@ namespace NorthShoreSurfApp.ViewModels.CarpoolingPage
             set
             {
                 requests = value;
-                OnPropertyChanged(nameof(Requests));
+                OnPropertyChanged();
             }
         }
 
-        #endregion
-
-        /*****************************************************************/
-        // METHODS
-        /*****************************************************************/
-        #region Methods
-
-        protected virtual void OnPropertyChanged(string propertyName)
+        public DataTemplate CarpoolRideItemTemplate
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get { return new DataTemplate(() => new CarpoolRideViewCell()); }
         }
 
         #endregion
