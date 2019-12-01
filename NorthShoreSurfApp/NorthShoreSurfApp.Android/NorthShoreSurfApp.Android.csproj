@@ -59,6 +59,9 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
     </PackageReference>
+    <PackageReference Include="Plugin.DeviceOrientation">
+      <Version>1.0.7</Version>
+    </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup">
       <Version>1.2.0.223</Version>
     </PackageReference>
@@ -91,6 +94,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.3.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\NoShiftEffect.cs" />
     <Compile Include="Extensions\AndroidExtensions.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\CustomEntryRenderer.cs" />
@@ -100,7 +104,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AndroidFacebookService.cs" />
     <Compile Include="Services\AndroidFirebaseService.cs" />
-    <Compile Include="Services\AndroidOrientationService.cs" />
+    <Compile Include="Services\AndroidScreenService.cs" />
     <Compile Include="Services\AndroidLocalDataService.cs" />
     <Compile Include="Utilities\AndroidUtilities.cs" />
   </ItemGroup>
@@ -159,9 +163,6 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_car.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_surfing.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AndroidResource>
@@ -171,9 +172,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\nss_Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_car_selected.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_facebook.png" />
@@ -203,16 +201,28 @@
     <AndroidResource Include="Resources\drawable\ic_delete.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\destination.png" />
+    <AndroidResource Include="Resources\drawable\ic_home_selected.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\location.png" />
+    <AndroidResource Include="Resources\drawable\ic_profile_selected.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_destination.png" />
+    <AndroidResource Include="Resources\drawable\ic_profile.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ic_location.png" />
+    <AndroidResource Include="Resources\drawable\ic_carpooling_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_carpooling.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\splash_screen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_cross.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_refresh.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

@@ -27,5 +27,8 @@ namespace NorthShoreSurfApp.ModelComponents
         public int CarpoolRideId { get; set; }
         [ForeignKey(nameof(CarpoolRideId))]
         public CarpoolRide CarpoolRide { get; set; }
+
+        [NotMapped]
+        public bool IsConfirmed { get => HasPassengerAccepted && HasDriverAccepted; }
     }
 }

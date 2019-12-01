@@ -1,6 +1,7 @@
 ﻿using NorthShoreSurfApp.ModelComponents;
 using NorthShoreSurfApp.ViewCells;
 using NorthShoreSurfApp.ViewModels;
+using Plugin.DeviceOrientation;
 using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using System;
@@ -79,7 +80,8 @@ namespace NorthShoreSurfApp
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            App.OrientationService.Portrait();
+            // Orientation
+            CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
         }
 
         #endregion

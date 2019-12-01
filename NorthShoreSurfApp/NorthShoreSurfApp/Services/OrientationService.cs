@@ -4,10 +4,12 @@ using System.Text;
 
 namespace NorthShoreSurfApp
 {
-    public interface IOrientationService
+    public interface IScreenService
     {
         void Landscape();
         void Portrait();
         void Unspecified();
+        void HideStatusBar();
+        void ShowStatusBar();
     }
 }

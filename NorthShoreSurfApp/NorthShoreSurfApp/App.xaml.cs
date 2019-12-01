@@ -15,42 +15,57 @@ namespace NorthShoreSurfApp
         public static IFirebaseService FirebaseService { get; set; }
         public static IDataService DataService { get; set; }
         public static ILocalDataService LocalDataService { get; set; }
-        public static IOrientationService OrientationService { get; set; }
+        public static IScreenService ScreenService { get; set; }
+
+        public static event EventHandler<EventArgs> Started;
+        public static event EventHandler<EventArgs> Slept;
+        public static event EventHandler<EventArgs> Resumed;
 
         public App()
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new CarpoolingPage());
             Core.Initialize();
 
             LocalDataService = DependencyService.Get<ILocalDataService>();
-            OrientationService = DependencyService.Get<IOrientationService>();
+            ScreenService = DependencyService.Get<IScreenService>();
 
-            LocalDataService.InitializeFiles();
+            LocalDataService.InitializeFiles(true);
 
             DataService = new NSSDatabaseService<NSSDatabaseContext>();
             DataService.Initialize();
 
-            // TEST
-            //LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), "1");
-            
+            // TEST User logged in
+            LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), "1");
+
+            // Check if a user is logged in
+            var userId = LocalDataService.GetValue(nameof(LocalDataKeys.UserId));
+
+            if (userId != null && userId != string.Empty)
+            {
+                // Set main page to tab
+                MainPage = new RootTabbedPage();
+            }
+            else
+            {
+                // Set main page to welcome page
+                MainPage = new WelcomePage();
+            }
         }
 
         protected override void OnStart()
         {
-            NorthShoreSurfApp.App.DataService.CreateCarpoolRide(100, new DateTime(2019, 1, 1, 13, 0, 0), "Æblevej", "9000", "Aalborg", 1, 5, 50, new List<ModelComponents.Event>(), "Hook me up!");
-            NorthShoreSurfApp.App.DataService.SignUpUser("Thomas", "Schjødte", "22278273", 23, 1);
+            Started?.Invoke(this, new EventArgs());
         }
 
         protected override void OnSleep()
         {
-
+            Slept?.Invoke(this, new EventArgs());
         }
 
         protected override void OnResume()
         {
-
+            Resumed?.Invoke(this, new EventArgs());
         }
     }
 }

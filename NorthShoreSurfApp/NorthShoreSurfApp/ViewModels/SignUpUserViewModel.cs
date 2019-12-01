@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -18,15 +19,6 @@ namespace NorthShoreSurfApp.ViewModels
         #region Variables
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private string firstName;
-        private string lastName;
-        private string phoneNo;
-        private string age;
-        private string smsCode;
-        private int genderId;
-        private string gender;
-        private User existingUser;
 
         #endregion
 
@@ -47,13 +39,10 @@ namespace NorthShoreSurfApp.ViewModels
         /*****************************************************************/
         #region Methods
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public void InsertExistingData(User user)
-        {
-
+            if (propertyName != null)
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public void SetPageType(SignUpUserPageType pageType, User existingUser = null)
         {
@@ -107,6 +96,8 @@ namespace NorthShoreSurfApp.ViewModels
             }
         }
         public bool HasPhoneNumberChanged { get => PhoneNo != ExistingUser.PhoneNo; }
+
+        private User existingUser;
         public User ExistingUser
         {
             get => existingUser;
@@ -145,7 +136,7 @@ namespace NorthShoreSurfApp.ViewModels
                 return genders;
             }
         }
-
+        private string firstName;
         public string FirstName
         {
             get { return firstName; }
@@ -154,10 +145,11 @@ namespace NorthShoreSurfApp.ViewModels
                 if (firstName != value)
                 {
                     firstName = value;
-                    OnPropertyChanged(nameof(FirstName));
+                    OnPropertyChanged();
                 }
             }
         }
+        private string lastName;
         public string LastName
         {
             get { return lastName; }
@@ -166,10 +158,11 @@ namespace NorthShoreSurfApp.ViewModels
                 if (lastName != value)
                 {
                     lastName = value;
-                    OnPropertyChanged(nameof(LastName));
+                    OnPropertyChanged();
                 }
             }
         }
+        private string phoneNo;
         public string PhoneNo
         {
             get { return phoneNo; }
@@ -178,10 +171,11 @@ namespace NorthShoreSurfApp.ViewModels
                 if (phoneNo != value)
                 {
                     phoneNo = value;
-                    OnPropertyChanged(nameof(PhoneNo));
+                    OnPropertyChanged();
                 }
             }
         }
+        private int genderId;
         public int GenderId
         {
             get { return genderId; }
@@ -190,10 +184,11 @@ namespace NorthShoreSurfApp.ViewModels
                 if (genderId != value)
                 {
                     genderId = value;
-                    OnPropertyChanged(nameof(GenderId));
+                    OnPropertyChanged();
                 }
             }
         }
+        private string gender;
         public string Gender
         {
             get { return gender; }
@@ -202,10 +197,11 @@ namespace NorthShoreSurfApp.ViewModels
                 if (gender != value)
                 {
                     gender = value;
-                    OnPropertyChanged(nameof(Gender));
+                    OnPropertyChanged();
                 }
             }
         }
+        private string age;
         public string Age
         {
             get { return age; }
@@ -214,7 +210,7 @@ namespace NorthShoreSurfApp.ViewModels
                 if (age != value)
                 {
                     age = value;
-                    OnPropertyChanged(nameof(Age));
+                    OnPropertyChanged();
                 }
             }
         }
@@ -227,6 +223,7 @@ namespace NorthShoreSurfApp.ViewModels
                 return -1;
             }
         }
+        private string smsCode;
         public string SMSCode
         {
             get { return smsCode; }
@@ -235,7 +232,7 @@ namespace NorthShoreSurfApp.ViewModels
                 if (smsCode != value)
                 {
                     smsCode = value;
-                    OnPropertyChanged(nameof(SMSCode));
+                    OnPropertyChanged();
                 }
             }
         }

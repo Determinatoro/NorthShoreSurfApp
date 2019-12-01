@@ -31,9 +31,6 @@ namespace NorthShoreSurfApp
         }
     }
 
-
-
-
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CustomNavigationBar : ContentView
     {

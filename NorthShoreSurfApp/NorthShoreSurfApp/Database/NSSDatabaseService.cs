@@ -432,7 +432,7 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse<Car>(1, mes.Message);
             }
         }
-        public async Task<DataResponse<CarpoolRide>> CreateCarpoolRide(int userId, DateTime departureTime, string address, string zipCode, string city, int carId, int numberOfSeats, int pricePerPassenger, List<Event> events, string comment = null)
+        public async Task<DataResponse<CarpoolRide>> CreateCarpoolRide(int userId, DateTime departureTime, string address, string zipCode, string city, string destinationAddress, string destinationZipCode, string destinationCity, int carId, int numberOfSeats, int pricePerPassenger, List<Event> events, string comment = null)
         {
             try
             {
@@ -445,11 +445,16 @@ namespace NorthShoreSurfApp.Database
                         DepartureTime = departureTime,
                         Address = address,
                         ZipCode = zipCode,
+                        City = city,
                         CarId = carId,
                         NumberOfSeats = numberOfSeats,
                         PricePerPassenger = pricePerPassenger,
                         Comment = comment,
-                        IsActive = true
+                        IsActive = true,
+                        DestinationAddress = destinationAddress,
+                        DestinationCity = destinationCity,
+                        DestinationZipCode = destinationZipCode,
+                        IsLocked = false
                     };
                     // Add new carpool event
                     var entry = await context.CarpoolRides.AddAsync(carpoolRide);
