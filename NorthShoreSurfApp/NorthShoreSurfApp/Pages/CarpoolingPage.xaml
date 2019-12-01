@@ -33,9 +33,7 @@
                                        Logo="ic_logo.png"
                                        ButtonOneIsVisible="True"
                                        ButtonTwoIsVisible="True"
-                                       
-                                        />
-
+                                       />
 
             <local:CustomToggleButton x:Name="RidesTab" TitleRight="Requests" TitleRightSize="18" TitleLeft="Rides" TitleLeftSize="18"  SelectedColor="White" BackgroundSelected="{StaticResource NSSBlue}" UnselectedColor="{StaticResource NSSBlue}" BackgroundUnselected="White" IconLeft="ic_car_white.png" IconRight="request_icon_w.png" Grid.Row="1" Margin="5,10,5,0"/>
 
@@ -58,7 +56,6 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
-                                    
                                 </Grid.ColumnDefinitions>
 
                                 <Grid.RowDefinitions>
@@ -70,6 +67,8 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
+                                
+
                                 <Label Text="{Binding DepartureTimeDayString} " LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
                                 <Label Text="{Binding DepartureTimeHourString}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
                                 <Label Text="{Binding PricePerPassengerString}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
@@ -80,7 +79,7 @@
                                     HeightRequest="20"
                                     Orientation="Horizontal"
                                             >
-                
+
                                     <ffimageloading:CachedImage
                                          BackgroundColor="Transparent"
                                          Source="ic_seat_red.png"
@@ -89,16 +88,8 @@
                                          Margin="2"
                                         
                                          />
-                
-                                     <ffimageloading:CachedImage
-                                         BackgroundColor="Transparent"
-                                         Source="ic_seat_red.png"
-                                         HeightRequest="20"
-                                         Aspect="AspectFit"
-                                         Margin="2"
-                                         /> 
 
-                                     <ffimageloading:CachedImage
+                                    <ffimageloading:CachedImage
                                          BackgroundColor="Transparent"
                                          Source="ic_seat_red.png"
                                          HeightRequest="20"
@@ -106,8 +97,15 @@
                                          Margin="2"
                                          />
 
-                                   </StackLayout>
+                                    <ffimageloading:CachedImage
+                                         BackgroundColor="Transparent"
+                                         Source="ic_seat_red.png"
+                                         HeightRequest="20"
+                                         Aspect="AspectFit"
+                                         Margin="2"
+                                         />
 
+                                </StackLayout>
 
                                 <Label Text="{Binding Address}" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill"/>
                                 <Label Text="{Binding ZipcodeCityString}" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill"/>
