@@ -18,6 +18,10 @@ namespace NorthShoreSurfApp.ViewModels
         private string phoneNo;
         private string age;
         private string gender;
+        public UserViewModel()
+        {
+            
+        }
 
         public string FullName
         {
@@ -27,11 +31,6 @@ namespace NorthShoreSurfApp.ViewModels
                 fullName = value;
                 OnPropertyChanged(nameof(FullName));
             }
-        }
-
-        public UserViewModel()
-        {
-            
         }
 
         public string PhoneNo
