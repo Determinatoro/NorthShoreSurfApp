@@ -72,10 +72,10 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Text="{Binding GetName}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" Margin="0,0,5,0"/>
-                                <Label Text="{Binding PhoneNo}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Center"/>
-                                <Label Text="{Binding Age}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
-                                <Label Text="{Binding Gender}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                                <Label Text="Test" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" Margin="0,0,5,0"/>
+                                <Label Text="Test" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Center"/>
+                                <Label Text="Test" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
+                                <Label Text="Test" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Center" HorizontalOptions="EndAndExpand"/>
 
                             </Grid>
 
@@ -103,10 +103,10 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Text="{Binding Address}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="StartAndExpand"/>
-                                <Label Text="{Binding PhoneNo}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="StartAndExpand"/>
-                                <Label Text="{Binding Age}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="EndAndExpand"/>
-                                <Label Text="{Binding Gender}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="EndAndExpand"/>
+                                <Label Text="Test" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="StartAndExpand"/>
+                                <Label Text="Test" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="StartAndExpand"/>
+                                <Label Text="Test" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="EndAndExpand"/>
+                                <Label Text="Test" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="EndAndExpand"/>
 
                                 <local:CustomImageButton
                                     Icon="ic_destination"
@@ -128,7 +128,7 @@
 
                         </Frame>
 
-                        <local:CustomImageTextButton
+                        <local:CustomImageTextButton x:Name="btnJoin"
                             Margin="0,10,0,10"
                             Title="{local:Translate join_ride}"                            
                             HorizontalOptions="Fill"

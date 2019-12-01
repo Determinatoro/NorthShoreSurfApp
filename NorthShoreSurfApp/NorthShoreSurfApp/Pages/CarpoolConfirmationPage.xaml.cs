@@ -67,7 +67,6 @@ namespace NorthShoreSurfApp
 
 
                 CarpoolRide SelectedRide = (CarpoolRide)rideList.SelectedItem;
-                Navigation.PushAsync(new CarpoolDetailsPage());
 
             }
         }

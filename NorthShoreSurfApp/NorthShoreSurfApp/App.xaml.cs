@@ -21,13 +21,13 @@ namespace NorthShoreSurfApp
         {
             InitializeComponent();
 
-            MainPage = new CarpoolingPage();
+            MainPage = new NavigationPage(new CarpoolingPage());
             Core.Initialize();
 
             LocalDataService = DependencyService.Get<ILocalDataService>();
             OrientationService = DependencyService.Get<IOrientationService>();
 
-            LocalDataService.InitializeFiles(true);
+            LocalDataService.InitializeFiles();
 
             DataService = new NSSDatabaseService<NSSDatabaseContext>();
             DataService.Initialize();
@@ -40,7 +40,7 @@ namespace NorthShoreSurfApp
         protected override void OnStart()
         {
             NorthShoreSurfApp.App.DataService.CreateCarpoolRide(100, new DateTime(2019, 1, 1, 13, 0, 0), "Æblevej", "9000", "Aalborg", 1, 5, 50, new List<ModelComponents.Event>(), "Hook me up!");
-
+            NorthShoreSurfApp.App.DataService.SignUpUser("Thomas", "Schjødte", "22278273", 23, 1);
         }
 
         protected override void OnSleep()

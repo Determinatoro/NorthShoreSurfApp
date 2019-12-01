@@ -293,6 +293,26 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse<User>(1, mes.Message);
             }
         }
+
+        public async Task<DataResponse<CarpoolRide>> GetRide(int rideId)
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    // Get user from phone no.
+                    CarpoolRide ride = await context.CarpoolRides.FirstOrDefaultAsync(x => x.Id == rideId);
+                    // Return response
+                    return new DataResponse<CarpoolRide>(ride != null, ride);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<CarpoolRide>(1, mes.Message);
+            }
+        }
+
         public async Task<DataResponse> UpdateUser(int userId, string firstName, string lastName, string phoneNo, int age, int genderId)
         {
             try

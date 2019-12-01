@@ -8,6 +8,7 @@ using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using NorthShoreSurfApp.ViewModels.CarpoolingPage;
@@ -105,7 +106,7 @@ namespace NorthShoreSurfApp
             if (sender == rideList)
             {
                 CarpoolRide SelectedRide = (CarpoolRide)rideList.SelectedItem;
-                Console.WriteLine(SelectedRide.ToString());
+                Navigation.PushAsync(new CarpoolDetailsPage(SelectedRide));
             }
         }
 
