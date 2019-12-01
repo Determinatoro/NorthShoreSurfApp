@@ -10,7 +10,7 @@
              x:Class="NorthShoreSurfApp.CarpoolingPage"
              BackgroundColor="{StaticResource BarBackground}"
              >
-            
+
 
      <ContentPage.BindingContext>
         <models:CarpoolingPageViewModel />
@@ -33,16 +33,18 @@
                                        Logo="ic_logo.png"
                                        ButtonOneIsVisible="True"
                                        ButtonTwoIsVisible="True"
-                                       />
+
+                                        />
+
 
             <local:CustomToggleButton x:Name="RidesTab" TitleRight="Requests" TitleRightSize="18" TitleLeft="Rides" TitleLeftSize="18"  SelectedColor="White" BackgroundSelected="{StaticResource NSSBlue}" UnselectedColor="{StaticResource NSSBlue}" BackgroundUnselected="White" IconLeft="ic_car_white.png" IconRight="request_icon_w.png" Grid.Row="1" Margin="5,10,5,0"/>
 
-            
 
-            <ListView x:Name="rideList" 
-                  ItemsSource="{Binding Rides}" 
-                  HasUnevenRows="True" 
-                  SeparatorVisibility="None" 
+
+            <ListView x:Name="rideList"
+                  ItemsSource="{Binding Rides}"
+                  HasUnevenRows="True"
+                  SeparatorVisibility="None"
                       IsVisible="True"
                   Grid.Row="2"
                   ItemSelected="rideSelected">
@@ -56,6 +58,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
+
                                 </Grid.ColumnDefinitions>
 
                                 <Grid.RowDefinitions>
@@ -67,12 +70,10 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                
-
                                 <Label Text="{Binding DepartureTimeDayString} " LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
                                 <Label Text="{Binding DepartureTimeHourString}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
                                 <Label Text="{Binding PricePerPassengerString}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
-                                <StackLayout x:Name="slSeats" 
+                                <!-- <StackLayout x:Name="slSeats"
                                     Grid.Row="3"
                                     Padding="0"
                                     Margin="0"
@@ -86,10 +87,10 @@
                                          HeightRequest="20"
                                          Aspect="AspectFit"
                                          Margin="2"
-                                        
+
                                          />
 
-                                    <ffimageloading:CachedImage
+                                     <ffimageloading:CachedImage
                                          BackgroundColor="Transparent"
                                          Source="ic_seat_red.png"
                                          HeightRequest="20"
@@ -97,7 +98,7 @@
                                          Margin="2"
                                          />
 
-                                    <ffimageloading:CachedImage
+                                     <ffimageloading:CachedImage
                                          BackgroundColor="Transparent"
                                          Source="ic_seat_red.png"
                                          HeightRequest="20"
@@ -105,7 +106,11 @@
                                          Margin="2"
                                          />
 
-                                </StackLayout>
+                                   </StackLayout> -->
+
+
+                                <local:CustomStackLayout Grid.Row="3" Grid.Column="0" NumberOfSeats="4" AvailableSeats="2"/>
+
 
                                 <Label Text="{Binding Address}" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill"/>
                                 <Label Text="{Binding ZipcodeCityString}" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill"/>
@@ -114,16 +119,19 @@
                                 <Label Text="{Binding DestinationAddress}" TextColor="White" Grid.Row="5" Grid.Column="1" VerticalOptions="Fill"/>
                             </Grid>
 
-                            
+
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
 
-            <ListView x:Name="requestList" 
-                  ItemsSource="{Binding Requests}" 
-                  HasUnevenRows="True" 
-                  SeparatorVisibility="None" 
+
+
+
+            <ListView x:Name="requestList"
+                  ItemsSource="{Binding Requests}"
+                  HasUnevenRows="True"
+                  SeparatorVisibility="None"
                       IsVisible="False"
                   Grid.Row="2"
                   >
@@ -137,7 +145,7 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
-                                    
+
                                 </Grid.ColumnDefinitions>
 
                                 <Grid.RowDefinitions>
@@ -151,33 +159,29 @@
                                 <Label Text="Pickup interval" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
                                 <Label Text="{Binding DepartureTimeDayString}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
                                 <Label Text="{Binding TimeInterval}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
-                                
-                                
+
+
 
 
                                 <Label Text="{Binding ZipCode} " LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill"/>
                                 <Label Text="{Binding City}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill"/>
-                                
-                                
 
 
-                               
+
+
+
                             </Grid>
 
-                            
+
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
 
 
-            
+
 
         </Grid>
 
     </ContentPage.Content>
 </ContentPage>
-
-
-
-

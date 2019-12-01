@@ -15,6 +15,7 @@ using NorthShoreSurfApp.ModelComponents;
 using System.Collections.ObjectModel;
 using FFImageLoading.Forms;
 
+
 namespace NorthShoreSurfApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -36,8 +37,8 @@ namespace NorthShoreSurfApp
             navigationBar.ButtonOne.Clicked += Plus_Clicked;
             navigationBar.ButtonTwo.Clicked += Confirmations_Clicked;
 
-            
-            
+
+
 
         }
 
@@ -54,10 +55,10 @@ namespace NorthShoreSurfApp
                 {
                     if (response.Success)
                     {
-                        
+
                         CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
-                        
-                        
+
+
                     }
                     else
                     {
@@ -66,7 +67,7 @@ namespace NorthShoreSurfApp
                     }
                 });
 
-            
+
         }
 
         private async void Plus_Clicked(object sender, EventArgs e)
@@ -87,7 +88,7 @@ namespace NorthShoreSurfApp
 
                 CarpoolRide SelectedRide = (CarpoolRide)rideList.SelectedItem;
                 Console.WriteLine(SelectedRide.DepartureTimeHourString);
-                
+
             }
         }
 
@@ -101,10 +102,10 @@ namespace NorthShoreSurfApp
                     {
                         CarpoolingPageViewModel.Requests = new ObservableCollection<CarpoolRequest>(response.Result);
                         rideList.IsVisible = false;
-                        requestList.IsVisible = true; 
+                        requestList.IsVisible = true;
                     }
-
                 });
+                
             } else if (RidesTab.SelectedToggleType == ToggleType.Left)
             {
                 rideList.IsVisible = true;

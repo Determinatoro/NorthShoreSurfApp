@@ -11,27 +11,18 @@ namespace NorthShoreSurfApp
     public class CustomStackLayout : StackLayout
     {
 
-        public static readonly BindableProperty NumberOfSeatsProperty = BindableProperty.Create(nameof(NumberOfSeats), typeof(int), typeof(CustomStackLayout));
-        public static readonly BindableProperty AvailableSeatsProperty = BindableProperty.Create(nameof(AvailableSeats), typeof(int), typeof(CustomStackLayout));
+        public static readonly BindableProperty NumberOfSeatsProperty = BindableProperty.Create(nameof(NumberOfSeats), typeof(int), typeof(CustomStackLayout), null);
+        public static readonly BindableProperty AvailableSeatsProperty = BindableProperty.Create(nameof(AvailableSeats), typeof(int), typeof(CustomStackLayout), null);
+
 
         public CustomStackLayout()
         {
-            Orientation = StackOrientation.Horizontal;
-            HeightRequest = 20;
-            Margin = 0;
-            Padding = 0;
 
-            CachedImage SeatTakenImage = new CachedImage();
-            SeatTakenImage.Source = "ic_seat_red.png";
-            SeatTakenImage.BackgroundColor = Color.Transparent;
-            SeatTakenImage.HeightRequest = 20;
-            SeatTakenImage.Aspect = Aspect.AspectFit;
-
-            CachedImage SeatAvailableImage = new CachedImage();
-            SeatAvailableImage.Source = "ic_seat_red.png";
-            SeatAvailableImage.BackgroundColor = Color.Transparent;
-            SeatAvailableImage.HeightRequest = 20;
-            SeatAvailableImage.Aspect = Aspect.AspectFit;
+            
+            this.Orientation = StackOrientation.Horizontal;
+            this.HeightRequest = 20;
+            this.Margin = 0;
+            this.Padding = 0;
 
             TintTransformation tt = new TintTransformation();
             tt.EnableSolidColor = true;
@@ -42,15 +33,32 @@ namespace NorthShoreSurfApp
             var tempList = new List<ITransformation>();
             tempList.Add(tt);
 
-            SeatAvailableImage.Transformations = tempList;
 
-            for (int i = 0; i < NumberOfSeats; i++)
+            NumberOfSeats = 4;
+            AvailableSeats = 1;
+            for (int i = 0; i < NumberOfSeats-AvailableSeats; i++)
             {
-                base.Children.Add(SeatTakenImage);
+                this.Children.Add(new CachedImage()
+                {
+                    Source = "ic_seat_red.png",
+                    HeightRequest = 20,
+                    Aspect = Aspect.AspectFit
+                });
+                Console.WriteLine("Heya");
+               
             }
-            for (int i = NumberOfSeats - AvailableSeats; i < NumberOfSeats; i++)
+            for (int i = NumberOfSeats-AvailableSeats; i < NumberOfSeats; i++)
             {
-                base.Children.Add(SeatAvailableImage);
+                this.Children.Add(new CachedImage()
+                {
+                    Source = "ic_seat_red.png",
+                    HeightRequest = 20,
+                    Aspect = Aspect.AspectFit,
+                    Transformations = tempList
+
+
+                });
+                Console.WriteLine("YO!!");
             }
         }
 
@@ -64,5 +72,13 @@ namespace NorthShoreSurfApp
             get => (int)GetValue(AvailableSeatsProperty);
             set => SetValue(AvailableSeatsProperty, value);
         }
+
+        
+
     }
+
+
+
+    
+    
 }
