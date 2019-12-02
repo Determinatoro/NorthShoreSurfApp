@@ -102,6 +102,8 @@
     <BundleResource Include="Resources\Logout icon.png" />
     <BundleResource Include="Resources\Ic_destination_lines.png" />
     <BundleResource Include="Resources\Plus_icon.png" />
+    <BundleResource Include="Resources\ic_destination_line.png" />
+    <BundleResource Include="Resources\ic_location_destination.png" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\ic_carpooling.imageset\ic_carpooling.png">

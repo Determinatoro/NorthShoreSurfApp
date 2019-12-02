@@ -28,6 +28,7 @@ namespace NorthShoreSurfApp
             grid.Margin = safeAreaInset; 
 
             navigationBar.BackButtonClicked += NavigationBar_BackButtonClicked;
+            createEventButton.Clicked += CreateEvent_ButtonClicked;
         }
 
         private void NavigationBar_BackButtonClicked(object sender, EventArgs e)
@@ -38,9 +39,10 @@ namespace NorthShoreSurfApp
 
         private void CreateEvent_ButtonClicked(object sender, EventArgs e)
         {
-            if(sender == CreateEventButton)
+            if(sender == createEventButton)
             {
-                /* App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.could_not_create_carpool_event, false, () => App.DataService.CreateCarpoolRide) */
+                //App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.could_not_create_carpool_event, false, () => App.DataService.CreateCarpoolRide(1,departureTimeTextBox.Text, addressTextBox.Text, );
+                
             }
         }
 

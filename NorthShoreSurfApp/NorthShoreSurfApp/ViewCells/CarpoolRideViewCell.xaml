@@ -20,6 +20,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
+                    
                 </Grid.ColumnDefinitions>
 
                 <!--Left column-->
@@ -82,6 +83,7 @@
                       Grid.Column="1"
                       ColumnSpacing="0"
                       RowSpacing="0"
+                      
                       >
                     <!--Row definitions-->
                     <Grid.RowDefinitions>
@@ -92,6 +94,11 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="8*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
                     <!--Departure address-->
                     <Label Text="{Binding Address}" 
                            TextColor="White" 
@@ -100,7 +107,7 @@
                            HorizontalOptions="FillAndExpand"
                            HorizontalTextAlignment="End"
                            LineBreakMode="TailTruncation"
-                           Grid.Row="0" 
+                           Grid.Row="0"
                            />
                     <!--Departure city-->
                     <Label Text="{Binding ZipcodeCityString}" 
@@ -132,8 +139,64 @@
                            LineBreakMode="TailTruncation"
                            Grid.Row="4" 
                            />
+
+                    <Image Source="ic_location_destination.png"
+                           
+                           HeightRequest="50"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Margin="0,0,0,3"
+                           HorizontalOptions="Fill"
+                           VerticalOptions="Fill"
+                           Aspect="AspectFit"
+                           Grid.RowSpan="5"
+                           />
+
+                    
+
+
                 </Grid>
+
+                <!-- <Grid Margin="0"
+                      Padding="0"
+                      HorizontalOptions="Fill"
+                      Grid.Column="2"
+                      ColumnSpacing="0"
+                      RowSpacing="0"
+                      >
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Image Source="location.png"
+                           HeightRequest="20"
+                           WidthRequest="20"
+                           Grid.Row="0"
+                           Margin="0,0,0,3"
+                           HorizontalOptions="Center"
+                           Grid.RowSpan="5"/>
+
+                    <Image Source="ic_destination_line.png"
+                           HeightRequest="20"
+                           WidthRequest="20"
+                           Grid.Row="1"
+                           HorizontalOptions="Center"
+                           Grid.RowSpan="5"/>
+
+                    <Image Source="destination2.png"
+                           HeightRequest="20"
+                           WidthRequest="20"
+                           Grid.Row="2"
+                           HorizontalOptions="Center"
+                           Grid.RowSpan="5"/>
+
+
+                    </Grid> -->
             </Grid>
+
         </Frame>
     </ViewCell.View>
 </ViewCell>
