@@ -20,7 +20,12 @@ namespace NorthShoreSurfApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UserPage : ContentPage
     {
-        string PhoneNo;
+        public UserViewModel UserViewModel { get => (UserViewModel)this.BindingContext; }
+
+        /*****************************************************************/
+        // CONSTRUCTOR
+        /*****************************************************************/
+        #region Constructor
         public UserPage()
         {
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
@@ -32,70 +37,69 @@ namespace NorthShoreSurfApp
             btnLogOut.Clicked += Button_Clicked;
             btnDelAcc.Clicked += Button_Clicked;
         }
+        #endregion
 
+        /*****************************************************************/
+        // OVERRIDE METHODS
+        /*****************************************************************/
+        #region Override methods
+
+        // OnAppearing
+        protected override void OnAppearing()
+        {
+            //Get userdata from database
+            App.DataService.GetData(
+                    NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
+                    false, () => App.DataService.GetUser("29711907"),
+                    async (response) =>
+                    {
+                        if (response.Success)
+                        {
+                            //assign user information
+                            UserViewModel.FullName = response.Result.FirstName + " " + response.Result.LastName;
+                            UserViewModel.PhoneNo = response.Result.PhoneNo;
+                            UserViewModel.Age = response.Result.Age.ToString();
+                            response.Result.Gender = response.Result.Gender;
+                        }
+                        else
+                        {
+                            //Show error
+                            CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                            await PopupNavigation.Instance.PushAsync(customDialog);
+                        }
+                    });
+        }
+        #endregion
+
+        /*****************************************************************/
+        // EVENTS
+        /*****************************************************************/
+        #region Events
+
+        // Buttons clicked event
         private void Button_Clicked(object sender, EventArgs e)
         {
+            //Edit user event
             if (sender == btnEdit)
             {
-                App.DataService.GetData(
-                       NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                       true,
-                       () => App.DataService.GetUser(PhoneNo),
-                       async (response) =>
-                       {
-                           if (response.Success)
-                           {
-                               await Navigation.PopAsync();
-                           }
-                           else
-                           {
-                               CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                               await PopupNavigation.Instance.PushAsync(customDialog);
-                           }
-
-                           await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, response.Result.FirstName));
-                       });
+                
             }
+            //Log out event
             else if (sender == btnLogOut)
             {
-                App.DataService.GetData(
-                        NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                        true,
-                        () => App.DataService.SignUpUser("Emil", "Danielsen", "29711907", 21, 1),
-                        async (response) =>
-                        {
-                            if (response.Success)
-                            {
-                                await Navigation.PopAsync();
-                            }
-                            else
-                            {
-                                CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                                await PopupNavigation.Instance.PushAsync(customDialog);
-                            }
-
-                            await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, response.Result.PhoneNo));
-                        });
+                //Go to welcomepage
+                App.Current.MainPage = new WelcomePage();
             }
+            //Delete account event
             else if(sender == btnDelAcc)
             {
-                App.DataService.GetData(
-                        NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                        true,
-                        () => App.DataService.DeleteUser("29711907"),
-                        async (response) =>
-                        {
-                            if (response.Success)
-                            {
-                                await Navigation.PopAsync();
-                            }
-                            else
-                            {
-                                CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                                await PopupNavigation.Instance.PushAsync(customDialog);
-                            }
-                        });
+                //Delete user from database(Only makes user inactive)
+                App.DataService.DeleteUser("29711907");
+                //Go to welcomepage
+                App.Current.MainPage = new WelcomePage();
             }
         }
+
+        #endregion
     }
 }
