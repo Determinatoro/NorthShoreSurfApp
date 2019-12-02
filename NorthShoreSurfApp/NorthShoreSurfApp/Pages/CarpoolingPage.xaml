@@ -32,6 +32,7 @@
                                        Logo="ic_logo.png"
                                        ButtonOneIsVisible="True"
                                        ButtonTwoIsVisible="True"
+                                       ButtonOneImage="Plus_icon.png"
                                        ButtonTwoImage="Mail.png"
                                        />
 
