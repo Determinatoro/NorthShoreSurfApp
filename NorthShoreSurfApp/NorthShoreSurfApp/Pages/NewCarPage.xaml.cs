@@ -92,7 +92,9 @@ namespace NorthShoreSurfApp
         // Buttons clicked event
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            await App.DataService.CreateCar(1, NewCarModel.LicensePlate, NewCarModel.Color);
+            int UserId = 1; //int.Parse(App.LocalDataService.GetValue(nameof(LocalDataKeys.UserId)));
+
+            await App.DataService.CreateCar(UserId, NewCarModel.LicensePlate, NewCarModel.Color);
             Console.WriteLine(NewCarModel.Color);
         }
 
