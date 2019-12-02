@@ -32,6 +32,7 @@
                                        Logo="ic_logo.png"
                                        ButtonOneIsVisible="True"
                                        ButtonTwoIsVisible="True"
+                                       ButtonTwoImage="Mail.png"
                                        />
 
             <local:CustomToggleButton x:Name="RidesTab"
