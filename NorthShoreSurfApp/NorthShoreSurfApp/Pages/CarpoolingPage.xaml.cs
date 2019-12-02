@@ -77,7 +77,7 @@ namespace NorthShoreSurfApp
         }
         private async void Confirmations_Clicked(object sender, EventArgs e)
         {
-            // await Navigation.PushAsync(new ());
+            await Navigation.PushAsync(new CarpoolConfirmationPage());
         }
 
         private void rideSelected(object sender, EventArgs e)

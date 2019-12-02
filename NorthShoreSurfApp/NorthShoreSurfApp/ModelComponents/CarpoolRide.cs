@@ -55,7 +55,7 @@ namespace NorthShoreSurfApp.ModelComponents
         public string Comment { get; set; }
 
         public List<CarpoolRides_Events_Relation> CarpoolRides_Events_Relations { get; set; }
-        public List<CarpoolConfirmation> CarpoolConfirmations { get; set; }
+        public List<CarpoolConfirmation> CarpoolConfirmations { get; set; } = new List<CarpoolConfirmation>();
 
         [NotMapped]
         public string DepartureTimeDayString { get => DepartureTime.ToCarpoolingFormat(); }

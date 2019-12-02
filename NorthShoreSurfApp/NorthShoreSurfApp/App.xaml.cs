@@ -37,6 +37,7 @@ namespace NorthShoreSurfApp
 
             // TEST User logged in
             LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), "1");
+            DataService.SignUpUser("Thomas", "Schødte", "22278273", 22, 1);
 
             // Check if a user is logged in
             var userId = LocalDataService.GetValue(nameof(LocalDataKeys.UserId));
@@ -49,7 +50,7 @@ namespace NorthShoreSurfApp
             else
             {
                 // Set main page to welcome page
-                MainPage = new WelcomePage();
+                MainPage = new RootTabbedPage();
             }
         }
 

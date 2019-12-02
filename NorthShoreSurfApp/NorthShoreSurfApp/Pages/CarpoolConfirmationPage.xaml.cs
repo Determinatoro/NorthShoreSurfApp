@@ -33,12 +33,13 @@ namespace NorthShoreSurfApp
             var safeAreaInset = On<iOS>().SafeAreaInsets();
             grid.Margin = safeAreaInset;
 
-            //rideList.ItemSelected
-            navigationBar.ButtonOne.Clicked += Plus_Clicked;
-            navigationBar.ButtonTwo.Clicked += Confirmations_Clicked;
+            navigationBar.BackButtonClicked += NavigationBar_BackButtonClicked;
 
+        }
 
-
+        private void NavigationBar_BackButtonClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new CarpoolingPage());
         }
 
         protected override void OnAppearing()
@@ -46,6 +47,32 @@ namespace NorthShoreSurfApp
             base.OnAppearing();
 
             var userId = int.Parse(App.LocalDataService.GetValue(nameof(LocalDataKeys.UserId)));
+
+            App.DataService.GetData(
+                          NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
+                          true,
+                          () => App.DataService.GetCarpoolConfirmations(),
+                          async (response) =>
+                          {
+                              if (response.Success)
+                              {
+                                  List<CarpoolConfirmation> ownRideConfirmations = new List<CarpoolConfirmation>();
+                                  foreach(CarpoolConfirmation confirmation in response.Result)
+                                  {
+                                      if(confirmation.CarpoolRide.DriverId == userId && confirmation.PassengerId != userId)
+                                      {
+                                          ownRideConfirmations.Add(confirmation);
+                                      }
+                                  }
+                                  CarpoolConfirmationPageViewModel.Requests = new ObservableCollection<CarpoolConfirmation>(ownRideConfirmations);
+                              }
+                              else
+                              {
+                                  CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                                  await PopupNavigation.Instance.PushAsync(customDialog);
+                              }
+                          });
+
 
 
         }
@@ -62,32 +89,8 @@ namespace NorthShoreSurfApp
 
         private void rideSelected(object sender, EventArgs e)
         {
-            if (sender == rideList)
-            {
 
-
-                CarpoolRide SelectedRide = (CarpoolRide)rideList.SelectedItem;
-
-            }
         }
 
-        private void RidesTab_Clicked(object sender, EventArgs e)
-        {
-            /*
-            if (sender == RidesTab)
-            {
-                App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait, false, () => App.DataService.GetCarpoolRequests(), (response) =>
-                {
-                    if (response.Success)
-                    {
-                        CarpoolConfirmationPageViewModel.Requests = new ObservableCollection<CarpoolRequest>(response.Result);
-
-
-                    }
-
-                });
-            }
-            */
-        }
     }
 }

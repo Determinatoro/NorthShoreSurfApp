@@ -20,20 +20,17 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="55"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <local:CustomNavigationBar x:Name="navigationBar"
                                        BarBackgroundColor="{StaticResource BarBackground}"
-                                       ShowBackButton="False"
+                                       ShowBackButton="True"
                                        TitleColor="Black"
                                        TitleSize="24"
-                                       ShowLogo="True"
-                                       Logo="ic_home.png"
-                                       ButtonOneIsVisible="True"
-                                       ButtonTwoIsVisible="True"
-                                       ButtonTwoImage="Mail.png"
+                                       ShowLogo="False"
                                        Title="{local:Translate confirmations}"
                                         />
 
@@ -71,8 +68,27 @@
 
             </StackLayout> -->
 
-            <ListView x:Name="rideList" 
-                  ItemsSource="{Binding Rides}" 
+            <local:CustomFrame
+                HeightRequest="15"
+                Margin="0,0,0,0"
+                Grid.Row="1"
+                BackgroundColor="{StaticResource NSSBlue}"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                >
+
+                <Label
+                    Text="{local:Translate requests}"
+                    TextColor="White"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+                    
+                </Label>
+                
+            </local:CustomFrame>
+
+            <ListView x:Name="requestList" 
+                  ItemsSource="{Binding Requests}" 
                   HasUnevenRows="True" 
                   SeparatorVisibility="None" 
                       IsVisible="True"
@@ -82,11 +98,13 @@
                     <DataTemplate>
                         <ViewCell>
 
-                            <Grid BackgroundColor="{StaticResource NSSBlue}" Margin="10,5,5,10" Padding="5">
+                            <Grid BackgroundColor="{StaticResource NSSBlue}" Margin="10,5,5,10" Padding="5" HeightRequest="160">
 
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    
 
                                 </Grid.ColumnDefinitions>
 
@@ -96,20 +114,93 @@
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
+
+
+
                                 </Grid.RowDefinitions>
 
-                                <Label Text="{Binding DepartureTimeDayString} " LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
-                                <Label Text="{Binding DepartureTimeHourString}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
+                                <Label Text="{Binding PassengerName}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
+                                <Label Text="{Binding PhoneNo}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
+                                <Label Text="Don't forget Gender!" LineHeight="0.8" TextColor="White" Grid.Row="3" Grid.Column="0" VerticalOptions="Fill"/>
+                                <Label Text="{Binding Age}" LineHeight="0.8" TextColor="White" Grid.Row="4" Grid.Column="0" VerticalOptions="Fill"/>
+
+                                <Label Text="{Binding Date}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="2" VerticalOptions="Fill"/>
+                                <Label Text="{Binding Time}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="2" VerticalOptions="Fill"/>
+                                <Label Text="{Binding PricePerPassengerString}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="2" VerticalOptions="Fill"/>
+                             
 
 
+                                <StackLayout x:Name="slSeats" 
+                                    Grid.Row="3"
+                                             Grid.Column="2"
+                                    Padding="0"
+                                    Margin="0"
+                                    HeightRequest="20"
+                                    Orientation="Horizontal"
+                                            >
+
+                                    <ffimageloading:CachedImage
+                                         BackgroundColor="Transparent"
+                                         Source="ic_seat_red.png"
+                                         HeightRequest="20"
+                                         Aspect="AspectFit"
+                                         Margin="2"
+                                        
+                                         />
+
+                                    <ffimageloading:CachedImage
+                                         BackgroundColor="Transparent"
+                                         Source="ic_seat_red.png"
+                                         HeightRequest="20"
+                                         Aspect="AspectFit"
+                                         Margin="2"
+                                         />
+
+                                    <ffimageloading:CachedImage
+                                         BackgroundColor="Transparent"
+                                         Source="ic_seat_red.png"
+                                         HeightRequest="20"
+                                         Aspect="AspectFit"
+                                         Margin="2"
+                                         />
 
 
-                                <Label Text="{Binding Address}" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill"/>
-                                <Label Text="{Binding ZipcodeCityString}" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill"/>
+                                </StackLayout>
 
-                                <Label Text="{Binding DestinationZipcodeCityString}" TextColor="White" Grid.Row="4" Grid.Column="1" VerticalOptions="Fill"/>
-                                <Label Text="{Binding DestinationAddress}" TextColor="White" Grid.Row="5" Grid.Column="1" VerticalOptions="Fill"/>
+                                <Grid
+                                     Grid.Row="4" Grid.Column="2">
+
+                                    <Grid.ColumnDefinitions>
+                                        
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        
+                                    </Grid.ColumnDefinitions>
+
+                                    <local:CustomImageButton x:Name="btnDecline"
+                                    Grid.Column="0"
+                                    Icon="ic_cross"
+                                    IconColor="Red"
+                                    BackgroundColor="Transparent"
+                                    Background="Transparent"
+                                    InputTransparent ="True">
+
+                                    </local:CustomImageButton>
+
+                                    <local:CustomImageButton x:Name="btnAccept"
+                                    Grid.Column="1"
+                                    Icon="ic_cross"
+                                    IconColor="Green"
+                                    BackgroundColor="Transparent"
+                                    Background="Transparent"
+                                    InputTransparent ="True">
+
+                                    </local:CustomImageButton>
+
+                                </Grid>
+
+                                
+
                             </Grid>
 
 
@@ -118,8 +209,146 @@
                 </ListView.ItemTemplate>
             </ListView>
 
+            <local:CustomFrame
+                HeightRequest="15"
+                Margin="10,0,10,0"
+                Grid.Row="3"
+                BackgroundColor="{StaticResource NSSBlue}"
+                HorizontalOptions="Fill"
+                VerticalOptions="Start"
+                >
+
+                <Label
+                    Text="{local:Translate invitations}"
+                    TextColor="White"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+
+                </Label>
+
+            </local:CustomFrame>
+
+            <ListView x:Name="confirmations" 
+                  ItemsSource="{Binding Requests}" 
+                  HasUnevenRows="True" 
+                  SeparatorVisibility="None" 
+                      IsVisible="True"
+                  Grid.Row="4">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <Grid BackgroundColor="{StaticResource NSSBlue}" Margin="10,5,5,10" Padding="5" HeightRequest="160">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
 
 
+                                </Grid.ColumnDefinitions>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+
+
+
+                                </Grid.RowDefinitions>
+
+                                <Label Text="{Binding PassengerName}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
+                                <Label Text="{Binding PhoneNo}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
+                                <Label Text="Don't forget Gender!" LineHeight="0.8" TextColor="White" Grid.Row="3" Grid.Column="0" VerticalOptions="Fill"/>
+                                <Label Text="{Binding Age}" LineHeight="0.8" TextColor="White" Grid.Row="4" Grid.Column="0" VerticalOptions="Fill"/>
+
+                                <Label Text="{Binding Date}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="2" VerticalOptions="Fill"/>
+                                <Label Text="{Binding Time}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="2" VerticalOptions="Fill"/>
+                                <Label Text="{Binding PricePerPassengerString}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="2" VerticalOptions="Fill"/>
+
+
+
+                                <StackLayout x:Name="slSeats" 
+                                    Grid.Row="3"
+                                             Grid.Column="2"
+                                    Padding="0"
+                                    Margin="0"
+                                    HeightRequest="20"
+                                    Orientation="Horizontal"
+                                            >
+
+                                    <ffimageloading:CachedImage
+                                         BackgroundColor="Transparent"
+                                         Source="ic_seat_red.png"
+                                         HeightRequest="20"
+                                         Aspect="AspectFit"
+                                         Margin="2"
+                                        
+                                         />
+
+                                    <ffimageloading:CachedImage
+                                         BackgroundColor="Transparent"
+                                         Source="ic_seat_red.png"
+                                         HeightRequest="20"
+                                         Aspect="AspectFit"
+                                         Margin="2"
+                                         />
+
+                                    <ffimageloading:CachedImage
+                                         BackgroundColor="Transparent"
+                                         Source="ic_seat_red.png"
+                                         HeightRequest="20"
+                                         Aspect="AspectFit"
+                                         Margin="2"
+                                         />
+
+
+                                </StackLayout>
+
+                                <Grid
+                                     Grid.Row="4" Grid.Column="2">
+
+                                    <Grid.ColumnDefinitions>
+
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+
+                                    </Grid.ColumnDefinitions>
+
+                                    <local:CustomImageButton x:Name="btnDecline"
+                                    Grid.Column="0"
+                                    Icon="ic_cross"
+                                    IconColor="Red"
+                                    BackgroundColor="Transparent"
+                                    Background="Transparent"
+                                    InputTransparent ="True">
+
+                                    </local:CustomImageButton>
+
+                                    <local:CustomImageButton x:Name="btnAccept"
+                                    Grid.Column="1"
+                                    Icon="ic_cross"
+                                    IconColor="Green"
+                                    BackgroundColor="Transparent"
+                                    Background="Transparent"
+                                    InputTransparent ="True">
+
+                                    </local:CustomImageButton>
+
+                                </Grid>
+
+
+
+                            </Grid>
+
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
 
         </Grid>
 

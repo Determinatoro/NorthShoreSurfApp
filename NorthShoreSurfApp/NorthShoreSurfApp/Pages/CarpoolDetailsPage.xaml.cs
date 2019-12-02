@@ -24,8 +24,6 @@ namespace NorthShoreSurfApp
 
         private CarpoolRide _ride;
 
-        private DataResponse<List<CarpoolConfirmation>> dataResponse;
-
         public CarpoolDetailsPage(CarpoolRide ride)
         {
             _ride = ride;
@@ -40,7 +38,20 @@ namespace NorthShoreSurfApp
                 var safeAreaInset = On<iOS>().SafeAreaInsets();
                 // Set safe area margins
                 grid.Margin = safeAreaInset;
+            CarpoolDetailsPageViewModel.carpoolRide = _ride;
             btnJoin.Clicked += Button_Clicked;
+            navigationBar.BackButtonClicked += NavigationBar_BackButtonClicked;
+
+        }
+
+        private void NavigationBar_BackButtonClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new CarpoolingPage());
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
 
         }
 
@@ -48,22 +59,27 @@ namespace NorthShoreSurfApp
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
+            var userId = int.Parse(App.LocalDataService.GetValue(nameof(LocalDataKeys.UserId)));
+
             App.DataService.GetData(
-                        NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                        true,
-                        () => App.DataService.SignUpToCarpoolRide(1, 1),
-                        async (response) =>
-                        {
-                            if (response.Success)
+                            NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
+                            true,
+                            () => App.DataService.SignUpToCarpoolRide(_ride.Id, userId),
+                            async (response) =>
                             {
-                                await Navigation.PopAsync();
-                            }
-                            else
-                            {
-                                CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                                await PopupNavigation.Instance.PushAsync(customDialog);
-                            }
-                        });
+                                if (response.Success)
+                                {
+
+                                    CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, "Created" + response.Success);
+                                    await PopupNavigation.Instance.PushAsync(customDialog);
+                                }
+                                else
+                                {
+                                    CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                                    await PopupNavigation.Instance.PushAsync(customDialog);
+                                }
+                            });
+
         }
     }
 }

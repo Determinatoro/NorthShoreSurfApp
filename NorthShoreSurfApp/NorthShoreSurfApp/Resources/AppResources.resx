@@ -186,6 +186,9 @@ Please wait...</value>
   <data name="home" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="invitations" xml:space="preserve">
+    <value>Invitations</value>
+  </data>
   <data name="join_ride" xml:space="preserve">
     <value>Join ride</value>
   </data>
@@ -212,6 +215,9 @@ Please wait...</value>
   </data>
   <data name="profile" xml:space="preserve">
     <value>Profile</value>
+  </data>
+  <data name="requests" xml:space="preserve">
+    <value>Requests</value>
   </data>
   <data name="see_webcam" xml:space="preserve">
     <value>See webcam</value>

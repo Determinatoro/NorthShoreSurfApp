@@ -17,8 +17,7 @@ namespace NorthShoreSurfApp.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private ObservableCollection<CarpoolRide> rides;
-        private ObservableCollection<CarpoolRequest> requests;
+        private ObservableCollection<CarpoolConfirmation> requests;
 
         #endregion
 
@@ -29,8 +28,8 @@ namespace NorthShoreSurfApp.ViewModels
 
         public CarpoolConfirmationPageViewModel()
         {
-            rides = new ObservableCollection<CarpoolRide>();
-            requests = new ObservableCollection<CarpoolRequest>();
+            requests = new ObservableCollection<CarpoolConfirmation>();
+
         }
 
         #endregion
@@ -40,17 +39,8 @@ namespace NorthShoreSurfApp.ViewModels
         /*****************************************************************/
         #region Properties
 
-        public ObservableCollection<CarpoolRide> Rides
-        {
-            get { return rides; }
-            set
-            {
-                rides = value;
-                OnPropertyChanged(nameof(Rides));
-            }
-        }
 
-        public ObservableCollection<CarpoolRequest> Requests
+        public ObservableCollection<CarpoolConfirmation> Requests
         {
             get { return requests; }
             set
