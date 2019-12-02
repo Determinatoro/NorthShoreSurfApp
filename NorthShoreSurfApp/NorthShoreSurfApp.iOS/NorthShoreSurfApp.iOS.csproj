@@ -319,4 +319,16 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_refresh.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_profile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_profile_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_log_out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_delete.png" />
+  </ItemGroup>
 </Project>
