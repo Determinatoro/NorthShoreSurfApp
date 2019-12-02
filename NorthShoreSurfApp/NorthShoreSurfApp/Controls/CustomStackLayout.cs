@@ -11,8 +11,9 @@ namespace NorthShoreSurfApp
     public class CustomStackLayout : StackLayout
     {
 
-        public static readonly BindableProperty NumberOfSeatsProperty = BindableProperty.Create(nameof(NumberOfSeats), typeof(int), typeof(CustomStackLayout), null);
-        public static readonly BindableProperty AvailableSeatsProperty = BindableProperty.Create(nameof(AvailableSeats), typeof(int), typeof(CustomStackLayout), null);
+        public static readonly BindableProperty NumberOfSeatsProperty = BindableProperty.Create(nameof(NumberOfSeats), typeof(int), typeof(CustomStackLayout));
+        public static readonly BindableProperty AvailableSeatsProperty = BindableProperty.Create(nameof(AvailableSeats), typeof(int), typeof(CustomStackLayout));
+
 
 
         public CustomStackLayout()
@@ -62,6 +63,7 @@ namespace NorthShoreSurfApp
             }
         }
 
+        
         public int NumberOfSeats
         {
             get => (int)GetValue(NumberOfSeatsProperty);
@@ -72,8 +74,6 @@ namespace NorthShoreSurfApp
             get => (int)GetValue(AvailableSeatsProperty);
             set => SetValue(AvailableSeatsProperty, value);
         }
-
-        
 
     }
 

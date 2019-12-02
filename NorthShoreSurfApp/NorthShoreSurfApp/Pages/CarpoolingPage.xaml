@@ -73,40 +73,7 @@
                                 <Label Text="{Binding DepartureTimeDayString} " LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
                                 <Label Text="{Binding DepartureTimeHourString}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
                                 <Label Text="{Binding PricePerPassengerString}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
-                                <!-- <StackLayout x:Name="slSeats"
-                                    Grid.Row="3"
-                                    Padding="0"
-                                    Margin="0"
-                                    HeightRequest="20"
-                                    Orientation="Horizontal"
-                                            >
-
-                                    <ffimageloading:CachedImage
-                                         BackgroundColor="Transparent"
-                                         Source="ic_seat_red.png"
-                                         HeightRequest="20"
-                                         Aspect="AspectFit"
-                                         Margin="2"
-
-                                         />
-
-                                     <ffimageloading:CachedImage
-                                         BackgroundColor="Transparent"
-                                         Source="ic_seat_red.png"
-                                         HeightRequest="20"
-                                         Aspect="AspectFit"
-                                         Margin="2"
-                                         />
-
-                                     <ffimageloading:CachedImage
-                                         BackgroundColor="Transparent"
-                                         Source="ic_seat_red.png"
-                                         HeightRequest="20"
-                                         Aspect="AspectFit"
-                                         Margin="2"
-                                         />
-
-                                   </StackLayout> -->
+                                
 
 
                                 <local:CustomStackLayout Grid.Row="3" Grid.Column="0" NumberOfSeats="4" AvailableSeats="2"/>
