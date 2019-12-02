@@ -31,14 +31,6 @@ namespace NorthShoreSurfApp
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
             Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
-            // Use safe area on iOS
-            On<iOS>().SetUseSafeArea(true);
-            // Get root grid
-            Grid grid = (Grid)Content;
-            // Get safe area margins
-            var safeAreaInset = On<iOS>().SafeAreaInsets();
-            // Set safe area margins
-            grid.Margin = safeAreaInset;
 
             // Click events
             btnEdit.Clicked += Button_Clicked;
