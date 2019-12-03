@@ -36,12 +36,12 @@ namespace NorthShoreSurfApp
             DataService.Initialize();
 
             // TEST User logged in
-            LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), "1");
+            LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), (1).ToString());
 
             // Check if a user is logged in
-            var userId = LocalDataService.GetValue(nameof(LocalDataKeys.UserId));
 
-            if (userId != null && userId != string.Empty)
+            var userId = AppValuesService.GetUserId();
+            if (userId != null)
             {
                 // Set main page to tab
                 MainPage = new RootTabbedPage();

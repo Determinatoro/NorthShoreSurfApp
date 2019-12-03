@@ -90,7 +90,7 @@ namespace NorthShoreSurfApp
             // Pressed "See webcam" button
             btnSeeWebcam.Clicked += async (sender, args) =>
             {
-                await Navigation.PushModalAsync(new SurfingConditionsFullscreenPage("rtsp://192.168.10.112:8080/video/h264"), false);
+                await Navigation.PushModalAsync(new SurfingConditionsFullscreenPage(SurfingConditionsViewModel.VideoUrl), false);
             };
         }
 

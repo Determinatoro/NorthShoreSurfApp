@@ -3,205 +3,362 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"            
-             IconImageSource="ic_car.png"
-             NavigationPage.HasNavigationBar="False"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              xmlns:local="clr-namespace:NorthShoreSurfApp"
+             xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
+             xmlns:Forms9Patch="clr-namespace:Forms9Patch;assembly=Forms9Patch"
+             mc:Ignorable="d"            
+             BackgroundColor="White"
              x:Class="NorthShoreSurfApp.HomePage">
+
+    <ContentPage.BindingContext>
+        <models:HomeViewModel />
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
-        <ScrollView>
-            <Grid BackgroundColor="White" 
-                  ColumnSpacing="10" 
-                  RowSpacing="10"
-                  Margin="10,10,10,10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <local:CustomNavigationBar x:Name="navigationBar"
-                                           BarBackgroundColor="{StaticResource BarBackground}"
-                                           ShowBackButton="False"
-                                           Title="{local:Translate Home_page}"
-                                           TitleColor="Black"
-                                           TitleSize="24"
-                                           ShowLogo="True"
-                                           Logo="ic_logo.png"/>
-                <Frame x:Name="Title"
-                       BackgroundColor="#2B3C4E"
-                       Grid.Row="1"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="2"
-                       CornerRadius="10">
-                    <Label Text="WELCOME TO NORTH SHORE SURF LØKKEN"
-                           TextColor="White"
-                           FontSize="32"
-                           HorizontalTextAlignment="Center"
-                           VerticalTextAlignment="Center"/>
-                </Frame>
-                <Frame x:Name="OpeningHours"
-                       BackgroundColor="#2B3C4E"
-                       Grid.Row="2"
-                       Grid.Column="0"
-                       CornerRadius="10">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OpeningHoursClicked"/>
-                    </Frame.GestureRecognizers>
-                    <StackLayout>
-                        <Label Text="Opening Hours"
-                               TextColor="#FFAA00"
-                               FontSize="Large"
-                               HorizontalTextAlignment="Center"/>
-                        <Label Text="Today:"
-                               TextColor="White"
-                               FontSize="Title"
-                               HorizontalTextAlignment="Center"/>
-                        <Label Text="11-16"
-                               TextColor="White"
-                               FontSize="Title"
-                               HorizontalTextAlignment="Center"/>
-                        <Label Text="Click for more info"
-                               TextColor="White"
-                               FontSize="Default"
-                               HorizontalTextAlignment="Center"/>
-                    </StackLayout>
-                </Frame>
-                <Frame x:Name="NextRide"
-                       BackgroundColor="#2B3C4E"
-                       Grid.Row="2"
-                       Grid.Column="1"
-                       CornerRadius="10">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="NextRideClicked"/>
-                    </Frame.GestureRecognizers>
-                    <StackLayout>
-                        <Label Text="Next ride to Løkken:"
-                               TextColor="#FFAA00"
-                               FontSize="Large"
-                               HorizontalTextAlignment="Center"/>
-                        <Label Text="Some fucking time"
-                               TextColor="White"
-                               FontSize="Title"
-                               HorizontalTextAlignment="Center"/>
-                    </StackLayout>
-                </Frame>
-                <Frame x:Name="Instagram"
-                       BackgroundColor="#2B3C4E"
-                       Grid.Row="3"
-                       Grid.Column="0"
-                       CornerRadius="10">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="InstagramClicked"/>
-                    </Frame.GestureRecognizers>
-                    <Grid>
+        <!--Root grid-->
+        <Grid RowSpacing="0"
+              Margin="0"
+              BackgroundColor="White"
+              Padding="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Top navigation bar-->
+            <local:CustomNavigationBar x:Name="navigationBar"
+                                       BarBackgroundColor="{StaticResource BarBackground}"
+                                       ShowBackButton="False"
+                                       Title=""
+                                       TitleColor="Black"
+                                       TitleSize="24"
+                                       ShowLogo="True"
+                                       Logo="ic_logo.png"
+                                       />
+
+            <!--Content-->
+            <Grid Grid.Row="1">
+                <ScrollView>
+                    <Grid Margin="0"
+                          ColumnSpacing="5" 
+                          RowSpacing="5"
+                          Padding="10"
+                          >
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Frame BackgroundColor="Transparent"
-                               Grid.Row="0"
-                               Grid.Column="0"
-                               CornerRadius="10">
-                            <Image Source=""
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center"/>
-                        </Frame>
-                        <Frame BackgroundColor="Transparent"
-                               Grid.Row="0"
-                               Grid.Column="1"
-                               CornerRadius="10">
-                            <Image Source=""
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center"/>
-                        </Frame>
-                        <Frame BackgroundColor="Transparent"
+                        <!--Welcome message frame-->
+                        <Frame x:Name="Title"
+                               BackgroundColor="{StaticResource NSSBlue}"
                                Grid.Row="1"
                                Grid.Column="0"
-                               CornerRadius="10">
-                            <Image Source=""
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center"/>
+                               Padding="10"
+                               Margin="0"
+                               HasShadow="False"
+                               Grid.ColumnSpan="2"
+                               CornerRadius="10"
+                               >
+                            <Forms9Patch:Label Text="{local:Translate welcome_message, MakeUpper=True}"
+                                               TextColor="White"
+                                               FontSize="32"
+                                               Lines="2"
+                                               AutoFit="Width"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"
+                                               />
                         </Frame>
-                        <Frame BackgroundColor="Transparent"
-                               Grid.Row="1"
-                               Grid.Column="1"
+                        <!--Opening hours frame-->
+                        <Frame x:Name="frameOpeningHours"
+                               BackgroundColor="{StaticResource NSSBlue}"
+                               Grid.Row="2"
+                               HeightRequest="{Binding Width, Source={x:Reference frameOpeningHours}}"
+                               Grid.Column="0"
+                               Padding="0"
+                               Margin="0"
+                               HasShadow="False"
                                CornerRadius="10">
-                            <Image Source=""
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center"/>
+                            <Grid RowSpacing="0"
+                                  Margin="0"
+                                  Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <!--Header-->
+                                <Forms9Patch:Label Text="{local:Translate opening_hours}"
+                                                   TextColor="{StaticResource NSSOrange}"
+                                                   FontSize="20"
+                                                   Lines="1"
+                                                   AutoFit="Width"
+                                                   Padding="0, 0, 0, 10"
+                                                   HorizontalTextAlignment="Center"
+                                                   />
+                                <!--Middle content-->
+                                <Forms9Patch:Label Text="{Binding OpeningHoursContent}"
+                                                   FontSize="36"
+                                                   TextColor="White"
+                                                   Grid.Row="0"
+                                                   Grid.RowSpan="3"
+                                                   Lines="1"
+                                                   HorizontalTextAlignment="Center"
+                                                   VerticalTextAlignment="Center"
+                                                   />
+                                <!--Bottom content-->
+                                <Forms9Patch:Label Text="{local:Translate click_for_more_info}"
+                                                   TextColor="White"
+                                                   FontSize="16"
+                                                   AutoFit="Width"
+                                                   Grid.Row="2"
+                                                   Lines="1"
+                                                   HorizontalTextAlignment="Center"
+                                                   />
+                            </Grid>
+                        </Frame>
+                        <!--Next ride frame-->
+                        <Frame x:Name="frameNextRide"
+                               BackgroundColor="{StaticResource NSSBlue}"
+                               HeightRequest="{Binding Width, Source={x:Reference frameNextRide}}"
+                               Grid.Row="2"
+                               Padding="0"
+                               Margin="0"
+                               HasShadow="False"
+                               Grid.Column="1"
+                               CornerRadius="10"
+                               >
+                            <Grid RowSpacing="0"
+                                  Margin="0"
+                                  Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <!--Header-->
+                                <Forms9Patch:Label Text="{local:Translate next_ride_in}"
+                                                   TextColor="{StaticResource NSSOrange}"
+                                                   FontSize="20"
+                                                   Padding="0, 0, 0, 10"
+                                                   Lines="1"
+                                                   AutoFit="Width"
+                                                   HorizontalTextAlignment="Center"
+                                                   />
+                                <!--Content-->
+                                <Forms9Patch:Label Text="{Binding NextRideInContent}"
+                                                   TextColor="White"
+                                                   FontSize="36"
+                                                   Lines="1"
+                                                   Grid.Row="0"
+                                                   Grid.RowSpan="3"
+                                                   AutoFit="Width"
+                                                   HorizontalTextAlignment="Center"
+                                                   VerticalTextAlignment="Center"
+                                                   />
+                                <!--Bottom content-->
+                                <Forms9Patch:Label Text="{local:Translate click_for_more_info}"
+                                                   TextColor="White"
+                                                   FontSize="16"
+                                                   AutoFit="Width"
+                                                   Grid.Row="2"
+                                                   Lines="1"
+                                                   HorizontalTextAlignment="Center"
+                                                   />
+                            </Grid>
+                        </Frame>
+                        <!--Instagram frame-->
+                        <Frame x:Name="frameInstagram"
+                               BackgroundColor="{StaticResource NSSBlue}"
+                               HeightRequest="{Binding Width, Source={x:Reference frameInstagram}}"
+                               Grid.Row="3"
+                               Grid.Column="0"
+                               CornerRadius="10"
+                               HasShadow="False"
+                               Padding="0"
+                               Margin="0"
+                               >
+                            <Grid RowSpacing="5" 
+                                  ColumnSpacing="5"
+                                  Margin="0"
+                                  Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <!--Top/Left image-->
+                                <ffimageloading:CachedImage Source="nss_pic.png"
+                                                            HorizontalOptions="Fill"
+                                                            VerticalOptions="Fill">
+                                    <ffimageloading:CachedImage.Transformations>
+                                        <fftransformations:RoundedTransformation Radius="20"/>
+                                    </ffimageloading:CachedImage.Transformations>
+                                </ffimageloading:CachedImage>
+                                <!--Top/Right image-->
+                                <ffimageloading:CachedImage Source="nss_pic.png"
+                                                            HorizontalOptions="Fill"
+                                                            VerticalOptions="Fill"
+                                                            Grid.Column="1">
+                                    <ffimageloading:CachedImage.Transformations>
+                                        <fftransformations:RoundedTransformation Radius="20"/>
+                                    </ffimageloading:CachedImage.Transformations>
+                                </ffimageloading:CachedImage>
+                                <!--Bottom/Left image-->
+                                <ffimageloading:CachedImage Source="nss_pic.png"
+                                                            HorizontalOptions="Fill"
+                                                            VerticalOptions="Fill"
+                                                            Grid.Column="0"
+                                                            Grid.Row="1">
+                                    <ffimageloading:CachedImage.Transformations>
+                                        <fftransformations:RoundedTransformation Radius="20"/>
+                                    </ffimageloading:CachedImage.Transformations>
+                                </ffimageloading:CachedImage>
+                                <!--Bottom/Right image-->
+                                <ffimageloading:CachedImage Source="nss_pic.png"
+                                                            HorizontalOptions="Fill"
+                                                            VerticalOptions="Fill"
+                                                            Grid.Column="1"
+                                                            Grid.Row="1">
+                                    <ffimageloading:CachedImage.Transformations>
+                                        <fftransformations:RoundedTransformation Radius="20"/>
+                                    </ffimageloading:CachedImage.Transformations>
+                                </ffimageloading:CachedImage>
+                            </Grid>
+                        </Frame>
+                        <!--Webcam frame-->
+                        <Frame x:Name="frameWebcam"
+                               BackgroundColor="{StaticResource NSSBlue}"
+                               HeightRequest="{Binding Width, Source={x:Reference frameWebcam}}"
+                               Grid.Row="3"
+                               Grid.Column="1"
+                               CornerRadius="10"
+                               HasShadow="False"
+                               Padding="0"
+                               Margin="0"
+                               >
+                            <Grid Padding="10"
+                                  Margin="0"
+                                  RowSpacing="0"
+                                  ColumnSpacing="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="10"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <!--Header-->
+                                <Forms9Patch:Label Text="{local:Translate live_webcam}"
+                                                   TextColor="{StaticResource NSSOrange}"
+                                                   FontSize="20"
+                                                   AutoFit="Width"
+                                                   Lines="1"
+                                                   HorizontalTextAlignment="Center"
+                                                   />
+                                <!--Image-->
+                                <ffimageloading:CachedImage Source="nss_pic.png"
+                                                            Grid.Row="2"
+                                                            Aspect="AspectFit"
+                                                            HorizontalOptions="Fill"
+                                                            VerticalOptions="Fill">
+                                    <ffimageloading:CachedImage.Transformations>
+                                        <fftransformations:RoundedTransformation Radius="20"/>
+                                    </ffimageloading:CachedImage.Transformations>
+                                </ffimageloading:CachedImage>
+                            </Grid>
+                        </Frame>
+                        <!--Surf courses frame-->
+                        <Frame x:Name="frameSurfCourses"
+                               BackgroundColor="{StaticResource NSSBlue}"
+                               HeightRequest="{Binding Width, Source={x:Reference frameSurfCourses}}"
+                               Grid.Row="4"
+                               Grid.Column="0"
+                               CornerRadius="10"
+                               HasShadow="False"
+                               Padding="0"
+                               Margin="0"
+                               >
+                            <Grid RowSpacing="0"
+                                  Margin="0"
+                                  Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <!--Header-->
+                                <Forms9Patch:Label Text="{local:Translate surf_and_sup_courses}"
+                                                   TextColor="{StaticResource NSSOrange}"
+                                                   FontSize="20"
+                                                   Lines="1"
+                                                   AutoFit="Width"
+                                                   Padding="0, 0, 0, 10"
+                                                   HorizontalTextAlignment="Center"/>
+                                <!--Content-->
+                                <Forms9Patch:Label Text="{local:Translate click_here_to_read_about_all_the_available_courses}"
+                                                   TextColor="White"
+                                                   Grid.Row="1"
+                                                   Lines="4"
+                                                   MaxLines="4"
+                                                   FontSize="20"
+                                                   HorizontalTextAlignment="Center"
+                                                   VerticalTextAlignment="Center"
+                                                   />
+                            </Grid>
+                        </Frame>
+                        <!--Contact us frame-->
+                        <Frame x:Name="frameContactUs"
+                               BackgroundColor="{StaticResource NSSBlue}" 
+                               HeightRequest="{Binding Width, Source={x:Reference frameContactUs}}"
+                               Grid.Row="4"
+                               Grid.Column="1"
+                               CornerRadius="10"
+                               HasShadow="False"
+                               Padding="0"
+                               Margin="0"
+                               >
+                            <Grid RowSpacing="0"
+                                  Margin="0"
+                                  Padding="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <!--Header-->
+                                <Forms9Patch:Label Text="{local:Translate contact_us}"
+                                                   TextColor="{StaticResource NSSOrange}"
+                                                   FontSize="20"
+                                                   Lines="1"
+                                                   AutoFit="Width"
+                                                   HorizontalTextAlignment="Center"
+                                                   />
+                                <!--Content-->
+                                <Forms9Patch:Label Text="{local:Translate click_here_to_find_out_how_to_contact_us}"
+                                                   TextColor="White"
+                                                   FontSize="20"
+                                                   Lines="3"
+                                                   MaxLines="3"
+                                                   Grid.Row="1"
+                                                   AutoFit="Width"
+                                                   HorizontalTextAlignment="Center"
+                                                   VerticalTextAlignment="Center"
+                                                   />
+                            </Grid>
                         </Frame>
                     </Grid>
-                </Frame>
-                <Frame x:Name="Webcam"
-                       BackgroundColor="#2B3C4E"
-                       Grid.Row="3"
-                       Grid.Column="1"
-                       CornerRadius="10">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="WebcamClicked"/>
-                    </Frame.GestureRecognizers>
-                    <StackLayout>
-                        <Label Text="Webcam:"
-                               TextColor="#FFAA00"
-                               FontSize="Large"
-                               HorizontalTextAlignment="Center"/>
-                        <Frame BackgroundColor="Transparent"
-                               CornerRadius="10">
-                            <Image Source=""
-                                   HorizontalOptions="Center"
-                                   VerticalOptions="Center"/>
-                        </Frame>
-                    </StackLayout>
-                </Frame>
-                <Frame x:Name="SurfCourses"
-                       BackgroundColor="#2B3C4E"
-                       Grid.Row="4"
-                       Grid.Column="0"
-                       CornerRadius="10">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="SurfCoursesClicked"/>
-                    </Frame.GestureRecognizers>
-                    <StackLayout>
-                        <Label Text="SURF &amp; SUP courses"
-                               TextColor="#FFAA00"
-                               FontSize="Large"
-                               HorizontalTextAlignment="Center"/>
-                        <Label Text="Click here to read about all the available courses"
-                               TextColor="White"
-                               FontSize="Default"
-                               HorizontalTextAlignment="Center"/>
-                    </StackLayout>
-                </Frame>
-                <Frame x:Name="ContactUs"
-                       BackgroundColor="#2B3C4E" 
-                       Grid.Row="4"
-                       Grid.Column="1"
-                       CornerRadius="10">
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ContactUsClicked"/>
-                    </Frame.GestureRecognizers>
-                    <StackLayout>
-                        <Label Text="Contact us"
-                               TextColor="#FFAA00"
-                               FontSize="Large"
-                               HorizontalTextAlignment="Center"/>
-                        <Label Text="Click here to find out how to contact us"
-                               TextColor="White"
-                               FontSize="Default"
-                               HorizontalTextAlignment="Center"/>
-                    </StackLayout>
-                </Frame>
+                </ScrollView>
             </Grid>
-        </ScrollView>
+
+        </Grid>
+
     </ContentPage.Content>
 </ContentPage>

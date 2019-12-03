@@ -257,6 +257,9 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Forms9Patch">
+      <Version>2.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
     </PackageReference>
@@ -314,5 +317,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\nss_pic.png" />
   </ItemGroup>
 </Project>

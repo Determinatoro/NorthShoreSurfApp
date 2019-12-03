@@ -65,8 +65,10 @@ namespace NorthShoreSurfApp
 
         public SignUpUserPage(SignUpUserPageType signUpUserPageType, User existingUser = null)
         {
+            // Hide default navigation bar
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
             Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
+            // Initialize the page
             InitializeComponent();
             // Use safe area on iOS
             On<iOS>().SetUseSafeArea(true);

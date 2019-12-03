@@ -40,7 +40,7 @@ namespace NorthShoreSurfApp
                 App.DataService.GetData(
                        NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
                        true,
-                       () => App.DataService.GetUser(PhoneNo),
+                       () => App.DataService.GetUser(AppValuesService.GetUserId().Value),
                        async (response) =>
                        {
                            if (response.Success)

@@ -67,8 +67,12 @@ namespace NorthShoreSurfApp
         Task<DataResponse<List<OpeningHour>>> GetOpeningHours();
         Task<DataResponse<ContactInfo>> GetContactInfo();
 
+        Task<DataResponse<string>> GetOpeningHoursInformation();
+        Task<DataResponse<string>> GetTodaysOpeningHours();
+        Task<DataResponse<CarpoolRide>> GetNextCarpoolRide();
+        Task<DataResponse<List<CarpoolConfirmation>>> GetCarpoolConfirmations(int userId);
         Task<DataResponse> CheckIfPhoneIsNotUsedAlready(string phoneNo);
-        Task<DataResponse<User>> GetUser(string phoneNo);
+        Task<DataResponse<User>> GetUser(int userId);
         Task<DataResponse> UpdateUser(int userId, string firstName, string lastName, string phoneNo, int age, int genderId);
         Task<DataResponse<User>> SignUpUser(string firstName, string lastName, string phoneNo, int age, int genderId);
         Task<DataResponse> DeleteUser(string phoneNo);

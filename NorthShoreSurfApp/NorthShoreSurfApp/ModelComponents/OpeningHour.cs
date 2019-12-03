@@ -48,6 +48,8 @@ namespace NorthShoreSurfApp.ModelComponents
         public DateTime? OpenTo { get; set; }
 
         [NotMapped]
-        public bool IsClosed { get => !(Monday && Tuesday && Wednesday && Thursday && Friday && Saturday && Sunday && InHolidays); }
+        public bool IsClosed { get => !Monday && !Tuesday && !Wednesday && !Thursday && !Friday && !Saturday && !Sunday && !InHolidays; }
+        [NotMapped]
+        public bool IsOpenEveryday { get => Monday && Tuesday && Wednesday && Thursday && Friday && Saturday && Sunday; }
     }
 }
