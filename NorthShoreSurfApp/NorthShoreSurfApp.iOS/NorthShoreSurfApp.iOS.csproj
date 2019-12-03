@@ -100,6 +100,10 @@
     <BundleResource Include="Resources\edit.png" />
     <BundleResource Include="Resources\NSS logo.png" />
     <BundleResource Include="Resources\Logout icon.png" />
+    <BundleResource Include="Resources\Ic_destination_lines.png" />
+    <BundleResource Include="Resources\Plus_icon.png" />
+    <BundleResource Include="Resources\ic_destination_line.png" />
+    <BundleResource Include="Resources\ic_location_destination.png" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\ic_carpooling.imageset\ic_carpooling.png">
@@ -314,5 +318,17 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_profile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_profile_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_log_out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_delete.png" />
   </ItemGroup>
 </Project>

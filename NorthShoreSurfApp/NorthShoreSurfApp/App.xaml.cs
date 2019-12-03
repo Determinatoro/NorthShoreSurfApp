@@ -39,6 +39,9 @@ namespace NorthShoreSurfApp
             LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), "1");
             DataService.SignUpUser("Thomas", "Schødte", "22278273", 22, 1);
 
+            //Userdata test
+            NorthShoreSurfApp.App.DataService.SignUpUser("Emil", "Danielsen", "29711907", 21, 1);
+
             // Check if a user is logged in
             var userId = LocalDataService.GetValue(nameof(LocalDataKeys.UserId));
 

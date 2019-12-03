@@ -38,16 +38,22 @@
         <StackLayout x:Name="newEvent">
         <Frame BackgroundColor="#2b3d4e" Margin="15,15,15,0">
             <StackLayout>
-                <Label Text="Departure Time:" TextColor="White"/>
-                <local:CustomTextBox Text="{Binding DepartureTime, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
+                <Label Text="Select departure time and date below:" TextColor="White"/>
+                <!-- <local:CustomTextBox x:Name="departureTimeTextBox" Text="{Binding DepartureTime, Mode=TwoWay}" TextColor="Black" TextSize="14"/> -->
+                <TimePicker x:Name="TimePicker"
+                    Format="HH:mm"
+                    />
+                <DatePicker x:Name="DatePicker"
+                    MinimumDate="{Binding DateToday}"
+                    />
                 <Label Text="Pickup Point:" TextColor="White"/>
-                <local:CustomTextBox Text="{Binding Address, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
+                <local:CustomTextBox x:Name="addressTextBox" Text="{Binding Address, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
                 <Label Text="Price:" TextColor="White" />
-                <local:CustomTextBox Text="{Binding PricePerPasenger, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
+                <local:CustomTextBox x:Name="pricePerPassengerTextBox" Text="{Binding PricePerPasenger, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
                 <Label Text="Number of Seats:" TextColor="White" />
-                <local:CustomTextBox Text="{Binding NumberOfSeats, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
+                <Entry Keyboard="Numeric" x:Name="NumberOfSeats" Text="{Binding NumberOfSeats, Mode=TwoWay}"/>
                 <Label Text="Comment:" TextColor="White" />
-                <local:CustomTextBox Text="{Binding Comment, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
+                <local:CustomTextBox x:Name="commentTextBox" Text="{Binding Comment, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
                 <Label Text="Car:" TextColor="White" />
                 <local:CustomEntry Text="No car chosen" TextColor="#2b3d4f" BackgroundColor="White" />
                 <Button BackgroundColor="White" Text="Select Car" TextColor="#2b3d4e"/>
@@ -57,7 +63,8 @@
                 <Button BackgroundColor="White" Text ="Add event to carpool" TextColor="#2b3d4e"/>
         </StackLayout>
         </Frame>
-        <Button x:Name="CreateEventButton" Text="Create Lift" TextColor="White" BackgroundColor="#2b3d4e" Margin="15,0,15,15"/>
+        <Button x:Name="createEventButton" Text="Create Lift" TextColor="White" BackgroundColor="#2b3d4e" Margin="15,0,15,15"
+                />
         </StackLayout>
 
        
