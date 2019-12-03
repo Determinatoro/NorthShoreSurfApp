@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Remove="ViewModels\WelcomeModel.cs" />
     <Compile Remove="Controls\MyView.xaml.cs" />
+    <Compile Remove="ViewCells\EmptyClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Pages\HomePage.xaml.cs">
