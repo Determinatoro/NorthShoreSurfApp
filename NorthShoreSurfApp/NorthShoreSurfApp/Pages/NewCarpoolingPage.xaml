@@ -109,7 +109,7 @@
                                 Format="HH:mm"
                                 />
                             <Label Text="Pick up" TextColor="White"/>
-                            <local:CustomTextBox te
+                            
                             
                         </StackLayout>
                     </Frame>
