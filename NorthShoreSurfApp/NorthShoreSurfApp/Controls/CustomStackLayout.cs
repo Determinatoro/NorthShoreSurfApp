@@ -14,8 +14,6 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty NumberOfSeatsProperty = BindableProperty.Create(nameof(NumberOfSeats), typeof(int), typeof(CustomStackLayout));
         public static readonly BindableProperty AvailableSeatsProperty = BindableProperty.Create(nameof(AvailableSeats), typeof(int), typeof(CustomStackLayout));
 
-
-
         public CustomStackLayout()
         {
 
@@ -37,6 +35,7 @@ namespace NorthShoreSurfApp
 
             NumberOfSeats = 4;
             AvailableSeats = 1;
+
             for (int i = 0; i < NumberOfSeats - AvailableSeats; i++)
             {
                 this.Children.Add(new CachedImage()

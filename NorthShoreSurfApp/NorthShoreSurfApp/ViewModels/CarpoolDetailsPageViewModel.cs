@@ -29,6 +29,7 @@ namespace NorthShoreSurfApp.ViewModels
         private string address;
         private string destinationAddress;
         private int numberOfSeats;
+        private int availableSeats;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -200,8 +201,18 @@ namespace NorthShoreSurfApp.ViewModels
             }
         }
 
-
-
+        public int AvailableSeats
+        {
+            get { return availableSeats; }
+            set
+            {
+                if (availableSeats != value)
+                {
+                    availableSeats = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
     }
 }

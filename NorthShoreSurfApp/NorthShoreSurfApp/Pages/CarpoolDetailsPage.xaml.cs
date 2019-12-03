@@ -141,6 +141,17 @@ namespace NorthShoreSurfApp
                 CarpoolDetailsPageViewModel.PhoneNo = _ride.Driver.PhoneNo;
                 CarpoolDetailsPageViewModel.Gender = "FIXGENDER";
                 CarpoolDetailsPageViewModel.Age = _ride.Driver.Age;
+
+                CarpoolDetailsPageViewModel.Price = _ride.PricePerPassengerString;
+                CarpoolDetailsPageViewModel.Address = _ride.Address;
+                CarpoolDetailsPageViewModel.DestinationAddress = _ride.DestinationAddress;
+                CarpoolDetailsPageViewModel.DepartureTime = _ride.DepartureTimeHourString;
+                CarpoolDetailsPageViewModel.DepartureTimeDay = _ride.DepartureTimeDayString;
+                CarpoolDetailsPageViewModel.ZipCode = _ride.ZipcodeCityString + " " + _ride.City;
+                CarpoolDetailsPageViewModel.DestinationZipCode = _ride.DestinationZipcodeCityString + " " + _ride.City;
+                CarpoolDetailsPageViewModel.NumberOfSeats = _ride.NumberOfSeats;
+                CarpoolDetailsPageViewModel.AvailableSeats = _ride.AvailableSeats;
+
             }
             else if(_isRequest)
             {

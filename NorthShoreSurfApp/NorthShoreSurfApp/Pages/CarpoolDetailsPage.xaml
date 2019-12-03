@@ -18,8 +18,8 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="200"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
 
@@ -55,7 +55,7 @@
                     <Label Text="{Binding Name}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
                     <Label Text="{Binding PhoneNo}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
                     <Label Text="{Binding Gender}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
-                    <Label Text="{Binding Age }" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
+                    <Label Text="{Binding Age}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
 
 
                 </Grid>
@@ -105,8 +105,7 @@
                 BackgroundColor="{StaticResource NSSBlue}"
                 Grid.Row="2">
 
-                <Grid>
-
+                <Grid BackgroundColor="{StaticResource NSSBlue}" Margin="10,5,5,10" Padding="5">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -118,20 +117,28 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-
-
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <local:CustomStackLayout
-                        NumberOfSeats="5"
-                        AvailableSeats="1"
-                        Grid.Row="0">
-                        
-                    </local:CustomStackLayout>
+                    <Label Text="{Binding DepartureTimeDay}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
+                    <Label Text="{Binding DepartureTime}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
+                    <Label Text="{Binding Price}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
 
 
+
+                    <local:CustomStackLayout Grid.Row="3" Grid.Column="0" NumberOfSeats="1" AvailableSeats="0"/>
+
+
+                    <Label Text="{Binding Address}" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill"/>
+                    <Label Text="{Binding ZipCode}" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill"/>
+
+                    <Label Text="{Binding DestinationZipCode}" TextColor="White" Grid.Row="4" Grid.Column="1" VerticalOptions="Fill"/>
+                    <Label Text="{Binding DestinationAddress}" TextColor="White" Grid.Row="5" Grid.Column="1" VerticalOptions="Fill"/>
+                    
                 </Grid>
-
+                
             </local:CustomFrame>
 
             <Button x:Name="btnInvite" 
