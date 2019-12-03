@@ -58,10 +58,6 @@
                     <Label Text="{Binding Age }" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
 
 
-
-
-
-
                 </Grid>
 
             </local:CustomFrame>
@@ -111,10 +107,27 @@
 
                 <Grid>
 
-          
 
-                
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
 
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+
+
+                    </Grid.RowDefinitions>
+
+                    <local:CustomStackLayout
+                        NumberOfSeats="5"
+                        AvailableSeats="1"
+                        Grid.Row="0">
+                        
+                    </local:CustomStackLayout>
 
 
                 </Grid>
