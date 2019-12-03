@@ -26,7 +26,7 @@ namespace NorthShoreSurfApp
 
     public static class Extensions 
     {
-        public static T FindParentWithType<T>(this View view)
+        public static T FindParentWithType<T>(this Element view)
         {
             if (view == null)
                 return default(T);

@@ -8,20 +8,32 @@ using Rg.Plugins.Popup.Pages;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
-using NorthShoreSurfApp.ViewModels.CarpoolingPage;
 using NorthShoreSurfApp.ModelComponents;
 using System.Collections.ObjectModel;
 using FFImageLoading.Forms;
+using NorthShoreSurfApp.ViewModels;
 
 namespace NorthShoreSurfApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CarpoolingPage : ContentPage
     {
+        /*****************************************************************/
+        // VARIABLES
+        /*****************************************************************/
+        #region Variables
+
         public CarpoolingPageViewModel CarpoolingPageViewModel { get => (CarpoolingPageViewModel)this.BindingContext; }
+
+        #endregion
+
+        /*****************************************************************/
+        // CONSTRUCTOR
+        /*****************************************************************/
+        #region Constructor
+
         public CarpoolingPage()
         {
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
@@ -32,60 +44,124 @@ namespace NorthShoreSurfApp
             var safeAreaInset = On<iOS>().SafeAreaInsets();
             grid.Margin = safeAreaInset;
 
-            //rideList.ItemSelected
+            // ItemSelected
+
+            rideList.ItemSelected += ListItem_Selected;
+            requestList.ItemSelected += ListItem_Selected;
+
+            // Toggled
+
             RidesTab.Toggled += RidesTab_Clicked;
-            navigationBar.ButtonOne.Clicked += Plus_Clicked;
-            navigationBar.ButtonTwo.Clicked += Confirmations_Clicked;
 
-            
-            
+            // Clicked
 
+            // Plus icon clicked in navigation bar
+            navigationBar.ButtonOne.Clicked += async (sender, args) =>
+            {
+                await Navigation.PushAsync(new NewCarpoolingPage());
+            };
+            // Message icon clicked in navigation bar
+            navigationBar.ButtonTwo.Clicked += async (sender, args) =>
+            {
+                //await Navigation.PushAsync(new NewCarpoolingPage());
+            };
         }
 
+        #endregion
+
+        /*****************************************************************/
+        // OVERRIDE METHODS
+        /*****************************************************************/
+        #region Override methods
+
+        // OnAppearing            
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            // var userId = int.Parse(App.LocalDataService.GetValue(nameof(LocalDataKeys.UserId)));
+            //var tabbedPage = this.FindParentWithType<RootTabbedPage>();
+            //if (tabbedPage.SelectedItem == Parent)
+            //{
+            GetCarpoolRides();
+            //}
+        }
 
+        #endregion
+
+        /*****************************************************************/
+        // METHODS
+        /*****************************************************************/
+        #region Methods
+
+        /// <summary>
+        /// Get carpool rides from the data service
+        /// </summary>
+        private void GetCarpoolRides(bool showDialog = false)
+        {
             App.DataService.GetData(
                 NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                false, () => App.DataService.GetCarpoolRides(),
+                showDialog,
+                () => App.DataService.GetCarpoolRides(),
                 async (response) =>
                 {
                     if (response.Success)
                     {
-                        
                         CarpoolingPageViewModel.Rides = new ObservableCollection<CarpoolRide>(response.Result);
-                        
-                        
                     }
                     else
                     {
+                        // Show error
                         CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
                         await PopupNavigation.Instance.PushAsync(customDialog);
                     }
                 });
-
-            
         }
 
-        private async void Plus_Clicked(object sender, EventArgs e)
+        /// <summary>
+        /// Get carpool requests from the data service
+        /// </summary>
+        private void GetCarpoolRequests(bool showDialog = false)
         {
-            await Navigation.PushAsync(new NewCarpoolingPage());
-
+            App.DataService.GetData(
+                NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
+                false,
+                () => App.DataService.GetCarpoolRequests(),
+                async (response) =>
+                {
+                    if (response.Success)
+                    {
+                        CarpoolingPageViewModel.Requests = new ObservableCollection<CarpoolRequest>(response.Result);
+                        rideList.IsVisible = false;
+                        requestList.IsVisible = true;
+                    }
+                    else
+                    {
+                        // Show error
+                        CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                        await PopupNavigation.Instance.PushAsync(customDialog);
+                    }
+                });
         }
-        private async void Confirmations_Clicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new CarpoolConfirmationPage());
-        }
 
-        private void rideSelected(object sender, EventArgs e)
+        #endregion
+
+        /*****************************************************************/
+        // EVENTS
+        /*****************************************************************/
+        #region Events
+
+        private void ListItem_Selected(object sender, EventArgs e)
         {
+            // CarpoolRides list
             if (sender == rideList)
             {
                 CarpoolRide SelectedRide = (CarpoolRide)rideList.SelectedItem;
-                Navigation.PushAsync(new CarpoolDetailsPage(SelectedRide));
+                Console.WriteLine(SelectedRide.DepartureTimeHourString);
+            }
+            // CarpoolRequests list
+            else if (sender == requestList)
+            {
+
             }
         }
 
@@ -93,26 +169,18 @@ namespace NorthShoreSurfApp
         {
             if (RidesTab.SelectedToggleType == ToggleType.Right)
             {
-                App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait, false, () => App.DataService.GetCarpoolRequests(), (response) =>
-                {
-                    if (response.Success)
-                    {
-                        CarpoolingPageViewModel.Requests = new ObservableCollection<CarpoolRequest>(response.Result);
-                        rideList.IsVisible = false;
-                        requestList.IsVisible = true; 
-                    }
-
-                });
-            } else if (RidesTab.SelectedToggleType == ToggleType.Left)
+                rideList.IsVisible = false;
+                requestList.IsVisible = true;
+                GetCarpoolRequests(true);
+            }
+            else if (RidesTab.SelectedToggleType == ToggleType.Left)
             {
                 rideList.IsVisible = true;
                 requestList.IsVisible = false;
+                GetCarpoolRides(true);
             }
         }
 
-        private void rideList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-
-        }
+        #endregion
     }
 }
