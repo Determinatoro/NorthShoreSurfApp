@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             IconImageSource="ic_car.png"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
+             x:Class="NorthShoreSurfApp.ContactUs">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <local:CustomNavigationBar x:Name="navigationBar"
+                                           BarBackgroundColor="{StaticResource BarBackground}"
+                                           ShowBackButton="True"
+                                           Title="{local:Translate Home_page}"
+                                           TitleColor="Black"
+                                           TitleSize="24"
+                                           ShowLogo="True"
+                                           Logo="ic_logo.png"/>
+                <StackLayout Margin="10,10,10,10">
+                    <Frame x:Name="ContactInfo"
+                           BackgroundColor="#2B3C4E"
+                           CornerRadius="10">
+                        <StackLayout>
+                            <Label Text="Contact us"
+                                   TextColor="#FFAA00"
+                                   FontSize="Title"
+                                   HorizontalTextAlignment="Center"/>
+                            <Label Text="this is address"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   FontSize="Body"/>
+                            <Label Text="this is address but on a new line"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   FontSize="Body"/>
+                            <Label Text="+45 this is number but in orange"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   FontSize="Body"/>
+                            <Label Text="this_is@email.something"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   FontSize="Body"/>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
