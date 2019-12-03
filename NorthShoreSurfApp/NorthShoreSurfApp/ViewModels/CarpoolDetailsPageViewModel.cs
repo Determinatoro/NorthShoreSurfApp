@@ -1,10 +1,13 @@
-﻿using System;
+﻿using NorthShoreSurfApp.ModelComponents;
+using NorthShoreSurfApp.ViewCells;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using Xamarin.Forms;
-using System.Diagnostics;
-using NorthShoreSurfApp.ModelComponents;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace NorthShoreSurfApp.ViewModels
 {
@@ -19,14 +22,16 @@ namespace NorthShoreSurfApp.ViewModels
         private string gender;
 
         private string depatureTime;
+        private string depatureTimeDay;
         private string price;
         private string address;
         private string destinationAddress;
         private int numberOfSeats;
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (propertyName != null)
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public CarpoolDetailsPageViewModel()
@@ -34,122 +39,138 @@ namespace NorthShoreSurfApp.ViewModels
             
         }
 
-        public string GetName
+
+        public string Name
         {
-            get { return carpoolRide.Driver.FullName(); }
+            get { return fullName; }
             set
             {
-                if (carpoolRide.Driver.FullName() != value)
+                if (fullName != value)
                 {
                     fullName = value;
-                    OnPropertyChanged(nameof(GetName));
+                    OnPropertyChanged();
                 }
             }
         }
 
         public string PhoneNo
         {
-            get { return carpoolRide.Driver.PhoneNo; }
+            get { return phoneNo; }
             set
             {
-                if (carpoolRide.Driver.PhoneNo != value)
+                if (phoneNo != value)
                 {
                     phoneNo = value;
-                    OnPropertyChanged(nameof(PhoneNo));
+                    OnPropertyChanged();
                 }
             }
         }
 
         public int Age
         {
-            get { return carpoolRide.Driver.Age; }
+            get { return age; }
             set
             {
-                if (carpoolRide.Driver.Age != value)
+                if (age != value)
                 {
                     age = value;
-                    OnPropertyChanged(nameof(PhoneNo));
+                    OnPropertyChanged();
                 }
             }
         }
 
         public string Gender
         {
-            get { return carpoolRide.Driver.Gender.Name; }
+            get { return gender; }
             set
             {
-                if (carpoolRide.Driver.Gender.Name != value)
+                if (gender != value)
                 {
                     gender = value;
-                    OnPropertyChanged(nameof(Gender));
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string DepartureTimeDay
+        {
+            get { return depatureTimeDay; }
+            set
+            {
+                if(depatureTimeDay != value)
+                {
+                    depatureTimeDay = value;
+                    OnPropertyChanged();
                 }
             }
         }
 
         public string DepartureTime
         {
-            get { return carpoolRide.DepartureTimeDayString; }
+            get { return depatureTime; }
             set
             {
-                if(carpoolRide.DepartureTimeDayString != value)
+                if (depatureTime != value)
                 {
                     depatureTime = value;
-                    OnPropertyChanged(nameof(DepartureTime));
+                    OnPropertyChanged();
                 }
             }
         }
 
         public string Price
         {
-            get { return carpoolRide.PricePerPassenger.ToString(); }
+            get { return price; }
             set
             {
                 if (price != value)
                 {
                     price = value;
-                    OnPropertyChanged(nameof(Price));
+                    OnPropertyChanged();
                 }
             }
         }
 
         public string Address
         {
-            get { return carpoolRide.Address; }
+            get { return address; }
             set
             {
                 if (address != value)
                 {
                     address = value;
-                    OnPropertyChanged(nameof(Address));
+                    OnPropertyChanged();
                 }
             }
         }
 
         public int NumberOfSeats
         {
-            get { return carpoolRide.NumberOfSeats; }
+            get { return numberOfSeats; }
             set
             {
                 if (numberOfSeats != value)
                 {
                     numberOfSeats = value;
-                    OnPropertyChanged(nameof(NumberOfSeats));
+                    OnPropertyChanged();
                 }
             }
         }
 
         public string DestinationAddress
         {
-            get { return carpoolRide.DestinationAddress; }
+            get { return destinationAddress; }
             set
             {
                 if (destinationAddress != value)
                 {
                     destinationAddress = value;
-                    OnPropertyChanged(nameof(DestinationAddress));
+                    OnPropertyChanged();
                 }
             }
         }
+
+
 
 
     }

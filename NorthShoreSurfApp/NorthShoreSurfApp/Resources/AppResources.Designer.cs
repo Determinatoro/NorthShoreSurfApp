@@ -271,6 +271,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invite user to my ride.
+        /// </summary>
+        internal static string invite_to_my_ride {
+            get {
+                return ResourceManager.GetString("invite_to_my_ride", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Join ride.
         /// </summary>
         internal static string join_ride {
@@ -357,6 +366,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string requests {
             get {
                 return ResourceManager.GetString("requests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ride.
+        /// </summary>
+        internal static string ride {
+            get {
+                return ResourceManager.GetString("ride", resourceCulture);
             }
         }
         

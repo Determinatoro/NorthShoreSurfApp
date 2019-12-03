@@ -43,7 +43,7 @@ namespace NorthShoreSurfApp
             Grid grid = (Grid)Content;
             var safeAreaInset = On<iOS>().SafeAreaInsets();
             grid.Margin = safeAreaInset;
-
+            
             // ItemSelected
 
             rideList.ItemSelected += ListItem_Selected;
@@ -157,10 +157,14 @@ namespace NorthShoreSurfApp
             {
                 CarpoolRide SelectedRide = (CarpoolRide)rideList.SelectedItem;
                 Console.WriteLine(SelectedRide.DepartureTimeHourString);
+                Navigation.PushAsync(new CarpoolDetailsPage(SelectedRide));
+
             }
             // CarpoolRequests list
             else if (sender == requestList)
             {
+                CarpoolRequest SelectedRide = (CarpoolRequest)requestList.SelectedItem;
+                Navigation.PushAsync(new CarpoolDetailsPage(SelectedRide));
 
             }
         }

@@ -189,6 +189,9 @@ Please wait...</value>
   <data name="invitations" xml:space="preserve">
     <value>Invitations</value>
   </data>
+  <data name="invite_to_my_ride" xml:space="preserve">
+    <value>Invite user to my ride</value>
+  </data>
   <data name="join_ride" xml:space="preserve">
     <value>Join ride</value>
   </data>
@@ -218,6 +221,9 @@ Please wait...</value>
   </data>
   <data name="requests" xml:space="preserve">
     <value>Requests</value>
+  </data>
+  <data name="ride" xml:space="preserve">
+    <value>Ride</value>
   </data>
   <data name="see_webcam" xml:space="preserve">
     <value>See webcam</value>
