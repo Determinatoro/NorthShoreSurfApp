@@ -54,8 +54,8 @@
                     </Grid.RowDefinitions>
                     <Label Text="{Binding Name}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
                     <Label Text="{Binding PhoneNo}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
-                    <Label Text="{Binding Gender}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill"/>
-                    <Label Text="{Binding Age }" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill"/>
+                    <Label Text="{Binding Gender}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
+                    <Label Text="{Binding Age }" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
 
 
 
@@ -90,6 +90,10 @@
                     <Label Text="Pickup interval:" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
                     <Label Text="{Binding DepartureTimeDay}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
                     <Label Text="{Binding DepartureTime}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
+                    <Label Text="{Binding ZipCode}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
+                    <Label Text="North Shore Surf" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
+                    <Label Text="{Binding DestinationZipCode}" LineHeight="0.8" TextColor="White" Grid.Row="3" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
+
 
 
                 </Grid>

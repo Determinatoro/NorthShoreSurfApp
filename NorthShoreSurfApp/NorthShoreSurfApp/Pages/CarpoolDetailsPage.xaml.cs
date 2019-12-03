@@ -151,6 +151,8 @@ namespace NorthShoreSurfApp
 
                 CarpoolDetailsPageViewModel.DepartureTimeDay = _request.DepartureTimeDayString;
                 CarpoolDetailsPageViewModel.DepartureTime = _request.TimeInterval;
+                CarpoolDetailsPageViewModel.ZipCode = _request.ZipCode + " " +_request.City;
+                CarpoolDetailsPageViewModel.DestinationZipCode = "9480 Løkken";
 
             }
             

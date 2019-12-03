@@ -21,6 +21,8 @@ namespace NorthShoreSurfApp.ViewModels
         private int age;
         private string gender;
 
+        private string zipCode;
+        private string destinationZipCode;
         private string depatureTime;
         private string depatureTimeDay;
         private string price;
@@ -48,6 +50,34 @@ namespace NorthShoreSurfApp.ViewModels
                 if (fullName != value)
                 {
                     fullName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string ZipCode
+        {
+            get { return zipCode; }
+            set
+            {
+                if (zipCode != value)
+                {
+                    zipCode = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string DestinationZipCode
+        {
+            get { return destinationZipCode; }
+            set
+            {
+                if (destinationZipCode != value)
+                {
+                    destinationZipCode
+                        
+              = value;
                     OnPropertyChanged();
                 }
             }
