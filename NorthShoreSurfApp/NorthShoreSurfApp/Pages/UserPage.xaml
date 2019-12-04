@@ -14,8 +14,16 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <Grid>
-            <StackLayout Margin="20, 20, 20, 0" HorizontalOptions="Fill" VerticalOptions="Start">
+        <StackLayout HorizontalOptions="Fill" VerticalOptions="Start">
+            <local:CustomNavigationBar x:Name="navigationBar"
+                                           BarBackgroundColor="{StaticResource BarBackground}"
+                                           ShowBackButton="False"
+                                           TitleColor="Black"
+                                           TitleSize="24"
+                                           ShowLogo="True"
+                                           Logo="ic_logo.png"
+                                            />
+            <StackLayout Margin="10, 10, 10, 10" HorizontalOptions="Fill" VerticalOptions="Start">
                 <Frame CornerRadius="10" Padding="10" BackgroundColor="{StaticResource NSSBlue}">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -60,7 +68,7 @@
                                FontSize="24"
                                TextColor="White"
                                />
-                        <Label Text="{Binding FirstName}"
+                        <Label Text="{Binding FullName}"
                                Grid.Row="1"
                                Grid.Column="0"
                                FontSize="24"
@@ -111,7 +119,7 @@
                                              Icon="ic_log_out.png"
                                              IconPadding="10"
                                              TitleColor="White"
-                                             Title="create account"
+                                             Title="{local:Translate log_out}"
                                              />
                 <local:CustomImageTextButton x:Name="btnDelAcc"
                                              Margin="0, 20, 0, 20"
@@ -125,6 +133,6 @@
                                              Title="{local:Translate delete_account}"
                                              />
             </StackLayout>
-        </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

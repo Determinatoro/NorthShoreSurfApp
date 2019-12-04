@@ -57,6 +57,9 @@ namespace NorthShoreSurfApp.ViewModels
 
 
 
+        public DateTime DateToday => DateTime.Now;
+
+
     }
 }
 
