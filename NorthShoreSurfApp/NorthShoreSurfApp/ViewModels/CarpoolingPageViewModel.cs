@@ -80,6 +80,11 @@ namespace NorthShoreSurfApp.ViewModels
             get { return new DataTemplate(() => new CarpoolRideViewCell()); }
         }
 
+        public DataTemplate CarpoolRequestItemTemplate
+        {
+            get { return new DataTemplate(() => new CarpoolRequestViewCell()); }
+        }
+
         #endregion
     }
 }
