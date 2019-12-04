@@ -7,6 +7,17 @@ namespace NorthShoreSurfApp
     public class AppValuesService
     {
         /// <summary>
+        /// Save value on local device
+        /// </summary>
+        /// <param name="localDataKey">Key for the value</param>
+        /// <param name="value">Value to save</param>
+        public static void SaveValue(LocalDataKeys localDataKey, string value)
+        {
+            var key = Enum.GetName(typeof(LocalDataKeys), (int)localDataKey);
+            App.LocalDataService.SaveValue(key, value);
+        }
+
+        /// <summary>
         /// Get ID for the user that is logged in
         /// </summary>
         /// <returns></returns>
@@ -17,6 +28,15 @@ namespace NorthShoreSurfApp
                 return id;
             else
                 return null;
+        }
+
+        public static bool IsGuest()
+        {
+            var isGuest = App.LocalDataService.GetValue(nameof(LocalDataKeys.IsGuest));
+            if (bool.TryParse(isGuest, out bool flag))
+                return flag;
+            else
+                return false;
         }
     }
 }

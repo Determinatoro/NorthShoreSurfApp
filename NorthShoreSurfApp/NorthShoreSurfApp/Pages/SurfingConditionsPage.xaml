@@ -7,6 +7,7 @@
              xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
              mc:Ignorable="d"
              x:Class="NorthShoreSurfApp.SurfingConditionsPage"
+             BackgroundColor="White"
              >
     <ContentPage.BindingContext>
         <models:SurfingConditionsViewModel />
@@ -62,7 +63,7 @@
                                                      Title="{local:Translate see_webcam}"
                                                      />
 
-                        <Frame Margin="0, 10, 0, 0"
+                        <Frame Margin="0, 5, 0, 0"
                                Padding="0"  
                                HasShadow="False"
                                CornerRadius="10"
@@ -104,7 +105,7 @@
 
                         </Frame>
 
-                        <Frame Margin="0, 10, 0, 0"
+                        <Frame Margin="0, 5, 0, 0"
                                Padding="0"
                                HasShadow="False"
                                CornerRadius="10"
@@ -146,7 +147,7 @@
 
                         </Frame>
 
-                        <Frame Margin="0, 10, 0, 0"
+                        <Frame Margin="0, 5, 0, 0"
                                Padding="0"
                                HasShadow="False"
                                CornerRadius="10"

@@ -20,13 +20,13 @@
         <Grid>
 
             <Grid>
-
+                <!--Web view-->
                 <local:CustomWebView x:Name="webView"
                                      VerticalOptions="Fill"
                                      HorizontalOptions="Fill"
                                      Source="{Binding WebViewSource}"
                                      />
-
+                <!--Webcam-->
                 <shared:VideoView x:Name="vvWebcam"
                                   VerticalOptions="FillAndExpand"
                                   HorizontalOptions="FillAndExpand"
@@ -36,6 +36,7 @@
 
             </Grid>
 
+            <!--Close button-->
             <local:CustomImageButton x:Name="btnClose"
                                      VerticalOptions="Start"
                                      HorizontalOptions="Start"

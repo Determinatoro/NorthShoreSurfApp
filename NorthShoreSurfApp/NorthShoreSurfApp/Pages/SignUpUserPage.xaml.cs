@@ -29,21 +29,22 @@ namespace NorthShoreSurfApp
         EditInformation
     }
 
+    public enum SignUpUserPageContentSite
+    {
+        EnterData,
+        EnterSMSCode,
+        EditInformation
+    }
+
     #endregion
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SignUpUserPage : ContentPage, IFirebaseServiceCallBack
+    public partial class SignUpUserPage : ContentPage
     {
         /*****************************************************************/
         // ENUMS
         /*****************************************************************/
         #region Enums
-
-        private enum ContentSite
-        {
-            EnterData,
-            EnterSMSCode
-        }
 
         #endregion
 
@@ -52,9 +53,9 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Variables
 
-        public SignUpUserViewModel SignUpUserModel { get => (SignUpUserViewModel)this.BindingContext; }
+        public SignUpUserViewModel SignUpUserViewModel { get => (SignUpUserViewModel)this.BindingContext; }
 
-        private ContentSite CurrentContentSite { get; set; }
+        private SignUpUserPageContentSite CurrentContentSite { get; set; }
 
         #endregion
 
@@ -80,33 +81,32 @@ namespace NorthShoreSurfApp
             grid.Margin = safeAreaInset;
 
             // Set page type
-            SignUpUserModel.SetPageType(signUpUserPageType, existingUser);
-
-            // Click events
-            btnNext.Clicked += Button_Clicked;
-            btnApprove.Clicked += Button_Clicked;
+            SignUpUserViewModel.SetPageType(signUpUserPageType, existingUser);
 
             // Back button click event
             navigationBar.BackButtonClicked += (sender, args) =>
             {
-                if (Navigation.NavigationStack.Count > 1)
-                    Navigation.RemovePage(this);
+                if (CurrentContentSite == SignUpUserPageContentSite.EnterSMSCode)
+                    SetCurrentContentSite(SignUpUserPageContentSite.EnterData);
                 else
-                    SetCurrentContentSite(ContentSite.EnterData, true);
+                {
+                    if (Navigation.NavigationStack.Count > 1)
+                        Navigation.RemovePage(this);
+                    else if (Navigation.ModalStack.Count > 0)
+                        Navigation.PopModalAsync();
+                }
             };
-            navigationBar.ButtonOneIsVisible = true;
-            navigationBar.ButtonTwoIsVisible = true;
 
             // List item tapped in gender picker
             pickerGender.ListItemTapped += (sender, args) =>
             {
                 var gender = (Gender)args.Item;
                 pickerGender.Text = gender.Name;
-                SignUpUserModel.GenderId = gender.Id;
+                SignUpUserViewModel.GenderId = gender.Id;
             };
 
             // Set current content site
-            SetCurrentContentSite(ContentSite.EnterData, false);
+            SetCurrentContentSite(SignUpUserViewModel.PageType == SignUpUserPageType.EditInformation ? SignUpUserPageContentSite.EditInformation : SignUpUserPageContentSite.EnterData);
         }
 
         #endregion
@@ -136,210 +136,45 @@ namespace NorthShoreSurfApp
         /// </summary>
         /// <param name="contentSite">The wanted content site</param>
         /// <param name="animate">Animate the change</param>
-        private async void SetCurrentContentSite(ContentSite contentSite, bool animate = false)
+        public void SetCurrentContentSite(SignUpUserPageContentSite contentSite)
         {
             CurrentContentSite = contentSite;
 
             gridEnterData.IsVisible = false;
             gridEnterSMSCode.IsVisible = false;
 
-            switch (SignUpUserModel.PageType)
+            switch (SignUpUserViewModel.PageType)
             {
                 case SignUpUserPageType.Login:
                     tbAge.IsVisible = false;
                     tbFirstName.IsVisible = false;
                     tbLastName.IsVisible = false;
                     pickerGender.IsVisible = false;
+
+                    tbPhoneNo.Margin = new Thickness(0);
                     break;
             }
-
-            double displacement = gridEnterData.Width;
-            double displacement2 = gridEnterSMSCode.Width;
 
             switch (CurrentContentSite)
             {
-                case ContentSite.EnterData:
-                    if (animate)
-                    {
-                        gridEnterSMSCode.IsVisible = true;
-                        gridEnterData.IsVisible = false;
-
-                        await Task.WhenAll(
-                                    gridEnterSMSCode.FadeTo(0, 1),
-                                    gridEnterSMSCode.TranslateTo(0, 0, 1),
-                                    gridEnterData.FadeTo(0, 1),
-                                    gridEnterData.TranslateTo(-displacement, 0, 1),
-                                    gridEnterSMSCode.FadeTo(0, 250, Easing.Linear),
-                                    gridEnterSMSCode.TranslateTo(displacement2, 0, 250, Easing.CubicInOut)
-                                    );
-
-                        gridEnterData.IsVisible = true;
-                        gridEnterSMSCode.IsVisible = false;
-
-                        await Task.WhenAll(
-                                    gridEnterData.FadeTo(1, 250, Easing.Linear),
-                                    gridEnterData.TranslateTo(0, 0, 250, Easing.CubicInOut)
-                                    );
-                    }
-                    else
-                    {
-                        gridEnterData.IsVisible = true;
-                    }
+                case SignUpUserPageContentSite.EnterData:
+                case SignUpUserPageContentSite.EditInformation:
+                    gridEnterData.IsVisible = true;
                     break;
-                case ContentSite.EnterSMSCode:
-                    if (animate)
-                    {
-                        gridEnterSMSCode.IsVisible = false;
-                        gridEnterData.IsVisible = true;
-
-                        await Task.WhenAll(
-                                    gridEnterData.FadeTo(0, 1),
-                                    gridEnterData.TranslateTo(0, 0, 1),
-                                    gridEnterData.FadeTo(0, 250, Easing.Linear),
-                                    gridEnterData.TranslateTo(-displacement, 0, 250, Easing.CubicInOut),
-                                    gridEnterSMSCode.TranslateTo(displacement2, 0, 1),
-                                    gridEnterSMSCode.FadeTo(0, 1)
-                                    );
-
-                        gridEnterData.IsVisible = false;
-                        gridEnterSMSCode.IsVisible = true;
-
-                        await Task.WhenAll(
-                                    gridEnterSMSCode.FadeTo(1, 250, Easing.Linear),
-                                    gridEnterSMSCode.TranslateTo(0, 0, 250, Easing.CubicInOut)
-                                    );
-                    }
-                    else
-                    {
-                        gridEnterSMSCode.IsVisible = true;
-                    }
+                case SignUpUserPageContentSite.EnterSMSCode:
+                    gridEnterSMSCode.IsVisible = true;
                     break;
             }
-        }
 
-        #endregion
-
-        /*****************************************************************/
-        // EVENTS
-        /*****************************************************************/
-        #region Events
-
-        // Buttons clicked event
-        private async void Button_Clicked(object sender, EventArgs e)
-        {
-            if (sender == btnNext)
+            switch (CurrentContentSite)
             {
-                if (SignUpUserModel.AllDataGiven)
-                {
-                    // Check if phone no. already exist
-                    App.DataService.GetData(
-                        NorthShoreSurfApp.Resources.AppResources.checking_phone_no_please_wait,
-                        true,
-                        () => App.DataService.CheckIfPhoneIsNotUsedAlready(SignUpUserModel.PhoneNo),
-                        async (response) =>
-                        {
-                            if (response.Success)
-                            {
-                                await App.FirebaseService.VerifyPhoneNo(this, SignUpUserModel.PhoneNo);
-                                SetCurrentContentSite(ContentSite.EnterSMSCode);
-                            }
-                            else
-                            {
-                                CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                                await PopupNavigation.Instance.PushAsync(customDialog);
-                            }
-                        });
-                }
-                else
-                {
-                    // Tell the user to fill out all fields on the page
-                    await PopupNavigation.Instance.PushAsync(
-                        new CustomDialog(
-                            CustomDialogType.Message, 
-                            NorthShoreSurfApp.Resources.AppResources.please_fill_out_all_the_empty_fields
-                            )
-                        );
-                }
-
-                return;
-            }
-            else if (sender == btnApprove)
-            {
-                App.Current.MainPage = new RootTabbedPage();
-                return;
-
-                var smsCode = SignUpUserModel.SMSCode;
-
-                if (smsCode != null && smsCode != string.Empty && smsCode.Length == 6)
-                {
-                    var verId = App.LocalDataService.GetValue(nameof(LocalDataKeys.FirebaseAuthVerificationId));
-                    await App.FirebaseService.SignIn(this, verId, smsCode);
-                }
-                else
-                {
-                    await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, "Please enter SMS code"));
-                }
-            }
-        }
-
-        #endregion
-
-        /*****************************************************************/
-        // INTERFACE METHODS
-        /*****************************************************************/
-        #region Interface methods
-
-        // OnVerificationFailed
-        public async void OnVerificationFailed(string errorMessage)
-        {
-            await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, errorMessage));
-        }
-
-        // OnCodeSent
-        public void OnCodeSent(string verificationId)
-        {
-
-        }
-
-        // OnCodeAutoRetrievalTimeout
-        public void OnCodeAutoRetrievalTimeout(string verificationId)
-        {
-
-        }
-
-        // SignedIn
-        public void SignedIn()
-        {
-            switch (SignUpUserModel.PageType)
-            {
-                case SignUpUserPageType.SignUp:
-                    {
-                        App.DataService.GetData(
-                        NorthShoreSurfApp.Resources.AppResources.creating_account_please_wait,
-                        true,
-                        SignUpUserModel.SignUpUserTask,
-                        async (response) =>
-                        {
-                            if (response.Success)
-                            {
-
-                            }
-                            else
-                            {
-                                CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                                await PopupNavigation.Instance.PushAsync(customDialog);
-                            }
-                        });
-
-                        break;
-                    }
-                case SignUpUserPageType.Login:
-                    {
-
-
-                        break;
-                    }
-                case SignUpUserPageType.EditInformation:
+                case SignUpUserPageContentSite.EditInformation:
+                    btnNext.Icon = ImageSource.FromFile("ic_check.png");
+                    btnNext.Title = NorthShoreSurfApp.Resources.AppResources.approve;
+                    break;
+                default:
+                    btnNext.Icon = ImageSource.FromFile("ic_forward.png");
+                    btnNext.Title = NorthShoreSurfApp.Resources.AppResources.next;
                     break;
             }
         }

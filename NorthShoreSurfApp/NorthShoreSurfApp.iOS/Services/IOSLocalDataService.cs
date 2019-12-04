@@ -106,7 +106,7 @@ namespace NorthShoreSurfApp.iOS.Services
         public void SaveValue(string key, string value)
         {
             UserDefaults = NSUserDefaults.StandardUserDefaults;
-            UserDefaults.SetString(value, key);
+            UserDefaults.SetString(value == null ? string.Empty : value, key);
         }
 
         /// <summary>

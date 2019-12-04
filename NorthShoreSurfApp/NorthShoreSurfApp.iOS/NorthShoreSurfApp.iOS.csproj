@@ -337,4 +337,16 @@
   <ItemGroup>
     <BundleResource Include="Resources\ic_delete.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_log_in.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\nss_logo_welcome.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_forward.png" />
+  </ItemGroup>
 </Project>

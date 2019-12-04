@@ -28,6 +28,8 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(nameof(Keyboard), typeof(Keyboard), typeof(CustomImageTextButton), null);
         public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(CustomImageButton), 10.0f);
 
+        public event EventHandler<TextChangedEventArgs> TextChanged;
+
         #endregion
 
         /*****************************************************************/
@@ -38,6 +40,12 @@ namespace NorthShoreSurfApp
         public CustomTextBox()
         {
             InitializeComponent();
+
+            // TextChanged
+            entry.TextChanged += (sender, args) =>
+            {
+                TextChanged?.Invoke(this, args);
+            };
         }
 
         #endregion

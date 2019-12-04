@@ -335,7 +335,9 @@ namespace NorthShoreSurfApp.Database
                 using (var context = CreateContext())
                 {
                     // Get user from user id
-                    User user = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+                    User user = await context.Users
+                        .Include(x => x.Gender)
+                        .FirstOrDefaultAsync(x => x.Id == userId);
                     // Return response
                     return new DataResponse<User>(user != null, user);
                 }
@@ -944,6 +946,27 @@ namespace NorthShoreSurfApp.Database
             {
                 // Return exception
                 return new DataResponse<CarpoolRide>(1, mes.Message);
+            }
+        }
+        public async Task<DataResponse<User>> CheckLogin(string phoneNo)
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    // Get user from user id
+                    User user = await context.Users.FirstOrDefaultAsync(x => x.PhoneNo == phoneNo);
+                    // Phone no. is used on an existing account
+                    if (user == null)
+                        return new DataResponse<User>(110, Resources.AppResources.this_phone_no_is_not_used_on_any_existing_accounts);
+                    // Return response
+                    return new DataResponse<User>(true, user);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<User>(1, mes.Message);
             }
         }
     }

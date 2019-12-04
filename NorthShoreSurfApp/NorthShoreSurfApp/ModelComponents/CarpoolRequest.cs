@@ -27,6 +27,17 @@ namespace NorthShoreSurfApp.ModelComponents
         [Required]
         [StringLength(255)]
         public string City { get; set; }
+        [Required]
+        [StringLength(255)]
+        public string DestinationAddress { get; set; }
+        [Required]
+        [StringLength(4)]
+        public string DestinationZipCode { get; set; }
+        [Required]
+        [StringLength(255)]
+        public string DestinationCity { get; set; }
+        [StringLength(255)]
+        public string Comment { get; set; }
 
         [NotMapped]
         public string TimeInterval { get => String.Format("{0} - {1}", FromTime.ToString("HH:mm"), ToTime.ToString("HH:mm")); }

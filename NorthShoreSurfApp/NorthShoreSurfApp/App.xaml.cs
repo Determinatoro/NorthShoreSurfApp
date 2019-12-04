@@ -1,6 +1,7 @@
 ﻿using LibVLCSharp.Shared;
 using Microsoft.EntityFrameworkCore;
 using NorthShoreSurfApp.Database;
+using NorthShoreSurfApp.ModelComponents;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,15 +37,13 @@ namespace NorthShoreSurfApp
             DataService.Initialize();
 
             // TEST User logged in
-            LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), (1).ToString());
+            LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), null);
+            LocalDataService.SaveValue(nameof(LocalDataKeys.IsGuest), null);
 
-            //Userdata test
-            NorthShoreSurfApp.App.DataService.SignUpUser("Emil", "Danielsen", "29711907", 21, 1);
+            // TEST Sign up user 
+            //User user = DataService.SignUpUser("Emil", "Danielsen", "29711907", 21, 1).Result.Result;
 
-            // Check if a user is logged in
-
-            var userId = AppValuesService.GetUserId();
-            if (userId != null)
+            if (AppValuesService.GetUserId() != null || AppValuesService.IsGuest())
             {
                 // Set main page to tab
                 MainPage = new RootTabbedPage();
@@ -52,7 +51,7 @@ namespace NorthShoreSurfApp
             else
             {
                 // Set main page to welcome page
-                MainPage = new WelcomePage();
+                MainPage = new CustomNavigationPage(new WelcomePage());
             }
         }
 

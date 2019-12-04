@@ -156,6 +156,9 @@ courses</value>
   <data name="contact_us" xml:space="preserve">
     <value>Contact Us</value>
   </data>
+  <data name="continue_as_guest" xml:space="preserve">
+    <value>Continue as guest</value>
+  </data>
   <data name="could_not_add_events_to_carpool_event" xml:space="preserve">
     <value>Could not add events to carpool event</value>
   </data>
@@ -190,6 +193,9 @@ Please wait...</value>
   <data name="days" xml:space="preserve">
     <value>{0} day(s)</value>
   </data>
+  <data name="edit_information" xml:space="preserve">
+    <value>Edit information</value>
+  </data>
   <data name="every_day" xml:space="preserve">
     <value>Every day</value>
   </data>
@@ -220,6 +226,9 @@ Please wait...</value>
   </data>
   <data name="live_webcam" xml:space="preserve">
     <value>Live Webcam</value>
+  </data>
+  <data name="log_in" xml:space="preserve">
+    <value>Log in</value>
   </data>
   <data name="male" xml:space="preserve">
     <value>Male</value>
@@ -259,6 +268,9 @@ The weather is essential for operation of business which unfortunately can cause
   <data name="phone_no" xml:space="preserve">
     <value>Phone no.</value>
   </data>
+  <data name="please_enter_sms_code" xml:space="preserve">
+    <value>Please enter SMS code</value>
+  </data>
   <data name="please_fill_out_all_the_empty_fields" xml:space="preserve">
     <value>Please fill out all the empty fields</value>
   </data>
@@ -282,6 +294,9 @@ The weather is essential for operation of business which unfortunately can cause
   </data>
   <data name="surf_and_sup_courses" xml:space="preserve">
     <value>SURF &amp; SUP</value>
+  </data>
+  <data name="this_phone_no_is_not_used_on_any_existing_accounts" xml:space="preserve">
+    <value>This phone no. is not used on any existing accounts.</value>
   </data>
   <data name="user_already_exist" xml:space="preserve">
     <value>User already exist</value>
@@ -307,5 +322,8 @@ The weather is essential for operation of business which unfortunately can cause
   <data name="what_are_good_surfing_conditions_description" xml:space="preserve">
     <value>Good surfing conditions are present when the wave and swell size are close to each other.
 Surfing is possible at all temperatures, but it is important to dress according to the weather.</value>
+  </data>
+  <data name="you_need_to_log_in_to_use_the_carpool_feature" xml:space="preserve">
+    <value>You need to log in to use the carpool feature.</value>
   </data>
 </root>
