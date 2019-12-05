@@ -20,6 +20,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
 
@@ -37,9 +38,10 @@
                 Margin="10,10,10,10"
                 CornerRadius="10"
                 BackgroundColor="{StaticResource NSSBlue}"
-                Grid.Row="1">
+                Grid.Row="1"
+                Padding="5">
 
-                <Grid>
+                <Grid ColumnSpacing="0" RowSpacing="0" Padding="0">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -66,9 +68,12 @@
                 Margin="10,10,10,10"
                 CornerRadius="10"
                 BackgroundColor="{StaticResource NSSBlue}"
-                Grid.Row="2">
+                Grid.Row="2"
+                HeightRequest="160"
+                Padding="5">
 
-                <Grid>
+                <Grid RowSpacing="0"
+                      ColumnSpacing="0" Padding="0">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -103,9 +108,11 @@
                 Margin="10,10,10,10"
                 CornerRadius="10"
                 BackgroundColor="{StaticResource NSSBlue}"
-                Grid.Row="2">
+                Grid.Row="2"
+                HeightRequest="160"
+                Padding="5">
 
-                <Grid BackgroundColor="{StaticResource NSSBlue}" Margin="10,5,5,10" Padding="5">
+                <Grid BackgroundColor="{StaticResource NSSBlue}" Margin="10,10,10,10" RowSpacing="0" ColumnSpacing="0" Padding="0">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -128,7 +135,10 @@
 
 
 
-                    <local:CustomStackLayout Grid.Row="3" Grid.Column="0" NumberOfSeats="1" AvailableSeats="0"/>
+                    <local:CarpoolingSeatLayout
+                        AvailableSeats="{Binding AvailableSeats}" NumberOfSeats="{Binding NumberOfSeats}"  Grid.Row="5" Grid.Column="0">
+                        
+                    </local:CarpoolingSeatLayout>
 
 
                     <Label Text="{Binding Address}" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill"/>
@@ -141,21 +151,47 @@
                 
             </local:CustomFrame>
 
-            <Button x:Name="btnInvite" 
+            <local:CustomFrame Grid.Row="3"
+                BackgroundColor="{StaticResource NSSBlue}"
+                HeightRequest="100"
+                BorderWidth="0"
+                HorizontalOptions="Fill"
+                Margin="10,10,10,10"
+                Padding="0,0,0,0"
+                CornerRadius="10">
+
+                <Grid Padding="10,10,10,10">
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label Text="{Binding Message}" TextColor="White" Grid.Row="0" VerticalOptions="Fill" HorizontalOptions="StartAndExpand"/>
+
+     
+                </Grid>
+
+            </local:CustomFrame>
+
+
+            <Button x:Name="btnInvite"
+                    CornerRadius="10"
                     Text="{local:Translate invite_to_my_ride}" 
                     TextColor="White" 
                     BackgroundColor="{StaticResource NSSOrange}" 
-                    Margin="15,0,15,15" 
-                    Grid.Row="3"
+                    Margin="10,0,10,10" 
+                    Grid.Row="4"
                     VerticalOptions="Fill"
                 />
 
-            <Button x:Name="btnJoin" 
+            <Button x:Name="btnJoin"
+                    CornerRadius="10"
                     Text="{local:Translate join_ride}" 
                     TextColor="White" 
                     BackgroundColor="{StaticResource NSSOrange}" 
-                    Margin="15,0,15,15" 
-                    Grid.Row="3"
+                    Margin="10,0,10,10" 
+                    Grid.Row="4"
                     VerticalOptions="Fill"
                 />
 

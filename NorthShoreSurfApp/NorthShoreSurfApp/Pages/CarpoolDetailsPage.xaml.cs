@@ -110,7 +110,7 @@ namespace NorthShoreSurfApp
             App.DataService.GetData(
                             NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
                             true,
-                            () => App.DataService.InvitePassenger(_request.PassengerId, 1),
+                            () => App.DataService.InvitePassenger(_request.Id, 1),
                             async (response) =>
                             {
                                 if (response.Success)
@@ -147,17 +147,19 @@ namespace NorthShoreSurfApp
                 CarpoolDetailsPageViewModel.DestinationAddress = _ride.DestinationAddress;
                 CarpoolDetailsPageViewModel.DepartureTime = _ride.DepartureTimeHourString;
                 CarpoolDetailsPageViewModel.DepartureTimeDay = _ride.DepartureTimeDayString;
-                CarpoolDetailsPageViewModel.ZipCode = _ride.ZipcodeCityString + " " + _ride.City;
-                CarpoolDetailsPageViewModel.DestinationZipCode = _ride.DestinationZipcodeCityString + " " + _ride.City;
+                CarpoolDetailsPageViewModel.ZipCode = _ride.ZipcodeCityString;
+                CarpoolDetailsPageViewModel.DestinationZipCode = _ride.DestinationZipcodeCityString;
                 CarpoolDetailsPageViewModel.NumberOfSeats = _ride.NumberOfSeats;
                 CarpoolDetailsPageViewModel.AvailableSeats = _ride.AvailableSeats;
+                if(_ride.Comment != null)
+                CarpoolDetailsPageViewModel.Message = _ride.Comment;
 
             }
             else if(_isRequest)
             {
                 CarpoolDetailsPageViewModel.Name = _request.Passenger.FullName();
                 CarpoolDetailsPageViewModel.PhoneNo = _request.Passenger.PhoneNo;
-                CarpoolDetailsPageViewModel.Gender = "FixGender";
+                CarpoolDetailsPageViewModel.Gender = "FIXGENDER";
                 CarpoolDetailsPageViewModel.Age = _request.Passenger.Age;
 
                 CarpoolDetailsPageViewModel.DepartureTimeDay = _request.DepartureTimeDayString;
