@@ -1,13 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
              mc:Ignorable="d"
              xmlns:local="clr-namespace:NorthShoreSurfApp"
              x:Class="NorthShoreSurfApp.NewCarpoolingPage"
              BackgroundColor="{StaticResource BarBackground}"
+             xmlns:custom="clr-namespace:GooglePlaces;assembly=NorthShoreSurfApp"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             
+            
              >
 
 
@@ -67,7 +71,18 @@
                             <local:CustomTextBox x:Name="pickUpTextBox" Text="{Binding Address, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
 
                             <Label Text="Destination:" TextColor="White"/>
-                            <local:CustomTextBox x:Name="destinationTextBox" Text="{Binding Destination, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
+                            <!-- <local:CustomTextBox x:Name="destinationTextBox" Text="{Binding Destination, Mode=TwoWay}" TextColor="Black" TextSize="14"/> -->
+                            <custom:PlacesBar x:Name="search_bar"/>
+                            <AbsoluteLayout>
+                                <ListView x:Name="results_list" IsVisible="false"
+				                    AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="SizeProportional" HeightRequest="230">
+				                    <ListView.ItemTemplate>
+					                    <DataTemplate>
+						                    <TextCell d:DataContext="{d:DesignInstance custom:AutoCompletePrediction}" Text="{Binding MainText}" Detail="{Binding SecondaryText}"/>
+					                    </DataTemplate>
+				                    </ListView.ItemTemplate>
+			                    </ListView>
+                            </AbsoluteLayout>
 
                             <Label Text="Price" TextColor="White" />
                             <local:CustomTextBox x:Name="pricePerPassengerTextBox" Keyboard="Numeric" Text="{Binding PricePerPasenger, Mode=TwoWay}" TextColor="Black" TextSize="14"/>

@@ -122,4 +122,7 @@
   <ItemGroup>
     <None Remove="Pages\EmptyXmlFile.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GooglePlaces\" />
+  </ItemGroup>
 </Project>

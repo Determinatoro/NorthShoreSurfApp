@@ -5,6 +5,8 @@ using Xamarin.Forms;
 using System.Diagnostics;
 using NorthShoreSurfApp.ModelComponents;
 using System.Collections.ObjectModel;
+using GooglePlaces;
+
 
 namespace NorthShoreSurfApp.ViewModels
 {
@@ -54,6 +56,10 @@ namespace NorthShoreSurfApp.ViewModels
                 OnPropertyChanged(nameof(carpoolRequest));
             }
         }
+
+        public AutoCompletePrediction Prediction;
+
+
 
 
 
