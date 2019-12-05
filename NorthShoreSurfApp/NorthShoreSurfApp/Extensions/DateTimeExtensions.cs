@@ -12,17 +12,15 @@ namespace NorthShoreSurfApp
     {
         public static string ToCarpoolingFormat(this DateTime dateTime)
         {
-            if( (dateTime - DateTime.Today).TotalDays < 8)
+            if ((dateTime - DateTime.Today).TotalDays < 8)
             {
-                return dateTime.ToString("dddd");
-            } else
-            {
-                return dateTime.ToString("MM/dd/yy");
+                return dateTime.ToString("dddd").FirstCharToUpper();
             }
-            
+            else
+            {
+                return dateTime.ToString("dd-MM-yy");
+            }
         }
-
-        
     }
 }
 

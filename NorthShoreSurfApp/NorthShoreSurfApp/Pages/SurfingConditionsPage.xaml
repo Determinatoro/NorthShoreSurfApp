@@ -60,6 +60,7 @@
                                                      TitleColor="White"
                                                      TitleSize="24"
                                                      IconColor="White"
+                                                     Command="{Binding SeeWebcamCommand}"
                                                      Title="{local:Translate see_webcam}"
                                                      />
 
@@ -91,6 +92,7 @@
                                 <local:CustomWebView x:Name="wvWeatherInfo"
                                                      Margin="10, 0, 10, 10"
                                                      Grid.Row="1"
+                                                     Height="{Binding WeatherInfoHeight, Mode=OneWay}"
                                                      HeightRequest="10"
                                                      Source="{Binding WeatherInfoUrl}"
                                                      />
@@ -178,14 +180,13 @@
                             </StackLayout>
                         </Frame>
 
+                        <Grid BindableLayout.ItemTemplate="{Binding CarpoolRideItemTemplate}"
+                              BindableLayout.ItemsSource="{Binding CarpoolRides}"
+                              />
+
                     </StackLayout>
                 </ScrollView>
-
-                
-
             </Grid>
-
-            
         </Grid>
     </ContentPage.Content>
 </ContentPage>

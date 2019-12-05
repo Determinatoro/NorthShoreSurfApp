@@ -66,8 +66,13 @@ namespace NorthShoreSurfAppUnitTest
         /*****************************************************************/
         #region ViewModels
 
+        /****************************************************/
+        // HOME VIEW MODEL
+        /****************************************************/
+        #region HomeViewModel
+
         [TestMethod]
-        public void HomeViewModel_SetNextCarpoolRide_CheckNextCarpoolRideContent()
+        public void HomeViewModel_SetNextCarpoolRideDepartureTimeSeconds_CheckNextCarpoolRideContent()
         {
             // Arrange
             HomeViewModel homeViewModel = new HomeViewModel();
@@ -76,6 +81,39 @@ namespace NorthShoreSurfAppUnitTest
             homeViewModel.NextCarpoolRide = carpoolRide;
             // Assert
             Assert.IsTrue(homeViewModel.NextRideInContent != null);
+        }
+        [TestMethod]
+        public void HomeViewModel_SetNextCarpoolRideDeaprtureTimeMinutes_CheckNextCarpoolRideContent()
+        {
+            // Arrange
+            HomeViewModel homeViewModel = new HomeViewModel();
+            CarpoolRide carpoolRide = new CarpoolRide() { DepartureTime = DateTime.Now.AddMinutes(5).AddSeconds(30) };
+            // Act
+            homeViewModel.NextCarpoolRide = carpoolRide;
+            // Assert
+            Assert.AreEqual(string.Format(GetLocalizedString("minutes"), "5"), homeViewModel.NextRideInContent);
+        }
+        [TestMethod]
+        public void HomeViewModel_SetNextCarpoolRideDeaprtureTimeHours_CheckNextCarpoolRideContent()
+        {
+            // Arrange
+            HomeViewModel homeViewModel = new HomeViewModel();
+            CarpoolRide carpoolRide = new CarpoolRide() { DepartureTime = DateTime.Now.AddHours(5).AddSeconds(30) };
+            // Act
+            homeViewModel.NextCarpoolRide = carpoolRide;
+            // Assert
+            Assert.AreEqual(string.Format(GetLocalizedString("hours"), "5"), homeViewModel.NextRideInContent);
+        }
+        [TestMethod]
+        public void HomeViewModel_SetNextCarpoolRideDeaprtureTimeDays_CheckNextCarpoolRideContent()
+        {
+            // Arrange
+            HomeViewModel homeViewModel = new HomeViewModel();
+            CarpoolRide carpoolRide = new CarpoolRide() { DepartureTime = DateTime.Now.AddDays(5).AddSeconds(30) };
+            // Act
+            homeViewModel.NextCarpoolRide = carpoolRide;
+            // Assert
+            Assert.AreEqual(string.Format(GetLocalizedString("days"), "5"), homeViewModel.NextRideInContent);
         }
         [TestMethod]
         public void HomeViewModel_SetNextCarpoolRideToNull_CheckNextCarpoolRideContent()
@@ -87,6 +125,18 @@ namespace NorthShoreSurfAppUnitTest
             // Assert
             Assert.AreEqual(GetLocalizedString("none"), homeViewModel.NextRideInContent);
         }
+        [TestMethod]
+        public void HomeViewModel_SetOpeningHoursContent_CheckIfValueIsSet()
+        {
+            // Arrange
+            HomeViewModel homeViewModel = new HomeViewModel();
+            // Act
+            homeViewModel.OpeningHoursContent = "test";
+            // Assert
+            Assert.AreEqual("test", homeViewModel.OpeningHoursContent);
+        }
+
+        #endregion
 
         #endregion
     }

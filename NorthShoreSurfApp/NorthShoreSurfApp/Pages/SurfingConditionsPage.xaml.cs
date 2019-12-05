@@ -1,8 +1,11 @@
 ﻿using LibVLCSharp.Shared;
+using NorthShoreSurfApp.ModelComponents;
 using NorthShoreSurfApp.ViewModels;
 using Plugin.DeviceOrientation;
+using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -86,12 +89,12 @@ namespace NorthShoreSurfApp
             };
             gridWeatherInfo.GestureRecognizers.Add(gridTap);
             gridOceanInfo.GestureRecognizers.Add(gridTap);
-            
-            // Pressed "See webcam" button
-            btnSeeWebcam.Clicked += async (sender, args) =>
+
+            // "See webcam" button command
+            SurfingConditionsViewModel.SeeWebcamCommand = new Command(async () =>
             {
                 await Navigation.PushModalAsync(new SurfingConditionsFullscreenPage(SurfingConditionsViewModel.VideoUrl), false);
-            };
+            });
         }
 
         #endregion

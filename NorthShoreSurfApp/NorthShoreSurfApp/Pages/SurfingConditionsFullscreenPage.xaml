@@ -25,12 +25,13 @@
                                      VerticalOptions="Fill"
                                      HorizontalOptions="Fill"
                                      Source="{Binding WebViewSource}"
+                                     IsVisible="{Binding ShowWebViewPage}"
                                      />
                 <!--Webcam-->
                 <shared:VideoView x:Name="vvWebcam"
                                   VerticalOptions="FillAndExpand"
                                   HorizontalOptions="FillAndExpand"
-                                  IsVisible="False"
+                                  IsVisible="{Binding ShowVideoPage}"
                                   MediaPlayer="{Binding MediaPlayer}" 
                                   />
 

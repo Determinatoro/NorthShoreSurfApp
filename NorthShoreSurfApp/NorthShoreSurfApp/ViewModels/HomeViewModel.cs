@@ -17,17 +17,9 @@ namespace NorthShoreSurfApp.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        #endregion
-
-        /*****************************************************************/
-        // CONSTRUCTOR
-        /*****************************************************************/
-        #region Constructor
-
-        public HomeViewModel()
-        {
-
-        }
+        private string openingHoursContent;
+        private string nextRideInContent;
+        private CarpoolRide nextCarpoolRide;
 
         #endregion
 
@@ -49,10 +41,12 @@ namespace NorthShoreSurfApp.ViewModels
         /*****************************************************************/
         #region Properties
 
-        private CarpoolRide nextCarpoolRide;
+        /// <summary>
+        /// Object for the next carpool ride content
+        /// </summary>
         public CarpoolRide NextCarpoolRide
         {
-            get => nextCarpoolRide; 
+            get => nextCarpoolRide;
             set
             {
                 nextCarpoolRide = value;
@@ -64,22 +58,24 @@ namespace NorthShoreSurfApp.ViewModels
                     var difference = (nextCarpoolRide.DepartureTime - DateTime.Now);
                     // Days
                     if (difference.TotalDays >= 1)
-                        nextCarpoolRideContent = string.Format(NorthShoreSurfApp.Resources.AppResources.days, ((int)difference.TotalDays).ToString());
+                        nextCarpoolRideContent = string.Format(Resources.AppResources.days, ((int)difference.TotalDays).ToString());
                     // Hours
                     else if (difference.TotalHours >= 1)
-                        nextCarpoolRideContent = string.Format(NorthShoreSurfApp.Resources.AppResources.hours, ((int)difference.TotalHours).ToString());
+                        nextCarpoolRideContent = string.Format(Resources.AppResources.hours, ((int)difference.TotalHours).ToString());
                     // Minutes
                     else if (difference.TotalMinutes >= 1)
-                        nextCarpoolRideContent = string.Format(NorthShoreSurfApp.Resources.AppResources.minutes, ((int)difference.TotalMinutes).ToString());
+                        nextCarpoolRideContent = string.Format(Resources.AppResources.minutes, ((int)difference.TotalMinutes).ToString());
                     // Seconds
                     else
-                        nextCarpoolRideContent = string.Format(NorthShoreSurfApp.Resources.AppResources.seconds, ((int)difference.TotalSeconds).ToString());
+                        nextCarpoolRideContent = string.Format(Resources.AppResources.seconds, ((int)difference.TotalSeconds).ToString());
                 }
 
                 NextRideInContent = nextCarpoolRideContent;
             }
         }
-        private string nextRideInContent;
+        /// <summary>
+        /// Content is how long there is to the next departure time for a carpool ride
+        /// </summary>
         public string NextRideInContent
         {
             get { return nextRideInContent; }
@@ -89,7 +85,9 @@ namespace NorthShoreSurfApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        private string openingHoursContent;
+        /// <summary>
+        /// Content is opening hours for the current day
+        /// </summary>
         public string OpeningHoursContent
         {
             get { return openingHoursContent; }

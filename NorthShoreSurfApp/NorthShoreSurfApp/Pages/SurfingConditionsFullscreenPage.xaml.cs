@@ -15,6 +15,19 @@ using Xamarin.Forms.Xaml;
 
 namespace NorthShoreSurfApp
 {
+    /*****************************************************************/
+    // ENUMS
+    /*****************************************************************/
+    #region Enums
+
+    public enum SurfingConditionsFullscreenPageType
+    {
+        WebView,
+        Video
+    }
+
+    #endregion
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SurfingConditionsFullscreenPage : ContentPage
     {
@@ -34,15 +47,13 @@ namespace NorthShoreSurfApp
 
         public SurfingConditionsFullscreenPage(WebViewSource webViewSource) : this()
         {
-            webView.IsVisible = true;
-            vvWebcam.IsVisible = false;
+            SurfingConditionsFullscreenViewModel.PageType = SurfingConditionsFullscreenPageType.WebView;
             SurfingConditionsFullscreenViewModel.WebViewSource = webViewSource;
         }
 
         public SurfingConditionsFullscreenPage(string webcamUrl) : this()
         {
-            webView.IsVisible = false;
-            vvWebcam.IsVisible = true;
+            SurfingConditionsFullscreenViewModel.PageType = SurfingConditionsFullscreenPageType.Video;
             SurfingConditionsFullscreenViewModel.VideoURL = webcamUrl;
         }
 
@@ -54,13 +65,7 @@ namespace NorthShoreSurfApp
             // Initialize
             InitializeComponent();
             // Use safe area on iOS
-            On<iOS>().SetUseSafeArea(true);
-            // Get root grid
-            Grid grid = (Grid)Content;
-            // Get safe area margins
-            var safeAreaInset = On<iOS>().SafeAreaInsets();
-            // Set safe area margins
-            grid.Margin = safeAreaInset;
+            ((Grid)Content).SetIOSSafeAreaInsets(this);
             // Orientation for the page
             CrossDeviceOrientation.Current.UnlockOrientation();
             // Hide status bar on android
@@ -69,11 +74,13 @@ namespace NorthShoreSurfApp
             // Enable zoom on android
             webView.On<Android>().EnableZoomControls(true);
 
+            // Icon close button
             btnClose.Clicked += (sender, args) =>
             {
                 PopPage();
             };
 
+            // App resumed
             App.Resumed += (sender, args) =>
             {
                 OnAppearing();
@@ -123,6 +130,7 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Methods
 
+        // Pop this page
         private async void PopPage()
         {
             await Navigation.PopModalAsync(false);

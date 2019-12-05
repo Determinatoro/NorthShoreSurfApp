@@ -22,7 +22,8 @@ namespace NorthShoreSurfApp.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private SignUpUserPage page;
+        private SignUpUserPageType pageType;
+        private SignUpUserPageContentSite currentContentSite;
         private string firstName;
         private string lastName;
         private string phoneNo;
@@ -45,7 +46,7 @@ namespace NorthShoreSurfApp.ViewModels
 
         public SignUpUserViewModel()
         {
-            
+
         }
 
         #endregion
@@ -60,30 +61,6 @@ namespace NorthShoreSurfApp.ViewModels
             if (propertyName != null)
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        /// <summary>
-        /// Set page type for the page
-        /// </summary>
-        /// <param name="pageType"></param>
-        /// <param name="existingUser"></param>
-        public void SetPageType(SignUpUserPageType pageType, User existingUser = null)
-        {
-            PageType = pageType;
-
-            switch (PageType)
-            {
-                case SignUpUserPageType.SignUp:
-                    break;
-                case SignUpUserPageType.Login:
-                    break;
-                case SignUpUserPageType.EditInformation:
-                    if (existingUser == null)
-                        throw new NullReferenceException("Existing user cannot be null when using the page for editing information");
-                    ExistingUser = existingUser;
-                    break;
-            }
-
-            OnPropertyChanged(nameof(PageTitle));
-        }
 
         #endregion
 
@@ -92,6 +69,75 @@ namespace NorthShoreSurfApp.ViewModels
         /*****************************************************************/
         #region Properties
 
+        /// <summary>
+        /// Flag for showing the enter data site
+        /// </summary>
+        public bool ShowEnterDataSite
+        {
+            get => CurrentContentSite == SignUpUserPageContentSite.EnterData || CurrentContentSite == SignUpUserPageContentSite.EditInformation;
+        }
+        /// <summary>
+        /// Flag for showing the enter SMS code site
+        /// </summary>
+        public bool ShowEnterSMSCodeSite
+        {
+            get => CurrentContentSite == SignUpUserPageContentSite.EnterSMSCode;
+        }
+        /// <summary>
+        /// Icon for the next button
+        /// </summary>
+        public ImageSource ButtonNextIcon
+        {
+            get
+            {
+                switch (CurrentContentSite)
+                {
+                    case SignUpUserPageContentSite.EditInformation:
+                        return ImageSource.FromFile("ic_check.png");
+                    default:
+                        return ImageSource.FromFile("ic_forward.png");
+                }
+            }
+        }
+        /// <summary>
+        /// Title for the next button
+        /// </summary>
+        public string ButtonNextTitle
+        {
+            get
+            {
+                switch (CurrentContentSite)
+                {
+                    case SignUpUserPageContentSite.EditInformation:
+                        return Resources.AppResources.approve;
+                    default:
+                        return Resources.AppResources.next;
+                }
+            }
+        }
+        /// <summary>
+        /// Margin for the phone no. textbox
+        /// </summary>
+        public Thickness TextBoxPhoneNoMargin
+        {
+            get
+            {
+                switch (PageType)
+                {
+                    case SignUpUserPageType.Login:
+                        return new Thickness(0);
+                    default:
+                        return new Thickness(0, 5, 0, 0);
+                }
+            }
+        }
+        /// <summary>
+        /// Flag telling if the login page is presented
+        /// </summary>
+        public bool ShowLoginPage
+        {
+            get => PageType == SignUpUserPageType.Login;
+        }
         /// <summary>
         /// Title shown on top of the page
         /// </summary>
@@ -115,11 +161,32 @@ namespace NorthShoreSurfApp.ViewModels
         /// <summary>
         /// Current content site in the page
         /// </summary>
-        public SignUpUserPageContentSite CurrentContentSite { get; set; }
+        public SignUpUserPageContentSite CurrentContentSite
+        {
+            get => currentContentSite;
+            set
+            {
+                currentContentSite = value;
+                OnPropertyChanged(nameof(ShowEnterDataSite));
+                OnPropertyChanged(nameof(ShowEnterSMSCodeSite));
+                OnPropertyChanged(nameof(ButtonNextIcon));
+                OnPropertyChanged(nameof(ButtonNextTitle));
+            }
+        }
         /// <summary>
         /// Set type for the page
         /// </summary>
-        public SignUpUserPageType PageType { get; private set; }
+        public SignUpUserPageType PageType
+        {
+            get => pageType;
+            set
+            {
+                pageType = value;
+                OnPropertyChanged(nameof(PageTitle));
+                OnPropertyChanged(nameof(ShowLoginPage));
+                OnPropertyChanged(nameof(TextBoxPhoneNoMargin));
+            }
+        }
         /// <summary>
         /// Flag for all data is given in the different content sites
         /// </summary>
@@ -157,6 +224,10 @@ namespace NorthShoreSurfApp.ViewModels
             set
             {
                 existingUser = value;
+
+                if (existingUser == null)
+                    return;
+
                 FirstName = existingUser.FirstName;
                 LastName = existingUser.LastName;
                 Age = existingUser.Age.ToString();

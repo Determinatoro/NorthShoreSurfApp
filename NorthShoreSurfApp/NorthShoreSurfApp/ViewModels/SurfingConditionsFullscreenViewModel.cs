@@ -17,8 +17,17 @@ namespace NorthShoreSurfApp.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private WebViewSource webViewSource;
+        private string videoURL;
+        private LibVLC libVLC;
+        private MediaPlayer mediaPlayer;
+        private SurfingConditionsFullscreenPageType pageType;
+
         #endregion
 
+        /*****************************************************************/
+        // CONSTRUCTOR
+        /*****************************************************************/
         #region Constructor
 
         public SurfingConditionsFullscreenViewModel()
@@ -70,7 +79,33 @@ namespace NorthShoreSurfApp.ViewModels
         /*****************************************************************/
         #region Properties
 
-        private WebViewSource webViewSource;
+        /// <summary>
+        /// Flag for showing webview
+        /// </summary>
+        public bool ShowWebViewPage
+        {
+            get => PageType == SurfingConditionsFullscreenPageType.WebView;
+        }
+        /// <summary>
+        /// Flag for showing video page
+        /// </summary>
+        public bool ShowVideoPage
+        {
+            get => PageType == SurfingConditionsFullscreenPageType.Video;
+        }
+        /// <summary>
+        /// Type for the page
+        /// </summary>
+        public SurfingConditionsFullscreenPageType PageType
+        {
+            get => pageType;
+            set
+            {
+                pageType = value;
+                OnPropertyChanged(nameof(ShowWebViewPage));
+                OnPropertyChanged(nameof(ShowVideoPage));
+            }
+        }
         /// <summary>
         /// Source for webview to show
         /// </summary>
@@ -83,7 +118,6 @@ namespace NorthShoreSurfApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        private LibVLC libVLC;
         /// <summary>
         /// Gets the <see cref="LibVLCSharp.Shared.LibVLC"/> instance.
         /// </summary>
@@ -96,7 +130,6 @@ namespace NorthShoreSurfApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        private MediaPlayer mediaPlayer;
         /// <summary>
         /// Gets the <see cref="LibVLCSharp.Shared.MediaPlayer"/> instance.
         /// </summary>
@@ -109,7 +142,6 @@ namespace NorthShoreSurfApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        private string videoURL;
         /// <summary>
         /// URL for the stream to be shown in the VLC player
         /// </summary>

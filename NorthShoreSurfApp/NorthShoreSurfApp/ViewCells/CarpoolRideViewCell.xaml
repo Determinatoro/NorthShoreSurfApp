@@ -7,12 +7,12 @@
           mc:Ignorable="d"
           x:Class="NorthShoreSurfApp.ViewCells.CarpoolRideViewCell">
     <ViewCell.View>
-        <Frame Padding="5"
+        <Frame Padding="10"
                CornerRadius="10"
                Margin="10,5,10,5"
                BackgroundColor="{StaticResource NSSBlue}"
                HasShadow="False">
-            <Grid Padding="5"
+            <Grid Padding="0"
                   Margin="0"
                   RowSpacing="0"
                   ColumnSpacing="0">
@@ -41,18 +41,20 @@
                     <!--Departure time day-->
                     <Label Text="{Binding DepartureTimeDayString}" 
                            MaxLines="1"
-                           Padding="0, 2, 0, 0"
                            LineBreakMode="TailTruncation"
                            TextColor="White" 
+                           HeightRequest="20"
+                           FontSize="Default"
                            HorizontalOptions="Fill"
                            Grid.Row="0" 
                            />
                     <!--Departure time hour-->
                     <Label Text="{Binding DepartureTimeHourString}" 
                            MaxLines="1"
-                           Padding="0, 2, 0, 0"
                            LineBreakMode="TailTruncation"
                            TextColor="White"
+                           HeightRequest="20"
+                           FontSize="Default"
                            HorizontalOptions="Fill"
                            Grid.Row="1" 
                            />
@@ -61,6 +63,8 @@
                            MaxLines="1"
                            LineBreakMode="TailTruncation"
                            TextColor="White" 
+                           HeightRequest="20"
+                           FontSize="Default"
                            HorizontalOptions="Fill"
                            Grid.Row="3" 
                            />
@@ -103,7 +107,8 @@
                     <Label Text="{Binding Address}" 
                            TextColor="White" 
                            MaxLines="1"
-                           Padding="0, 2, 0, 0"
+                           HeightRequest="20"
+                           FontSize="Default"
                            HorizontalOptions="FillAndExpand"
                            HorizontalTextAlignment="End"
                            LineBreakMode="TailTruncation"
@@ -113,7 +118,8 @@
                     <Label Text="{Binding ZipcodeCityString}" 
                            TextColor="White" 
                            MaxLines="1"
-                           Padding="0, 2, 0, 0"
+                           HeightRequest="20"
+                           FontSize="Default"
                            HorizontalOptions="FillAndExpand"
                            HorizontalTextAlignment="End"
                            LineBreakMode="TailTruncation"
@@ -123,7 +129,8 @@
                     <Label Text="{Binding DestinationZipcodeCityString}" 
                            TextColor="White" 
                            MaxLines="1"
-                           Padding="0, 0, 0, 0"
+                           HeightRequest="20"
+                           FontSize="Default"
                            HorizontalOptions="FillAndExpand"
                            HorizontalTextAlignment="End"
                            LineBreakMode="TailTruncation"
@@ -133,7 +140,8 @@
                     <Label Text="{Binding DestinationAddress}" 
                            TextColor="White" 
                            MaxLines="1"
-                           Padding="0, 2, 0, 0"
+                           HeightRequest="20"
+                           FontSize="Default"
                            HorizontalOptions="FillAndExpand"
                            HorizontalTextAlignment="End"
                            LineBreakMode="TailTruncation"
@@ -141,60 +149,16 @@
                            />
 
                     <Image Source="ic_location_destination.png"
-                           
-                           HeightRequest="50"
                            Grid.Row="0"
                            Grid.Column="1"
-                           Margin="0,0,0,3"
+                           HeightRequest="90"
                            HorizontalOptions="Fill"
-                           VerticalOptions="Fill"
+                           VerticalOptions="Center"
                            Aspect="AspectFit"
                            Grid.RowSpan="5"
                            />
 
-                    
-
-
                 </Grid>
-
-                <!-- <Grid Margin="0"
-                      Padding="0"
-                      HorizontalOptions="Fill"
-                      Grid.Column="2"
-                      ColumnSpacing="0"
-                      RowSpacing="0"
-                      >
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Image Source="location.png"
-                           HeightRequest="20"
-                           WidthRequest="20"
-                           Grid.Row="0"
-                           Margin="0,0,0,3"
-                           HorizontalOptions="Center"
-                           Grid.RowSpan="5"/>
-
-                    <Image Source="ic_destination_line.png"
-                           HeightRequest="20"
-                           WidthRequest="20"
-                           Grid.Row="1"
-                           HorizontalOptions="Center"
-                           Grid.RowSpan="5"/>
-
-                    <Image Source="destination2.png"
-                           HeightRequest="20"
-                           WidthRequest="20"
-                           Grid.Row="2"
-                           HorizontalOptions="Center"
-                           Grid.RowSpan="5"/>
-
-
-                    </Grid> -->
             </Grid>
 
         </Frame>
