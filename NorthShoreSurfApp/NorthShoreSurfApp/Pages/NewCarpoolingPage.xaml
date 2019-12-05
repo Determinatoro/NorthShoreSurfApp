@@ -53,12 +53,12 @@
                 <StackLayout>
                     <Frame BackgroundColor="#2b3d4e" Margin="15,15,15,0" HasShadow="False">
                         <StackLayout>
-                            <Label Text="New Ride" FontSize="Subtitle" TextColor="White"/>
-                            <Label Text="Select departure time and date below:" TextColor="White"/>
+                            <Label Text="New Ride" FontSize="Subtitle" TextColor="White" Margin="0,5"/>
+                            <Label Text="Select departure date below:" TextColor="White"/>
                             <DatePicker x:Name="DatePicker"
                                 MinimumDate="{Binding DateToday}"
                                 />
-
+                            <Label Text="Select time below:" TextColor="White"/>
                             <TimePicker x:Name="TimePicker"
                                 Format="HH:mm"
                                 />
@@ -69,28 +69,26 @@
                             <Label Text="Destination:" TextColor="White"/>
                             <local:CustomTextBox x:Name="destinationTextBox" Text="{Binding Destination, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
 
-                            <Label Text="Price:" TextColor="White" />
+                            <Label Text="Price" TextColor="White" />
                             <local:CustomTextBox x:Name="pricePerPassengerTextBox" Keyboard="Numeric" Text="{Binding PricePerPasenger, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
 
-                            <Label Text="Number of Seats:" TextColor="White" />
+                            <Label Text="Number of Seats" TextColor="White" />
                             <local:CustomTextBox x:Name="numberOfSeatsTextBox" Keyboard="Numeric" Text="{Binding NumberOfSeats, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
-
-                            <Label Text="Comment:" TextColor="White" />
+                            <Label Text="Comment" TextColor="White" />
                             <local:CustomTextBox x:Name="commentTextBox" Text="{Binding Comment, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
 
-                            <Label Text="Car:" TextColor="White" />
+                            <Label Text="Car" TextColor="White" />
                             <local:CustomEntry Text="No car chosen" TextColor="#2b3d4f" BackgroundColor="White" />
 
                             <Button BackgroundColor="White" Text="Select Car" TextColor="#2b3d4e"/>
-                            <Label Text="Events:" TextColor="White" />
+                            <Label Text="Events" TextColor="White" />
                             <local:CustomEntry Text="Surfer's lounge" TextColor="#2b3d4f" BackgroundColor="White" />
                             <local:CustomEntry Text="Beginner surfer's lesson" TextColor="#2b3d4f" BackgroundColor="White" />
                             <Button BackgroundColor="White" Text ="Add event to carpool" TextColor="#2b3d4e"/>
                         </StackLayout>
                     </Frame>
 
-                    <Button x:Name="createEventButton" Text="Create Lift" TextColor="White" BackgroundColor="#2b3d4e" Margin="15,0,15,15"
-                        />
+                    <Button x:Name="createEventButton" Text="Create Lift" TextColor="White" BackgroundColor="#2b3d4e" Margin="15,0,15,15" />
                 </StackLayout>
             </ScrollView>
 
@@ -99,20 +97,40 @@
                 <StackLayout>
                     <Frame BackgroundColor="#2b3d4e" Margin="15,15,15,0" HasShadow="False">
                         <StackLayout>
-                            <Label Text="New Request" FontSize="Subtitle" TextColor="White"/>
+                            <Label Text="New Request" FontSize="Subtitle" TextColor="White" Margin="0,5"/>
                             <Label Text="Select departure date below:" TextColor="White"/>
                             <DatePicker x:Name="RequestDatePicker"
-                                MinimumDate="{Binding DateToday}"
-                                />
+                                    MinimumDate="{Binding DateToday}"
+                                    />
+
                             <Label Text="Select time interval below:" TextColor="White"/>
-                            <TimePicker x:Name="RequestTimePicker"
-                                Format="HH:mm"
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                
+
+                                
+                               
+                                <TimePicker x:Name="RequestTimePicker"
+                                    Format="HH:mm"
                                 />
+
+                                <TimePicker x:Name="RequestEndTimePicker" Grid.Column="1"
+                                    Format="HH:mm"
+                                />
+                            </Grid>
+                            
                             <Label Text="Pick up" TextColor="White"/>
-                            
-                            
+                            <local:CustomTextBox x:Name="RequestPickUp" TextColor="Black" TextSize="14"/>
+                            <Label Text="Destination" TextColor="White" />
+                            <local:CustomTextBox x:Name="RequestDestination" TextColor="Black" TextSize="14"/>
+                            <Label Text="Comment:" TextColor="White" />
+                            <local:CustomTextBox x:Name="RequestComment" TextColor="Black" TextSize="14"/>
                         </StackLayout>
                     </Frame>
+                    <Button x:Name="createRequestButton" Text="Create Request" TextColor="White" BackgroundColor="#2b3d4e" Margin="15,0,15,15" />
                 </StackLayout>
             </ScrollView>
 
