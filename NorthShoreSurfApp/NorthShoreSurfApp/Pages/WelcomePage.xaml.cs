@@ -49,6 +49,41 @@ namespace NorthShoreSurfApp
             WelcomeViewModel.Page = this;
             // Set content site in model
             WelcomeViewModel.WelcomePageContentSite = welcomePageContentSite;
+
+            // Open pages as modal if it is used in the tabbed page else as navigation page
+            Action<Xamarin.Forms.Page> openPage = async (page) =>
+            {
+                switch (welcomePageContentSite)
+                {
+                    case WelcomePageContentSite.Welcome:
+                        {
+                            await Navigation.PushAsync(page);
+                            break;
+                        }
+                    case WelcomePageContentSite.UserNotLoggedIn:
+                        {
+                            await Navigation.PushModalAsync(page);
+                            break;
+                        }
+                }
+            };
+            // Sign up
+            WelcomeViewModel.SignUpCommand = new Command(() =>
+            {
+                openPage(new SignUpUserPage(SignUpUserPageType.SignUp));
+            });
+            // Log in
+            WelcomeViewModel.LogInCommand = new Command(() =>
+            {
+                openPage(new SignUpUserPage(SignUpUserPageType.Login));
+            });
+            // Continue as guest
+            WelcomeViewModel.ContinueAsGuestCommand = new Command(() =>
+            {
+                AppValuesService.SaveValue(LocalDataKeys.UserId, null);
+                AppValuesService.SaveValue(LocalDataKeys.IsGuest, bool.TrueString);
+                App.Current.MainPage = new RootTabbedPage();
+            });
         }
 
         #endregion

@@ -13,7 +13,7 @@ using Xamarin.Forms;
 
 namespace NorthShoreSurfApp.ViewModels
 {
-    public class SignUpUserViewModel : INotifyPropertyChanged, IFirebaseServiceCallBack
+    public class SignUpUserViewModel : INotifyPropertyChanged
     {
         /*****************************************************************/
         // VARIABLES
@@ -34,6 +34,8 @@ namespace NorthShoreSurfApp.ViewModels
         private ICommand nextCommand;
         private ICommand approveCommand;
 
+        public event EventHandler<TextChangedEventArgs> PhoneNoChanged;
+
         #endregion
 
         /*****************************************************************/
@@ -43,87 +45,7 @@ namespace NorthShoreSurfApp.ViewModels
 
         public SignUpUserViewModel()
         {
-            NextCommand = new Command(async () =>
-            {
-                if (AllDataGiven)
-                {
-                    switch (PageType)
-                    {
-                        case SignUpUserPageType.SignUp:
-                            // Check if phone no. already exist
-                            App.DataService.GetData(
-                                Resources.AppResources.checking_phone_no_please_wait,
-                                true,
-                                () => App.DataService.CheckIfPhoneIsNotUsedAlready(PhoneNo),
-                                async (response) =>
-                                {
-                                    if (response.Success)
-                                    {
-                                        await App.FirebaseService.VerifyPhoneNo(this, PhoneNo);
-                                        page.SetCurrentContentSite(SignUpUserPageContentSite.EnterSMSCode);
-                                    }
-                                    else
-                                    {
-                                        CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                                        await PopupNavigation.Instance.PushAsync(customDialog);
-                                    }
-                                });
-                            break;
-                        case SignUpUserPageType.Login:
-                            // Check if phone no. already exist
-                            App.DataService.GetData(
-                                Resources.AppResources.checking_phone_no_please_wait,
-                                true,
-                                () => App.DataService.CheckLogin(PhoneNo),
-                                async (response) =>
-                                {
-                                    if (response.Success)
-                                    {
-                                        // Save the user
-                                        ExistingUser = response.Result;
-                                        // Make the user verify phone no.
-                                        await App.FirebaseService.VerifyPhoneNo(this, PhoneNo);
-                                        Page.SetCurrentContentSite(SignUpUserPageContentSite.EnterSMSCode);
-                                    }
-                                    else
-                                    {
-                                        CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                                        await PopupNavigation.Instance.PushAsync(customDialog);
-                                    }
-                                });
-
-                            break;
-                        case SignUpUserPageType.EditInformation:
-                            
-                            break;
-                    }
-                }
-                else
-                {
-                    // Tell the user to fill out all fields on the page
-                    await PopupNavigation.Instance.PushAsync(
-                        new CustomDialog(
-                            CustomDialogType.Message,
-                            NorthShoreSurfApp.Resources.AppResources.please_fill_out_all_the_empty_fields
-                            )
-                        );
-                }
-            });
-            // Approve command
-            ApproveCommand = new Command(async () =>
-            {
-                var smsCode = SMSCode;
-
-                if (smsCode != null && smsCode != string.Empty && smsCode.Length == 6)
-                {
-                    var verId = App.LocalDataService.GetValue(nameof(LocalDataKeys.FirebaseAuthVerificationId));
-                    await App.FirebaseService.SignIn(this, verId, smsCode);
-                }
-                else
-                {
-                    await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, Resources.AppResources.please_enter_sms_code));
-                }
-            });
+            
         }
 
         #endregion
@@ -138,6 +60,11 @@ namespace NorthShoreSurfApp.ViewModels
             if (propertyName != null)
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        /// <summary>
+        /// Set page type for the page
+        /// </summary>
+        /// <param name="pageType"></param>
+        /// <param name="existingUser"></param>
         public void SetPageType(SignUpUserPageType pageType, User existingUser = null)
         {
             PageType = pageType;
@@ -156,75 +83,6 @@ namespace NorthShoreSurfApp.ViewModels
             }
 
             OnPropertyChanged(nameof(PageTitle));
-        }
-
-        #endregion
-
-        /*****************************************************************/
-        // INTERFACE METHODS
-        /*****************************************************************/
-        #region Interface methods
-
-        // OnVerificationFailed
-        public async void OnVerificationFailed(string errorMessage)
-        {
-            await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, errorMessage));
-        }
-        // OnCodeSent
-        public void OnCodeSent(string verificationId)
-        {
-
-        }
-        // OnCodeAutoRetrievalTimeout
-        public void OnCodeAutoRetrievalTimeout(string verificationId)
-        {
-
-        }
-        // SignedIn
-        public async void SignedIn()
-        {
-            switch (PageType)
-            {
-                case SignUpUserPageType.SignUp:
-                    {
-                        App.DataService.GetData(
-                        Resources.AppResources.creating_account_please_wait,
-                        true,
-                        () => App.DataService.SignUpUser(FirstName, LastName, PhoneNo, AgeValue, GenderId),
-                        async (response) =>
-                        {
-                            if (response.Success)
-                            {
-                                // Get newly created user
-                                User user = response.Result;
-                                // Save user id
-                                AppValuesService.SaveValue(LocalDataKeys.UserId, user.Id.ToString());
-                                // Go to home page
-                                App.Current.MainPage = new RootTabbedPage();
-                            }
-                            else
-                            {
-                                // Show error
-                                CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                                await PopupNavigation.Instance.PushAsync(customDialog);
-                            }
-                        });
-
-                        break;
-                    }
-                case SignUpUserPageType.Login:
-                    {
-                        // Go to home page
-                        App.Current.MainPage = new RootTabbedPage();
-                        break;
-                    }
-                case SignUpUserPageType.EditInformation:
-                    {
-                        // Pop this page
-                        await Page.Navigation.PopAsync();
-                        break;
-                    }
-            }
         }
 
         #endregion
@@ -254,19 +112,10 @@ namespace NorthShoreSurfApp.ViewModels
                 return null;
             }
         }
-        
         /// <summary>
-        /// Page using this view model
+        /// Current content site in the page
         /// </summary>
-        public SignUpUserPage Page
-        {
-            get { return page; }
-            set
-            {
-                page = value;
-                OnPropertyChanged();
-            }
-        }
+        public SignUpUserPageContentSite CurrentContentSite { get; set; }
         /// <summary>
         /// Set type for the page
         /// </summary>
@@ -364,6 +213,9 @@ namespace NorthShoreSurfApp.ViewModels
             get { return phoneNo; }
             set
             {
+                // Get old value
+                var oldValue = phoneNo;
+
                 if (phoneNo != value)
                 {
                     phoneNo = value;
@@ -371,10 +223,7 @@ namespace NorthShoreSurfApp.ViewModels
 
                     if (PageType == SignUpUserPageType.EditInformation)
                     {
-                        Page.SetCurrentContentSite(
-                            phoneNo != ExistingUser.PhoneNo ? 
-                            SignUpUserPageContentSite.EnterData : 
-                            SignUpUserPageContentSite.EditInformation);
+                        PhoneNoChanged?.Invoke(this, new TextChangedEventArgs(oldValue, value));
                     }
                 }
             }

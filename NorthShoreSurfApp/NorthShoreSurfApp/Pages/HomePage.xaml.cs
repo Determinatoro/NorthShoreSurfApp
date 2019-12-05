@@ -43,14 +43,8 @@ namespace NorthShoreSurfApp
             Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
             // Initialize the page
             InitializeComponent();
-            // Use safe area on iOS
-            On<iOS>().SetUseSafeArea(true);
-            // Get root grid
-            Grid grid = (Grid)Content;
-            // Get safe area margins
-            var safeAreaInset = On<iOS>().SafeAreaInsets();
-            // Set safe area margins
-            grid.Margin = safeAreaInset;
+            // iOS safe area insets
+            ((Grid)Content).SetIOSSafeAreaInsets(this);
 
             // Tapped on weather and ocean forecasts
             TapGestureRecognizer frameTap = new TapGestureRecognizer();
@@ -64,7 +58,15 @@ namespace NorthShoreSurfApp
                     await Navigation.PushModalAsync(new SurfingConditionsFullscreenPage(SurfingConditionsViewModel.VideoUrl), false);
                 else if (sender == frameNextRide)
                 {
-                    // Show details about next ride
+                    if (AppValuesService.IsGuest())
+                    {
+                        var tabbedPage = ((RootTabbedPage)App.Current.MainPage);
+                        tabbedPage.SelectedItem = tabbedPage.Children.Where(x => ((Xamarin.Forms.NavigationPage)x).RootPage is WelcomePage).FirstOrDefault();
+                    }
+                    else
+                    {
+                        // Show details about next ride
+                    }
                 }
             };
             frameOpeningHours.GestureRecognizers.Add(frameTap);
@@ -72,7 +74,61 @@ namespace NorthShoreSurfApp
             frameWebcam.GestureRecognizers.Add(frameTap);
             frameNextRide.GestureRecognizers.Add(frameTap);
 
-            HomeViewModel.GetInformation();
+            // Get information for the page
+            GetInformation();
+        }
+
+        #endregion
+
+        /*****************************************************************/
+        // METHODS
+        /*****************************************************************/
+        #region Methods
+
+        /// <summary>
+        /// Get information for the home page from the data service
+        /// </summary>
+        public void GetInformation()
+        {
+            App.DataService.GetData(
+                NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
+                false,
+                async () =>
+                {
+                    // Todays opening hours
+                    var response = await App.DataService.GetTodaysOpeningHours();
+                    // Informatio about the next carpool ride
+                    var response2 = await App.DataService.GetNextCarpoolRide();
+                    return new Tuple<DataResponse<string>, DataResponse<CarpoolRide>>(response, response2);
+                },
+                async (response) =>
+                {
+                    if (response.Item1.Success)
+                    {
+                        // Set opening hours content
+                        HomeViewModel.OpeningHoursContent = response.Item1.Result;
+                    }
+                    else
+                    {
+                        // Show error
+                        await PopupNavigation.Instance.PushAsync(
+                            new CustomDialog(CustomDialogType.Message, response.Item1.ErrorMessage)
+                            );
+                    }
+
+                    if (response.Item1.Success)
+                    {
+                        // Set next carpool ride
+                        HomeViewModel.NextCarpoolRide = response.Item2.Result;
+                    }
+                    else
+                    {
+                        // Show error
+                        await PopupNavigation.Instance.PushAsync(
+                            new CustomDialog(CustomDialogType.Message, response.Item1.ErrorMessage)
+                            );
+                    }
+                });
         }
 
         #endregion

@@ -176,7 +176,6 @@ namespace NorthShoreSurfApp.Database
             {
                 using (var context = CreateContext())
                 {
-                    Thread.Sleep(5000);
                     // Get all cars
                     var cars = await context.Cars
                                         .Include(x => x.User)

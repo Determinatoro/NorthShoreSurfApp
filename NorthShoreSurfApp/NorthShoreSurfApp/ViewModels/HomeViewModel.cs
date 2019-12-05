@@ -26,7 +26,7 @@ namespace NorthShoreSurfApp.ViewModels
 
         public HomeViewModel()
         {
-            
+
         }
 
         #endregion
@@ -42,61 +42,6 @@ namespace NorthShoreSurfApp.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void GetInformation()
-        {
-            App.DataService.GetData(
-                NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                false,
-                async () =>
-                {
-                    var response = await App.DataService.GetTodaysOpeningHours();
-                    var response2 = await App.DataService.GetNextCarpoolRide();
-                    return new Tuple<DataResponse<string>, DataResponse<CarpoolRide>>(response, response2);
-                },
-                async (response) =>
-                {
-                    if (response.Item1.Success)
-                    {
-                        OpeningHoursContent = response.Item1.Result;
-                    }
-                    else
-                    {
-                        // Show error
-                        await PopupNavigation.Instance.PushAsync(
-                            new CustomDialog(CustomDialogType.Message, response.Item1.ErrorMessage)
-                            );
-                    }
-
-                    if (response.Item1.Success)
-                    {
-                        var nextCarpoolRide = response.Item2.Result;
-
-                        var nextCarpoolRideContent = NorthShoreSurfApp.Resources.AppResources.none;
-                        if (nextCarpoolRide != null)
-                        {
-                            var difference = (nextCarpoolRide.DepartureTime - DateTime.Now);
-                            if (difference.TotalDays >= 1)
-                                nextCarpoolRideContent = string.Format(NorthShoreSurfApp.Resources.AppResources.days, ((int)difference.TotalDays).ToString());
-                            else if (difference.TotalHours >= 1)
-                                nextCarpoolRideContent = string.Format(NorthShoreSurfApp.Resources.AppResources.hours, ((int)difference.TotalHours).ToString());
-                            else if (difference.TotalMinutes >= 1)
-                                nextCarpoolRideContent = string.Format(NorthShoreSurfApp.Resources.AppResources.minutes, ((int)difference.TotalMinutes).ToString());
-                            else
-                                nextCarpoolRideContent = string.Format(NorthShoreSurfApp.Resources.AppResources.seconds, ((int)difference.TotalSeconds).ToString());
-                        }
-
-                        NextRideInContent = nextCarpoolRideContent;
-                    }
-                    else
-                    {
-                        // Show error
-                        await PopupNavigation.Instance.PushAsync(
-                            new CustomDialog(CustomDialogType.Message, response.Item1.ErrorMessage)
-                            );
-                    }
-                });
-        }
-
         #endregion
 
         /*****************************************************************/
@@ -104,6 +49,36 @@ namespace NorthShoreSurfApp.ViewModels
         /*****************************************************************/
         #region Properties
 
+        private CarpoolRide nextCarpoolRide;
+        public CarpoolRide NextCarpoolRide
+        {
+            get => nextCarpoolRide; 
+            set
+            {
+                nextCarpoolRide = value;
+
+                // No next carpool ride
+                var nextCarpoolRideContent = NorthShoreSurfApp.Resources.AppResources.none;
+                if (nextCarpoolRide != null)
+                {
+                    var difference = (nextCarpoolRide.DepartureTime - DateTime.Now);
+                    // Days
+                    if (difference.TotalDays >= 1)
+                        nextCarpoolRideContent = string.Format(NorthShoreSurfApp.Resources.AppResources.days, ((int)difference.TotalDays).ToString());
+                    // Hours
+                    else if (difference.TotalHours >= 1)
+                        nextCarpoolRideContent = string.Format(NorthShoreSurfApp.Resources.AppResources.hours, ((int)difference.TotalHours).ToString());
+                    // Minutes
+                    else if (difference.TotalMinutes >= 1)
+                        nextCarpoolRideContent = string.Format(NorthShoreSurfApp.Resources.AppResources.minutes, ((int)difference.TotalMinutes).ToString());
+                    // Seconds
+                    else
+                        nextCarpoolRideContent = string.Format(NorthShoreSurfApp.Resources.AppResources.seconds, ((int)difference.TotalSeconds).ToString());
+                }
+
+                NextRideInContent = nextCarpoolRideContent;
+            }
+        }
         private string nextRideInContent;
         public string NextRideInContent
         {

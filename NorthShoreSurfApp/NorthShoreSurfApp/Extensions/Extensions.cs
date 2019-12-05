@@ -7,6 +7,8 @@ using System.Reflection;
 using System.Resources;
 using System.Text;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 using Xamarin.Forms.Xaml;
 
 namespace NorthShoreSurfApp
@@ -53,6 +55,19 @@ namespace NorthShoreSurfApp
                 case "": throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
                 default: return input.First().ToString().ToUpper() + input.Substring(1);
             }
+        }
+    }
+
+    public static class ViewExtensions
+    {
+        public static void SetIOSSafeAreaInsets(this View view, Xamarin.Forms.Page page)
+        {
+            // Use safe area on iOS
+            page.On<iOS>().SetUseSafeArea(true);
+            // Get safe area margins
+            var safeAreaInset = page.On<iOS>().SafeAreaInsets();
+            // Set safe area margins
+            view.Margin = safeAreaInset;
         }
     }
 }

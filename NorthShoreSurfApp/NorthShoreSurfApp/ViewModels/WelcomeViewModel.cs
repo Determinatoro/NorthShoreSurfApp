@@ -38,38 +38,7 @@ namespace NorthShoreSurfApp.ViewModels
 
         public WelcomeViewModel()
         {
-            // Open pages as modal if it is used in the tabbed page else as navigation page
-            Action<Page> openPage = async (page) =>
-            {
-                switch (welcomePageContentSite)
-                {
-                    case WelcomePageContentSite.Welcome:
-                        {
-                            await Page.Navigation.PushAsync(page);
-                            break;
-                        }
-                    case WelcomePageContentSite.UserNotLoggedIn:
-                        {
-                            await Page.Navigation.PushModalAsync(page);
-                            break;
-                        }
-                }
-            };
             
-            SignUpCommand = new Command(() =>
-            {
-                openPage(new SignUpUserPage(SignUpUserPageType.SignUp));
-            });
-            LogInCommand = new Command(() =>
-            {
-                openPage(new SignUpUserPage(SignUpUserPageType.Login));
-            });
-            ContinueAsGuestCommand = new Command(() =>
-            {
-                AppValuesService.SaveValue(LocalDataKeys.UserId, null);
-                AppValuesService.SaveValue(LocalDataKeys.IsGuest, bool.TrueString);
-                App.Current.MainPage = new RootTabbedPage();
-            });
         }
 
         #endregion

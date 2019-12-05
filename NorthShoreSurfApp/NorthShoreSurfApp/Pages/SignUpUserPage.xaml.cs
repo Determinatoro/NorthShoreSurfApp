@@ -39,7 +39,7 @@ namespace NorthShoreSurfApp
     #endregion
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SignUpUserPage : ContentPage
+    public partial class SignUpUserPage : ContentPage, IFirebaseServiceCallBack
     {
         /*****************************************************************/
         // ENUMS
@@ -54,8 +54,6 @@ namespace NorthShoreSurfApp
         #region Variables
 
         public SignUpUserViewModel SignUpUserViewModel { get => (SignUpUserViewModel)this.BindingContext; }
-
-        private SignUpUserPageContentSite CurrentContentSite { get; set; }
 
         #endregion
 
@@ -72,21 +70,12 @@ namespace NorthShoreSurfApp
             // Initialize the page
             InitializeComponent();
             // Use safe area on iOS
-            On<iOS>().SetUseSafeArea(true);
-            // Get root grid
-            Grid grid = (Grid)Content;
-            // Get safe area margins
-            var safeAreaInset = On<iOS>().SafeAreaInsets();
-            // Set safe area margins
-            grid.Margin = safeAreaInset;
-
-            // Set page type
-            SignUpUserViewModel.SetPageType(signUpUserPageType, existingUser);
+            ((Grid)Content).SetIOSSafeAreaInsets(this);
 
             // Back button click event
             navigationBar.BackButtonClicked += (sender, args) =>
             {
-                if (CurrentContentSite == SignUpUserPageContentSite.EnterSMSCode)
+                if (SignUpUserViewModel.CurrentContentSite == SignUpUserPageContentSite.EnterSMSCode)
                     SetCurrentContentSite(SignUpUserPageContentSite.EnterData);
                 else
                 {
@@ -105,8 +94,105 @@ namespace NorthShoreSurfApp
                 SignUpUserViewModel.GenderId = gender.Id;
             };
 
+            // Set page type
+            SignUpUserViewModel.SetPageType(signUpUserPageType, existingUser);
             // Set current content site
             SetCurrentContentSite(SignUpUserViewModel.PageType == SignUpUserPageType.EditInformation ? SignUpUserPageContentSite.EditInformation : SignUpUserPageContentSite.EnterData);
+            
+            if (SignUpUserViewModel.PageType == SignUpUserPageType.EditInformation)
+            {
+                // Event for when the phone no. changes on the edit information page
+                SignUpUserViewModel.PhoneNoChanged += (sender, args) =>
+                {
+                    SetCurrentContentSite(
+                           args.NewTextValue != SignUpUserViewModel.ExistingUser.PhoneNo ?
+                           SignUpUserPageContentSite.EnterData :
+                           SignUpUserPageContentSite.EditInformation);
+                };
+            }
+
+            // Next command
+            SignUpUserViewModel.NextCommand = new Command(async () =>
+            {
+                if (!SignUpUserViewModel.AllDataGiven)
+                {
+                    // Tell the user to fill out all fields on the page
+                    await PopupNavigation.Instance.PushAsync(
+                        new CustomDialog(
+                            CustomDialogType.Message,
+                            NorthShoreSurfApp.Resources.AppResources.please_fill_out_all_the_empty_fields
+                            )
+                        );
+
+                    return;
+                }
+
+                switch (SignUpUserViewModel.PageType)
+                {
+                    case SignUpUserPageType.SignUp:
+                        // Check if phone no. already exist
+                        App.DataService.GetData(
+                            NorthShoreSurfApp.Resources.AppResources.checking_phone_no_please_wait,
+                            true,
+                            () => App.DataService.CheckIfPhoneIsNotUsedAlready(SignUpUserViewModel.PhoneNo),
+                            async (response) =>
+                            {
+                                if (response.Success)
+                                {
+                                    await App.FirebaseService.VerifyPhoneNo(this, SignUpUserViewModel.PhoneNo);
+                                    SetCurrentContentSite(SignUpUserPageContentSite.EnterSMSCode);
+                                }
+                                else
+                                {
+                                    CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                                    await PopupNavigation.Instance.PushAsync(customDialog);
+                                }
+                            });
+                        break;
+                    case SignUpUserPageType.Login:
+                        // Check if phone no. already exist
+                        App.DataService.GetData(
+                            NorthShoreSurfApp.Resources.AppResources.checking_phone_no_please_wait,
+                            true,
+                            () => App.DataService.CheckLogin(SignUpUserViewModel.PhoneNo),
+                            async (response) =>
+                            {
+                                if (response.Success)
+                                {
+                                        // Save the user
+                                        SignUpUserViewModel.ExistingUser = response.Result;
+                                        // Make the user verify phone no.
+                                        await App.FirebaseService.VerifyPhoneNo(this, SignUpUserViewModel.PhoneNo);
+                                    SetCurrentContentSite(SignUpUserPageContentSite.EnterSMSCode);
+                                }
+                                else
+                                {
+                                    CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                                    await PopupNavigation.Instance.PushAsync(customDialog);
+                                }
+                            });
+
+                        break;
+                    case SignUpUserPageType.EditInformation:
+
+                        break;
+                }
+            });
+            // Approve command
+            SignUpUserViewModel.ApproveCommand = new Command(async () =>
+            {
+                var smsCode = SignUpUserViewModel.SMSCode;
+
+                if (smsCode != null && smsCode != string.Empty && smsCode.Length == 6)
+                {
+                    var verId = App.LocalDataService.GetValue(nameof(LocalDataKeys.FirebaseAuthVerificationId));
+                    await App.FirebaseService.SignIn(this, verId, smsCode);
+                }
+                else
+                {
+                    await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, NorthShoreSurfApp.Resources.AppResources.please_enter_sms_code));
+                }
+            });
         }
 
         #endregion
@@ -127,6 +213,75 @@ namespace NorthShoreSurfApp
         #endregion
 
         /*****************************************************************/
+        // INTERFACE METHODS
+        /*****************************************************************/
+        #region Interface methods
+
+        // OnVerificationFailed
+        public async void OnVerificationFailed(string errorMessage)
+        {
+            await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, errorMessage));
+        }
+        // OnCodeSent
+        public void OnCodeSent(string verificationId)
+        {
+
+        }
+        // OnCodeAutoRetrievalTimeout
+        public void OnCodeAutoRetrievalTimeout(string verificationId)
+        {
+
+        }
+        // SignedIn
+        public async void SignedIn()
+        {
+            switch (SignUpUserViewModel.PageType)
+            {
+                case SignUpUserPageType.SignUp:
+                    {
+                        App.DataService.GetData(
+                        NorthShoreSurfApp.Resources.AppResources.creating_account_please_wait,
+                        true,
+                        () => App.DataService.SignUpUser(SignUpUserViewModel.FirstName, SignUpUserViewModel.LastName, SignUpUserViewModel.PhoneNo, SignUpUserViewModel.AgeValue, SignUpUserViewModel.GenderId),
+                        async (response) =>
+                        {
+                            if (response.Success)
+                            {
+                                // Get newly created user
+                                User user = response.Result;
+                                // Save user id
+                                AppValuesService.SaveValue(LocalDataKeys.UserId, user.Id.ToString());
+                                // Go to home page
+                                App.Current.MainPage = new RootTabbedPage();
+                            }
+                            else
+                            {
+                                // Show error
+                                CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                                await PopupNavigation.Instance.PushAsync(customDialog);
+                            }
+                        });
+
+                        break;
+                    }
+                case SignUpUserPageType.Login:
+                    {
+                        // Go to home page
+                        App.Current.MainPage = new RootTabbedPage();
+                        break;
+                    }
+                case SignUpUserPageType.EditInformation:
+                    {
+                        // Pop this page
+                        await Navigation.PopAsync();
+                        break;
+                    }
+            }
+        }
+
+        #endregion
+
+        /*****************************************************************/
         // METHODS
         /*****************************************************************/
         #region Methods
@@ -134,11 +289,10 @@ namespace NorthShoreSurfApp
         /// <summary>
         /// Set current content site in the page
         /// </summary>
-        /// <param name="contentSite">The wanted content site</param>
-        /// <param name="animate">Animate the change</param>
+        /// <param name="contentSite">The wanted content site</param>        
         public void SetCurrentContentSite(SignUpUserPageContentSite contentSite)
         {
-            CurrentContentSite = contentSite;
+            SignUpUserViewModel.CurrentContentSite = contentSite;
 
             gridEnterData.IsVisible = false;
             gridEnterSMSCode.IsVisible = false;
@@ -155,7 +309,7 @@ namespace NorthShoreSurfApp
                     break;
             }
 
-            switch (CurrentContentSite)
+            switch (SignUpUserViewModel.CurrentContentSite)
             {
                 case SignUpUserPageContentSite.EnterData:
                 case SignUpUserPageContentSite.EditInformation:
@@ -166,7 +320,7 @@ namespace NorthShoreSurfApp
                     break;
             }
 
-            switch (CurrentContentSite)
+            switch (SignUpUserViewModel.CurrentContentSite)
             {
                 case SignUpUserPageContentSite.EditInformation:
                     btnNext.Icon = ImageSource.FromFile("ic_check.png");
