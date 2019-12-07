@@ -1,5 +1,6 @@
 ﻿using NorthShoreSurfApp.Database;
 using NorthShoreSurfApp.ModelComponents;
+using NorthShoreSurfApp.Services;
 using NorthShoreSurfApp.ViewModels;
 using Plugin.DeviceOrientation;
 using Rg.Plugins.Popup.Services;
@@ -73,9 +74,6 @@ namespace NorthShoreSurfApp
             frameContactUs.GestureRecognizers.Add(frameTap);
             frameWebcam.GestureRecognizers.Add(frameTap);
             frameNextRide.GestureRecognizers.Add(frameTap);
-
-            // Get information for the page
-            GetInformation();
         }
 
         #endregion
@@ -101,34 +99,22 @@ namespace NorthShoreSurfApp
                     var response2 = await App.DataService.GetNextCarpoolRide();
                     return new Tuple<DataResponse<string>, DataResponse<CarpoolRide>>(response, response2);
                 },
-                async (response) =>
+                (response) =>
                 {
+                    // Set opening hours content
                     if (response.Item1.Success)
-                    {
-                        // Set opening hours content
                         HomeViewModel.OpeningHoursContent = response.Item1.Result;
-                    }
+                    // Show error
                     else
-                    {
-                        // Show error
-                        await PopupNavigation.Instance.PushAsync(
-                            new CustomDialog(CustomDialogType.Message, response.Item1.ErrorMessage)
-                            );
-                    }
+                        this.ShowMessage(response.Item1.ErrorMessage);
 
-                    if (response.Item1.Success)
-                    {
-                        // Set next carpool ride
+                    // Set next carpool ride
+                    if (response.Item2.Success)
                         HomeViewModel.NextCarpoolRide = response.Item2.Result;
-                    }
+                    // Show error
                     else
-                    {
-                        // Show error
-                        await PopupNavigation.Instance.PushAsync(
-                            new CustomDialog(CustomDialogType.Message, response.Item1.ErrorMessage)
-                            );
-                    }
-                });
+                        this.ShowMessage(response.Item2.ErrorMessage);
+                }, 1000);
         }
 
         #endregion
@@ -150,6 +136,11 @@ namespace NorthShoreSurfApp
                 // Show status bar on android
                 App.ScreenService.ShowStatusBar();
             }
+
+            this.DelayedTask(500, () =>
+            {
+                GetInformation();
+            });
         }
 
         #endregion

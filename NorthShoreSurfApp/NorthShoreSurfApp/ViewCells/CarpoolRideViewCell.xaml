@@ -153,7 +153,7 @@
                            Grid.Column="1"
                            HeightRequest="90"
                            HorizontalOptions="Fill"
-                           VerticalOptions="Center"
+                           VerticalOptions="Fill"
                            Aspect="AspectFit"
                            Grid.RowSpan="5"
                            />

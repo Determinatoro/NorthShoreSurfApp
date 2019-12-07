@@ -32,10 +32,15 @@ namespace NorthShoreSurfApp.iOS
             // VLC library
             LibVLCSharpFormsRenderer.Init();
 
+            // Initialize xamarin
             global::Xamarin.Forms.Forms.Init();
-
+            // Create instance of firebase service
+            App.FirebaseService = new IOSFirebaseService();
+            // Set tint color for navigation bar
             UINavigationBar.Appearance.TintColor = UIColor.White;
+            // Initialize forms 9 patch
             Forms9Patch.iOS.Settings.Initialize(this);
+            // Initialize cached image library
             CachedImageRenderer.InitImageSourceHandler();
             LoadApplication(new App());
             // Configure firebase

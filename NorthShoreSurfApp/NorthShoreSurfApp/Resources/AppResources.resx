@@ -123,6 +123,12 @@
   <data name="approve" xml:space="preserve">
     <value>Approve</value>
   </data>
+  <data name="are_you_sure_you_want_to_delete_your_account" xml:space="preserve">
+    <value>Are you sure you want to delete your account?</value>
+  </data>
+  <data name="are_you_sure_you_want_to_log_out" xml:space="preserve">
+    <value>Are you sure you want to log out?</value>
+  </data>
   <data name="back" xml:space="preserve">
     <value>Back</value>
   </data>
@@ -193,6 +199,13 @@ Please wait...</value>
   <data name="days" xml:space="preserve">
     <value>{0} day(s)</value>
   </data>
+  <data name="delete_account" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
+  <data name="deleting_account_please_wait" xml:space="preserve">
+    <value>Deleting account.
+Please wait...</value>
+  </data>
   <data name="edit_information" xml:space="preserve">
     <value>Edit information</value>
   </data>
@@ -204,6 +217,9 @@ Please wait...</value>
   </data>
   <data name="first_name" xml:space="preserve">
     <value>First name</value>
+  </data>
+  <data name="full_name" xml:space="preserve">
+    <value>Full name</value>
   </data>
   <data name="gender" xml:space="preserve">
     <value>Gender</value>
@@ -230,6 +246,9 @@ Please wait...</value>
   <data name="log_in" xml:space="preserve">
     <value>Log in</value>
   </data>
+  <data name="log_out" xml:space="preserve">
+    <value>Log out</value>
+  </data>
   <data name="male" xml:space="preserve">
     <value>Male</value>
   </data>
@@ -244,6 +263,9 @@ Please wait...</value>
   </data>
   <data name="next_ride_to_lokken_in" xml:space="preserve">
     <value>Next ride to Løkken in</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>No</value>
   </data>
   <data name="none" xml:space="preserve">
     <value>None</value>
@@ -322,6 +344,9 @@ The weather is essential for operation of business which unfortunately can cause
   <data name="what_are_good_surfing_conditions_description" xml:space="preserve">
     <value>Good surfing conditions are present when the wave and swell size are close to each other.
 Surfing is possible at all temperatures, but it is important to dress according to the weather.</value>
+  </data>
+  <data name="yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
   <data name="you_need_to_log_in_to_use_the_carpool_feature" xml:space="preserve">
     <value>You need to log in to use the carpool feature.</value>

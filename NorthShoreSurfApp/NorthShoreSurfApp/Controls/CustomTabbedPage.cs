@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NorthShoreSurfApp.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace NorthShoreSurfApp
         protected override void OnAppearing()
         {
             base.OnAppearing();
+            
             SetIcons();
         }
 
@@ -18,6 +20,14 @@ namespace NorthShoreSurfApp
         {
             base.OnCurrentPageChanged();
             SetIcons();
+
+            var navigationPage = CurrentPage as NavigationPage;
+            if (navigationPage != null)
+            {
+                var rootPage = ((NavigationPage)CurrentPage).RootPage as ITabbedPageService;
+                if (rootPage != null)
+                    rootPage.OnPageSelected();
+            }
         }
 
         private void SetIcons()

@@ -82,27 +82,16 @@
     <BundleResource Include="Resources\request_icon_b.png" />
     <BundleResource Include="Resources\request_icon_w.png" />
     <BundleResource Include="Resources\Mail.png" />
-    <BundleResource Include="Resources\location.png" />
-    <BundleResource Include="Resources\destination.png" />
-    <BundleResource Include="Resources\destination2.png" />
     <BundleResource Include="Resources\ic_seat_red.png" />
-    <BundleResource Include="Resources\Delete icon.png" />
-    <BundleResource Include="Resources\Seat.png" />
-    <BundleResource Include="Resources\Seat empty.png" />
     <BundleResource Include="Resources\Car h.png" />
     <BundleResource Include="Resources\Request icon b.png" />
     <BundleResource Include="Resources\Request icon w.png" />
     <BundleResource Include="Resources\Car s - Kopi.png" />
     <BundleResource Include="Resources\Car - Kopi.png" />
-    <BundleResource Include="Resources\Seat full.png" />
     <BundleResource Include="Resources\Car.png" />
     <BundleResource Include="Resources\Car s.png" />
-    <BundleResource Include="Resources\edit.png" />
     <BundleResource Include="Resources\NSS logo.png" />
-    <BundleResource Include="Resources\Logout icon.png" />
-    <BundleResource Include="Resources\Ic_destination_lines.png" />
     <BundleResource Include="Resources\Plus_icon.png" />
-    <BundleResource Include="Resources\ic_destination_line.png" />
     <BundleResource Include="Resources\ic_location_destination.png" />
   </ItemGroup>
   <ItemGroup>
@@ -326,10 +315,16 @@
     <BundleResource Include="Resources\nss_pic.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_log_out.png" />
+    <AndroidResource Include="Resources\ic_log_out.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_delete.png" />
+    <AndroidResource Include="Resources\ic_delete.png">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_check.png" />
@@ -342,5 +337,10 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_forward.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_edit.png">
+      <SubType>Designer</SubType>
+    </BundleResource>
   </ItemGroup>
 </Project>

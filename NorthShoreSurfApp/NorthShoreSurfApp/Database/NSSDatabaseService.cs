@@ -33,7 +33,7 @@ namespace NorthShoreSurfApp.Database
             }
         }
 
-        public void GetData<T1>(string progressMessage, bool showDialog, Func<Task<T1>> task, Action<T1> resultCallback)
+        public void GetData<T1>(string progressMessage, bool showDialog, Func<Task<T1>> task, Action<T1> resultCallback, int showDialogDelay = 500)
         {
             // Create dialog
             CustomDialog customDialog = new CustomDialog(CustomDialogType.Progress, progressMessage);
@@ -60,11 +60,11 @@ namespace NorthShoreSurfApp.Database
                             PopupNavigation.Instance.PushAsync(customDialog, true);
                         });
                     },
-                    null,
-                    // Wait time before timer runs
-                    500,
-                    // No interval
-                    Timeout.Infinite);
+                        null,
+                        // Wait time before timer runs
+                        showDialogDelay,
+                        // No interval
+                        Timeout.Infinite);
                 }
 
                 try
@@ -94,13 +94,14 @@ namespace NorthShoreSurfApp.Database
                     timer.Dispose();
                 }
 
-                // Run on UI thread
-                Device.BeginInvokeOnMainThread(async () =>
+                if (PopupNavigation.Instance.PopupStack.Contains(customDialog))
                 {
-                    // Close dialog
-                    if (PopupNavigation.Instance.PopupStack.Contains(customDialog))
+                    // Run on UI thread
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
                         await PopupNavigation.Instance.RemovePageAsync(customDialog);
-                });
+                    });
+                }
             }, cancellationToken.Token);
         }
         public async Task<DataResponse<List<CarpoolConfirmation>>> GetCarpoolConfirmations()
@@ -413,17 +414,19 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse<User>(1, mes.Message);
             }
         }
-        public async Task<DataResponse> DeleteUser(string phoneNo)
+        public async Task<DataResponse> DeleteUser(int userId)
         {
             try
             {
                 using (var context = CreateContext())
                 {
                     // Get user from phone no.
-                    User user = await context.Users.FirstOrDefaultAsync(x => x.PhoneNo == phoneNo);
-                    // User not found
-                    if (user == null)
-                        return new DataResponse<User>(100, Resources.AppResources.user_not_found);
+                    var response = await CheckUser(userId);
+                    // Check for error
+                    if (!response.Success)
+                        return new DataResponse(response.ErrorCode, response.ErrorMessage);
+                    // Get user
+                    User user = response.Result;
                     // Set user to inactive
                     user.IsActive = false;
                     // Save changes

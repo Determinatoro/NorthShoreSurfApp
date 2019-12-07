@@ -62,8 +62,8 @@
                 <ScrollView Margin="0"
                             Padding="0">
 
-                    <Frame Padding="20"
-                           Margin="20"
+                    <Frame Padding="10"
+                           Margin="10"
                            CornerRadius="10"
                            BackgroundColor="{StaticResource NSSBlue}"
                            HasShadow="False">
@@ -77,7 +77,6 @@
                                                  TitleColor="White" 
                                                  TitleSize="18" 
                                                  CornerRadius="10" 
-                                                 Margin="0, 5, 0, 0"
                                                  IsVisible="{Binding ShowLoginPage, Converter={StaticResource inverter}}"
                                                  Text="{Binding FirstName, Mode=TwoWay}" 
                                                  TextColor="Black" 
@@ -141,7 +140,7 @@
                 <!--Navigation button-->
                 <local:CustomImageTextButton x:Name="btnNext"
                                              Grid.Row="1" 
-                                             Margin="20, 0, 20, 20" 
+                                             Margin="10, 0, 10, 10" 
                                              HeightRequest="60" 
                                              Background="{StaticResource NSSBlue}" 
                                              BackgroundPressed="{StaticResource NSSBluePressed}" 
@@ -173,8 +172,8 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Frame Padding="20"
-                       Margin="20"
+                <Frame Padding="10"
+                       Margin="10"
                        CornerRadius="10"
                        BackgroundColor="{StaticResource NSSBlue}">
 
@@ -182,7 +181,7 @@
                     <ScrollView Margin="0"
                             Padding="0">
 
-                        <StackLayout Margin="20"
+                        <StackLayout Margin="10"
                                  VerticalOptions="Start"
                                  HorizontalOptions="Fill">
                             <!--Header-->
@@ -209,7 +208,7 @@
                 <!--Navigation button-->
                 <local:CustomImageTextButton x:Name="btnApprove"
                                              Grid.Row="1" 
-                                             Margin="20, 0, 20, 20" 
+                                             Margin="10, 0, 10, 10" 
                                              HeightRequest="60" 
                                              Background="{StaticResource NSSBlue}" 
                                              CornerRadius="10" 

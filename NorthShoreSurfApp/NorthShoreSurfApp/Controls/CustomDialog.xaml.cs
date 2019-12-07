@@ -19,7 +19,8 @@ namespace NorthShoreSurfApp
     public enum CustomDialogType
     {
         Progress,
-        Message
+        Message,
+        YesNo
     }
 
     #endregion
@@ -34,8 +35,23 @@ namespace NorthShoreSurfApp
     {
         protected override void Invoke(Button button)
         {
+            string classId = button.ClassId;
             var parent = button.FindParentWithType<Grid>();
-            var frame = parent.FindByName<Frame>("frameCancel");
+            Frame frame = null;
+
+            switch (classId)
+            {
+                case "Yes":
+                    frame = parent.FindByName<Frame>("frameYes");
+                    break;
+                case "No":
+                    frame = parent.FindByName<Frame>("frameNo");
+                    break;
+                case "Cancel":
+                    frame = parent.FindByName<Frame>("frameCancel");
+                    break;
+            }
+
             frame.BackgroundColor = (Color)App.Current.Resources["NSSBluePressed"];
         }
     }
@@ -45,8 +61,23 @@ namespace NorthShoreSurfApp
     {
         protected override void Invoke(Button button)
         {
+            string classId = button.ClassId;
             var parent = button.FindParentWithType<Grid>();
-            var frame = parent.FindByName<Frame>("frameCancel");
+            Frame frame = null;
+
+            switch (classId)
+            {
+                case "Yes":
+                    frame = parent.FindByName<Frame>("frameYes");
+                    break;
+                case "No":
+                    frame = parent.FindByName<Frame>("frameNo");
+                    break;
+                case "Cancel":
+                    frame = parent.FindByName<Frame>("frameCancel");
+                    break;
+            }
+
             frame.BackgroundColor = (Color)App.Current.Resources["NSSBlue"];
         }
     }
@@ -66,6 +97,13 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty CancelTitleProperty = BindableProperty.Create(nameof(CancelTitle), typeof(string), typeof(CustomDialog), null);
 
         public event EventHandler<EventArgs> Canceled;
+        public event EventHandler<EventArgs> Accepted;
+        public event EventHandler<EventArgs> Denied;
+
+        private CustomDialogType customDialogType;
+        private ICommand cancelCommand;
+        private ICommand yesCommand;
+        private ICommand noCommand;
 
         #endregion
 
@@ -76,14 +114,15 @@ namespace NorthShoreSurfApp
 
         public CustomDialog(CustomDialogType customDialogType, string message) : this()
         {
-            this.Message = message;
-            this.CustomDialogType = customDialogType;
+            Message = message;
+            CustomDialogType = customDialogType;
 
             switch (CustomDialogType)
             {
                 case CustomDialogType.Progress:
                     break;
                 case CustomDialogType.Message:
+                case CustomDialogType.YesNo:
                     activityIndicator.IsVisible = false;
                     MessagePadding = new Thickness(0, 10, 0, 10);
                     break;
@@ -105,12 +144,24 @@ namespace NorthShoreSurfApp
             foreach (var view in views)
                 view.GestureRecognizers.Add(tgr);
 
-            // Cancel button pressed
-            button.Clicked += async (sender, args) =>
+            // Cancel button command
+            CancelCommand = new Command(async () =>
             {
                 await PopupNavigation.Instance.PopAsync();
                 Canceled?.Invoke(this, new EventArgs());
-            };
+            });
+            // Yes button command
+            YesCommand = new Command(async () =>
+            {
+                await PopupNavigation.Instance.PopAsync();
+                Accepted?.Invoke(this, new EventArgs());
+            });
+            // No button command
+            NoCommand = new Command(async () =>
+            {
+                await PopupNavigation.Instance.PopAsync();
+                Denied?.Invoke(this, new EventArgs());
+            });
         }
 
         #endregion
@@ -120,8 +171,62 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Properties
 
-        public CustomDialogType CustomDialogType { get; set; }
+        public CustomDialogType CustomDialogType
+        {
+            get => customDialogType; 
+            set
+            {
+                customDialogType = value;
+                OnPropertyChanged(nameof(CustomDialogType));
+                OnPropertyChanged(nameof(ShowYesNoDialog));
+                OnPropertyChanged(nameof(ShowCancelButton));
+            }
+        }
+        public ICommand CancelCommand
+        {
+            get => cancelCommand;
+            private set
+            {
+                cancelCommand = value;
+                OnPropertyChanged(nameof(CancelCommand));
+            }
+        }
+        public ICommand YesCommand
+        {
+            get => yesCommand;
+            private set
+            {
+                yesCommand = value;
+                OnPropertyChanged(nameof(YesCommand));
+            }
+        }
+        public ICommand NoCommand
+        {
+            get => noCommand;
+            private set
+            {
+                noCommand = value;
+                OnPropertyChanged(nameof(NoCommand));
+            }
+        }
+        public bool ShowYesNoDialog
+        {
+            get => customDialogType == CustomDialogType.YesNo;
+        }
+        public bool ShowCancelButton
+        {
+            get
+            {
+                switch (customDialogType)
+                {
+                    case CustomDialogType.Message:
+                    case CustomDialogType.Progress:
+                        return true;
+                }
 
+                return false;
+            }
+        }
         public string Message
         {
             get { return (string)GetValue(MessageProperty); }
@@ -137,8 +242,6 @@ namespace NorthShoreSurfApp
             get { return (string)GetValue(CancelTitleProperty); }
             set { SetValue(CancelTitleProperty, value); }
         }
-
-      
 
         #endregion
     }

@@ -17,6 +17,12 @@ namespace NorthShoreSurfApp
             App.LocalDataService.SaveValue(key, value);
         }
 
+        public static void LogOut()
+        {
+            // Remove user id from local data
+            SaveValue(LocalDataKeys.UserId, null);
+        }
+
         /// <summary>
         /// Get ID for the user that is logged in
         /// </summary>

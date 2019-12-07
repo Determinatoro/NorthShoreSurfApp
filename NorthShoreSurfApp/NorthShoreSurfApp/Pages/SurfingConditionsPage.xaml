@@ -33,6 +33,7 @@
                                        ButtonOneImage="ic_refresh.png"
                                        />
 
+            <!--Content grid-->
             <Grid RowSpacing="0"
                   Margin="0"
                   Padding="0"
@@ -44,7 +45,7 @@
 
                 <!--ScrollView-->
                 <ScrollView>
-                    <StackLayout Padding="20" 
+                    <StackLayout Padding="10" 
                                  VerticalOptions="Start"
                                  Spacing="0"
                                  >
@@ -64,13 +65,14 @@
                                                      Title="{local:Translate see_webcam}"
                                                      />
 
+                        <!--Weather conditions frame-->
                         <Frame Margin="0, 5, 0, 0"
                                Padding="0"  
                                HasShadow="False"
                                CornerRadius="10"
                                BackgroundColor="{StaticResource NSSBlue}"
                                >
-
+                            <!--Weather conditions grid-->
                             <Grid x:Name="gridWeatherInfo"
                                   Margin="0"
                                   Padding="0"
@@ -81,6 +83,7 @@
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
 
+                                <!--Weather conditions header-->
                                 <Label Text="{local:Translate weather_conditions}"
                                        VerticalTextAlignment="Center"
                                        HorizontalTextAlignment="Start"
@@ -88,7 +91,7 @@
                                        FontSize="20"
                                        TextColor="{StaticResource NSSOrange}"
                                        />
-
+                                <!--Weather conditions webview-->
                                 <local:CustomWebView x:Name="wvWeatherInfo"
                                                      Margin="10, 0, 10, 10"
                                                      Grid.Row="1"
@@ -96,24 +99,23 @@
                                                      HeightRequest="10"
                                                      Source="{Binding WeatherInfoUrl}"
                                                      />
-
+                                <!--Weather conditions clickable grid-->
                                 <Grid Grid.Row="1"
                                       BackgroundColor="Transparent"
                                       HeightRequest="{Binding Height, Source={x:Reference wvWeatherInfo}}"
                                       HorizontalOptions="Fill"
                                       />
-
                             </Grid>
-
                         </Frame>
 
+                        <!--Ocean conditions frame-->
                         <Frame Margin="0, 5, 0, 0"
                                Padding="0"
                                HasShadow="False"
                                CornerRadius="10"
                                BackgroundColor="{StaticResource NSSBlue}"
                                >
-
+                            <!--Ocean conditions grid-->
                             <Grid x:Name="gridOceanInfo"
                                   Margin="0"
                                   Padding="0"
@@ -123,7 +125,7 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
                                 </Grid.RowDefinitions>
-
+                                <!--Ocean conditions header-->
                                 <Label Text="{local:Translate ocean_conditions}"
                                        VerticalTextAlignment="Center"
                                        HorizontalTextAlignment="Start"
@@ -131,35 +133,34 @@
                                        FontSize="20"
                                        TextColor="{StaticResource NSSOrange}"
                                        />
-
+                                <!--Ocean conditions webview-->
                                 <local:CustomWebView x:Name="wvOceanInfo"
                                                      Margin="10, 0, 10, 10"
                                                      Grid.Row="1"
                                                      HeightRequest="10"
                                                      Source="{Binding OceanInfoUrl}"
                                                      />
-
+                                <!-- Ocean conditions clickable grid-->
                                 <Grid Grid.Row="1"
                                       BackgroundColor="Transparent"
                                       HeightRequest="{Binding Height, Source={x:Reference wvOceanInfo}}"
                                       HorizontalOptions="Fill"
                                       />
-
                             </Grid>
-
                         </Frame>
 
+                        <!--Surfing conditions frame-->
                         <Frame Margin="0, 5, 0, 0"
                                Padding="0"
                                HasShadow="False"
                                CornerRadius="10"
                                BackgroundColor="{StaticResource NSSBlue}"
                                >
-
+                            <!--Surfing conditions layout-->
                             <StackLayout Spacing="0"
                                          Padding="0"
                                          Margin="0">
-
+                                <!--Surfing conditions header-->
                                 <Label Text="{local:Translate what_are_good_surfing_conditions}"
                                        HorizontalOptions="FillAndExpand"
                                        LineBreakMode="WordWrap"
@@ -167,22 +168,16 @@
                                        FontSize="20"
                                        TextColor="{StaticResource NSSOrange}"
                                        />
-
-                                <Label 
-                                    x:Name="lblDescription"
-                                    Text="{local:Translate what_are_good_surfing_conditions_description}"
-                                    Padding="10, 0, 10, 10"
-                                    Grid.Row="1"
-                                    FontSize="16"
-                                    TextColor="White"
-                                    />
-
+                                <!--Surfing conditions description-->
+                                <Label x:Name="lblDescription"
+                                       Text="{local:Translate what_are_good_surfing_conditions_description}"
+                                       Padding="10, 0, 10, 10"
+                                       Grid.Row="1"
+                                       FontSize="16"
+                                       TextColor="White"
+                                       />
                             </StackLayout>
                         </Frame>
-
-                        <Grid BindableLayout.ItemTemplate="{Binding CarpoolRideItemTemplate}"
-                              BindableLayout.ItemsSource="{Binding CarpoolRides}"
-                              />
 
                     </StackLayout>
                 </ScrollView>

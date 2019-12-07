@@ -14,6 +14,7 @@ using NorthShoreSurfApp.ModelComponents;
 using System.Collections.ObjectModel;
 using FFImageLoading.Forms;
 using NorthShoreSurfApp.ViewModels;
+using Plugin.DeviceOrientation;
 
 namespace NorthShoreSurfApp
 {
@@ -79,11 +80,18 @@ namespace NorthShoreSurfApp
         {
             base.OnAppearing();
 
-            //var tabbedPage = this.FindParentWithType<RootTabbedPage>();
-            //if (tabbedPage.SelectedItem == Parent)
-            //{
-            GetCarpoolRides();
-            //}
+            if (Navigation.ModalStack.Count == 0)
+            {
+                // Orientation
+                CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
+                // Show status bar on android
+                App.ScreenService.ShowStatusBar();
+            }
+
+            this.DelayedTask(500, () =>
+            {
+                GetCarpoolRides();
+            });
         }
 
         #endregion

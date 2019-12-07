@@ -77,15 +77,23 @@ namespace NorthShoreSurfApp.Droid
             DeviceOrientationImplementation.NotifyOrientationChange(newConfig.Orientation);
         }
 
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            Console.WriteLine("OnResume");
+        }
+
+        // OnBackPressed
         public override void OnBackPressed()
         {
             if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
             {
-                // Pages are in the popup stack
+                // Do something if there are some pages in the `PopupStack`
             }
             else
             {
-                //base.OnBackPressed();
+                // Do something if there are not any pages in the `PopupStack`
             }
         }
 

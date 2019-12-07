@@ -46,7 +46,7 @@ namespace NorthShoreSurfApp.Droid.Services
         /// <param name="callBack">Callback for PCL</param>
         /// <param name="phoneNo">Phone no. to verify</param>
         /// <returns></returns>
-        public Task<FirebaseResponse> VerifyPhoneNo(IFirebaseServiceCallBack callBack, string phoneNo)
+        public FirebaseResponse VerifyPhoneNo(IFirebaseServiceCallBack callBack, string phoneNo)
         {
             this.FirebaseServiceCallBack = callBack;
 
@@ -63,12 +63,12 @@ namespace NorthShoreSurfApp.Droid.Services
                     this
                     );
                 // Return response
-                return new Task<FirebaseResponse>(() => new FirebaseResponse(true));
+                return new FirebaseResponse(true);
             }
             catch (Exception mes)
             {
                 // Return exception
-                return new Task<FirebaseResponse>(() => new FirebaseResponse(mes.Message));
+                return new FirebaseResponse(mes.Message);
             }
         }
 
@@ -78,7 +78,7 @@ namespace NorthShoreSurfApp.Droid.Services
         /// <param name="callBack">Callback for PCL</param>
         /// <param name="verificationId">Verification ID used in the credential object</param>
         /// <param name="code">SMS code used in the credential object</param>
-        public Task<FirebaseResponse> SignIn(IFirebaseServiceCallBack callBack, string verificationId, string code)
+        public FirebaseResponse SignIn(IFirebaseServiceCallBack callBack, string verificationId, string code)
         {
             try
             {
@@ -87,12 +87,12 @@ namespace NorthShoreSurfApp.Droid.Services
                 // Create credential object
                 SignIn(PhoneAuthProvider.GetCredential(verificationId, code));
                 // Return response
-                return new Task<FirebaseResponse>(() => new FirebaseResponse(true));
+                return new FirebaseResponse(true);
             }
             catch (Exception mes)
             {
                 // Return exception
-                return new Task<FirebaseResponse>(() => new FirebaseResponse(mes.Message));
+                return new FirebaseResponse(mes.Message);
             }
         }
 
@@ -112,21 +112,19 @@ namespace NorthShoreSurfApp.Droid.Services
         /// </summary>
         /// <param name="callBack">Firebase callback</param>
         /// <returns>Firebase response</returns>
-        public Task<FirebaseResponse> SignOut(IFirebaseServiceCallBack callBack)
+        public FirebaseResponse SignOut()
         {
             try
             {
-                // Set callback
-                FirebaseServiceCallBack = callBack;
                 // Sign out
                 FirebaseAuth.Instance.SignOut();
                 // Return response
-                return new Task<FirebaseResponse>(() => new FirebaseResponse(true));
+                return new FirebaseResponse(true);
             }
             catch (Exception mes)
             {
                 // Return exception
-                return new Task<FirebaseResponse>(() => new FirebaseResponse(mes.Message));
+                return new FirebaseResponse(mes.Message);
             }
         }
 
@@ -158,7 +156,7 @@ namespace NorthShoreSurfApp.Droid.Services
 
             if (WhiteListedPhoneNo != null)
             {
-                var response = SignIn(FirebaseServiceCallBack, p0, WhiteListedPhoneNo.Code).Result;
+                var response = SignIn(FirebaseServiceCallBack, p0, WhiteListedPhoneNo.Code);
                 if (!response.Success)
                     FirebaseServiceCallBack?.OnVerificationFailed(response.ErrorMessage);
             }

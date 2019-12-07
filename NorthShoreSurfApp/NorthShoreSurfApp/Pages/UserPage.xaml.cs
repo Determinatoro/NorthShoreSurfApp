@@ -1,4 +1,5 @@
 ﻿using NorthShoreSurfApp.ModelComponents;
+using NorthShoreSurfApp.Services;
 using NorthShoreSurfApp.ViewCells;
 using NorthShoreSurfApp.ViewModels;
 using Rg.Plugins.Popup.Pages;
@@ -20,7 +21,14 @@ namespace NorthShoreSurfApp
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UserPage : ContentPage
     {
+        /*****************************************************************/
+        // VARIABLES
+        /*****************************************************************/
+        #region Variables
+
         public UserViewModel UserViewModel { get => (UserViewModel)this.BindingContext; }
+
+        #endregion
 
         /*****************************************************************/
         // CONSTRUCTOR
@@ -28,15 +36,80 @@ namespace NorthShoreSurfApp
         #region Constructor
         public UserPage()
         {
+            // Hide default navigation bar
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
             Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
+            // Use iOS safe area insets
+            ((Grid)Content).SetIOSSafeAreaInsets(this);
 
-            // Click events
-            btnEdit.Clicked += Button_Clicked;
-            btnLogOut.Clicked += Button_Clicked;
-            btnDelAcc.Clicked += Button_Clicked;
+            // Edit command
+            UserViewModel.EditCommand = new Command(async () =>
+            {
+                // Show user edit information page
+                await Navigation.PushModalAsync(new SignUpUserPage(SignUpUserPageType.EditInformation, UserViewModel.ExistingUser));
+            });
+            // Delete account command
+            UserViewModel.DeleteAccountCommand = new Command(() =>
+            {
+                this.ShowYesNo(NorthShoreSurfApp.Resources.AppResources.are_you_sure_you_want_to_delete_your_account, () =>
+                {
+                    // Get user data from database
+                    App.DataService.GetData(
+                            NorthShoreSurfApp.Resources.AppResources.deleting_account_please_wait,
+                            false, () => App.DataService.DeleteUser(AppValuesService.GetUserId().Value),
+                            (response) =>
+                            {
+                            // Check response
+                            if (response.Success)
+                                {
+                                // Log out
+                                LogOut();
+                                }
+                                else
+                                {
+                                //Show error
+                                this.ShowMessage(response.ErrorMessage);
+                                }
+                            });
+                });
+            });
+            // Log out command
+            UserViewModel.LogOutCommand = new Command(() =>
+            {
+                this.ShowYesNo(NorthShoreSurfApp.Resources.AppResources.are_you_sure_you_want_to_log_out, () =>
+                {
+                    // Log out
+                    LogOut();
+                });
+            });
         }
+        #endregion
+
+        /*****************************************************************/
+        // METHODS
+        /*****************************************************************/
+        #region Methods
+
+        /// <summary>
+        /// Log out in the app
+        /// </summary>
+        private void LogOut()
+        {
+            // Log out of app
+            AppValuesService.LogOut();
+            // Sign out of Firebase
+            FirebaseResponse firebaseResponse = App.FirebaseService.SignOut();
+            // Check response
+            if (!firebaseResponse.Success)
+            {
+                this.ShowMessage(firebaseResponse.ErrorMessage);
+                return;
+            }
+            // Go to welcomepage
+            App.Current.MainPage = new WelcomePage();
+        }
+
         #endregion
 
         /*****************************************************************/
@@ -47,57 +120,29 @@ namespace NorthShoreSurfApp
         // OnAppearing
         protected override void OnAppearing()
         {
-            //Get userdata from database
-            App.DataService.GetData(
-                    NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                    false, () => App.DataService.GetUser(AppValuesService.GetUserId().Value),
-                    async (response) =>
-                    {
-                        if (response.Success)
+            base.OnAppearing();
+
+            this.DelayedTask(500, () =>
+            {
+                // Get user data from database
+                App.DataService.GetData(
+                        NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
+                        false,
+                        () => App.DataService.GetUser(AppValuesService.GetUserId().Value),
+                        (response) =>
                         {
-                            //assign user information
-                            UserViewModel.FullName = response.Result.FirstName + " " + response.Result.LastName;
-                            UserViewModel.PhoneNo = response.Result.PhoneNo;
-                            UserViewModel.Age = response.Result.Age.ToString();
-                            response.Result.Gender = response.Result.Gender;
-                        }
-                        else
-                        {
+                            if (response.Success)
+                            {
+                            // Set user object
+                            UserViewModel.ExistingUser = response.Result;
+                            }
+                            else
+                            {
                             //Show error
-                            CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                            await PopupNavigation.Instance.PushAsync(customDialog);
-                        }
-                    });
-        }
-        #endregion
-
-        /*****************************************************************/
-        // EVENTS
-        /*****************************************************************/
-        #region Events
-
-        // Buttons clicked event
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            //Edit user event
-            if (sender == btnEdit)
-            {
-                
-            }
-            //Log out event
-            else if (sender == btnLogOut)
-            {
-                //Go to welcomepage
-                App.Current.MainPage = new WelcomePage();
-            }
-            //Delete account event
-            else if(sender == btnDelAcc)
-            {
-                //Delete user from database(Only makes user inactive)
-                App.DataService.DeleteUser("29711907");
-                //Go to welcomepage
-                App.Current.MainPage = new WelcomePage();
-            }
+                            this.ShowMessage(response.ErrorMessage);
+                            }
+                        });
+            });
         }
 
         #endregion

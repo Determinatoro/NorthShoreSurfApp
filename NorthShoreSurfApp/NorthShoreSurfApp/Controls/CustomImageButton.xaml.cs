@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -68,6 +68,7 @@ namespace NorthShoreSurfApp
                 var button = (CustomImageButton)b;
                 button.IconTransformations = button.GetTransformations();
             });
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(CustomImageButton), null);
 
         public event EventHandler<EventArgs> Clicked;
 
@@ -147,6 +148,11 @@ namespace NorthShoreSurfApp
         {
             get { return (bool)GetValue(UseOverlayColorProperty); }
             set { SetValue(UseOverlayColorProperty, value); }
+        }
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            private set { SetValue(CommandProperty, value); }
         }
 
         #endregion

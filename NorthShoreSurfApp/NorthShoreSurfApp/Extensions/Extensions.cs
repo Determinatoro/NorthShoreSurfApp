@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rg.Plugins.Popup.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Text;
+using System.Threading;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
@@ -55,6 +57,42 @@ namespace NorthShoreSurfApp
                 case "": throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input));
                 default: return input.First().ToString().ToUpper() + input.Substring(1);
             }
+        }
+    }
+
+    public static class PageExtensions
+    {
+        public static async void ShowMessage(this Xamarin.Forms.Page page, string errorMessage)
+        {
+            CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, errorMessage);
+            await PopupNavigation.Instance.PushAsync(customDialog);
+        }
+        public static async void ShowYesNo(this Xamarin.Forms.Page page, string message, Action accepted, Action denied = null)
+        {
+            CustomDialog customDialog = new CustomDialog(CustomDialogType.YesNo, message);
+            customDialog.Accepted += (sender, args) =>
+            {
+                accepted();
+            };
+            customDialog.Denied += (sender, args) =>
+            {
+                denied?.Invoke();
+            };
+            await PopupNavigation.Instance.PushAsync(customDialog);
+        }
+        public static void DelayedTask(this Xamarin.Forms.Page page, int waitTimeInMilliseconds, Action action) {
+            Timer timer = new Timer((state) =>
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    action();
+                });
+            },
+            null,
+            // Wait time before timer runs
+            waitTimeInMilliseconds,
+            // No interval
+            Timeout.Infinite);
         }
     }
 

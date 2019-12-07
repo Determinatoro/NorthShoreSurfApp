@@ -58,7 +58,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <!--Welcome message frame-->
-                        <Frame x:Name="Title"
+                        <Frame x:Name="frameWelcomeMessage"
                                BackgroundColor="{StaticResource NSSBlue}"
                                Grid.Row="1"
                                Grid.Column="0"
@@ -107,12 +107,15 @@
                                 <!--Middle content-->
                                 <Forms9Patch:Label Text="{Binding OpeningHoursContent}"
                                                    FontSize="36"
+                                                   MinFontSize="12"
+                                                   AutoFit="Width"
+                                                   Margin="10, 0, 10, 0"
+                                                   Lines="1"
                                                    TextColor="White"
                                                    Grid.Row="0"
                                                    Grid.RowSpan="3"
-                                                   Lines="1"
+                                                   VerticalOptions="Center"
                                                    HorizontalTextAlignment="Center"
-                                                   VerticalTextAlignment="Center"
                                                    />
                                 <!--Bottom content-->
                                 <Forms9Patch:Label Text="{local:Translate click_for_more_info}"
@@ -157,12 +160,13 @@
                                 <Forms9Patch:Label Text="{Binding NextRideInContent}"
                                                    TextColor="White"
                                                    FontSize="36"
-                                                   Lines="1"
+                                                   MinFontSize="12"
+                                                   Margin="10, 0, 10, 0"
+                                                   AutoFit="Width"
                                                    Grid.Row="0"
                                                    Grid.RowSpan="3"
-                                                   AutoFit="Width"
                                                    HorizontalTextAlignment="Center"
-                                                   VerticalTextAlignment="Center"
+                                                   VerticalOptions="Center"
                                                    />
                                 <!--Bottom content-->
                                 <Forms9Patch:Label Text="{local:Translate click_for_more_info}"

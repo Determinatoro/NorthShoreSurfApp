@@ -55,7 +55,7 @@ namespace NorthShoreSurfApp
     public interface IDataService
     {
         void Initialize();
-        void GetData<T>(string progressMessage, bool showDialog, Func<Task<T>> task, Action<T> resultCallback);
+        void GetData<T>(string progressMessage, bool showDialog, Func<Task<T>> task, Action<T> resultCallback, int showDialogDelay = 500);
 
         Task<DataResponse<List<User>>> GetUsers();
         Task<DataResponse<List<Gender>>> GetGenders();
@@ -76,7 +76,7 @@ namespace NorthShoreSurfApp
         Task<DataResponse<User>> GetUser(int userId);
         Task<DataResponse> UpdateUser(int userId, string firstName, string lastName, string phoneNo, int age, int genderId);
         Task<DataResponse<User>> SignUpUser(string firstName, string lastName, string phoneNo, int age, int genderId);
-        Task<DataResponse> DeleteUser(string phoneNo);
+        Task<DataResponse> DeleteUser(int userId);
         Task<DataResponse<Car>> CreateCar(int userId, string licensePlate, string color);
         Task<DataResponse<CarpoolRide>> CreateCarpoolRide(int userId, DateTime departureTime, string address, string zipCode, string city, string destinationAddress, string destinationZipCode, string destinationCity, int carId, int numberOfSeats, int pricePerPassenger, List<Event> events, string comment = null);
         Task<DataResponse<CarpoolRequest>> CreateCarpoolRequest(int userId, DateTime fromTime, DateTime toTime, string zipCode, string city, List<Event> events);

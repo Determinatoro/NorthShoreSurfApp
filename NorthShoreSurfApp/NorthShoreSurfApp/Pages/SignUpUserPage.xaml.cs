@@ -42,13 +42,6 @@ namespace NorthShoreSurfApp
     public partial class SignUpUserPage : ContentPage, IFirebaseServiceCallBack
     {
         /*****************************************************************/
-        // ENUMS
-        /*****************************************************************/
-        #region Enums
-
-        #endregion
-
-        /*****************************************************************/
         // VARIABLES
         /*****************************************************************/
         #region Variables
@@ -112,19 +105,13 @@ namespace NorthShoreSurfApp
             }
 
             // Next command
-            SignUpUserViewModel.NextCommand = new Command(async () =>
+            SignUpUserViewModel.NextCommand = new Command(() =>
             {
                 // Check if all data is given
                 if (!SignUpUserViewModel.AllDataGiven)
                 {
                     // Tell the user to fill out all fields on the page
-                    await PopupNavigation.Instance.PushAsync(
-                        new CustomDialog(
-                            CustomDialogType.Message,
-                            NorthShoreSurfApp.Resources.AppResources.please_fill_out_all_the_empty_fields
-                            )
-                        );
-
+                    this.ShowMessage(NorthShoreSurfApp.Resources.AppResources.please_fill_out_all_the_empty_fields);
                     return;
                 }
 
@@ -137,17 +124,24 @@ namespace NorthShoreSurfApp
                         NorthShoreSurfApp.Resources.AppResources.checking_phone_no_please_wait,
                         true,
                         () => App.DataService.CheckIfPhoneIsNotUsedAlready(SignUpUserViewModel.PhoneNo),
-                        async (response) =>
+                        (response) =>
                         {
                             if (response.Success)
                             {
-                                await App.FirebaseService.VerifyPhoneNo(this, SignUpUserViewModel.PhoneNo);
-                                SignUpUserViewModel.CurrentContentSite = SignUpUserPageContentSite.EnterSMSCode;
+                                // Verify phone no. with firebase
+                                FirebaseResponse firebaseResponse = App.FirebaseService.VerifyPhoneNo(this, SignUpUserViewModel.PhoneNo);
+                                // Check response
+                                if (firebaseResponse.Success)
+                                    // Set current content site to enter sms code
+                                    SignUpUserViewModel.CurrentContentSite = SignUpUserPageContentSite.EnterSMSCode;
+                                else
+                                    // Show error
+                                    this.ShowMessage(firebaseResponse.ErrorMessage);
                             }
                             else
                             {
-                                CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                                await PopupNavigation.Instance.PushAsync(customDialog);
+                                // Show error
+                                this.ShowMessage(response.ErrorMessage);
                             }
                         });
                 }
@@ -159,20 +153,26 @@ namespace NorthShoreSurfApp
                         NorthShoreSurfApp.Resources.AppResources.checking_phone_no_please_wait,
                         true,
                         () => App.DataService.CheckLogin(SignUpUserViewModel.PhoneNo),
-                        async (response) =>
+                        (response) =>
                         {
                             if (response.Success)
                             {
                                 // Save the user
                                 SignUpUserViewModel.ExistingUser = response.Result;
                                 // Make the user verify phone no.
-                                await App.FirebaseService.VerifyPhoneNo(this, SignUpUserViewModel.PhoneNo);
-                                SignUpUserViewModel.CurrentContentSite = SignUpUserPageContentSite.EnterSMSCode;
+                                FirebaseResponse firebaseResponse = App.FirebaseService.VerifyPhoneNo(this, SignUpUserViewModel.PhoneNo);
+                                // Check response
+                                if (firebaseResponse.Success)
+                                    // Set current content site to enter sms code
+                                    SignUpUserViewModel.CurrentContentSite = SignUpUserPageContentSite.EnterSMSCode;
+                                else
+                                    // Show error
+                                    this.ShowMessage(firebaseResponse.ErrorMessage);
                             }
                             else
                             {
-                                CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                                await PopupNavigation.Instance.PushAsync(customDialog);
+                                // Show error
+                                this.ShowMessage(response.ErrorMessage);
                             }
                         });
                 }
@@ -183,18 +183,25 @@ namespace NorthShoreSurfApp
                 }
             });
             // Approve command
-            SignUpUserViewModel.ApproveCommand = new Command(async () =>
+            SignUpUserViewModel.ApproveCommand = new Command(() =>
             {
                 var smsCode = SignUpUserViewModel.SMSCode;
 
                 if (smsCode != null && smsCode != string.Empty && smsCode.Length == 6)
                 {
-                    var verId = App.LocalDataService.GetValue(nameof(LocalDataKeys.FirebaseAuthVerificationId));
-                    await App.FirebaseService.SignIn(this, verId, smsCode);
+                    // Get verification id
+                    var verificationId = App.LocalDataService.GetValue(nameof(LocalDataKeys.FirebaseAuthVerificationId));
+                    // Sign into firebase
+                    FirebaseResponse firebaseResponse = App.FirebaseService.SignIn(this, verificationId, smsCode);
+                    // Check response
+                    if (!firebaseResponse.Success)
+                        // Show error
+                        this.ShowMessage(firebaseResponse.ErrorMessage);
                 }
                 else
                 {
-                    await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, NorthShoreSurfApp.Resources.AppResources.please_enter_sms_code));
+                    // Show error
+                    this.ShowMessage(NorthShoreSurfApp.Resources.AppResources.please_enter_sms_code);
                 }
             });
         }
@@ -234,8 +241,7 @@ namespace NorthShoreSurfApp
                     }
                     else
                     {
-                        CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                        await PopupNavigation.Instance.PushAsync(customDialog);
+                        this.ShowMessage(response.ErrorMessage);
                     }
                 });
         }
@@ -263,9 +269,9 @@ namespace NorthShoreSurfApp
         #region Interface methods
 
         // OnVerificationFailed
-        public async void OnVerificationFailed(string errorMessage)
+        public void OnVerificationFailed(string errorMessage)
         {
-            await PopupNavigation.Instance.PushAsync(new CustomDialog(CustomDialogType.Message, errorMessage));
+            this.ShowMessage(errorMessage);
         }
         // OnCodeSent
         public void OnCodeSent(string verificationId)
@@ -302,8 +308,7 @@ namespace NorthShoreSurfApp
                             else
                             {
                                 // Show error
-                                CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                                await PopupNavigation.Instance.PushAsync(customDialog);
+                                this.ShowMessage(response.ErrorMessage);
                             }
                         });
 

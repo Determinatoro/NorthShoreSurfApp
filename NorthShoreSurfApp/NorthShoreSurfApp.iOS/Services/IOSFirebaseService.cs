@@ -59,7 +59,7 @@ namespace NorthShoreSurfApp.iOS.Services
         /// <param name="callBack">Callback for PCL</param>
         /// <param name="verificationId">Verification ID used in the credential object</param>
         /// <param name="code">SMS code used in the credential object</param>
-        public Task<FirebaseResponse> SignIn(IFirebaseServiceCallBack callBack, string verificationId, string code)
+        public FirebaseResponse SignIn(IFirebaseServiceCallBack callBack, string verificationId, string code)
         {
             try
             {
@@ -68,12 +68,12 @@ namespace NorthShoreSurfApp.iOS.Services
                 // Create credential object
                 SignIn(PhoneAuthProvider.DefaultInstance.GetCredential(verificationId, code));
                 // Return response
-                return new Task<FirebaseResponse>(() => new FirebaseResponse(true));
+                return new FirebaseResponse(true);
             }
             catch (Exception mes)
             {
                 // Return exception
-                return new Task<FirebaseResponse>(() => new FirebaseResponse(mes.Message));
+                return new FirebaseResponse(mes.Message);
             }
         }
 
@@ -83,7 +83,7 @@ namespace NorthShoreSurfApp.iOS.Services
         /// <param name="callBack">Callback for PCL</param>
         /// <param name="phoneNo">Phone no. to verify</param>
         /// <returns>A firebase response</returns>
-        public Task<FirebaseResponse> VerifyPhoneNo(IFirebaseServiceCallBack callBack, string phoneNo)
+        public FirebaseResponse VerifyPhoneNo(IFirebaseServiceCallBack callBack, string phoneNo)
         {
             this.FirebaseServiceCallBack = callBack;
 
@@ -109,7 +109,7 @@ namespace NorthShoreSurfApp.iOS.Services
 
                             if (WhiteListedPhoneNo != null)
                             {
-                                var response = SignIn(FirebaseServiceCallBack, verificationId, WhiteListedPhoneNo.Code).Result;
+                                var response = SignIn(FirebaseServiceCallBack, verificationId, WhiteListedPhoneNo.Code);
                                 if (!response.Success)
                                     FirebaseServiceCallBack?.OnVerificationFailed(response.ErrorMessage);
                             }
@@ -118,12 +118,12 @@ namespace NorthShoreSurfApp.iOS.Services
                     }
                     );
                 // Return response
-                return new Task<FirebaseResponse>(() => new FirebaseResponse(true));
+                return new FirebaseResponse(true);
             }
             catch (Exception mes)
             {
                 // Return exception
-                return new Task<FirebaseResponse>(() => new FirebaseResponse(mes.Message));
+                return new FirebaseResponse(mes.Message);
             }
         }
 
@@ -132,29 +132,27 @@ namespace NorthShoreSurfApp.iOS.Services
         /// </summary>
         /// <param name="callBack">Firebase callback</param>
         /// <returns></returns>
-        public Task<FirebaseResponse> SignOut(IFirebaseServiceCallBack callBack)
+        public FirebaseResponse SignOut()
         {
             try
             {
-                // Set callback
-                FirebaseServiceCallBack = callBack;
                 // Sign out
                 Auth.DefaultInstance.SignOut(out NSError error);
                 if (error is NSError)
                 {
                     // Return exception
-                    return new Task<FirebaseResponse>(() => new FirebaseResponse(error.LocalizedDescription));
+                    return new FirebaseResponse(error.LocalizedDescription);
                 }
                 else
                 {
                     // Return response
-                    return new Task<FirebaseResponse>(() => new FirebaseResponse(true));
+                    return new FirebaseResponse(true);
                 }
             }
             catch (Exception mes)
             {
                 // Return exception
-                return new Task<FirebaseResponse>(() => new FirebaseResponse(mes.Message));
+                return new FirebaseResponse(mes.Message);
             }
         }
 

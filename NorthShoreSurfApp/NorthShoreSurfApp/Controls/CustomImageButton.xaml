@@ -43,6 +43,7 @@
             <Button
                 x:Name="button"
                 BackgroundColor="Transparent"
+                Command="{Binding Command, Source={x:Reference this}}"
                 >
                 <Button.Triggers>
                     <EventTrigger Event="Pressed">
