@@ -18,7 +18,7 @@ using Xamarin.Forms.Xaml;
 namespace NorthShoreSurfApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NewCarPage : ContentPage
+    public partial class NewCarPage : PopupPage
     {
 
         /*****************************************************************/
@@ -26,9 +26,8 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Variables
 
-        public NewCarViewModel NewCarModel { get => (NewCarViewModel)this.BindingContext; }
-
-        //private ContentSite CurrentContentSite { get; set; }
+        public NewCarViewModel NewCarViewModel { get => (NewCarViewModel)this.BindingContext; }
+        public Action<Car> NewCarAdded;
 
         #endregion
 
@@ -39,63 +38,55 @@ namespace NorthShoreSurfApp
 
         public NewCarPage()
         {
-            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
-            Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
-            // Use safe area on iOS
-            On<iOS>().SetUseSafeArea(true);
-            // Get root grid
-            Grid grid = (Grid)Content;
-            // Get safe area margins
-            var safeAreaInset = On<iOS>().SafeAreaInsets();
-            // Set safe area margins
-            grid.Margin = safeAreaInset;
 
-            // Click events
-            btnNext.Clicked += Button_Clicked;
-
-            // Back button click event
-            /*navigationBar.BackButtonClicked += (sender, args) =>
+            // Create command
+            NewCarViewModel.CreateCommand = new Command(() =>
             {
-                if (Navigation.NavigationStack.Count > 1)
-                    Navigation.RemovePage(this);
-                else
-                    SetCurrentContentSite(ContentSite.EnterData, true);
-            };*/
-            navigationBar.ButtonOneIsVisible = true;
-            navigationBar.ButtonTwoIsVisible = true;
+                if (!NewCarViewModel.AllDataGiven)
+                {
+                    // Tell the user to fill out all fields on the page
+                    this.ShowMessage(NorthShoreSurfApp.Resources.AppResources.please_fill_out_all_the_empty_fields);
+                    return;
+                }
 
-            // Set current content site
-            //SetCurrentContentSite(ContentSite.EnterData, false);
+                CreateCar();
+            });
+            // Cancel command
+            NewCarViewModel.CancelCommand = new Command(async () =>
+            {
+                await PopupNavigation.Instance.PopAsync();
+            });
         }
 
         #endregion
 
         /*****************************************************************/
-        // OVERRIDE METHODS
+        // METHODS
         /*****************************************************************/
-        #region Override methods
+        #region Methods
 
-        // OnAppearing
-        protected override void OnAppearing()
+        /// <summary>
+        /// Create a new car in the database
+        /// </summary>
+        private void CreateCar()
         {
-            base.OnAppearing();
-            // Orientation
-            CrossDeviceOrientation.Current.LockOrientation(Plugin.DeviceOrientation.Abstractions.DeviceOrientations.Portrait);
-        }
-
-        #endregion
-
-        /*****************************************************************/
-        // EVENTS
-        /*****************************************************************/
-        #region Events
-
-        // Buttons clicked event
-        private async void Button_Clicked(object sender, EventArgs e)
-        {
-            await App.DataService.CreateCar(1, NewCarModel.LicensePlate, NewCarModel.Color);
-            Console.WriteLine(NewCarModel.Color);
+            App.DataService.GetData(
+                            NorthShoreSurfApp.Resources.AppResources.creating_car_please_wait,
+                            true,
+                            () => App.DataService.CreateCar(AppValuesService.UserId.Value, NewCarViewModel.LicensePlate, NewCarViewModel.Color),
+                            async (response) =>
+                            {
+                                // Set opening hours content
+                                if (response.Success)
+                                {
+                                    await PopupNavigation.Instance.PopAsync();
+                                    NewCarAdded?.Invoke(response.Result);
+                                }
+                                // Show error
+                                else
+                                    this.ShowMessage(response.ErrorMessage);
+                            });
         }
 
         #endregion

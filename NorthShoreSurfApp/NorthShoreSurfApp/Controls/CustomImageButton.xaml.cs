@@ -69,6 +69,7 @@ namespace NorthShoreSurfApp
                 button.IconTransformations = button.GetTransformations();
             });
         public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(CustomImageButton), null);
+        public static readonly BindableProperty CommandParameterProperty = BindableProperty.Create(nameof(CommandParameter), typeof(object), typeof(CustomImageButton), null);
 
         public event EventHandler<EventArgs> Clicked;
 
@@ -124,15 +125,15 @@ namespace NorthShoreSurfApp
             get { return (CornerRadius)GetValue(CornerRadiusProperty); }
             set { SetValue(CornerRadiusProperty, value); }
         }
-        public float BorderThickness
-        {
-            get { return (float)GetValue(BorderThicknessProperty); }
-            set { SetValue(BorderThicknessProperty, value); }
-        }
         public Thickness IconPadding
         {
             get { return (Thickness)GetValue(IconPaddingProperty); }
             set { SetValue(IconPaddingProperty, value); }
+        }
+        public float BorderThickness
+        {
+            get { return (float)GetValue(BorderThicknessProperty); }
+            set { SetValue(BorderThicknessProperty, value); }
         }
         public Color BorderColor
         {
@@ -153,6 +154,11 @@ namespace NorthShoreSurfApp
         {
             get { return (ICommand)GetValue(CommandProperty); }
             private set { SetValue(CommandProperty, value); }
+        }
+        public object CommandParameter
+        {
+            get { return (object)GetValue(CommandParameterProperty); }
+            private set { SetValue(CommandParameterProperty, value); }
         }
 
         #endregion

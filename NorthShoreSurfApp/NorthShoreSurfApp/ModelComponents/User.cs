@@ -32,7 +32,8 @@ namespace NorthShoreSurfApp.ModelComponents
         public Gender Gender { get; set; }
 
         public List<Car> Cars { get; set; }
-        public List<CarpoolRide> CarpoolEvents { get; set; }
+        public List<CarpoolRide> CarpoolRides { get; set; }
+        public List<CarpoolConfirmation> CarpoolConfirmations { get; set; }
 
         public override string ToString()
         {

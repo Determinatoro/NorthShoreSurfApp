@@ -46,6 +46,8 @@ namespace NorthShoreSurfApp.Droid
             facebookService = new AndroidFacebookService();
             firebaseService = new AndroidFirebaseService();
 
+            Window.SetSoftInputMode(Android.Views.SoftInput.AdjustPan);
+
             App.FacebookService = facebookService;
             App.FirebaseService = firebaseService;
 

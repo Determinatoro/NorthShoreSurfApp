@@ -15,11 +15,12 @@ using System.Collections.ObjectModel;
 using FFImageLoading.Forms;
 using NorthShoreSurfApp.ViewModels;
 using Plugin.DeviceOrientation;
+using NorthShoreSurfApp.Services;
 
 namespace NorthShoreSurfApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CarpoolingPage : ContentPage
+    public partial class CarpoolingPage : ContentPage, ITabbedPageService
     {
         /*****************************************************************/
         // VARIABLES
@@ -87,11 +88,6 @@ namespace NorthShoreSurfApp
                 // Show status bar on android
                 App.ScreenService.ShowStatusBar();
             }
-
-            this.DelayedTask(500, () =>
-            {
-                GetCarpoolRides();
-            });
         }
 
         #endregion
@@ -187,6 +183,22 @@ namespace NorthShoreSurfApp
                 requestList.IsVisible = false;
                 GetCarpoolRides(true);
             }
+        }
+
+        #endregion
+
+        /*****************************************************************/
+        // INTERFACE METHODS
+        /*****************************************************************/
+        #region Interface methods
+
+        // OnPageSelected
+        public void OnPageSelected()
+        {
+            this.DelayedTask(500, () =>
+            {
+                GetCarpoolRides(true);
+            });
         }
 
         #endregion

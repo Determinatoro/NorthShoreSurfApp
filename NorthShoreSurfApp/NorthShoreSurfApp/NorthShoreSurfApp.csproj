@@ -39,6 +39,9 @@
     <EmbeddedResource Update="Controls\CustomNavigationBar.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Controls\CustomTableDialog.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Controls\CustomTextBox.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -93,7 +96,10 @@
     <EmbeddedResource Update="Pages\SurfingConditionsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="ViewCells\GenderCustomViewCell.xaml">
+    <EmbeddedResource Update="ViewCells\CarViewCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="ViewCells\GenderViewCell.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -117,6 +123,9 @@
     </Compile>
     <Compile Update="ViewCells\CarpoolRideViewCell.xaml.cs">
       <DependentUpon>CarpoolRideViewCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="ViewCells\GenderViewCell.xaml.cs">
+      <DependentUpon>GenderViewCell.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

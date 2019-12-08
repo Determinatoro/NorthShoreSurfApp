@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace NorthShoreSurfApp.ViewCells
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class GenderCustomViewCell : ViewCell
+    public partial class GenderViewCell : ViewCell
     {
-        public GenderCustomViewCell()
+        public GenderViewCell()
         {
             InitializeComponent();
         }

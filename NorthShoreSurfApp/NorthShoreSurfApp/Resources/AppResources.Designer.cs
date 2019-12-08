@@ -61,6 +61,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new car.
+        /// </summary>
+        internal static string add_new_car {
+            get {
+                return ResourceManager.GetString("add_new_car", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Age.
         /// </summary>
         internal static string age {
@@ -75,6 +84,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string approve {
             get {
                 return ResourceManager.GetString("approve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this car?.
+        /// </summary>
+        internal static string are_you_sure_you_want_to_delete_this_car {
+            get {
+                return ResourceManager.GetString("are_you_sure_you_want_to_delete_this_car", resourceCulture);
             }
         }
         
@@ -111,6 +129,24 @@ namespace NorthShoreSurfApp.Resources {
         internal static string cancel {
             get {
                 return ResourceManager.GetString("cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Car.
+        /// </summary>
+        internal static string car {
+            get {
+                return ResourceManager.GetString("car", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Car not found.
+        /// </summary>
+        internal static string car_not_found {
+            get {
+                return ResourceManager.GetString("car_not_found", resourceCulture);
             }
         }
         
@@ -171,6 +207,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string closed {
             get {
                 return ResourceManager.GetString("closed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color.
+        /// </summary>
+        internal static string color {
+            get {
+                return ResourceManager.GetString("color", resourceCulture);
             }
         }
         
@@ -238,6 +283,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not delete car.
+        /// </summary>
+        internal static string could_not_delete_car {
+            get {
+                return ResourceManager.GetString("could_not_delete_car", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not delete invite.
         /// </summary>
         internal static string could_not_delete_invite {
@@ -284,6 +338,16 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating car.
+        ///Please wait....
+        /// </summary>
+        internal static string creating_car_please_wait {
+            get {
+                return ResourceManager.GetString("creating_car_please_wait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} day(s).
         /// </summary>
         internal static string days {
@@ -308,6 +372,16 @@ namespace NorthShoreSurfApp.Resources {
         internal static string deleting_account_please_wait {
             get {
                 return ResourceManager.GetString("deleting_account_please_wait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting data.
+        ///Please wait....
+        /// </summary>
+        internal static string deleting_data_please_wait {
+            get {
+                return ResourceManager.GetString("deleting_data_please_wait", resourceCulture);
             }
         }
         
@@ -408,6 +482,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string last_name {
             get {
                 return ResourceManager.GetString("last_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License plate.
+        /// </summary>
+        internal static string license_plate {
+            get {
+                return ResourceManager.GetString("license_plate", resourceCulture);
             }
         }
         

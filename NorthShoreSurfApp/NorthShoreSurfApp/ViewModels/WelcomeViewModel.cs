@@ -32,18 +32,6 @@ namespace NorthShoreSurfApp.ViewModels
         #endregion
 
         /*****************************************************************/
-        // CONSTRUCTOR
-        /*****************************************************************/
-        #region Constructor
-
-        public WelcomeViewModel()
-        {
-            
-        }
-
-        #endregion
-
-        /*****************************************************************/
         // METHODS
         /*****************************************************************/
         #region Methods
@@ -127,8 +115,5 @@ namespace NorthShoreSurfApp.ViewModels
         }
 
         #endregion
-
-
-
     }
 }

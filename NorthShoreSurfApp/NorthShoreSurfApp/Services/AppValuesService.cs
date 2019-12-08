@@ -36,6 +36,18 @@ namespace NorthShoreSurfApp
                 return null;
         }
 
+        public static int? UserId
+        {
+            get
+            {
+                var userId = App.LocalDataService.GetValue(nameof(LocalDataKeys.UserId));
+                if (int.TryParse(userId, out int id))
+                    return id;
+                else
+                    return null;
+            }
+        }
+
         public static bool IsGuest()
         {
             var isGuest = App.LocalDataService.GetValue(nameof(LocalDataKeys.IsGuest));

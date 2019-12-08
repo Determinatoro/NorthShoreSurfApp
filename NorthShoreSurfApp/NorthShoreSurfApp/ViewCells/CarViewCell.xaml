@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:local="clr-namespace:NorthShoreSurfApp"
+          xmlns:converters="clr-namespace:NorthShoreSurfApp.Converters"
+          mc:Ignorable="d"
+          x:Class="NorthShoreSurfApp.ViewCells.CarViewCell"
+          x:Name="this">
+    <ViewCell.View>
+        <Grid RowSpacing="0"
+              ColumnSpacing="0"
+              Padding="0"
+              Margin="0">
+            <!--Resources-->
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <converters:NegateBooleanConverter x:Key="inverter"/>
+                </ResourceDictionary>
+            </Grid.Resources>
+
+            <Grid HeightRequest="60"
+                  ColumnSpacing="0"
+                  RowSpacing="0"
+                  Margin="0"
+                  Padding="0"
+                  IsVisible="{Binding IsTitle, Converter={StaticResource inverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="60"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Text="{Binding CarInfo}" 
+                       VerticalTextAlignment="Center"
+                       VerticalOptions="Fill"
+                       TextColor="Black"
+                       MaxLines="1"
+                       LineBreakMode="TailTruncation"
+                       FontSize="20"
+                       Padding="10, 0, 0, 0"
+                       />
+                <local:CustomImageButton Command="{Binding DeleteCommand, Source={x:Reference this}}"
+                                         CommandParameter="{Binding DeleteCommandParameter, Source={x:Reference this}}"
+                                         Grid.Column="1"
+                                         Background="Transparent"
+                                         HeightRequest="50"
+                                         WidthRequest="50"
+                                         VerticalOptions="Center"
+                                         HorizontalOptions="Center"
+                                         BorderColor="Transparent"
+                                         BorderThickness="0"
+                                         Icon="ic_cross.png"
+                                         IconColor="Black"
+                                         IconPadding="5"
+                                         BackgroundPressed="{StaticResource NSSGray}"
+                                         />
+            </Grid>
+
+            <Grid HeightRequest="60"
+                  ColumnSpacing="0"
+                  RowSpacing="0"
+                  Margin="0"
+                  Padding="0"
+                  IsVisible="{Binding IsTitle}">
+
+                <Label Text="{Binding Title}" 
+                       VerticalTextAlignment="Center"
+                       VerticalOptions="Fill"
+                       TextColor="Black"
+                       FontSize="20"
+                       Padding="10, 0, 0, 0"
+                       />
+            </Grid>
+        </Grid>
+    </ViewCell.View>
+</ViewCell>

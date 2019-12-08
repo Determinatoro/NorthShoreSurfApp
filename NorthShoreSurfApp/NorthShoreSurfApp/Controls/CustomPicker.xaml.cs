@@ -59,8 +59,10 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource), typeof(IList), typeof(CustomImageTextButton), null);
         public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(CustomImageTextButton), 10.0f);
         public static readonly BindableProperty ItemTemplateProperty = BindableProperty.Create(nameof(ItemTemplate), typeof(DataTemplate), typeof(CustomImageTextButton), null);
+        public static readonly BindableProperty HandleClickManuallyProperty = BindableProperty.Create(nameof(HandleClickManually), typeof(bool), typeof(CustomImageTextButton), false);
 
         public event EventHandler<ItemTappedEventArgs> ListItemTapped;
+        public event EventHandler<EventArgs> Clicked;
 
         #endregion
 
@@ -76,17 +78,26 @@ namespace NorthShoreSurfApp
             // Picker clicked
             buttonOverlay.Clicked += (sender, args) =>
             {
-                CustomListDialog customListDialog = new CustomListDialog(
-                    ItemTemplate,
-                    ItemsSource,
-                    string.Format(NorthShoreSurfApp.Resources.AppResources.select_parameter, Title.ToLower())
-                    );
-                customListDialog.ItemTapped += (sender, args) =>
+                // Show a popup with a list
+                if (!HandleClickManually)
                 {
-                    SelectedItem = args.Item;
-                    ListItemTapped?.Invoke(this, args);
-                };
-                PopupNavigation.Instance.PushAsync(customListDialog);
+                    CustomListDialog customListDialog = new CustomListDialog(
+                        ItemTemplate,
+                        ItemsSource,
+                        string.Format(NorthShoreSurfApp.Resources.AppResources.select_parameter, Title.ToLower())
+                        );
+                    customListDialog.ItemTapped += (sender, args) =>
+                    {
+                        SelectedItem = args.Item;
+                        ListItemTapped?.Invoke(this, args);
+                    };
+                    PopupNavigation.Instance.PushAsync(customListDialog);
+                }
+                // Handle showing selection manually for custom integration
+                else
+                {
+                    Clicked?.Invoke(this, args);
+                }
             };
         }
 
@@ -152,6 +163,11 @@ namespace NorthShoreSurfApp
         {
             get { return (DataTemplate)GetValue(ItemTemplateProperty); }
             set { SetValue(ItemTemplateProperty, value); }
+        }
+        public bool HandleClickManually
+        {
+            get { return (bool)GetValue(HandleClickManuallyProperty); }
+            set { SetValue(HandleClickManuallyProperty, value); }
         }
 
         #endregion

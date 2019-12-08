@@ -26,7 +26,9 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(CustomImageTextButton), null);
         public static readonly BindableProperty TextMarginProperty = BindableProperty.Create(nameof(TextMargin), typeof(Thickness), typeof(CustomImageTextButton), new Thickness(5, 0, 5, 0));
         public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(nameof(Keyboard), typeof(Keyboard), typeof(CustomImageTextButton), null);
-        public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(CustomImageButton), 10.0f);
+        public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(CustomImageButton), new CornerRadius(10));
+        public static readonly BindableProperty BorderThicknessProperty = BindableProperty.Create(nameof(BorderThickness), typeof(float), typeof(CustomImageButton), 0.0f);
+        public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(CustomImageButton), Color.Black);
 
         public event EventHandler<TextChangedEventArgs> TextChanged;
 
@@ -70,9 +72,9 @@ namespace NorthShoreSurfApp
             get { return (double)GetValue(TitleSizeProperty); }
             set { SetValue(TitleSizeProperty, value); }
         }
-        public float CornerRadius
+        public CornerRadius CornerRadius
         {
-            get { return (float)GetValue(CornerRadiusProperty); }
+            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
             set { SetValue(CornerRadiusProperty, value); }
         }
         public string Text
@@ -100,6 +102,16 @@ namespace NorthShoreSurfApp
         {
             get { return (Thickness)GetValue(TextMarginProperty); }
             set { SetValue(TextMarginProperty, value); }
+        }
+        public float BorderThickness
+        {
+            get { return (float)GetValue(BorderThicknessProperty); }
+            set { SetValue(BorderThicknessProperty, value); }
+        }
+        public Color BorderColor
+        {
+            get { return (Color)GetValue(BorderColorProperty); }
+            set { SetValue(BorderColorProperty, value); }
         }
 
         #endregion

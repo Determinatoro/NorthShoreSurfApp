@@ -21,14 +21,13 @@
                    FontSize="{Binding TitleSize, Source={x:Reference this}}"
                    />
             <!--Border-->
-            <Frame Padding="0" 
-                   x:Name="frame"
-                   Grid.Row="1" 
-                   HasShadow="False"                   
-                   BorderColor="Transparent"                   
-                   CornerRadius="{Binding CornerRadius, Source={x:Reference this}}" 
-                   Margin="0"
-                   >
+            <local:CustomFrame Padding="0" 
+                               x:Name="frame"
+                               Grid.Row="1" 
+                               BorderWidth="{Binding BorderThickness, Source={x:Reference this}}"
+                               BorderColor="{Binding BorderColor, Source={x:Reference this}}"
+                               CornerRadius="{Binding CornerRadius, Source={x:Reference this}}" 
+                               Margin="0">
                 <!--TextBox-->
                 <local:CustomEntry HeightRequest="50" 
                                    x:Name="entry"
@@ -38,7 +37,7 @@
                                    FontSize="{Binding TextSize, Source={x:Reference this}}" 
                                    TextColor="{Binding TextColor, Source={x:Reference this}}"
                                    />
-            </Frame>
+            </local:CustomFrame>
         </Grid>
   </ContentView.Content>
 </ContentView>  

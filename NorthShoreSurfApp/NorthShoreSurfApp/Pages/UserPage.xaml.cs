@@ -19,7 +19,7 @@ using Xamarin.Forms.Xaml;
 namespace NorthShoreSurfApp
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class UserPage : ContentPage
+    public partial class UserPage : ContentPage, ITabbedPageService
     {
         /*****************************************************************/
         // VARIABLES
@@ -60,16 +60,16 @@ namespace NorthShoreSurfApp
                             false, () => App.DataService.DeleteUser(AppValuesService.GetUserId().Value),
                             (response) =>
                             {
-                            // Check response
-                            if (response.Success)
+                                // Check response
+                                if (response.Success)
                                 {
-                                // Log out
-                                LogOut();
+                                    // Log out
+                                    LogOut();
                                 }
                                 else
                                 {
-                                //Show error
-                                this.ShowMessage(response.ErrorMessage);
+                                    //Show error
+                                    this.ShowMessage(response.ErrorMessage);
                                 }
                             });
                 });
@@ -107,7 +107,32 @@ namespace NorthShoreSurfApp
                 return;
             }
             // Go to welcomepage
-            App.Current.MainPage = new WelcomePage();
+            App.Current.MainPage = new CustomNavigationPage(new WelcomePage());
+        }
+
+        /// <summary>
+        /// Get user data
+        /// </summary>
+        private void GetData()
+        {
+            // Get user data from database
+            App.DataService.GetData(
+                    NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
+                    true,
+                    () => App.DataService.GetUser(AppValuesService.GetUserId().Value),
+                    (response) =>
+                    {
+                        if (response.Success)
+                        {
+                                // Set user object
+                                UserViewModel.ExistingUser = response.Result;
+                        }
+                        else
+                        {
+                                //Show error
+                                this.ShowMessage(response.ErrorMessage);
+                        }
+                    });
         }
 
         #endregion
@@ -121,27 +146,21 @@ namespace NorthShoreSurfApp
         protected override void OnAppearing()
         {
             base.OnAppearing();
+        }
 
+        #endregion
+
+        /*****************************************************************/
+        // INTERFACE METHODS
+        /*****************************************************************/
+        #region Interface methods
+
+        // OnPageSelected
+        public void OnPageSelected()
+        {
             this.DelayedTask(500, () =>
             {
-                // Get user data from database
-                App.DataService.GetData(
-                        NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                        false,
-                        () => App.DataService.GetUser(AppValuesService.GetUserId().Value),
-                        (response) =>
-                        {
-                            if (response.Success)
-                            {
-                            // Set user object
-                            UserViewModel.ExistingUser = response.Result;
-                            }
-                            else
-                            {
-                            //Show error
-                            this.ShowMessage(response.ErrorMessage);
-                            }
-                        });
+                GetData();
             });
         }
 

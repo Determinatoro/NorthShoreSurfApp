@@ -26,5 +26,16 @@ namespace NorthShoreSurfApp.ModelComponents
         [Required]
         [StringLength(255)]
         public string Color { get; set; }
+
+        #region UI specific
+
+        [NotMapped]
+        public bool IsTitle { get => Title != null; }
+        [NotMapped]
+        public string Title { get; set; }
+        [NotMapped]
+        public string CarInfo { get => $"{LicensePlate}, {Color}"; }
+
+        #endregion
     }
 }

@@ -40,18 +40,6 @@ namespace NorthShoreSurfApp.ViewModels
         #endregion
 
         /*****************************************************************/
-        // CONSTRUCTOR
-        /*****************************************************************/
-        #region Constructor
-
-        public SignUpUserViewModel()
-        {
-
-        }
-
-        #endregion
-
-        /*****************************************************************/
         // METHODS
         /*****************************************************************/
         #region Methods
@@ -374,7 +362,7 @@ namespace NorthShoreSurfApp.ViewModels
         /// </summary>
         public DataTemplate GenderPickerItemTemplate
         {
-            get { return new DataTemplate(() => new GenderCustomViewCell()); }
+            get { return new DataTemplate(() => new GenderViewCell()); }
         }
         /// <summary>
         /// Next button click

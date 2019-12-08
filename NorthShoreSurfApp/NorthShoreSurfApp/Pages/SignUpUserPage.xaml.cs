@@ -294,7 +294,7 @@ namespace NorthShoreSurfApp
                         NorthShoreSurfApp.Resources.AppResources.creating_account_please_wait,
                         true,
                         () => App.DataService.SignUpUser(SignUpUserViewModel.FirstName, SignUpUserViewModel.LastName, SignUpUserViewModel.PhoneNo, SignUpUserViewModel.AgeValue, SignUpUserViewModel.GenderId),
-                        async (response) =>
+                        (response) =>
                         {
                             if (response.Success)
                             {

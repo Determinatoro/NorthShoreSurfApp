@@ -1,10 +1,14 @@
 ﻿using NorthShoreSurfApp.ModelComponents;
+using NorthShoreSurfApp.ViewCells;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace NorthShoreSurfApp.ViewModels
 {
@@ -95,6 +99,62 @@ namespace NorthShoreSurfApp.ViewModels
             {
                 openingHoursContent = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private ICommand carDeleteCommand;
+        private ObservableCollection<Car> cars;
+        private string carInfo;
+
+        /// <summary>
+        /// Info shown in the select car picker
+        /// </summary>
+        public string CarInfo
+        {
+            get => carInfo;
+            set
+            {
+                carInfo = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// Command for when the user wants to delete a car
+        /// </summary>
+        public ICommand CarDeleteCommand
+        {
+            get => carDeleteCommand;
+            set
+            {
+                carDeleteCommand = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// Collection of cars for the select car picker
+        /// </summary>
+        public ObservableCollection<Car> Cars
+        {
+            get => cars;
+            set
+            {
+                cars = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// Item template for the select car picker
+        /// </summary>
+        public DataTemplate CarItemTemplate
+        {
+            get
+            {
+                return new DataTemplate(() =>
+                {
+                    var viewCell = new CarViewCell();
+                    viewCell.DeleteCommand = CarDeleteCommand;
+                    return viewCell;
+                });
             }
         }
 

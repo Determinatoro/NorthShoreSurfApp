@@ -1,93 +1,170 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
-             mc:Ignorable="d"
-             xmlns:local="clr-namespace:NorthShoreSurfApp"
-             x:Class="NorthShoreSurfApp.NewCarPage"
-             BackgroundColor="{StaticResource BarBackground}">
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
+                 mc:Ignorable="d"
+                 xmlns:local="clr-namespace:NorthShoreSurfApp"
+                 x:Class="NorthShoreSurfApp.NewCarPage"
+                 x:Name="this"
+                 HasKeyboardOffset="False"
+                 >
 
-    <ContentPage.BindingContext>
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1"
+            ScaleOut="1"
+            DurationIn="200"
+            DurationOut="200"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+
+    <pages:PopupPage.BindingContext>
         <models:NewCarViewModel />
-    </ContentPage.BindingContext>
+    </pages:PopupPage.BindingContext>
 
-    <ContentPage.Content>
-        <Grid RowSpacing="0"
-              Margin="0"
-              Padding="0">
+    <Grid RowSpacing="0"
+          ColumnSpacing="0"
+          Margin="5"
+          Padding="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+
+        <!--Header-->
+        <local:CustomFrame CornerRadius="10,10,0,0"
+                           BackgroundColor="{StaticResource NSSBlue}"
+                           VerticalOptions="Fill"
+                           HorizontalOptions="Fill"
+                           Padding="0"
+                           >
+            <StackLayout Padding="0"
+                         Spacing="0"
+                         VerticalOptions="Fill">
+                <!--Header label-->
+                <Label HorizontalOptions="Fill"
+                       VerticalOptions="CenterAndExpand"
+                       FontSize="24"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       Text="{local:Translate add_new_car}"
+                       TextColor="White"
+                       />
+            </StackLayout>
+
+        </local:CustomFrame>
+
+        <!--Grid data-->
+        <Grid x:Name="gridData" 
+              VerticalOptions="Fill" 
+              Grid.Row="1" 
+              RowSpacing="0"
+              ColumnSpacing="0"
+              HorizontalOptions="Fill" 
+              IsVisible="True"
+              BackgroundColor="White">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <!--Top navigation bar-->
-            <local:CustomNavigationBar x:Name="navigationBar"
-                                       BarBackgroundColor="{StaticResource BarBackground}"
-                                       ShowBackButton="True"
-                                       Title="{local:Translate add_car}"
-                                       TitleColor="Black"
-                                       TitleSize="24"
-                                       ShowLogo="False"
-                                       Logo="ic_logo.png"
-                                       />
-
-            <!--Grid enter data-->
-            <Grid x:Name="gridEnterData" 
-                  VerticalOptions="Fill" 
-                  Grid.Row="1" 
-                  HorizontalOptions="Fill" 
-                  IsVisible="True"
-                  BackgroundColor="{StaticResource NSSBlue}"
-                  >
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <!--ScrollView-->
-                <ScrollView>
-
-                    <StackLayout Padding="20" HorizontalOptions="Fill" VerticalOptions="Start">
-                        <!--First name input-->
-                        <local:CustomTextBox Title="{local:Translate licenseplate}" 
-                                         TitleColor="White" 
+            <!--ScrollView-->
+            <ScrollView Margin="0"
+                        Padding="0">
+                <StackLayout Padding="10" 
+                             Margin="0"
+                             Spacing="0"
+                             HorizontalOptions="Fill" 
+                             VerticalOptions="Start">
+                    <!--License plate input-->
+                    <local:CustomTextBox Title="{local:Translate license_plate}" 
+                                         TitleColor="Black" 
                                          TitleSize="18" 
                                          CornerRadius="10" 
+                                         BorderThickness="1"
+                                         BorderColor="{StaticResource NSSBlue}"
                                          Text="{Binding LicensePlate, Mode=TwoWay}" 
                                          TextColor="Black" 
                                          TextSize="24"
                                          />
-                        <!--Last name input-->
-                        <local:CustomTextBox Title="{local:Translate color}" 
-                                         TitleColor="White" 
+                    <!--Color input-->
+                    <local:CustomTextBox Title="{local:Translate color}" 
+                                         TitleColor="Black" 
                                          TitleSize="18" 
+                                         Margin="0, 5, 0, 0"
                                          CornerRadius="10" 
+                                         BorderThickness="1"
+                                         BorderColor="{StaticResource NSSBlue}"
                                          Text="{Binding Color, Mode=TwoWay}" 
                                          TextColor="Black" 
                                          TextSize="24"
                                          />
-                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
 
-                </ScrollView>
-
-                <!--Navigation button-->
-                <local:CustomImageTextButton x:Name="btnNext"
-                                             Grid.Row="1" 
-                                             Margin="20" 
-                                             HeightRequest="60" 
-                                             Background="White" 
-                                             CornerRadius="10" 
-                                             BackgroundPressed="#0067B0" 
-                                             Icon="ic_facebook.png"
-                                             TitleColor="Black"
-                                             TitleSize="24"
-                                             IconColor="{StaticResource NSSBlue}"
-                                             Title="{local:Translate add_car}"
-                                             />
-            </Grid>
-
+            <!--Create button-->
+            <local:CustomImageTextButton x:Name="btnCreate"
+                                         Grid.Row="1" 
+                                         Margin="10, 0, 10, 10" 
+                                         HeightRequest="60" 
+                                         Background="{StaticResource NSSBlue}" 
+                                         CornerRadius="10" 
+                                         BackgroundPressed="{StaticResource NSSBluePressed}" 
+                                         Icon="ic_car.png"
+                                         TitleColor="White"
+                                         TitleSize="24"
+                                         IconColor="White"
+                                         IconPadding="10"
+                                         Command="{Binding CreateCommand}"
+                                         Title="{local:Translate add_new_car}"
+                                         />
         </Grid>
-    </ContentPage.Content>
-</ContentPage>
+
+        <Grid RowSpacing="0"
+              ColumnSpacing="0"
+              Margin="0"
+              Grid.Row="2"
+              Padding="0">
+            <!--Cancel button frame-->
+            <local:CustomFrame x:Name="frameCancel"
+                               
+                               Padding="0"
+                               CornerRadius="0,0,10,10"
+                               BackgroundColor="{StaticResource NSSBlue}"
+                               HorizontalOptions="Fill">
+
+                <!--Cancel button text-->
+                <Label HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       FontSize="24"
+                       Text="{local:Translate cancel}"
+                       TextColor="White"/>
+
+            </local:CustomFrame>
+
+            <!--Button-->
+            <Button x:Name="btnCancel"
+                    ClassId="Cancel"
+                    Command="{Binding CancelCommand}"
+                    BackgroundColor="Transparent">
+                <Button.Triggers>
+                    <EventTrigger Event="Pressed">
+                        <local:CustomDialogCancelPressedTriggerAction />
+                    </EventTrigger>
+                    <EventTrigger Event="Released">
+                        <local:CustomDialogCancelReleasedTriggerAction />
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+        </Grid>
+    </Grid>
+</pages:PopupPage>

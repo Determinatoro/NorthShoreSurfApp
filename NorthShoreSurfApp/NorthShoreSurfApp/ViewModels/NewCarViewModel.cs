@@ -4,24 +4,60 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace NorthShoreSurfApp.ViewModels
 {
     public class NewCarViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        /*****************************************************************/
+        // VARIABLES
+        /*****************************************************************/
+        #region Variables
 
-        protected virtual void OnPropertyChanged(string propertyName)
+        public event PropertyChangedEventHandler PropertyChanged;
+        private string licensePlate;
+        private string color;
+        private ICommand createCommand;
+        private ICommand cancelCommand;
+
+        #endregion
+
+        /*****************************************************************/
+        // CONSTRUCTOR
+        /*****************************************************************/
+        #region Contructor
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            if (propertyName != null)
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        #endregion
 
-        private string licensePlate;
-        private string car_Color;
+        /*****************************************************************/
+        // PROPERTIES
+        /*****************************************************************/
+        #region Properties
 
+        /// <summary>
+        /// Flag for all data given
+        /// </summary>
+        public bool AllDataGiven
+        {
+            get
+            {
+                return LicensePlate != null && LicensePlate.Length >= 2 && LicensePlate.Length <= 7 &&
+                    Color != null && Color != string.Empty;
+            }
+        }
+        /// <summary>
+        /// The car's license plate
+        /// </summary>
         public string LicensePlate
         {
             get { return licensePlate; }
@@ -30,22 +66,50 @@ namespace NorthShoreSurfApp.ViewModels
                 if (licensePlate != value)
                 {
                     licensePlate = value;
-                    OnPropertyChanged(nameof(LicensePlate));
+                    OnPropertyChanged();
                 }
             }
         }
+        /// <summary>
+        /// The car's color
+        /// </summary>
         public string Color
         {
-            get { return car_Color; }
+            get { return color; }
             set
             {
-                if (car_Color != value)
+                if (color != value)
                 {
-                    car_Color = value;
-                    OnPropertyChanged(nameof(Color));
+                    color = value;
+                    OnPropertyChanged();
                 }
+            }
+        }
+        /// <summary>
+        /// Create command
+        /// </summary>
+        public ICommand CreateCommand
+        {
+            get => createCommand;
+            set
+            {
+                createCommand = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// Cancel command
+        /// </summary>
+        public ICommand CancelCommand
+        {
+            get => cancelCommand;
+            set
+            {
+                cancelCommand = value;
+                OnPropertyChanged();
             }
         }
 
+        #endregion
     }
 }

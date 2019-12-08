@@ -44,7 +44,7 @@
                 x:Name="button"
                 BackgroundColor="Transparent"
                 Command="{Binding Command, Source={x:Reference this}}"
-                >
+                CommandParameter="{Binding CommandParameter, Source={x:Reference this}}">
                 <Button.Triggers>
                     <EventTrigger Event="Pressed">
                         <local:CustomImageButtonTextPressedTriggerAction />

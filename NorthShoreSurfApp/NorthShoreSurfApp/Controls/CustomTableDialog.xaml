@@ -8,7 +8,7 @@
                  xmlns:local="clr-namespace:NorthShoreSurfApp"
                  mc:Ignorable="d"
                  x:Name="this"
-                 x:Class="NorthShoreSurfApp.CustomListDialog">
+                 x:Class="NorthShoreSurfApp.CustomTableDialog">
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation
             PositionIn="Center"
@@ -54,10 +54,9 @@
                 HorizontalOptions="Fill">
                 <StackLayout Padding="0"
                              Spacing="0"
-                             VerticalOptions="Fill"
-                             >
-                <!--Header label-->
-                <Label
+                             VerticalOptions="Fill">
+                    <!--Header label-->
+                    <Label
                      HorizontalOptions="Fill"
                      VerticalOptions="CenterAndExpand"
                      FontSize="{Binding HeaderSize, Source={x:Reference this}}"
@@ -72,18 +71,18 @@
             </local:CustomFrame>
 
             <!--List-->
-            <ListView x:Name="listView"
-                      HasUnevenRows="True"
-                      VerticalOptions="Fill"
-                      HorizontalScrollBarVisibility="Never"
-                      Grid.Row="1"
-                      SeparatorVisibility="Default"
-                      SeparatorColor="{StaticResource NSSBlue}"
-                      Footer=""
-                      BackgroundColor="White"
-                      SelectedItem="{Binding SelectedItem, Mode=TwoWay, Source={x:Reference this}}"
-                      ItemsSource="{Binding ItemsSource, Source={x:Reference this}}"
-                      />
+            <TableView x:Name="listView"
+                       HasUnevenRows="True"
+                       VerticalOptions="Fill"
+                       Grid.Row="1"
+                       BackgroundColor="White"
+                       >
+                <TableRoot>
+                    <TableSection>
+                        
+                    </TableSection>
+                </TableRoot>
+            </TableView>
 
             <!--Cancel button frame-->
             <local:CustomFrame
@@ -107,7 +106,6 @@
             <!--Button-->
             <Button x:Name="btnCancel"
                     Grid.Row="2"
-                    ClassId="Cancel"
                     BackgroundColor="Transparent">
                 <Button.Triggers>
                     <EventTrigger Event="Pressed">

@@ -39,6 +39,7 @@ namespace NorthShoreSurfApp.Database
             CustomDialog customDialog = new CustomDialog(CustomDialogType.Progress, progressMessage);
             Timer timer = null;
             CancellationTokenSource cancellationToken = new CancellationTokenSource();
+            bool responseReceived = false;
 
             // Create new thread
             Task.Run(async () =>
@@ -56,8 +57,11 @@ namespace NorthShoreSurfApp.Database
                             {
                                 cancellationToken.Cancel();
                             };
-                            // Show dialog
-                            PopupNavigation.Instance.PushAsync(customDialog, true);
+                            if (!responseReceived)
+                            {
+                                // Show dialog
+                                PopupNavigation.Instance.PushAsync(customDialog, true);
+                            }
                         });
                     },
                         null,
@@ -74,6 +78,8 @@ namespace NorthShoreSurfApp.Database
                     // Cancel requested
                     if (cancellationToken.IsCancellationRequested)
                         cancellationToken.Token.ThrowIfCancellationRequested();
+                    // Set flag
+                    responseReceived = true;
                     // Run on UI thread
                     Device.BeginInvokeOnMainThread(() =>
                     {
@@ -113,7 +119,7 @@ namespace NorthShoreSurfApp.Database
                     // Get all carpool confirmations
                     var carpoolConfirmations = await context.CarpoolConfirmations
                                         .Include(x => x.Passenger)
-                                        .Include(x => x.CarpoolRide)
+                                        .Include(x => x.CarpoolRide).ThenInclude(x => x.Driver)
                                         .AsNoTracking()
                                         .ToListAsync();
                     // Return response
@@ -136,7 +142,7 @@ namespace NorthShoreSurfApp.Database
                     var events = await context.CarpoolRides
                                         .Include(x => x.Driver)
                                         .Include(x => x.Car)
-                                        .Include(x => x.CarpoolConfirmations)
+                                        .Include(x => x.CarpoolConfirmations).ThenInclude(x => x.Passenger)
                                         .Include(x => x.CarpoolRides_Events_Relations).ThenInclude(x => x.Event)
                                         .AsNoTracking()
                                         .ToListAsync();
@@ -252,6 +258,27 @@ namespace NorthShoreSurfApp.Database
             {
                 // Return exception
                 return new DataResponse<List<User>>(1, mes.Message);
+            }
+        }
+        public async Task<DataResponse<List<Car>>> GetCars(int userId)
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    // Get all cars
+                    var cars = await context.Cars
+                                        .Where(x => x.IsActive == true && x.UserId == userId)
+                                        .AsNoTracking()
+                                        .ToListAsync();
+                    // Return response
+                    return new DataResponse<List<Car>>(true, cars);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<List<Car>>(1, mes.Message);
             }
         }
         private async Task<DataResponse<User>> CheckUser(int userId)
@@ -429,6 +456,31 @@ namespace NorthShoreSurfApp.Database
                     User user = response.Result;
                     // Set user to inactive
                     user.IsActive = false;
+                    // Save changes
+                    await context.SaveChangesAsync();
+                    // Return response
+                    return new DataResponse(true);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<User>(1, mes.Message);
+            }
+        }
+        public async Task<DataResponse> DeleteCar(int carId)
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    // Get car
+                    Car car = await context.Cars.FirstOrDefaultAsync(x => x.Id == carId);
+                    // Check for error
+                    if (car == null)
+                        return new DataResponse(800, Resources.AppResources.car_not_found);
+                    // Set user to inactive
+                    car.IsActive = false;
                     // Save changes
                     await context.SaveChangesAsync();
                     // Return response
