@@ -50,7 +50,7 @@ namespace NorthShoreSurfApp
             //Get userdata from database
             App.DataService.GetData(
                     NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                    false, () => App.DataService.GetUser("29711907"),
+                    false, () => App.DataService.GetUser(AppValuesService.GetUserId().Value),
                     async (response) =>
                     {
                         if (response.Success)

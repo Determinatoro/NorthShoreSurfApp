@@ -3,6 +3,7 @@ using NorthShoreSurfApp.ModelComponents;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -31,7 +32,7 @@ namespace NorthShoreSurfApp.Database
                 var model = context.Model;
             }
         }
-        
+
         public void GetData<T1>(string progressMessage, bool showDialog, Func<Task<T1>> task, Action<T1> resultCallback)
         {
             // Create dialog
@@ -102,7 +103,6 @@ namespace NorthShoreSurfApp.Database
                 });
             }, cancellationToken.Token);
         }
-
         public async Task<DataResponse<List<CarpoolConfirmation>>> GetCarpoolConfirmations()
         {
             try
@@ -254,6 +254,59 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse<List<User>>(1, mes.Message);
             }
         }
+        private async Task<DataResponse<User>> CheckUser(int userId)
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    // Get user from user id
+                    User user = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+                    // User does not exist
+                    if (user == null)
+                        return new DataResponse<User>(100, Resources.AppResources.user_not_found);
+                    // User not active
+                    if (!user.IsActive)
+                        return new DataResponse<User>(100, Resources.AppResources.user_is_not_active);
+                    // Return response
+                    return new DataResponse<User>(true, user);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<User>(1, mes.Message);
+            }
+        }
+        public async Task<DataResponse<List<CarpoolConfirmation>>> GetCarpoolConfirmations(int userId)
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    // Check user
+                    var response = await CheckUser(userId);
+                    // Something wrong with user
+                    if (!response.Success)
+                        return new DataResponse<List<CarpoolConfirmation>>(response.ErrorCode, response.ErrorMessage);
+
+                    // Get all carpool confirmations
+                    var carpoolConfirmations = await context.CarpoolConfirmations
+                                        .Include(x => x.Passenger)
+                                        .Include(x => x.CarpoolRide).ThenInclude(x => x.Driver)
+                                        .Where(x => x.Passenger.Id == userId || x.CarpoolRide.Driver.Id == userId)
+                                        .AsNoTracking()
+                                        .ToListAsync();
+                    // Return response
+                    return new DataResponse<List<CarpoolConfirmation>>(true, carpoolConfirmations);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<List<CarpoolConfirmation>>(1, mes.Message);
+            }
+        }
         public async Task<DataResponse> CheckIfPhoneIsNotUsedAlready(string phoneNo)
         {
             try
@@ -275,14 +328,16 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse<User>(1, mes.Message);
             }
         }
-        public async Task<DataResponse<User>> GetUser(string phoneNo)
+        public async Task<DataResponse<User>> GetUser(int userId)
         {
             try
             {
                 using (var context = CreateContext())
                 {
-                    // Get user from phone no.
-                    User user = await context.Users.FirstOrDefaultAsync(x => x.PhoneNo == phoneNo);
+                    // Get user from user id
+                    User user = await context.Users
+                        .Include(x => x.Gender)
+                        .FirstOrDefaultAsync(x => x.Id == userId);
                     // Return response
                     return new DataResponse<User>(user != null, user);
                 }
@@ -738,6 +793,200 @@ namespace NorthShoreSurfApp.Database
             {
                 // Return exception
                 return new DataResponse<ContactInfo>(1, mes.Message);
+            }
+        }
+        public async Task<DataResponse<string>> GetOpeningHoursInformation()
+        {
+            try
+            {
+                CultureInfo ciCurr = CultureInfo.CurrentCulture;
+
+                using (var context = CreateContext())
+                {
+                    // Get opening hours information from database
+                    List<OpeningHour> openingHours = await context.OpeningHours.ToListAsync();
+
+                    string openingsHoursDetails = Resources.AppResources.opening_hours_details;
+
+                    string daysString = "";
+
+                    Action<string> addDayString = (str) =>
+                    {
+                        daysString += daysString == string.Empty ? $"{str}" : $"\n\n{str}";
+                    };
+
+                    foreach (var item in openingHours)
+                    {
+                        // Get month name
+                        string monthName = ciCurr.DateTimeFormat.MonthNames[item.Month - 1];
+                        // Open every day in the month
+                        if (item.IsOpenEveryday)
+                        {
+                            addDayString(
+                                string.Format("{0}\n{1}, {2}-{3}",
+                                              monthName.FirstCharToUpper(),
+                                              Resources.AppResources.every_day,
+                                              item.OpenFrom.Value.ToString("HH.mm"),
+                                              item.OpenTo.Value.ToString("HH.mm"))
+                                );
+                        }
+                        // All days closed
+                        else if (item.IsClosed)
+                        {
+                            addDayString(string.Format("{0}\n{1}",
+                                                       monthName.FirstCharToUpper(),
+                                                       Resources.AppResources.closed)
+                                );
+                        }
+                        // Some days open
+                        else
+                        {
+                            var weekDayNames = ciCurr.DateTimeFormat.DayNames;
+
+                            List<string> openDayNames = new List<string>();
+                            Action<bool, int> addDayName = (flag, dayNumber) =>
+                            {
+                                if (flag)
+                                    openDayNames.Add(weekDayNames[dayNumber]);
+                            };
+
+                            // Add the name of days that are open
+                            addDayName(item.Monday, 1);
+                            addDayName(item.Tuesday, 2);
+                            addDayName(item.Wednesday, 3);
+                            addDayName(item.Thursday, 4);
+                            addDayName(item.Friday, 5);
+                            addDayName(item.Saturday, 6);
+                            addDayName(item.Sunday, 0);
+                            // Open in the holidays
+                            if (item.InHolidays)
+                                openDayNames.Add(Resources.AppResources.holidays.ToLower());
+
+                            string dayString = string.Empty;
+                            for (int i = 0; i < openDayNames.Count; i++)
+                            {
+                                string dayName = openDayNames[i];
+
+                                if (dayString == string.Empty)
+                                    dayString += dayName;
+                                else
+                                {
+                                    if (i == openDayNames.Count - 1)
+                                        dayString += $" & {dayName}";
+                                    else
+                                        dayString += $", {dayName}";
+                                }
+                            }
+
+                            addDayString(
+                                string.Format("{0}\n{1}, {2}-{3}",
+                                              monthName.FirstCharToUpper(),
+                                              dayString.FirstCharToUpper(),
+                                              item.OpenFrom.Value.ToString("HH.mm"),
+                                              item.OpenTo.Value.ToString("HH.mm"))
+                                );
+                        }
+                    }
+
+                    // Return response
+                    return new DataResponse<string>(true, string.Format(Resources.AppResources.opening_hours_details, daysString));
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<string>(1, mes.Message);
+            }
+        }
+        public async Task<DataResponse<string>> GetTodaysOpeningHours()
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    // Get opening hours
+                    var openingHour = await context.OpeningHours.FirstOrDefaultAsync(x => x.Month == DateTime.Now.Month);
+
+                    var dateTime = DateTime.Now;
+                    Func<bool, DayOfWeek, bool> checkOpenDays = (flag, dayOfWeek) =>
+                    {
+                        return flag && dateTime.DayOfWeek == dayOfWeek;
+                    };
+
+                    string strOpeningHour = string.Empty;
+
+                    // Check if there is open today
+                    if (openingHour.IsOpenEveryday ||
+                             checkOpenDays(openingHour.Monday, DayOfWeek.Monday) ||
+                            checkOpenDays(openingHour.Tuesday, DayOfWeek.Tuesday) ||
+                            checkOpenDays(openingHour.Wednesday, DayOfWeek.Wednesday) ||
+                            checkOpenDays(openingHour.Thursday, DayOfWeek.Thursday) ||
+                            checkOpenDays(openingHour.Friday, DayOfWeek.Friday) ||
+                            checkOpenDays(openingHour.Saturday, DayOfWeek.Saturday) ||
+                            checkOpenDays(openingHour.Sunday, DayOfWeek.Sunday))
+                    {
+                        strOpeningHour = string.Format("{0}-{1}",
+                            openingHour.OpenFrom.Value.ToString("HH.mm"),
+                            openingHour.OpenTo.Value.ToString("HH.mm")
+                            );
+                    }
+                    // There is closed
+                    else
+                    {
+                        strOpeningHour = Resources.AppResources.closed;
+                    }
+
+                    // Return response
+                    return new DataResponse<string>(true, strOpeningHour);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<string>(1, mes.Message);
+            }
+        }
+
+        public async Task<DataResponse<CarpoolRide>> GetNextCarpoolRide()
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    // Get next carpool ride
+                    var carpoolRide = await context.CarpoolRides
+                        .Where(x => x.DepartureTime.CompareTo(DateTime.Now) >= 0)
+                        .OrderBy(x => x.DepartureTime)
+                        .FirstOrDefaultAsync();
+                    // Return response
+                    return new DataResponse<CarpoolRide>(true, carpoolRide);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<CarpoolRide>(1, mes.Message);
+            }
+        }
+        public async Task<DataResponse<User>> CheckLogin(string phoneNo)
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    // Get user from user id
+                    User user = await context.Users.FirstOrDefaultAsync(x => x.PhoneNo == phoneNo);
+                    // Phone no. is used on an existing account
+                    if (user == null)
+                        return new DataResponse<User>(110, Resources.AppResources.this_phone_no_is_not_used_on_any_existing_accounts);
+                    // Return response
+                    return new DataResponse<User>(true, user);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<User>(1, mes.Message);
             }
         }
     }

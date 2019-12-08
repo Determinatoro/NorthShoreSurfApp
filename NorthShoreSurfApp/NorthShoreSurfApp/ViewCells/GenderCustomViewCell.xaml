@@ -7,7 +7,7 @@
              x:Class="NorthShoreSurfApp.ViewCells.GenderCustomViewCell">
   <ViewCell.View>
       <StackLayout HeightRequest="50" BackgroundColor="White">
-            <Label Text="{Binding Name}"
+            <Label Text="{Binding LocalizedName}"
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"
                    TextColor="Black"

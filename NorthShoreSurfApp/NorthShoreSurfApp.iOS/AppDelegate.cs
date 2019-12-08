@@ -35,6 +35,7 @@ namespace NorthShoreSurfApp.iOS
             global::Xamarin.Forms.Forms.Init();
 
             UINavigationBar.Appearance.TintColor = UIColor.White;
+            Forms9Patch.iOS.Settings.Initialize(this);
             CachedImageRenderer.InitImageSourceHandler();
             LoadApplication(new App());
             // Configure firebase

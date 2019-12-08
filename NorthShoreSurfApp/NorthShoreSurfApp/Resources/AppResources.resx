@@ -136,8 +136,28 @@
     <value>Checking phone no.
 Please wait...</value>
   </data>
-  <data name="confirmations" xml:space="preserve">
-    <value>Confirmations</value>
+  <data name="click_for_more_info" xml:space="preserve">
+    <value>Click for more info</value>
+  </data>
+  <data name="click_here_to_find_out_how_to_contact_us" xml:space="preserve">
+    <value>Click here to
+find out how
+to contact us</value>
+  </data>
+  <data name="click_here_to_read_about_all_the_available_courses" xml:space="preserve">
+    <value>Click here to
+read about all
+the available
+courses</value>
+  </data>
+  <data name="closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="contact_us" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="continue_as_guest" xml:space="preserve">
+    <value>Continue as guest</value>
   </data>
   <data name="could_not_add_events_to_carpool_event" xml:space="preserve">
     <value>Could not add events to carpool event</value>
@@ -170,6 +190,15 @@ Please wait...</value>
     <value>Creating account.
 Please wait...</value>
   </data>
+  <data name="days" xml:space="preserve">
+    <value>{0} day(s)</value>
+  </data>
+  <data name="edit_information" xml:space="preserve">
+    <value>Edit information</value>
+  </data>
+  <data name="every_day" xml:space="preserve">
+    <value>Every day</value>
+  </data>
   <data name="female" xml:space="preserve">
     <value>Female</value>
   </data>
@@ -183,29 +212,55 @@ Please wait...</value>
     <value>Getting data.
 Please wait...</value>
   </data>
+  <data name="holidays" xml:space="preserve">
+    <value>Holidays</value>
+  </data>
   <data name="home" xml:space="preserve">
     <value>Home</value>
   </data>
-  <data name="invitations" xml:space="preserve">
-    <value>Invitations</value>
-  </data>
-  <data name="invite_to_my_ride" xml:space="preserve">
-    <value>Invite user to my ride</value>
-  </data>
-  <data name="join_ride" xml:space="preserve">
-    <value>Join ride</value>
+  <data name="hours" xml:space="preserve">
+    <value>{0} hour(s)</value>
   </data>
   <data name="last_name" xml:space="preserve">
     <value>Last name</value>
   </data>
+  <data name="live_webcam" xml:space="preserve">
+    <value>Live Webcam</value>
+  </data>
+  <data name="log_in" xml:space="preserve">
+    <value>Log in</value>
+  </data>
   <data name="male" xml:space="preserve">
     <value>Male</value>
+  </data>
+  <data name="minutes" xml:space="preserve">
+    <value>{0} minute(s)</value>
   </data>
   <data name="next" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="next_ride_in" xml:space="preserve">
+    <value>Next Ride in</value>
+  </data>
+  <data name="next_ride_to_lokken_in" xml:space="preserve">
+    <value>Next ride to Løkken in</value>
+  </data>
+  <data name="none" xml:space="preserve">
+    <value>None</value>
+  </data>
   <data name="ocean_conditions" xml:space="preserve">
     <value>Ocean conditions</value>
+  </data>
+  <data name="opening_hours" xml:space="preserve">
+    <value>Opening Hours</value>
+  </data>
+  <data name="opening_hours_details" xml:space="preserve">
+    <value>We are open school breaks all year and bookings are always available.
+Contact by mail is available at all times.
+
+{0}
+
+The weather is essential for operation of business which unfortunately can cause the café to close.</value>
   </data>
   <data name="other" xml:space="preserve">
     <value>Other</value>
@@ -213,17 +268,17 @@ Please wait...</value>
   <data name="phone_no" xml:space="preserve">
     <value>Phone no.</value>
   </data>
+  <data name="please_enter_sms_code" xml:space="preserve">
+    <value>Please enter SMS code</value>
+  </data>
   <data name="please_fill_out_all_the_empty_fields" xml:space="preserve">
     <value>Please fill out all the empty fields</value>
   </data>
   <data name="profile" xml:space="preserve">
     <value>Profile</value>
   </data>
-  <data name="requests" xml:space="preserve">
-    <value>Requests</value>
-  </data>
-  <data name="ride" xml:space="preserve">
-    <value>Ride</value>
+  <data name="seconds" xml:space="preserve">
+    <value>{0} second(s)</value>
   </data>
   <data name="see_webcam" xml:space="preserve">
     <value>See webcam</value>
@@ -237,8 +292,17 @@ Please wait...</value>
   <data name="sms_code" xml:space="preserve">
     <value>SMS code</value>
   </data>
+  <data name="surf_and_sup_courses" xml:space="preserve">
+    <value>SURF &amp; SUP</value>
+  </data>
+  <data name="this_phone_no_is_not_used_on_any_existing_accounts" xml:space="preserve">
+    <value>This phone no. is not used on any existing accounts.</value>
+  </data>
   <data name="user_already_exist" xml:space="preserve">
     <value>User already exist</value>
+  </data>
+  <data name="user_is_not_active" xml:space="preserve">
+    <value>User is not active.</value>
   </data>
   <data name="user_not_found" xml:space="preserve">
     <value>User not found</value>
@@ -249,11 +313,17 @@ Please wait...</value>
   <data name="weather_conditions" xml:space="preserve">
     <value>Weather conditions</value>
   </data>
+  <data name="welcome_message" xml:space="preserve">
+    <value>Welcome to North Shore Surf Løkken</value>
+  </data>
   <data name="what_are_good_surfing_conditions" xml:space="preserve">
     <value>What are good surfing conditions</value>
   </data>
   <data name="what_are_good_surfing_conditions_description" xml:space="preserve">
     <value>Good surfing conditions are present when the wave and swell size are close to each other.
 Surfing is possible at all temperatures, but it is important to dress according to the weather.</value>
+  </data>
+  <data name="you_need_to_log_in_to_use_the_carpool_feature" xml:space="preserve">
+    <value>You need to log in to use the carpool feature.</value>
   </data>
 </root>

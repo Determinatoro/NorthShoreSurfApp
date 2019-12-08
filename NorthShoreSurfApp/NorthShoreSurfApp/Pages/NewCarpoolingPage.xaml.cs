@@ -29,6 +29,7 @@ namespace NorthShoreSurfApp
 
             navigationBar.BackButtonClicked += NavigationBar_BackButtonClicked;
             createEventButton.Clicked += CreateEvent_ButtonClicked;
+            RidesTab.Toggled += RidesTab_Clicked;
         }
 
         private void NavigationBar_BackButtonClicked(object sender, EventArgs e)
@@ -41,11 +42,26 @@ namespace NorthShoreSurfApp
         {
             if(sender == createEventButton)
             {
-                //App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.could_not_create_carpool_event, false, () => App.DataService.CreateCarpoolRide(1,departureTimeTextBox.Text, addressTextBox.Text, );
+                // App.DataService.GetData(NorthShoreSurfApp.Resources.AppResources.could_not_create_carpool_event, false, () => App.DataService.CreateCarpoolRide(1,DatePicker.Date, addressTextBox.Text);
                 
             }
         }
 
+        private void RidesTab_Clicked(object sender, EventArgs e)
+        {
+            if (RidesTab.SelectedToggleType == ToggleType.Right)
+            {
+                newRide.IsVisible = false;
+                newRequest.IsVisible = true;
+                
+            }
+            else if (RidesTab.SelectedToggleType == ToggleType.Left)
+            {
+                newRide.IsVisible = true;
+                newRequest.IsVisible = false;
+                
+            }
+        }
 
 
     }

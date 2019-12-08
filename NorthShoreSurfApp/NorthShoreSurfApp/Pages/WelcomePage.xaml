@@ -3,41 +3,127 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
+             xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
              mc:Ignorable="d"
              x:Class="NorthShoreSurfApp.WelcomePage"
              BackgroundColor="White">
-    <StackLayout Spacing="10" BackgroundColor="White" Margin="10,0,10,10">
-        <BoxView Color="Transparent" VerticalOptions="Center" HorizontalOptions="FillAndExpand" HeightRequest="60"/>
-        <Image Source="C:\Users\musta\source\repos\Determinatoro\NorthShoreSurfApp\NorthShoreSurfApp\NorthShoreSurfApp\Icons\NSSlogo.png"
-               Aspect="AspectFill"
-               HeightRequest="280"/>
-        <Button Text="Sign up" 
-                VerticalOptions="Center" 
-                HorizontalOptions="FillAndExpand" 
-                BackgroundColor="{StaticResource NSSBlue}" 
-                TextColor="White"
-                CornerRadius="10"
-                FontSize="Title"
-                Padding="0,10"
-                Clicked="SignUpClicked"/>
-        <Button Text="Sign in" 
-                VerticalOptions="Center" 
-                HorizontalOptions="FillAndExpand" 
-                BackgroundColor="#FFAA00" 
-                TextColor="White"
-                CornerRadius="10"
-                FontSize="Title"
-                Padding="0,10"
-                Clicked="SingInClicked"/>
-        <BoxView Color="White" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
-        <Button Text="Continue as guest" 
-                VerticalOptions="Center" 
-                HorizontalOptions="FillAndExpand" 
-                BackgroundColor="#919191" 
-                TextColor="White"
-                CornerRadius="10"
-                FontSize="Title"
-                Padding="0,10"
-                Clicked="ContinueAsGuestClicked"/>
-    </StackLayout>
+
+    <ContentPage.BindingContext>
+        <models:WelcomeViewModel />
+    </ContentPage.BindingContext>
+
+    <Grid RowSpacing="0"
+          ColumnSpacing="0"
+          Margin="0"
+          Padding="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label HeightRequest="65"
+               BackgroundColor="Transparent"
+               />
+
+        <!--Top navigation bar-->
+        <local:CustomNavigationBar x:Name="navigationBar"
+                                   BarBackgroundColor="{StaticResource BarBackground}"
+                                   ShowBackButton="False"
+                                   Title=""
+                                   TitleColor="Black"
+                                   TitleSize="24"
+                                   IsVisible="{Binding ShowUserNotLoggedIn}"
+                                   ShowLogo="True"
+                                   Logo="ic_logo.png"
+                                   />
+
+        <ScrollView Grid.Row="1"
+                    BackgroundColor="White" >
+            <StackLayout 
+                         Spacing="0"
+                         Padding="20">
+                <!--Logo-->
+                <Image Source="nss_logo_welcome.jpg"
+                       Aspect="AspectFit" 
+                       IsVisible="{Binding ShowWelcome}"                       
+                       HeightRequest="280"/>
+                
+                <!--Title-->
+                <Label FontSize="20"
+                       Text="{local:Translate you_need_to_log_in_to_use_the_carpool_feature}"
+                       HeightRequest="200"
+                       TextColor="Black"
+                       Margin="0, 80, 0, 0"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       IsVisible="{Binding ShowUserNotLoggedIn}"
+                       />
+
+                <!--Sign up button-->
+                <local:CustomImageTextButton Title="{local:Translate sign_up}" 
+                                             HorizontalOptions="Fill" 
+                                             Background="{StaticResource NSSBlue}" 
+                                             BackgroundPressed="{StaticResource NSSBluePressed}"
+                                             TitleColor="White"
+                                             IconColor="White"
+                                             Icon="ic_profile.png"
+                                             IconPadding="10"
+                                             CornerRadius="10"
+                                             TitleSize="24"
+                                             HeightRequest="60"
+                                             x:Name="btnSignUp"
+                                             Command="{Binding SignUpCommand}"
+                                             />
+
+                <!--Log in button-->
+                <local:CustomImageTextButton Title="{local:Translate log_in}" 
+                                             HorizontalOptions="Fill" 
+                                             Background="{StaticResource NSSOrange}" 
+                                             BackgroundPressed="{StaticResource NSSOrangePressed}"
+                                             TitleColor="White"
+                                             IconColor="White"
+                                             Icon="ic_log_in.png"
+                                             IconPadding="10"
+                                             CornerRadius="10"
+                                             TitleSize="24"
+                                             HeightRequest="60"
+                                             Margin="0, 5, 0, 0"
+                                             x:Name="btnLogIn"
+                                             Command="{Binding LogInCommand}"
+                                             />
+
+            </StackLayout>
+        </ScrollView>
+
+        <!--Bottom grid-->
+        <Grid Grid.Row="2"
+              IsVisible="{Binding ShowWelcome}"
+              Padding="20"
+              RowSpacing="0"
+              ColumnSpacing="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!--Continue as guest button-->
+            <local:CustomImageTextButton Title="{local:Translate continue_as_guest}" 
+                                         HorizontalOptions="Fill" 
+                                         Background="{StaticResource NSSGray}" 
+                                         BackgroundPressed="{StaticResource NSSGrayPressed}"
+                                         TitleColor="White"
+                                         Grid.Row="1"
+                                         IconColor="White"
+                                         Margin="0, 10, 0, 0"
+                                         Icon="ic_forward.png"
+                                         IconPadding="10"
+                                         CornerRadius="10"
+                                         TitleSize="24"
+                                         HeightRequest="60"
+                                         Command="{Binding ContinueAsGuestCommand}"
+                                         />
+
+        </Grid>
+    </Grid>
 </ContentPage>

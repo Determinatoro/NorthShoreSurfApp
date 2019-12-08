@@ -62,56 +62,12 @@
 
             <ListView x:Name="requestList"
                   ItemsSource="{Binding Requests}"
+                  ItemTemplate="{Binding CarpoolRequestItemTemplate}"
                   HasUnevenRows="True"
                   SeparatorVisibility="None"
-                      IsVisible="False"
+                  IsVisible="False"
                   Grid.Row="2"
-                  >
-
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-
-                            <Grid BackgroundColor="{StaticResource NSSBlue}" Margin="10,5,5,10" Padding="5">
-
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-
-                                </Grid.ColumnDefinitions>
-
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <Label Text="Pickup interval" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
-                                <Label Text="{Binding DepartureTimeDayString}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
-                                <Label Text="{Binding TimeInterval}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
-
-
-
-
-                                <Label Text="{Binding ZipCode} " LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill"/>
-                                <Label Text="{Binding City}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill"/>
-
-
-
-
-
-                            </Grid>
-
-
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-
-
-
+                  />
 
         </Grid>
 

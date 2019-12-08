@@ -19,6 +19,15 @@ namespace NorthShoreSurfApp.ViewModels
 
         #endregion
 
+        #region Constructor
+
+        public SurfingConditionsFullscreenViewModel()
+        {
+
+        }
+
+        #endregion
+
         /*****************************************************************/
         // METHODS
         /*****************************************************************/

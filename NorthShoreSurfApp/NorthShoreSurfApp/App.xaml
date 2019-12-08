@@ -12,5 +12,7 @@
         <Color x:Key="NSSBluePressed">#223143</Color>
         <Color x:Key="BarBackground">#F0F0F0</Color>
         <Color x:Key="BarBackgroundPressed">#E0E0E0</Color>
+        <Color x:Key="NSSGray">#919191</Color>
+        <Color x:Key="NSSGrayPressed">#818181</Color>
     </Application.Resources>
 </Application>

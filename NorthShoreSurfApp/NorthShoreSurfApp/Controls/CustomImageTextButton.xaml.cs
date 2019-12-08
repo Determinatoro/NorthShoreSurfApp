@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using System.Windows.Input;
 
 namespace NorthShoreSurfApp
 {
@@ -64,6 +65,7 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(float), typeof(CustomImageTextButton), 10.0f);
         public static readonly BindableProperty IconPaddingProperty = BindableProperty.Create(nameof(IconPadding), typeof(Thickness), typeof(CustomImageTextButton), new Thickness(5));
         public static readonly BindableProperty IconTransformationsProperty = BindableProperty.Create(nameof(IconTransformations), typeof(List<ITransformation>), typeof(CustomImageTextButton), null);
+        public static readonly BindableProperty CommandProperty = BindableProperty.Create(nameof(Command), typeof(ICommand), typeof(CustomImageTextButton), null);
 
         public event EventHandler<EventArgs> Clicked;
 
@@ -145,6 +147,11 @@ namespace NorthShoreSurfApp
         {
             get { return (List<ITransformation>)GetValue(IconTransformationsProperty); }
             private set { SetValue(IconTransformationsProperty, value); }
+        }
+        public ICommand Command
+        {
+            get { return (ICommand)GetValue(CommandProperty); }
+            private set { SetValue(CommandProperty, value); }
         }
 
         #endregion

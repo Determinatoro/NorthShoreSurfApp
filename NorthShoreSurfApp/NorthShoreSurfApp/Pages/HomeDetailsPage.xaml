@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
+             mc:Ignorable="d"
+             x:Class="NorthShoreSurfApp.HomeDetailsPage">
+
+    <ContentPage.BindingContext>
+        <models:HomeDetailsViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <!--Root grid-->
+        <Grid RowSpacing="0"
+              Margin="0"
+              BackgroundColor="White"
+              Padding="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Top navigation bar-->
+            <local:CustomNavigationBar x:Name="navigationBar"
+                                       BarBackgroundColor="{StaticResource BarBackground}"
+                                       ShowBackButton="True"
+                                       Title="{Binding PageTitle}"
+                                       TitleColor="Black"
+                                       TitleSize="24"
+                                       ShowLogo="False"
+                                       Logo="ic_logo.png"
+                                       />
+            <!--Opening hours details-->
+            <Grid Margin="0"
+                  Grid.Row="1"
+                  RowSpacing="0"
+                  IsVisible="{Binding ShowOpeningHoursDetails}"
+                  ColumnSpacing="0"
+                  VerticalOptions="Fill"
+                  HorizontalOptions="Fill"
+                  BackgroundColor="{StaticResource NSSBlue}"
+                  >
+
+                <ScrollView>
+                    <StackLayout Spacing="0"
+                                 Margin="0"
+                                 Padding="20">
+                        <Label Text="{Binding OpeningHoursDetails}"
+                               TextColor="White"
+                               FontSize="16"
+                               />
+                    </StackLayout>
+                </ScrollView>
+
+            </Grid>
+            <!--Contact info details-->
+            <Grid Margin="0"
+                  Grid.Row="1"
+                  RowSpacing="0"
+                  IsVisible="{Binding ShowContactInfoDetails}"
+                  ColumnSpacing="0"
+                  VerticalOptions="Fill"
+                  HorizontalOptions="Fill"
+                  BackgroundColor="{StaticResource NSSBlue}"
+                  >
+
+                <ScrollView>
+                    <StackLayout Spacing="0"
+                                 Margin="0"
+                                 Padding="20">
+                        <Label Text="{Binding ContactInfoDetails}"
+                               TextColor="White"
+                               FontSize="20"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Start"
+                               />
+                    </StackLayout>
+                </ScrollView>
+
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -51,6 +51,7 @@ namespace NorthShoreSurfApp.Droid
 
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
+            Forms9Patch.Droid.Settings.Initialize(this);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
