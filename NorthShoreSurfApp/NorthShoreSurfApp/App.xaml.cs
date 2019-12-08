@@ -51,7 +51,7 @@ namespace NorthShoreSurfApp
             else
             {
                 // Set main page to welcome page
-                MainPage = new CustomNavigationPage(new WelcomePage());
+                MainPage = new CustomNavigationPage(new CarpoolingPage());
             }
         }
 

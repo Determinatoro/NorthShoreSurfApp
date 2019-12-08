@@ -221,6 +221,12 @@ Please wait...</value>
   <data name="hours" xml:space="preserve">
     <value>{0} hour(s)</value>
   </data>
+  <data name="invite_to_ride" xml:space="preserve">
+    <value>Invite to my ride</value>
+  </data>
+  <data name="join_ride" xml:space="preserve">
+    <value>Join ride</value>
+  </data>
   <data name="last_name" xml:space="preserve">
     <value>Last name</value>
   </data>
@@ -276,6 +282,9 @@ The weather is essential for operation of business which unfortunately can cause
   </data>
   <data name="profile" xml:space="preserve">
     <value>Profile</value>
+  </data>
+  <data name="rides" xml:space="preserve">
+    <value>Rides</value>
   </data>
   <data name="seconds" xml:space="preserve">
     <value>{0} second(s)</value>

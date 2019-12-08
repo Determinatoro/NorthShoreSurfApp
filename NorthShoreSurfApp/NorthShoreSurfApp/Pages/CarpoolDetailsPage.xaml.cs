@@ -23,18 +23,10 @@ namespace NorthShoreSurfApp
         public CarpoolDetailsPageViewModel CarpoolDetailsPageViewModel { get => (CarpoolDetailsPageViewModel)this.BindingContext; }
 
         private CarpoolRide _ride;
-
         private CarpoolRequest _request;
-
-        private bool _isRide;
-
-        private bool _isRequest;
 
         public CarpoolDetailsPage(CarpoolRide ride)
         {
-            _ride = ride;
-            _isRide = true;
-            _isRequest = false;
                 Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
                 Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
                 InitializeComponent();
@@ -47,42 +39,40 @@ namespace NorthShoreSurfApp
                 // Set safe area margins
                 grid.Margin = safeAreaInset;
             navigationBar.BackButtonClicked += NavigationBar_BackButtonClicked;
-            btnJoin.Clicked += BtnJoin_Clicked1;
-            requestPage.IsVisible = false;
-            ridePage.IsVisible = true;
-            btnJoin.IsVisible = true;
-            btnInvite.IsVisible = false;
+            btnJoin.Clicked += BtnJoin_Clicked;
+            _ride = ride;
+
         }
 
-        private void BtnJoin_Clicked1(object sender, EventArgs e)
+        private void BtnJoin_Clicked(object sender, EventArgs e)
         {
             var userId = int.Parse(App.LocalDataService.GetValue(nameof(LocalDataKeys.UserId)));
 
             App.DataService.GetData(
-                            NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                            true,
-                            () => App.DataService.SignUpToCarpoolRide(_ride.Id, userId),
-                            async (response) =>
-                            {
-                                if (response.Success)
-                                {
+                                    NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
+                                    true,
+                                    () => App.DataService.SignUpToCarpoolRide(_ride.Id, userId),
+                                    async (response) =>
+                                    {
+                                        if (response.Success)
+                                        {
 
-                                    CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, "Created" + response.Success);
-                                    await PopupNavigation.Instance.PushAsync(customDialog);
-                                }
-                                else
-                                {
-                                    CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                                    await PopupNavigation.Instance.PushAsync(customDialog);
-                                }
-                            });
+                                            CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, "Created" + response.Success);
+                                            await PopupNavigation.Instance.PushAsync(customDialog);
+                                        }
+                                        else
+                                        {
+                                            CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                                            await PopupNavigation.Instance.PushAsync(customDialog);
+                                        }
+                                    });
+            
         }
+
 
 
         public CarpoolDetailsPage(CarpoolRequest request)
         {
-            _isRide = false;
-            _isRequest = true;
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
             Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
@@ -97,10 +87,7 @@ namespace NorthShoreSurfApp
             navigationBar.BackButtonClicked += NavigationBar_BackButtonClicked;
             btnInvite.Clicked += BtnInvite_Clicked;
             _request = request;
-            requestPage.IsVisible = true;
-            ridePage.IsVisible = false;
-            btnInvite.IsVisible = true;
-            btnJoin.IsVisible = false;
+
         }
 
         private void BtnInvite_Clicked(object sender, EventArgs e)
@@ -135,40 +122,22 @@ namespace NorthShoreSurfApp
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            if(_isRide)
+            if (_ride != null)
             {
-                CarpoolDetailsPageViewModel.Name = _ride.Driver.FullName();
-                CarpoolDetailsPageViewModel.PhoneNo = _ride.Driver.PhoneNo;
-                CarpoolDetailsPageViewModel.Gender = "FIXGENDER";
-                CarpoolDetailsPageViewModel.Age = _ride.Driver.Age;
-
-                CarpoolDetailsPageViewModel.Price = _ride.PricePerPassengerString;
-                CarpoolDetailsPageViewModel.Address = _ride.Address;
-                CarpoolDetailsPageViewModel.DestinationAddress = _ride.DestinationAddress;
-                CarpoolDetailsPageViewModel.DepartureTime = _ride.DepartureTimeHourString;
-                CarpoolDetailsPageViewModel.DepartureTimeDay = _ride.DepartureTimeDayString;
-                CarpoolDetailsPageViewModel.ZipCode = _ride.ZipcodeCityString;
-                CarpoolDetailsPageViewModel.DestinationZipCode = _ride.DestinationZipcodeCityString;
-                CarpoolDetailsPageViewModel.NumberOfSeats = _ride.NumberOfSeats;
-                CarpoolDetailsPageViewModel.AvailableSeats = _ride.AvailableSeats;
                 if(_ride.Comment != null)
                 CarpoolDetailsPageViewModel.Message = _ride.Comment;
+                CarpoolDetailsPageViewModel.User.Add(_ride.Driver);
+                CarpoolDetailsPageViewModel.Ride.Add(_ride);
 
             }
-            else if(_isRequest)
+            else if (_request != null)
             {
-                CarpoolDetailsPageViewModel.Name = _request.Passenger.FullName();
-                CarpoolDetailsPageViewModel.PhoneNo = _request.Passenger.PhoneNo;
-                CarpoolDetailsPageViewModel.Gender = "FIXGENDER";
-                CarpoolDetailsPageViewModel.Age = _request.Passenger.Age;
-
-                CarpoolDetailsPageViewModel.DepartureTimeDay = _request.DepartureTimeDayString;
-                CarpoolDetailsPageViewModel.DepartureTime = _request.TimeInterval;
-                CarpoolDetailsPageViewModel.ZipCode = _request.ZipCode + " " +_request.City;
-                CarpoolDetailsPageViewModel.DestinationZipCode = "9480 Løkken";
+                if(_request.Comment != null)
+                CarpoolDetailsPageViewModel.Message = _request.Comment;
+                CarpoolDetailsPageViewModel.Ride.Add(_request);
 
             }
-            
+
         }
 
     }

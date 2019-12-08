@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:local="clr-namespace:NorthShoreSurfApp"
+          mc:Ignorable="d"
+          x:Class="NorthShoreSurfApp.ViewCells.UserViewCell">
+
+
+    <ViewCell.View>
+        <Frame Padding="5"
+               CornerRadius="10"
+               Margin="10,5,10,5"
+               BackgroundColor="{StaticResource NSSBlue}"
+               HasShadow="False">
+            <Grid Padding="5"
+                  Margin="0"
+                  RowSpacing="0"
+                  ColumnSpacing="0">
+                <!--Column definitions-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+                <!--Left column-->
+                <Grid Margin="0"
+                      Padding="0"
+                      HorizontalOptions="Fill"
+                      Grid.Column="0"
+                      ColumnSpacing="0"
+                      RowSpacing="0">
+
+                    <!--Name-->
+                    <Label Text="{Binding FullName}" 
+                           MaxLines="1"
+                           Padding="0, 2, 0, 0"
+                           LineBreakMode="TailTruncation"
+                           TextColor="White" 
+                           HorizontalOptions="StartAndExpand"
+                           Grid.Row="0" 
+                           />
+                    <!--PhoneNo-->
+                    <Label Text="{Binding PhoneNo}" 
+                           MaxLines="1"
+                           Padding="0, 2, 0, 0"
+                           LineBreakMode="TailTruncation"
+                           TextColor="White" 
+                           HorizontalOptions="StartAndExpand"
+                           Grid.Row="0" 
+                           />
+              
+                </Grid>
+
+                <!--Right column-->
+                <Grid Margin="0"
+                      Padding="0"
+                      HorizontalOptions="Fill"
+                      Grid.Column="1"
+                      ColumnSpacing="0"
+                      RowSpacing="0"                      
+                      >
+
+
+                    <!--Gender-->
+                    <Label Text="Gender" 
+                           MaxLines="1"
+                           Padding="0, 2, 0, 0"
+                           LineBreakMode="TailTruncation"
+                           TextColor="White"
+                           HorizontalOptions="EndAndExpand"
+                           Grid.Row="1" 
+                           />
+                    <!--Age-->
+                    <Label Text="{Binding Age}" 
+                           MaxLines="1"
+                           LineBreakMode="TailTruncation"
+                           TextColor="White" 
+                           HorizontalOptions="EndAndExpand"
+                           Grid.Row="3" 
+                           />
+                </Grid>
+
+            </Grid>
+
+        </Frame>
+
+    </ViewCell.View>
+
+</ViewCell>

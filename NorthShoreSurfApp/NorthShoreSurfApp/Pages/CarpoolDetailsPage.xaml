@@ -10,192 +10,80 @@
              BackgroundColor="White"
              >
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:CustomDataTemplateSelector x:Key="customDataTemplateSelector">
+                
+            </local:CustomDataTemplateSelector>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.BindingContext>
         <models:CarpoolDetailsPageViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
+
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
 
             <local:CustomNavigationBar x:Name="navigationBar"
+                                       Title="{local:Translate rides}"
                                        BarBackgroundColor="{StaticResource BarBackground}"
                                        ShowBackButton="True"
-                                       Title="{local:Translate ride}"
                                        TitleColor="Black"
                                        TitleSize="24"
-                                       ShowLogo="True"
-                                       Logo="ic_logo.png"
-                                       Grid.Row="0"/>
-
-            <local:CustomFrame x:Name="user"
-                Margin="10,10,10,10"
-                CornerRadius="10"
-                BackgroundColor="{StaticResource NSSBlue}"
-                Grid.Row="1"
-                Padding="5">
-
-                <Grid ColumnSpacing="0" RowSpacing="0" Padding="0">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-     
-                    </Grid.RowDefinitions>
-                    <Label Text="{Binding Name}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
-                    <Label Text="{Binding PhoneNo}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
-                    <Label Text="{Binding Gender}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
-                    <Label Text="{Binding Age}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
+                                       ShowLogo="False"
+                                       Grid.Row="0"
+                                       />
 
 
-                </Grid>
+            <Frame Grid.Row="1" Margin="0" Padding="0">
 
-            </local:CustomFrame>
-
-            <local:CustomFrame x:Name="requestPage"
-                Margin="10,10,10,10"
-                CornerRadius="10"
-                BackgroundColor="{StaticResource NSSBlue}"
-                Grid.Row="2"
-                HeightRequest="160"
-                Padding="5">
-
-                <Grid RowSpacing="0"
-                      ColumnSpacing="0" Padding="0">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-
-
-                    </Grid.RowDefinitions>
-                    <Label Text="Pickup interval:" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
-                    <Label Text="{Binding DepartureTimeDay}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
-                    <Label Text="{Binding DepartureTime}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
-                    <Label Text="{Binding ZipCode}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
-                    <Label Text="North Shore Surf" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
-                    <Label Text="{Binding DestinationZipCode}" LineHeight="0.8" TextColor="White" Grid.Row="3" Grid.Column="1" VerticalOptions="Fill" HorizontalOptions="EndAndExpand"/>
-
-
-
-                </Grid>
-
-
-            </local:CustomFrame>
-
-           
-
-            <local:CustomFrame x:Name="ridePage"
-                Margin="10,10,10,10"
-                CornerRadius="10"
-                BackgroundColor="{StaticResource NSSBlue}"
-                Grid.Row="2"
-                HeightRequest="160"
-                Padding="5">
-
-                <Grid BackgroundColor="{StaticResource NSSBlue}" Margin="10,10,10,10" RowSpacing="0" ColumnSpacing="0" Padding="0">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-
-                    </Grid.ColumnDefinitions>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Label Text="{Binding DepartureTimeDay}" LineHeight="0.8" TextColor="White" Grid.Row="0" Grid.Column="0" VerticalOptions="Fill"/>
-                    <Label Text="{Binding DepartureTime}" LineHeight="0.8" TextColor="White" Grid.Row="1" Grid.Column="0" VerticalOptions="Fill"/>
-                    <Label Text="{Binding Price}" LineHeight="0.8" TextColor="White" Grid.Row="2" Grid.Column="0" VerticalOptions="Fill"/>
-
-
-
-                    <local:CarpoolingSeatLayout
-                        AvailableSeats="{Binding AvailableSeats}" NumberOfSeats="{Binding NumberOfSeats}"  Grid.Row="5" Grid.Column="0">
-                        
-                    </local:CarpoolingSeatLayout>
-
-
-                    <Label Text="{Binding Address}" TextColor="White" Grid.Row="0" Grid.Column="1" VerticalOptions="Fill"/>
-                    <Label Text="{Binding ZipCode}" TextColor="White" Grid.Row="1" Grid.Column="1" VerticalOptions="Fill"/>
-
-                    <Label Text="{Binding DestinationZipCode}" TextColor="White" Grid.Row="4" Grid.Column="1" VerticalOptions="Fill"/>
-                    <Label Text="{Binding DestinationAddress}" TextColor="White" Grid.Row="5" Grid.Column="1" VerticalOptions="Fill"/>
+                <StackLayout BindableLayout.ItemsSource="{Binding User}"
+                             BindableLayout.ItemTemplate="{Binding UserItemTemplate}">
                     
-                </Grid>
+                </StackLayout>
                 
-            </local:CustomFrame>
+            </Frame>
 
-            <local:CustomFrame Grid.Row="3"
-                BackgroundColor="{StaticResource NSSBlue}"
-                HeightRequest="100"
-                BorderWidth="0"
-                HorizontalOptions="Fill"
-                Margin="10,10,10,10"
-                Padding="0,0,0,0"
-                CornerRadius="10">
+            <StackLayout BindableLayout.ItemsSource="{Binding Ride}"
+                             BindableLayout.ItemTemplateSelector="{StaticResource customDataTemplateSelector}" Grid.Row="2"
+                             >
+                </StackLayout>
 
-                <Grid Padding="10,10,10,10">
+            <Frame Grid.Row="3 " Margin="0" Padding="0">
+
+                <StackLayout>
+
+                    <local:CustomFrame BackgroundColor="{StaticResource NSSBlue}" CornerRadius="10"
+                                       IsVisible="True">
+                        <Label Text="{Binding Message}" TextColor="White" VerticalTextAlignment="Center" 
+                               HorizontalTextAlignment="Center"></Label>
+                        
+                    </local:CustomFrame>
+
+                    <local:CustomImageTextButton x:Name="btnJoin" Background="{StaticResource NSSOrange}"
+                                                 Title="{local:Translate join_ride}"></local:CustomImageTextButton>
+
+
+
+                    <local:CustomImageTextButton x:Name="btnInvite" Background="{StaticResource NSSOrange}"
+                                                 Title="{local:Translate invite_to_ride}"></local:CustomImageTextButton>
+
+
+
+
+                </StackLayout>
                 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            </Frame>
 
-                <Label Text="{Binding Message}" TextColor="White" Grid.Row="0" VerticalOptions="Fill" HorizontalOptions="StartAndExpand"/>
-
-     
-                </Grid>
-
-            </local:CustomFrame>
-
-
-            <Button x:Name="btnInvite"
-                    CornerRadius="10"
-                    Text="{local:Translate invite_to_my_ride}" 
-                    TextColor="White" 
-                    BackgroundColor="{StaticResource NSSOrange}" 
-                    Margin="10,0,10,10" 
-                    Grid.Row="4"
-                    VerticalOptions="Fill"
-                />
-
-            <Button x:Name="btnJoin"
-                    CornerRadius="10"
-                    Text="{local:Translate join_ride}" 
-                    TextColor="White" 
-                    BackgroundColor="{StaticResource NSSOrange}" 
-                    Margin="10,0,10,10" 
-                    Grid.Row="4"
-                    VerticalOptions="Fill"
-                />
 
         </Grid>
-
     </ContentPage.Content>
 </ContentPage>
