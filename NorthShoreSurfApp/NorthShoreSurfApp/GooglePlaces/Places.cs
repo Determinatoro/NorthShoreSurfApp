@@ -44,13 +44,13 @@ namespace GooglePlaces
 		/// <param name="placeID">Place identifier.</param>
 		/// <param name="apiKey">API key.</param>
 		/// <param name="fields">The fields to query (see https://developers.google.com/places/web-service/details#fields )</param>
-		public static async Task<Place> GetPlace(string placeID, string apiKey, PlacesFieldList fields = null)
+		public static async Task<Place> GetPlace(string placeID, string apiKey, PlacesFieldList fields = null, GoogleAPILanguage language = GoogleAPILanguage.Danish)
 		{
 			fields = fields ?? PlacesFieldList.ALL; // default = ALL fields
 
 			try
 			{
-				var requestURI = CreateDetailsRequestUri(placeID, apiKey, fields);
+				var requestURI = CreateDetailsRequestUri(placeID, apiKey, fields, language);
 				var client = new HttpClient();
 				var request = new HttpRequestMessage(HttpMethod.Get, requestURI);
 				var response = await client.SendAsync(request);
@@ -85,12 +85,13 @@ namespace GooglePlaces
 		/// <param name="place_id">Place identifier.</param>
 		/// <param name="apiKey">API key.</param>
 		/// <param name="fields">The fields to query (see https://developers.google.com/places/web-service/details#fields )</param>
-		private static string CreateDetailsRequestUri(string place_id, string apiKey, PlacesFieldList fields)
+		private static string CreateDetailsRequestUri(string place_id, string apiKey, PlacesFieldList fields, GoogleAPILanguage language)
 		{
 			var url = "https://maps.googleapis.com/maps/api/place/details/json";
 			url += $"?placeid={Uri.EscapeUriString(place_id)}";
 			url += $"&key={apiKey}";
-			if (! fields.IsEmpty()) url += $"&fields={fields}";
+            url += "&Language=" + GoogleAPILanguageHelper.ToAPIString(language);
+            if (! fields.IsEmpty()) url += $"&fields={fields}";
 			return url;
 		}
 		

@@ -53,7 +53,8 @@ namespace GooglePlaces
 			PlacesField.Location,
 			PlacesField.ID,
 			PlacesField.Name,
-			PlacesField.PlaceID);
+			PlacesField.PlaceID
+            );
 
 		public readonly IReadOnlyList<PlacesField> Fields;
 		

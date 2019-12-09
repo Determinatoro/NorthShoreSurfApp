@@ -31,6 +31,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Xamarin.Forms;
+using System.Security.Cryptography;
+using System.Linq;
 
 namespace GooglePlaces
 {
@@ -79,6 +81,12 @@ namespace GooglePlaces
         /// Gets or sets the place type.
         /// </summary>
         /// <value>The type.</value>
+        ///
+
+        
+
+      
+      
         public PlaceType Type
 		{
 			get
@@ -194,8 +202,15 @@ namespace GooglePlaces
 		public PlacesBar()
 		{
 			TextChanged += OnTextChanged;
-		}
+            /* var allChar = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            var resultToken = new string(
+               Enumerable.Repeat(allChar, 8)
+               .Select(token => token[random.Next(token.Length)]).ToArray());
 
+            SessionToken = resultToken.ToString(); */
+        }
+        
 		/// <summary>
 		/// Handles changes to search text.
 		/// </summary>
@@ -215,6 +230,11 @@ namespace GooglePlaces
 			{
                 OnPlacesRetrieved(new AutoCompleteResult());
             }
+        }
+
+        void on_Clicked(object sender, TextChangedEventArgs e)
+        {
+
         }
 	}
 }

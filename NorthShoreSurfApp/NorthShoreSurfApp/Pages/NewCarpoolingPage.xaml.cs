@@ -110,8 +110,15 @@ namespace NorthShoreSurfApp
             var place = await Places.GetPlace(prediction.Place_ID, search_bar.ApiKey);
 
             if (place != null)
-                await DisplayAlert(
-                    place.Name, string.Format("Lat: {0}\nLon: {1}", place.Latitude, place.Longitude), "OK");
+            {
+                search_bar.Text = string.Format("{0} {1}, {2} {3}", place.PostalCode,place.Locality,place.StreetName, place.StreetNumber, "OK");
+                results_list.IsVisible = false;
+                /* NewCarpoolingPageViewModel.NewRide.DestinationZipCode = place.PostalCode.ToString();
+                NewCarpoolingPageViewModel.NewRide.City = place.Locality.ToString();
+                NewCarpoolingPageViewModel.NewRide.DestinationAddress = string.Format("{0} {1}", place.StreetName.ToString(), place.StreetNumber.ToString()); */
+                
+            }
+                
         }
 
 

@@ -78,6 +78,8 @@
 				                    AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="SizeProportional" HeightRequest="230">
 				                    <ListView.ItemTemplate>
 					                    <DataTemplate>
+                                           
+
 						                    <TextCell d:DataContext="{d:DesignInstance custom:AutoCompletePrediction}" Text="{Binding MainText}" Detail="{Binding SecondaryText}"/>
 					                    </DataTemplate>
 				                    </ListView.ItemTemplate>
