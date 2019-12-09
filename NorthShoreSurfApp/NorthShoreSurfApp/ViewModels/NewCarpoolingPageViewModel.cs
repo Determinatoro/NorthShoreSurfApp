@@ -24,9 +24,10 @@ namespace NorthShoreSurfApp.ViewModels
 
         public NewCarpoolingPageViewModel()
         {
-
+            NewRide = new CarpoolRide();
+            CarpoolRequest = new CarpoolRequest();
         }
-
+        
         private CarpoolRide newRide;
 
         public CarpoolRide NewRide

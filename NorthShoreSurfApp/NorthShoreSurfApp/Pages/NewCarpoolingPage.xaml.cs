@@ -42,7 +42,6 @@ namespace NorthShoreSurfApp
             search_bar.Language = GoogleAPILanguage.Danish;
             results_list.ItemSelected += Results_List_ItemSelected;
 
-
         }
 
         private void NavigationBar_BackButtonClicked(object sender, EventArgs e)
@@ -113,9 +112,9 @@ namespace NorthShoreSurfApp
             {
                 search_bar.Text = string.Format("{0} {1}, {2} {3}", place.PostalCode,place.Locality,place.StreetName, place.StreetNumber, "OK");
                 results_list.IsVisible = false;
-                /* NewCarpoolingPageViewModel.NewRide.DestinationZipCode = place.PostalCode.ToString();
+                NewCarpoolingPageViewModel.NewRide.DestinationZipCode = place.PostalCode.ToString();
                 NewCarpoolingPageViewModel.NewRide.City = place.Locality.ToString();
-                NewCarpoolingPageViewModel.NewRide.DestinationAddress = string.Format("{0} {1}", place.StreetName.ToString(), place.StreetNumber.ToString()); */
+                //NewCarpoolingPageViewModel.NewRide.DestinationAddress = string.Format("{0} {1}", place.StreetName.ToString(), place.StreetNumber.ToString());
                 
             }
                 
