@@ -60,19 +60,14 @@ namespace NorthShoreSurfApp.ModelComponents
 
         [NotMapped]
         public string DepartureTimeDayString { get => DepartureTime.ToCarpoolingFormat(); }
-
         [NotMapped]
         public string DepartureTimeHourString { get => DepartureTime.ToString("HH:mm"); }
-
         [NotMapped]
         public string PricePerPassengerString { get => String.Format("{0} DKK", PricePerPassenger); }
-
         [NotMapped]
         public string ZipcodeCityString { get => String.Format("{0} {1}", ZipCode, City); }
-
         [NotMapped]
         public string DestinationZipcodeCityString { get => String.Format("{0} {1}", DestinationZipCode, DestinationCity); }
-
         [NotMapped]
         public int AvailableSeats
         {

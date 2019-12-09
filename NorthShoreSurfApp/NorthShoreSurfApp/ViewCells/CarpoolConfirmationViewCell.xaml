@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:local="clr-namespace:NorthShoreSurfApp"
+          mc:Ignorable="d"
+          x:Name="this"
+          x:Class="NorthShoreSurfApp.ViewCells.CarpoolConfirmationViewCell">
+  <ViewCell.View>
+        <Frame Padding="10"
+               CornerRadius="10"
+               Margin="10,5,10,5"
+               BackgroundColor="{StaticResource NSSBlue}"
+               HasShadow="False">
+
+            <Grid RowSpacing="0"
+                  ColumnSpacing="0"
+                  HeightRequest="50"
+                  Padding="0"
+                  Margin="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="55"/>
+                    <ColumnDefinition Width="55"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid RowSpacing="0"
+                      ColumnSpacing="0"
+                      Padding="0"
+                      Margin="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Name-->
+                    <Label Text="{Binding Passenger.FullName}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           MaxLines="1"
+                           TextColor="White"
+                           Grid.Column="0"
+                           Grid.Row="0"
+                           />
+
+                    <!--Phone no.-->
+                    <Label Text="{Binding Passenger.PhoneNo}"
+                           FontSize="16"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           MaxLines="1"
+                           TextColor="White"
+                           Grid.Column="0"
+                           Grid.Row="1"
+                           />
+
+                    <!--Age-->
+                    <Label Text="{Binding Passenger.Age}"
+                           FontSize="16"
+                           VerticalOptions="Center"
+                           HorizontalOptions="End"
+                           MaxLines="1"
+                           Padding="0, 0, 10, 0"
+                           TextColor="White"
+                           Grid.Column="1"
+                           Grid.Row="0"
+                           />
+
+                    <!--Gender-->
+                    <Label Text="{Binding Passenger.Gender.LocalizedName}"
+                           FontSize="16"
+                           VerticalOptions="Center"
+                           HorizontalOptions="End"
+                           MaxLines="1"
+                           Padding="0, 0, 10, 0"
+                           TextColor="White"
+                           Grid.Column="1"
+                           Grid.Row="1"
+                           />
+                </Grid>
+
+                <!--Accept button-->
+                <local:CustomImageButton
+                    x:Name="btnAccept"
+                    Grid.Column="1"
+                    Margin="1"
+                    HeightRequest="50"
+                    WidthRequest="50"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding ShowAcceptButton}"
+                    Background="{StaticResource NSSGreen}"
+                    BackgroundPressed="{StaticResource NSSGreenPressed}"
+                    BorderThickness="0"
+                    BorderColor="Transparent"
+                    IconColor="White"
+                    IconPadding="10"
+                    Icon="ic_check.png"
+                    Command="{Binding AcceptCommand, Mode=TwoWay, Source={x:Reference this}}"
+                    CommandParameter="{Binding AcceptCommandParameter, Source={x:Reference this}}"
+                    />
+
+                <!--Deny button-->
+                <local:CustomImageButton
+                    x:Name="btnDeny"
+                    Grid.Column="2"
+                    Margin="1"
+                    HeightRequest="50"
+                    WidthRequest="50"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    IsVisible="{Binding ShowDenyButton}"
+                    Background="{StaticResource NSSRed}"
+                    BackgroundPressed="{StaticResource NSSRedPressed}"
+                    BorderThickness="0"
+                    BorderColor="Transparent"
+                    IconColor="White"
+                    IconPadding="10"
+                    Icon="ic_cross.png"
+                    Command="{Binding DenyCommand, Source={x:Reference this}}"
+                    CommandParameter="{Binding DenyCommandParameter, Source={x:Reference this}}"
+                    />
+            </Grid>
+        </Frame>
+    </ViewCell.View>
+</ViewCell>

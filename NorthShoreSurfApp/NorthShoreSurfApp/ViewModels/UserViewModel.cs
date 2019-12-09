@@ -122,7 +122,7 @@ namespace NorthShoreSurfApp.ViewModels
             set
             {
                 gender = value;
-                OnPropertyChanged(nameof(Gender));
+                OnPropertyChanged();
             }
         }
         /// <summary>

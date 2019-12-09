@@ -65,7 +65,7 @@ namespace NorthShoreSurfApp
             // Message icon clicked in navigation bar
             navigationBar.ButtonTwo.Clicked += async (sender, args) =>
             {
-                //await Navigation.PushAsync(new NewCarpoolingPage());
+                await Navigation.PushModalAsync(new CarpoolConfirmationPage());
             };
         }
 

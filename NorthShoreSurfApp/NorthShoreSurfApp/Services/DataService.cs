@@ -52,6 +52,12 @@ namespace NorthShoreSurfApp
         }
     }
 
+    public class ConfirmationsResult
+    {
+        public List<CarpoolRide> OwnRides { get; set; }
+        public List<CarpoolRide> OtherRides { get; set; }
+    }
+
     public interface IDataService
     {
         void Initialize();
@@ -67,6 +73,7 @@ namespace NorthShoreSurfApp
         Task<DataResponse<List<OpeningHour>>> GetOpeningHours();
         Task<DataResponse<ContactInfo>> GetContactInfo();
 
+        Task<DataResponse<ConfirmationsResult>> GetConfirmations(int userId);
         Task<DataResponse<List<Car>>> GetCars(int userId);
         Task<DataResponse<string>> GetOpeningHoursInformation();
         Task<DataResponse<string>> GetTodaysOpeningHours();

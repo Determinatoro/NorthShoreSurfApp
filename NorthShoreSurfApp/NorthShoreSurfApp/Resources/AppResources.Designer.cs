@@ -220,6 +220,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirmations.
+        /// </summary>
+        internal static string confirmations {
+            get {
+                return ResourceManager.GetString("confirmations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contact Us.
         /// </summary>
         internal static string contact_us {
@@ -622,6 +631,24 @@ namespace NorthShoreSurfApp.Resources {
         internal static string other {
             get {
                 return ResourceManager.GetString("other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other rides.
+        /// </summary>
+        internal static string other_rides {
+            get {
+                return ResourceManager.GetString("other_rides", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Own rides.
+        /// </summary>
+        internal static string own_rides {
+            get {
+                return ResourceManager.GetString("own_rides", resourceCulture);
             }
         }
         

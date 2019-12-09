@@ -305,6 +305,47 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse<User>(1, mes.Message);
             }
         }
+        public async Task<DataResponse<ConfirmationsResult>> GetConfirmations(int userId)
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    // Check user
+                    var response = await CheckUser(userId);
+                    // Something wrong with user
+                    if (!response.Success)
+                        return new DataResponse<ConfirmationsResult>(response.ErrorCode, response.ErrorMessage);
+
+                    // Get confirmations
+                    var carpoolRides = await context.CarpoolRides
+                                        .Include(x => x.Driver)
+                                        .Include(x => x.CarpoolConfirmations)
+                                            .ThenInclude(x => x.Passenger)
+                                                .ThenInclude(x => x.Gender) 
+                                        .Include(x => x.CarpoolRides_Events_Relations)
+                                            .ThenInclude(x => x.Event)
+                                        // Only the carpoolrides that has a relation with the user
+                                        .Where(x => x.Driver.Id == userId || x.CarpoolConfirmations.Any(x2 => x2.Passenger.Id == userId))
+                                        .AsNoTracking()
+                                        .ToListAsync();
+                    // Result
+                    var result = new ConfirmationsResult()
+                    {
+                        OwnRides = carpoolRides.Where(x => x.DriverId == userId).ToList(),
+                        OtherRides = carpoolRides.Where(x => x.CarpoolConfirmations.Any(x2 => x2.Passenger.Id == userId)).ToList()
+                    };
+
+                    // Return response
+                    return new DataResponse<ConfirmationsResult>(true, result);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<ConfirmationsResult>(1, mes.Message);
+            }
+        }
         public async Task<DataResponse<List<CarpoolConfirmation>>> GetCarpoolConfirmations(int userId)
         {
             try
@@ -769,19 +810,21 @@ namespace NorthShoreSurfApp.Database
                     if (accept)
                     {
                         // Set flags
-                        carpoolConfirmation.HasDriverAccepted = isDriver;
-                        carpoolConfirmation.HasPassengerAccepted = !isDriver;
+                        if (isDriver)
+                            carpoolConfirmation.HasDriverAccepted = true;
+                        else
+                            carpoolConfirmation.HasPassengerAccepted = true;
                     }
                     // Has denied
                     else
                     {
                         // Remove carpool confirmation
-                        context.Remove(carpoolConfirmation);
+                        context.CarpoolConfirmations.Remove(carpoolConfirmation);
                     }
                     // Save changes
                     int rowsChanged = await context.SaveChangesAsync();
                     // Error when saving
-                    if (rowsChanged != 1)
+                    if (rowsChanged < 1)
                         return new DataResponse(500, Resources.AppResources.could_not_answer_confirmation);
                     // Return response
                     return new DataResponse(true);

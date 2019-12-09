@@ -232,6 +232,7 @@
                         Margin="0"
                         Padding="0"
                         ClassId="Cancel"
+                        Command="{Binding CancelCommand, Source={x:Reference this}}"
                         BackgroundColor="Transparent">
                     <Button.Triggers>
                         <EventTrigger Event="Pressed">

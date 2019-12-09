@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:local="clr-namespace:NorthShoreSurfApp"
+          mc:Ignorable="d"
+          x:Class="NorthShoreSurfApp.ViewCells.CarpoolConfirmationItemViewCell">
+  <ViewCell.View>
+        <Grid RowSpacing="0"
+              ColumnSpacing="0"
+              Margin="0"
+              Padding="0">
+
+            <!--Header item-->
+            <Grid IsVisible="{Binding IsTitle}"
+                  HeightRequest="50"
+                  ColumnSpacing="0"
+                  RowSpacing="0"
+                  Margin="0"
+                  Padding="0">
+                <!--Frame-->
+                <local:CustomFrame BackgroundColor="{StaticResource NSSBlue}"
+                                   VerticalOptions="Fill"
+                                   Padding="0"
+                                   Margin="0"
+                                   HorizontalOptions="Fill"
+                                   />
+                <!--Title-->
+                <Label Text="{Binding Title}"
+                       FontSize="20"
+                       TextColor="White"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       />
+            </Grid>
+            
+            <!--Own ride item-->
+            <Grid ColumnSpacing="0"
+                  RowSpacing="0"
+                  Margin="0"
+                  IsVisible="{Binding IsOwnRide}"
+                  Padding="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackLayout Spacing="0"
+                             Margin="0"
+                             Padding="0"
+                             BindableLayout.ItemsSource="{Binding CarpoolRideItemsSource}"
+                             BindableLayout.ItemTemplate="{Binding CarpoolRideItemTemplate}"/>
+
+                <StackLayout 
+                    Spacing="0"
+                    Margin="0"
+                    Padding="0"
+                    Grid.Row="1"
+                    BindableLayout.ItemsSource="{Binding CarpoolRide.CarpoolConfirmations}"
+                    BindableLayout.ItemTemplate="{Binding CarpoolConfirmationItemTemplate}"/>
+
+            </Grid>
+        </Grid>
+  </ViewCell.View>
+</ViewCell>

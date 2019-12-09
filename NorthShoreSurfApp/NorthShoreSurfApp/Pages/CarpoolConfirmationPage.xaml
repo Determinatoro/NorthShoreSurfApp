@@ -3,13 +3,57 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:NorthShoreSurfApp"
+             xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
              mc:Ignorable="d"
              x:Class="NorthShoreSurfApp.CarpoolConfirmationPage">
+
+    <ContentPage.BindingContext>
+        <models:CarpoolConfirmationViewModel />
+    </ContentPage.BindingContext>
+
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <!--Root grid-->
+        <Grid RowSpacing="0"
+              Margin="0"
+              BackgroundColor="White"
+              Padding="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--Top navigation bar-->
+            <local:CustomNavigationBar x:Name="navigationBar"
+                                       BarBackgroundColor="{StaticResource BarBackground}"
+                                       ShowBackButton="True"
+                                       Title="{local:Translate confirmations}"
+                                       TitleColor="Black"
+                                       TitleSize="24"
+                                       ShowLogo="False"
+                                       Logo="ic_logo.png"
+                                       />
+
+            <Grid Grid.Row="1"
+                  RowSpacing="0"
+                  ColumnSpacing="0"
+                  Padding="0"
+                  Margin="0">
+
+                <!--List-->
+                <ListView x:Name="listView"
+                          HasUnevenRows="True"
+                          VerticalOptions="Fill"
+                          HorizontalScrollBarVisibility="Never"
+                          SeparatorVisibility="None"
+                          SeparatorColor="{StaticResource NSSBlue}"
+                          Footer=""
+                          BackgroundColor="White"
+                          ItemsSource="{Binding ItemsSource}"
+                          ItemTemplate="{Binding CarpoolConfirmationItemItemTemplate}"
+                          />
+
+            </Grid>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

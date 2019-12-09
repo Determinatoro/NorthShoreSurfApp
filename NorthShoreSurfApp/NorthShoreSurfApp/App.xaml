@@ -16,5 +16,7 @@
         <Color x:Key="NSSGrayPressed">#818181</Color>
         <Color x:Key="NSSRed">#D21414</Color>
         <Color x:Key="NSSRedPressed">#BE1A1A</Color>
+        <Color x:Key="NSSGreen">#27B817</Color>
+        <Color x:Key="NSSGreenPressed">#278717</Color>
     </Application.Resources>
 </Application>

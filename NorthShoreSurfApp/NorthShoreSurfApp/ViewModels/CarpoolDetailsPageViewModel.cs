@@ -53,10 +53,10 @@ namespace NorthShoreSurfApp.ViewModels
 
         public string GetName
         {
-            get { return carpoolRide.Driver.FullName(); }
+            get { return carpoolRide.Driver.FullName; }
             set
             {
-                if (carpoolRide.Driver.FullName() != value)
+                if (carpoolRide.Driver.FullName != value)
                 {
                     fullName = value;
                     OnPropertyChanged(nameof(GetName));

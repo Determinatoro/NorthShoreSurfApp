@@ -151,7 +151,7 @@ namespace NorthShoreSurfApp
                         // Do not close the dialog when an item is selected
                         customListDialog.CloseOnItemTapped = false;
                         // Set car delete command
-                        HomeViewModel.CarDeleteCommand = new Command(async (parameter) =>
+                        HomeViewModel.CarDeleteCommand = new Command((parameter) =>
                         {
                             // Get car from view cell
                             var car = ((Func<Car>)parameter).Invoke();

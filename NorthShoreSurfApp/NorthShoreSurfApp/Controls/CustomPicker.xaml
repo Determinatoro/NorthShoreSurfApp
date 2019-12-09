@@ -21,18 +21,21 @@
                    FontSize="{Binding TitleSize, Source={x:Reference this}}"
                    Margin="0, 0, 0, 3"
                    />
-            <!--Border-->
-            <Frame x:Name="frameSelectedText"
-                   Padding="0"
-                   Grid.Row="1"
-                   HasShadow="False"
-                   BorderColor="Transparent"
-                   BackgroundColor="{Binding TextBackgroundColor, Source={x:Reference this}}"
-                   CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"
-                   Margin="0"
-                   >
-
-                <Grid>
+            <!--Frame selected text-->
+            <local:CustomFrame x:Name="frameSelectedText"
+                               Padding="0"
+                               Grid.Row="1"
+                               BorderWidth="{Binding BorderThickness, Source={x:Reference this}}"
+                               BorderColor="{Binding BorderColor, Source={x:Reference this}}"
+                               BackgroundColor="{Binding TextBackgroundColor, Source={x:Reference this}}"
+                               CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"
+                               Margin="0"
+                               >
+                
+                <Grid RowSpacing="0"
+                      ColumnSpacing="0"
+                      Margin="0"
+                      Padding="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="50"/>
@@ -58,24 +61,22 @@
                            />
 
                 </Grid>
-            </Frame>
+            </local:CustomFrame>
 
-            <Frame x:Name="frameOverlay"
-                   Padding="0"
-                   Grid.Row="1"
-                   HasShadow="False"
-                   BorderColor="Transparent"
-                   BackgroundColor="Transparent"
-                   CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"
-                   Margin="0"
-                   />
+            <!--Overlay shown when picker is pressed-->
+            <local:CustomFrame x:Name="frameOverlay"
+                               Padding="0"
+                               Margin="0"
+                               Grid.Row="1"
+                               BorderColor="Transparent"
+                               BackgroundColor="Transparent"
+                               CornerRadius="{Binding CornerRadius, Source={x:Reference this}}"
+                               />
 
             <!--Button-->
-            <Button
-                x:Name="buttonOverlay"
-                Grid.Row="1"
-                BackgroundColor="Transparent"
-                >
+            <Button x:Name="buttonOverlay"
+                    Grid.Row="1"
+                    BackgroundColor="Transparent">
                 <Button.Triggers>
                     <EventTrigger Event="Pressed">
                         <local:CustomPickerPressedTriggerAction />
