@@ -220,6 +220,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comment.
+        /// </summary>
+        internal static string comment {
+            get {
+                return ResourceManager.GetString("comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirmations.
         /// </summary>
         internal static string confirmations {
@@ -395,11 +404,29 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Driver.
+        /// </summary>
+        internal static string driver {
+            get {
+                return ResourceManager.GetString("driver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit information.
         /// </summary>
         internal static string edit_information {
             get {
                 return ResourceManager.GetString("edit_information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Events.
+        /// </summary>
+        internal static string events {
+            get {
+                return ResourceManager.GetString("events", resourceCulture);
             }
         }
         
@@ -482,6 +509,24 @@ namespace NorthShoreSurfApp.Resources {
         internal static string hours {
             get {
                 return ResourceManager.GetString("hours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invite to ride.
+        /// </summary>
+        internal static string invite_to_ride {
+            get {
+                return ResourceManager.GetString("invite_to_ride", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join ride.
+        /// </summary>
+        internal static string join_ride {
+            get {
+                return ResourceManager.GetString("join_ride", resourceCulture);
             }
         }
         
@@ -603,6 +648,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string ok {
+            get {
+                return ResourceManager.GetString("ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Opening Hours.
         /// </summary>
         internal static string opening_hours {
@@ -653,6 +707,24 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Passenger.
+        /// </summary>
+        internal static string passenger {
+            get {
+                return ResourceManager.GetString("passenger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passengers.
+        /// </summary>
+        internal static string passengers {
+            get {
+                return ResourceManager.GetString("passengers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phone no..
         /// </summary>
         internal static string phone_no {
@@ -685,6 +757,34 @@ namespace NorthShoreSurfApp.Resources {
         internal static string profile {
             get {
                 return ResourceManager.GetString("profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request.
+        /// </summary>
+        internal static string request {
+            get {
+                return ResourceManager.GetString("request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ride.
+        /// </summary>
+        internal static string ride {
+            get {
+                return ResourceManager.GetString("ride", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving your action.
+        ///Please wait....
+        /// </summary>
+        internal static string saving_your_action_please_wait {
+            get {
+                return ResourceManager.GetString("saving_your_action_please_wait", resourceCulture);
             }
         }
         
@@ -830,6 +930,42 @@ namespace NorthShoreSurfApp.Resources {
         internal static string yes {
             get {
                 return ResourceManager.GetString("yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have been invited by {0}.
+        /// </summary>
+        internal static string you_have_been_invited_by {
+            get {
+                return ResourceManager.GetString("you_have_been_invited_by", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have invited a passenger to your carpool ride.
+        /// </summary>
+        internal static string you_have_invited_a_passenger_to_your_carpool_ride {
+            get {
+                return ResourceManager.GetString("you_have_invited_a_passenger_to_your_carpool_ride", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have requested to join {0}.
+        /// </summary>
+        internal static string you_have_requested_to_join {
+            get {
+                return ResourceManager.GetString("you_have_requested_to_join", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have requested to join the carpool.
+        /// </summary>
+        internal static string you_have_requested_to_join_the_carpool {
+            get {
+                return ResourceManager.GetString("you_have_requested_to_join_the_carpool", resourceCulture);
             }
         }
         

@@ -73,6 +73,7 @@ namespace NorthShoreSurfApp
         Task<DataResponse<List<OpeningHour>>> GetOpeningHours();
         Task<DataResponse<ContactInfo>> GetContactInfo();
 
+        Task<DataResponse<List<CarpoolRide>>> GetOwnCarpoolRides(int userId);
         Task<DataResponse<ConfirmationsResult>> GetConfirmations(int userId);
         Task<DataResponse<List<Car>>> GetCars(int userId);
         Task<DataResponse<string>> GetOpeningHoursInformation();
@@ -89,9 +90,9 @@ namespace NorthShoreSurfApp
         Task<DataResponse> DeleteCar(int carId);
         Task<DataResponse<CarpoolRide>> CreateCarpoolRide(int userId, DateTime departureTime, string address, string zipCode, string city, string destinationAddress, string destinationZipCode, string destinationCity, int carId, int numberOfSeats, int pricePerPassenger, List<Event> events, string comment = null);
         Task<DataResponse<CarpoolRequest>> CreateCarpoolRequest(int userId, DateTime fromTime, DateTime toTime, string zipCode, string city, List<Event> events);
-        Task<DataResponse> InvitePassenger(int carpoolRequestId, int carpoolRideId);
+        Task<DataResponse<CarpoolConfirmation>> InvitePassenger(int carpoolRequestId, int carpoolRideId);
         Task<DataResponse> UninvitePassenger(int carpoolConfirmationId);
-        Task<DataResponse> SignUpToCarpoolRide(int carpoolRideId, int userId);
+        Task<DataResponse<CarpoolConfirmation>> SignUpToCarpoolRide(int carpoolRideId, int userId);
         Task<DataResponse> UnsignFromCarpoolRide(int carpoolConfirmationId);
         Task<DataResponse> AnswerCarpoolConfirmation(int userId, int carpoolConfirmationId, bool accept);
     }

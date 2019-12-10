@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:local="clr-namespace:NorthShoreSurfApp"
+          mc:Ignorable="d"
+          x:Class="NorthShoreSurfApp.ViewCells.EventViewCell">
+    <ViewCell.View>
+        <local:CustomFrame Padding="10"
+                           CornerRadius="10"
+                           Margin="10,5,10,5"
+                           BackgroundColor="{StaticResource NSSBlue}"
+                           >
+            <Grid RowSpacing="0"
+                  ColumnSpacing="0"
+                  HeightRequest="25"
+                  Padding="0"
+                  Margin="0">
+
+                <!--Name-->
+                <Label Text="{Binding Name}"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"
+                       MaxLines="1"
+                       FontSize="16"
+                       TextColor="White"
+                       Grid.Column="0"
+                       Grid.Row="0"
+                       />
+            </Grid>
+        </local:CustomFrame>
+    </ViewCell.View>
+</ViewCell>

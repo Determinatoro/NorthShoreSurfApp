@@ -174,6 +174,9 @@ courses</value>
   <data name="color" xml:space="preserve">
     <value>Color</value>
   </data>
+  <data name="comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
   <data name="confirmations" xml:space="preserve">
     <value>Confirmations</value>
   </data>
@@ -235,8 +238,14 @@ Please wait...</value>
     <value>Deleting data.
 Please wait...</value>
   </data>
+  <data name="driver" xml:space="preserve">
+    <value>Driver</value>
+  </data>
   <data name="edit_information" xml:space="preserve">
     <value>Edit information</value>
+  </data>
+  <data name="events" xml:space="preserve">
+    <value>Events</value>
   </data>
   <data name="every_day" xml:space="preserve">
     <value>Every day</value>
@@ -265,6 +274,12 @@ Please wait...</value>
   </data>
   <data name="hours" xml:space="preserve">
     <value>{0} hour(s)</value>
+  </data>
+  <data name="invite_to_ride" xml:space="preserve">
+    <value>Invite to ride</value>
+  </data>
+  <data name="join_ride" xml:space="preserve">
+    <value>Join ride</value>
   </data>
   <data name="last_name" xml:space="preserve">
     <value>Last name</value>
@@ -305,6 +320,9 @@ Please wait...</value>
   <data name="ocean_conditions" xml:space="preserve">
     <value>Ocean conditions</value>
   </data>
+  <data name="ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
   <data name="opening_hours" xml:space="preserve">
     <value>Opening Hours</value>
   </data>
@@ -325,6 +343,12 @@ The weather is essential for operation of business which unfortunately can cause
   <data name="own_rides" xml:space="preserve">
     <value>Own rides</value>
   </data>
+  <data name="passenger" xml:space="preserve">
+    <value>Passenger</value>
+  </data>
+  <data name="passengers" xml:space="preserve">
+    <value>Passengers</value>
+  </data>
   <data name="phone_no" xml:space="preserve">
     <value>Phone no.</value>
   </data>
@@ -336,6 +360,16 @@ The weather is essential for operation of business which unfortunately can cause
   </data>
   <data name="profile" xml:space="preserve">
     <value>Profile</value>
+  </data>
+  <data name="request" xml:space="preserve">
+    <value>Request</value>
+  </data>
+  <data name="ride" xml:space="preserve">
+    <value>Ride</value>
+  </data>
+  <data name="saving_your_action_please_wait" xml:space="preserve">
+    <value>Saving your action.
+Please wait...</value>
   </data>
   <data name="seconds" xml:space="preserve">
     <value>{0} second(s)</value>
@@ -385,6 +419,18 @@ Surfing is possible at all temperatures, but it is important to dress according 
   </data>
   <data name="yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="you_have_been_invited_by" xml:space="preserve">
+    <value>You have been invited by {0}</value>
+  </data>
+  <data name="you_have_invited_a_passenger_to_your_carpool_ride" xml:space="preserve">
+    <value>You have invited a passenger to your carpool ride</value>
+  </data>
+  <data name="you_have_requested_to_join" xml:space="preserve">
+    <value>You have requested to join {0}</value>
+  </data>
+  <data name="you_have_requested_to_join_the_carpool" xml:space="preserve">
+    <value>You have requested to join the carpool</value>
   </data>
   <data name="you_need_to_log_in_to_use_the_carpool_feature" xml:space="preserve">
     <value>You need to log in to use the carpool feature.</value>

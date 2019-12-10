@@ -34,9 +34,11 @@ namespace NorthShoreSurfApp.ModelComponents
         public List<Car> Cars { get; set; }
         public List<CarpoolRide> CarpoolRides { get; set; }
         public List<CarpoolConfirmation> CarpoolConfirmations { get; set; }
-        
+
         [NotMapped]
         public string FullName { get => $"{FirstName} {LastName}"; }
+        [NotMapped]
+        public string LocalizedGender { get => Gender == null ? null : Gender.LocalizedName; }
 
         public override string ToString()
         {

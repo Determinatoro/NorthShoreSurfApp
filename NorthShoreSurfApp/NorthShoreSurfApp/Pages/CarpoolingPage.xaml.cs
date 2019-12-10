@@ -154,18 +154,25 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Events
 
-        private void ListItem_Selected(object sender, EventArgs e)
+        private async void ListItem_Selected(object sender, EventArgs e)
         {
+            var listView = sender as Xamarin.Forms.ListView;
+            if (listView.SelectedItem == null)
+                return;
+
             // CarpoolRides list
             if (sender == rideList)
             {
-                CarpoolRide SelectedRide = (CarpoolRide)rideList.SelectedItem;
-                Console.WriteLine(SelectedRide.DepartureTimeHourString);
+                CarpoolRide selectedRide = (CarpoolRide)rideList.SelectedItem;
+                await Navigation.PushModalAsync(new CarpoolDetailsPage(selectedRide));
+                rideList.SelectedItem = null;
             }
             // CarpoolRequests list
             else if (sender == requestList)
             {
-
+                CarpoolRequest selectedRequest = (CarpoolRequest)requestList.SelectedItem;
+                await Navigation.PushModalAsync(new CarpoolDetailsPage(selectedRequest));
+                requestList.SelectedItem = null;
             }
         }
 

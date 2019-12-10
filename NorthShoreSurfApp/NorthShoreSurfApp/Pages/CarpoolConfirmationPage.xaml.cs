@@ -31,7 +31,13 @@ namespace NorthShoreSurfApp
 
         public CarpoolConfirmationPage()
         {
+            // Hide default navigation bar
+            Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
+            Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
+            // Initialize the page
             InitializeComponent();
+            // iOS safe area insets
+            ((Grid)Content).SetIOSSafeAreaInsets(this);
         }
 
         #endregion
@@ -46,7 +52,7 @@ namespace NorthShoreSurfApp
         {
             base.OnAppearing();
 
-            GetCarpoolConfirmationItems();
+            GetCarpoolConfirmationItems(false);
 
             navigationBar.BackButtonClicked += (sender, args) =>
             {
@@ -91,34 +97,56 @@ namespace NorthShoreSurfApp
                         // Check response
                         if (response.Success)
                         {
+                            // Get result object
                             var confirmationsResult = response.Result;
-
+                            // Create new list
                             var list = new List<CarpoolConfirmationItem>();
-                            list.Add(new CarpoolConfirmationItem() { Title = NorthShoreSurfApp.Resources.AppResources.own_rides });
-                            foreach (var item in confirmationsResult.OwnRides)
+                            if (confirmationsResult.OwnRides.Count > 0)
                             {
-                                // Set current user id
-                                foreach(var carpoolConfirmation in item.CarpoolConfirmations)
-                                    carpoolConfirmation.CurrentUserId = userId;
-                                // Order the confirmations
-                                // 1. Confirmed
-                                // 2. Invites
-                                // 3. Join requests
-                                item.CarpoolConfirmations = item.CarpoolConfirmations
-                                                                .OrderByDescending(x => x.IsConfirmed)
-                                                                .ThenByDescending(x => x.IsInvite)
-                                                                .ToList();
-                                // Add confirmation items
-                                list.Add(new CarpoolConfirmationItem() 
+                                // First header (Own rides)
+                                list.Add(new CarpoolConfirmationItem() { Title = NorthShoreSurfApp.Resources.AppResources.own_rides });
+                                // Own rides
+                                foreach (var item in confirmationsResult.OwnRides)
                                 {
-                                    CarpoolRide = item, 
-                                    IsOwnRide = true, 
-                                    AcceptConfirmationCommand = new Command(CarpoolConfirmationAccepted),
-                                    DenyConfirmationCommand = new Command(CarpoolConfirmationDenied)
-                                });
+                                    // Set current user id
+                                    foreach (var carpoolConfirmation in item.CarpoolConfirmations)
+                                        carpoolConfirmation.CurrentUserId = userId;
+                                    
+                                    // Add confirmation items
+                                    list.Add(new CarpoolConfirmationItem()
+                                    {
+                                        UserId = userId,
+                                        OwnRide = true,
+                                        CarpoolRide = item,
+                                        AcceptConfirmationCommand = new Command(CarpoolConfirmationAccepted),
+                                        DenyConfirmationCommand = new Command(CarpoolConfirmationDenied)
+                                    });
+                                }
                             }
-                            list.Add(new CarpoolConfirmationItem() { Title = NorthShoreSurfApp.Resources.AppResources.other_rides });
+                            if (confirmationsResult.OtherRides.Count > 0)
+                            {
+                                // Second header (Other rides)
+                                list.Add(new CarpoolConfirmationItem() { Title = NorthShoreSurfApp.Resources.AppResources.other_rides });
+                                // Other rides
+                                foreach (var item in confirmationsResult.OtherRides)
+                                {
+                                    // Set current user id
+                                    foreach (var carpoolConfirmation in item.CarpoolConfirmations)
+                                        carpoolConfirmation.CurrentUserId = userId;
+                                    
+                                    // Add confirmation items
+                                    list.Add(new CarpoolConfirmationItem()
+                                    {
+                                        UserId = userId,
+                                        OtherRide = true,
+                                        CarpoolRide = item,
+                                        AcceptConfirmationCommand = new Command(CarpoolConfirmationAccepted),
+                                        DenyConfirmationCommand = new Command(CarpoolConfirmationDenied)
+                                    });
+                                }
+                            }
 
+                            // Set list
                             CarpoolConfirmationViewModel.ItemsSource = list;
                         }
                         else
@@ -151,12 +179,26 @@ namespace NorthShoreSurfApp
                     });
         }
 
+        #endregion
+
+        /*****************************************************************/
+        // EVENTS
+        /*****************************************************************/
+        #region Events
+
+        /// <summary>
+        /// Carpool confirmation accepted
+        /// </summary>
+        /// <param name="func">Function to get the selected carpool confirmation</param>
         private void CarpoolConfirmationAccepted(object func)
         {
             var confirmation = ((Func<CarpoolConfirmation>)func).Invoke();
             AnswerCarpoolConfirmation(confirmation, true);
         }
-
+        /// <summary>
+        /// Carpool confirmation denied
+        /// </summary>
+        /// <param name="func">Function to get the selected carpool confirmation</param>
         private void CarpoolConfirmationDenied(object func)
         {
             var confirmation = ((Func<CarpoolConfirmation>)func).Invoke();

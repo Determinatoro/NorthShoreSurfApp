@@ -29,6 +29,7 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource), typeof(IList), typeof(CustomListDialog), null);
         public static readonly BindableProperty CloseOnItemTappedProperty = BindableProperty.Create(nameof(CloseOnItemTapped), typeof(bool), typeof(CustomListDialog), true);
         public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create(nameof(SelectedItem), typeof(object), typeof(CustomListDialog), true);
+        public static readonly BindableProperty ListSeparatorVisibilityProperty = BindableProperty.Create(nameof(ListSeparatorVisibility), typeof(SeparatorVisibility), typeof(CustomListDialog), SeparatorVisibility.Default);
 
         public event EventHandler<EventArgs> Canceled;
         public event EventHandler<ItemTappedEventArgs> ItemTapped;
@@ -130,6 +131,11 @@ namespace NorthShoreSurfApp
         {
             get { return (object)GetValue(SelectedItemProperty); }
             set { SetValue(SelectedItemProperty, value); }
+        }
+        public SeparatorVisibility ListSeparatorVisibility
+        {
+            get { return (SeparatorVisibility)GetValue(ListSeparatorVisibilityProperty); }
+            set { SetValue(ListSeparatorVisibilityProperty, value); }
         }
 
         #endregion

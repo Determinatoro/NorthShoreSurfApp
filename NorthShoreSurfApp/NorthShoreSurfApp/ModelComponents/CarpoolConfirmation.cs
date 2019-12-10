@@ -26,13 +26,48 @@ namespace NorthShoreSurfApp.ModelComponents
         [Required]
         public int CarpoolRideId { get; set; }
         [ForeignKey(nameof(CarpoolRideId))]
-        public CarpoolRide CarpoolRide { get; set; }       
-        public Nullable<int> CarpoolRequestId { get; set; }
+        public CarpoolRide CarpoolRide { get; set; }
+        public int? CarpoolRequestId { get; set; }
         [ForeignKey(nameof(CarpoolRequestId))]
         public CarpoolRequest CarpoolRequest { get; set; }
 
         [NotMapped]
-        public int CurrentUserId { get; set; }
+        public int? CurrentUserId { get; set; }
+        [NotMapped]
+        public bool IsOwnRide
+        {
+            get
+            {
+                if (CurrentUserId == null)
+                    return false;
+                
+                return CurrentUserId == CarpoolRide.DriverId;
+            }
+        }
+        [NotMapped]
+        public bool IsOtherRide
+        {
+            get
+            {
+                if (CurrentUserId == null)
+                    return false;
+
+                return CurrentUserId == PassengerId;
+            }
+        }
+        [NotMapped]
+        public string InformationString
+        {
+            get
+            {
+                if (IsInvite)
+                    return string.Format(Resources.AppResources.you_have_been_invited_by, CarpoolRide.Driver.FullName);
+                else if (IsRequest)
+                    return string.Format(Resources.AppResources.you_have_requested_to_join, CarpoolRide.Driver.FullName);
+
+                return string.Empty;
+            }
+        }
         [NotMapped]
         public bool IsConfirmed { get => HasPassengerAccepted && HasDriverAccepted; }
         [NotMapped]
@@ -40,8 +75,41 @@ namespace NorthShoreSurfApp.ModelComponents
         [NotMapped]
         public bool IsRequest { get => !HasDriverAccepted && HasPassengerAccepted; }
         [NotMapped]
-        public bool ShowAcceptButton { get => CurrentUserId != PassengerId && IsRequest; }
+        public bool ShowAcceptButton
+        {
+            get
+            {
+                if (CurrentUserId == null)
+                    return false;
+
+                if (CurrentUserId == PassengerId)
+                {
+                    return IsInvite;
+                }
+                else
+                {
+                    return IsRequest;
+                }
+
+            }
+        }
         [NotMapped]
-        public bool ShowDenyButton { get => !(CurrentUserId != PassengerId && IsConfirmed); }
+        public bool ShowDenyButton
+        {
+            get
+            {
+                if (CurrentUserId == null)
+                    return false;
+
+                if (CurrentUserId.Value == PassengerId)
+                {
+                    return IsInvite || IsRequest;
+                }
+                else
+                {
+                    return IsInvite || IsRequest;
+                }
+            }
+        }
     }
 }

@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms"
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:converters="clr-namespace:NorthShoreSurfApp.Converters"
+          xmlns:local="clr-namespace:NorthShoreSurfApp"
+          mc:Ignorable="d"
+          x:Class="NorthShoreSurfApp.ViewCells.UserViewCell">
+    <ViewCell.View>
+        <local:CustomFrame Padding="10"
+                           CornerRadius="10"
+                           Margin="10,5,10,5"
+                           BackgroundColor="{StaticResource NSSBlue}"
+                           >
+            <Grid RowSpacing="0"
+                  ColumnSpacing="0"
+                  HeightRequest="55"
+                  Padding="0"
+                  Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Name-->
+                <Label Text="{Binding FullName}"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"
+                       MaxLines="1"
+                       TextColor="White"
+                       Grid.Column="0"
+                       Grid.Row="0"
+                       />
+
+                <!--Phone no.-->
+                <Label Text="{Binding PhoneNo}"
+                       FontSize="16"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start"
+                       MaxLines="1"
+                       TextColor="White"
+                       Grid.Column="0"
+                       Grid.Row="1"
+                       />
+
+                <!--Age-->
+                <Label Text="{Binding Age}"
+                       FontSize="16"
+                       VerticalOptions="Center"
+                       HorizontalOptions="End"
+                       MaxLines="1"
+                       TextColor="White"
+                       Grid.Column="1"
+                       Grid.Row="0"
+                       />
+
+                <!--Gender-->
+                <Label Text="{Binding LocalizedGender}"
+                       FontSize="16"
+                       VerticalOptions="Center"
+                       HorizontalOptions="End"
+                       MaxLines="1"
+                       TextColor="White"
+                       Grid.Column="1"
+                       Grid.Row="1"
+                       />
+            </Grid>
+        </local:CustomFrame>
+    </ViewCell.View>
+</ViewCell>

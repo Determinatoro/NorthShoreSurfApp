@@ -62,9 +62,9 @@ namespace NorthShoreSurfApp
 
     public static class PageExtensions
     {
-        public static async void ShowMessage(this Xamarin.Forms.Page page, string errorMessage)
+        public static async void ShowMessage(this Xamarin.Forms.Page page, string errorMessage, string cancelTitle = null)
         {
-            CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, errorMessage);
+            CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, errorMessage, cancelTitle);
             await PopupNavigation.Instance.PushAsync(customDialog);
         }
         public static async void ShowYesNo(this Xamarin.Forms.Page page, string message, Action accepted, Action denied = null)

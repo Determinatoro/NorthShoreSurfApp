@@ -77,7 +77,7 @@
                       VerticalOptions="Fill"
                       HorizontalScrollBarVisibility="Never"
                       Grid.Row="1"
-                      SeparatorVisibility="Default"
+                      SeparatorVisibility="{Binding ListSeparatorVisibility, Mode=TwoWay, Source={x:Reference this}}"
                       SeparatorColor="{StaticResource NSSBlue}"
                       Footer=""
                       BackgroundColor="White"

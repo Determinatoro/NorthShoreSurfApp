@@ -80,9 +80,21 @@ namespace NorthShoreSurfApp.Database
                         cancellationToken.Token.ThrowIfCancellationRequested();
                     // Set flag
                     responseReceived = true;
-                    // Run on UI thread
-                    Device.BeginInvokeOnMainThread(() =>
+                    // Is a timer created
+                    if (timer != null)
                     {
+                        // Stop timer
+                        timer.Change(Timeout.Infinite, Timeout.Infinite);
+                        timer.Dispose();
+                        timer = null;
+                    }
+                    // Run on UI thread
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
+                        if (PopupNavigation.Instance.PopupStack.Contains(customDialog))
+                        {
+                            await PopupNavigation.Instance.RemovePageAsync(customDialog, false);
+                        }
                         // Return result to caller
                         resultCallback(response);
                     });
@@ -98,15 +110,7 @@ namespace NorthShoreSurfApp.Database
                     // Stop timer
                     timer.Change(Timeout.Infinite, Timeout.Infinite);
                     timer.Dispose();
-                }
-
-                if (PopupNavigation.Instance.PopupStack.Contains(customDialog))
-                {
-                    // Run on UI thread
-                    Device.BeginInvokeOnMainThread(async () =>
-                    {
-                        await PopupNavigation.Instance.RemovePageAsync(customDialog);
-                    });
+                    timer = null;
                 }
             }, cancellationToken.Token);
         }
@@ -141,9 +145,38 @@ namespace NorthShoreSurfApp.Database
                     // Get all carpool events
                     var events = await context.CarpoolRides
                                         .Include(x => x.Driver)
+                                            .ThenInclude(x => x.Gender)
+                                        .Include(x => x.Car)
+                                        .Include(x => x.CarpoolConfirmations)
+                                            .ThenInclude(x => x.Passenger)
+                                                .ThenInclude(x => x.Gender)
+                                        .Include(x => x.CarpoolRides_Events_Relations)
+                                            .ThenInclude(x => x.Event)
+                                        .AsNoTracking()
+                                        .ToListAsync();
+                    // Return response
+                    return new DataResponse<List<CarpoolRide>>(true, events);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<List<CarpoolRide>>(1, mes.Message);
+            }
+        }
+        public async Task<DataResponse<List<CarpoolRide>>> GetOwnCarpoolRides(int userId)
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    // Get all carpool events
+                    var events = await context.CarpoolRides
+                                        .Include(x => x.Driver)
                                         .Include(x => x.Car)
                                         .Include(x => x.CarpoolConfirmations).ThenInclude(x => x.Passenger)
                                         .Include(x => x.CarpoolRides_Events_Relations).ThenInclude(x => x.Event)
+                                        .Where(x => x.DriverId == userId)
                                         .AsNoTracking()
                                         .ToListAsync();
                     // Return response
@@ -165,6 +198,9 @@ namespace NorthShoreSurfApp.Database
                     // Get all requests
                     var requests = await context.CarpoolRequests
                                         .Include(x => x.Passenger)
+                                            .ThenInclude(x => x.Gender)
+                                        .Include(x => x.CarpoolRequests_Events_Relations)
+                                            .ThenInclude(x => x.Event)
                                         .AsNoTracking()
                                         .ToListAsync();
                     // Return response
@@ -322,18 +358,28 @@ namespace NorthShoreSurfApp.Database
                                         .Include(x => x.Driver)
                                         .Include(x => x.CarpoolConfirmations)
                                             .ThenInclude(x => x.Passenger)
-                                                .ThenInclude(x => x.Gender) 
+                                                .ThenInclude(x => x.Gender)
+                                        .Include(x => x.CarpoolConfirmations)
+                                            .ThenInclude(x => x.CarpoolRide)
+                                        .Include(x => x.CarpoolConfirmations)
+                                            .ThenInclude(x => x.CarpoolRequest)
                                         .Include(x => x.CarpoolRides_Events_Relations)
                                             .ThenInclude(x => x.Event)
                                         // Only the carpoolrides that has a relation with the user
-                                        .Where(x => x.Driver.Id == userId || x.CarpoolConfirmations.Any(x2 => x2.Passenger.Id == userId))
+                                        .Where(x => x.DriverId == userId || x.CarpoolConfirmations.Any(x2 => x2.PassengerId == userId))
+                                        // Only the carpool rides with any unconfirmed confirmations
+                                        .Where(x => x.CarpoolConfirmations.Any(x2 => !x2.IsConfirmed))
                                         .AsNoTracking()
                                         .ToListAsync();
+
                     // Result
                     var result = new ConfirmationsResult()
                     {
-                        OwnRides = carpoolRides.Where(x => x.DriverId == userId).ToList(),
-                        OtherRides = carpoolRides.Where(x => x.CarpoolConfirmations.Any(x2 => x2.Passenger.Id == userId)).ToList()
+                        OwnRides = carpoolRides.Where(x => x.DriverId == userId)
+                                               .ToList(),
+                        OtherRides = carpoolRides.Where(x => x.CarpoolConfirmations
+                                                 .Any(x2 => x2.Passenger.Id == userId))
+                                                 .ToList()
                     };
 
                     // Return response
@@ -670,7 +716,7 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse<CarpoolRequest>(1, mes.Message);
             }
         }
-        public async Task<DataResponse> InvitePassenger(int carpoolRequestId, int carpoolRideId)
+        public async Task<DataResponse<CarpoolConfirmation>> InvitePassenger(int carpoolRequestId, int carpoolRideId)
         {
             try
             {
@@ -683,6 +729,7 @@ namespace NorthShoreSurfApp.Database
                     // Create carpool confirmation
                     CarpoolConfirmation carpoolConfirmation = new CarpoolConfirmation()
                     {
+                        CarpoolRequestId = carpoolRequest.Id,
                         CarpoolRideId = carpoolRideId,
                         HasDriverAccepted = true,
                         HasPassengerAccepted = false,
@@ -690,20 +737,25 @@ namespace NorthShoreSurfApp.Database
                         PassengerId = carpoolRequest.PassengerId
                     };
                     // Add new carpool confirmation
-                    await context.CarpoolConfirmations.AddAsync(carpoolConfirmation);
+                    var confirmation = await context.CarpoolConfirmations.AddAsync(carpoolConfirmation);
                     // Save changes
                     int rowsChanged = await context.SaveChangesAsync();
                     // Error when saving
                     if (rowsChanged < 1)
-                        return new DataResponse(401, Resources.AppResources.could_not_invite_passenger);
+                        return new DataResponse<CarpoolConfirmation>(401, Resources.AppResources.could_not_invite_passenger);
+                    // Get the new carpool confirmation
+                    carpoolConfirmation = await context.CarpoolConfirmations
+                        .Include(x => x.Passenger)
+                            .ThenInclude(x => x.Gender)
+                        .FirstOrDefaultAsync(x => x.Id == confirmation.Entity.Id);
                     // Return response
-                    return new DataResponse(true);
+                    return new DataResponse<CarpoolConfirmation>(true, carpoolConfirmation);
                 }
             }
             catch (Exception mes)
             {
                 // Return exception
-                return new DataResponse(1, mes.Message);
+                return new DataResponse<CarpoolConfirmation>(1, mes.Message);
             }
         }
         public async Task<DataResponse> UninvitePassenger(int carpoolConfirmationId)
@@ -731,7 +783,7 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse(1, mes.Message);
             }
         }
-        public async Task<DataResponse> SignUpToCarpoolRide(int carpoolRideId, int userId)
+        public async Task<DataResponse<CarpoolConfirmation>> SignUpToCarpoolRide(int carpoolRideId, int userId)
         {
             try
             {
@@ -747,20 +799,25 @@ namespace NorthShoreSurfApp.Database
                         PassengerId = userId
                     };
                     // Add new carpool confirmation
-                    await context.CarpoolConfirmations.AddAsync(carpoolConfirmation);
+                    var confirmation = await context.CarpoolConfirmations.AddAsync(carpoolConfirmation);
                     // Save changes
                     int rowsChanged = await context.SaveChangesAsync();
                     // Error when saving
                     if (rowsChanged != 1)
-                        return new DataResponse(402, Resources.AppResources.could_not_sign_up_to_carpool);
+                        return new DataResponse<CarpoolConfirmation>(402, Resources.AppResources.could_not_sign_up_to_carpool);
+                    // Get the new carpool confirmation
+                    carpoolConfirmation = await context.CarpoolConfirmations
+                        .Include(x => x.Passenger)
+                            .ThenInclude(x => x.Gender)
+                        .FirstOrDefaultAsync(x => x.Id == confirmation.Entity.Id);
                     // Return response
-                    return new DataResponse(true);
+                    return new DataResponse<CarpoolConfirmation>(true, carpoolConfirmation);
                 }
             }
             catch (Exception mes)
             {
                 // Return exception
-                return new DataResponse(1, mes.Message);
+                return new DataResponse<CarpoolConfirmation>(1, mes.Message);
             }
         }
         public async Task<DataResponse> UnsignFromCarpoolRide(int carpoolConfirmationId)
@@ -814,6 +871,13 @@ namespace NorthShoreSurfApp.Database
                             carpoolConfirmation.HasDriverAccepted = true;
                         else
                             carpoolConfirmation.HasPassengerAccepted = true;
+                        // Get other confirmations with a relation to the carpool ride and current user
+                        var carpoolConfirmations = await context.CarpoolConfirmations.Where(x => x.Id != carpoolConfirmation.Id && 
+                                                                                                 x.CarpoolRideId == carpoolConfirmation.CarpoolRideId && 
+                                                                                                 x.PassengerId == carpoolConfirmation.PassengerId)
+                                                                                     .ToListAsync();
+                        // Delete the confirmations
+                        context.CarpoolConfirmations.RemoveRange(carpoolConfirmations);
                     }
                     // Has denied
                     else

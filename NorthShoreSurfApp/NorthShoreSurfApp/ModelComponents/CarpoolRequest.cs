@@ -39,6 +39,8 @@ namespace NorthShoreSurfApp.ModelComponents
         [StringLength(255)]
         public string Comment { get; set; }
 
+        public List<CarpoolRequests_Events_Relation> CarpoolRequests_Events_Relations { get; set; }
+
         [NotMapped]
         public string TimeInterval { get => String.Format("{0} - {1}", FromTime.ToString("HH:mm"), ToTime.ToString("HH:mm")); }
         [NotMapped]

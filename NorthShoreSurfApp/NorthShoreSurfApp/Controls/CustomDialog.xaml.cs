@@ -112,10 +112,14 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Constructor
 
-        public CustomDialog(CustomDialogType customDialogType, string message) : this()
+        public CustomDialog(CustomDialogType customDialogType, string message, string cancelTitle = null) : this()
         {
             Message = message;
             CustomDialogType = customDialogType;
+            if (cancelTitle == null)
+                CancelTitle = NorthShoreSurfApp.Resources.AppResources.cancel;
+            else
+                CancelTitle = cancelTitle;
 
             switch (CustomDialogType)
             {

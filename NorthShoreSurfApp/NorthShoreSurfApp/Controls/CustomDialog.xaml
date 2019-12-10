@@ -222,7 +222,7 @@
                     <Label HorizontalOptions="Center" 
                            VerticalOptions="Center" 
                            FontSize="20"
-                           Text="{local:Translate cancel}" 
+                           Text="{Binding CancelTitle, Source={x:Reference this}}" 
                            TextColor="White"/>
 
                 </local:CustomFrame>

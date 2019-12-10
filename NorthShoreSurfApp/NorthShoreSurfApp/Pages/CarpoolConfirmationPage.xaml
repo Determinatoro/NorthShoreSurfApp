@@ -46,9 +46,10 @@
                           VerticalOptions="Fill"
                           HorizontalScrollBarVisibility="Never"
                           SeparatorVisibility="None"
+                          SelectionMode="None"
                           SeparatorColor="{StaticResource NSSBlue}"
                           Footer=""
-                          BackgroundColor="White"
+                          Margin="0"
                           ItemsSource="{Binding ItemsSource}"
                           ItemTemplate="{Binding CarpoolConfirmationItemItemTemplate}"
                           />

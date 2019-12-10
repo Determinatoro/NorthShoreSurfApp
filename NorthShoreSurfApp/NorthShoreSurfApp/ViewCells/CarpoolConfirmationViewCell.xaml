@@ -28,6 +28,7 @@
                 <Grid RowSpacing="0"
                       ColumnSpacing="0"
                       Padding="0"
+                      IsVisible="{Binding IsOwnRide}"
                       Margin="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -81,6 +82,27 @@
                            TextColor="White"
                            Grid.Column="1"
                            Grid.Row="1"
+                           />
+                </Grid>
+
+                <Grid RowSpacing="0"
+                      ColumnSpacing="0"
+                      Padding="0"
+                      IsVisible="{Binding IsOtherRide}"
+                      Margin="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!--Information string-->
+                    <Label Text="{Binding InformationString}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           MaxLines="2"
+                           TextColor="White"
+                           Padding="0, 0, 10, 0"
+                           Grid.Column="0"
+                           Grid.Row="0"
                            />
                 </Grid>
 

@@ -3,6 +3,7 @@ using NorthShoreSurfApp.ViewCells;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
@@ -39,12 +40,38 @@ namespace NorthShoreSurfApp.UIComponents
 
         #region Properties
 
+        public int UserId { get; set; }
         public string Title { get; set; }
         public bool IsTitle { get => Title != null; }
-        public bool IsOwnRide { get; set; }
-        public bool IsInvite { get; set; }
-        public bool IsJoinRequest { get; set; }
+        public bool OwnRide { get; set; }
+        public bool OtherRide { get; set; }
         public CarpoolRide CarpoolRide { get; set; }
+
+        public List<CarpoolConfirmation> UnconfirmedCarpoolConfirmations
+        {
+            get
+            {
+                if (CarpoolRide == null)
+                    return null;
+
+                if (OwnRide)
+                {
+                    return CarpoolRide.CarpoolConfirmations
+                                      .Where(x => !x.IsConfirmed)
+                                      .OrderByDescending(x => x.IsInvite)
+                                      .ToList();
+                }
+                else if (OtherRide)
+                {
+                    return CarpoolRide.CarpoolConfirmations
+                                      .Where(x => !x.IsConfirmed && x.PassengerId == UserId)
+                                      .OrderBy(x => x.IsInvite)
+                                      .ToList();
+                }
+
+                return null;
+            }
+        }
         public List<CarpoolRide> CarpoolRideItemsSource
         {
             get

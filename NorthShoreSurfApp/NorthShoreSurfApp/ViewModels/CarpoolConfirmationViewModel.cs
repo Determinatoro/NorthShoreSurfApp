@@ -41,7 +41,7 @@ namespace NorthShoreSurfApp.ViewModels
         #region Properties
 
         /// <summary>
-        /// User's gender
+        /// Items source for the listview
         /// </summary>
         public List<CarpoolConfirmationItem> ItemsSource
         {
@@ -52,7 +52,9 @@ namespace NorthShoreSurfApp.ViewModels
                 OnPropertyChanged();
             }
         }
-
+        /// <summary>
+        /// Template for the list items
+        /// </summary>
         public DataTemplate CarpoolConfirmationItemItemTemplate
         {
             get { return new DataTemplate(() => new CarpoolConfirmationItemViewCell()); }

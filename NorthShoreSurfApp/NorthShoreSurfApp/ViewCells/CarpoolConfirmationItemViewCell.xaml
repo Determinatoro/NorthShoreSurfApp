@@ -4,13 +4,22 @@
           xmlns:d="http://xamarin.com/schemas/2014/forms/design"
           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
           xmlns:local="clr-namespace:NorthShoreSurfApp"
+          xmlns:converters="clr-namespace:NorthShoreSurfApp.Converters"
           mc:Ignorable="d"
           x:Class="NorthShoreSurfApp.ViewCells.CarpoolConfirmationItemViewCell">
-  <ViewCell.View>
+
+    <ViewCell.View>
         <Grid RowSpacing="0"
               ColumnSpacing="0"
               Margin="0"
               Padding="0">
+
+            <!--Resources-->
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <converters:NegateBooleanConverter x:Key="inverter"/>
+                </ResourceDictionary>
+            </Grid.Resources>
 
             <!--Header item-->
             <Grid IsVisible="{Binding IsTitle}"
@@ -35,11 +44,11 @@
                        />
             </Grid>
             
-            <!--Own ride item-->
+            <!--Ride item-->
             <Grid ColumnSpacing="0"
                   RowSpacing="0"
                   Margin="0"
-                  IsVisible="{Binding IsOwnRide}"
+                  IsVisible="{Binding IsTitle, Converter={StaticResource inverter}}"
                   Padding="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -57,7 +66,7 @@
                     Margin="0"
                     Padding="0"
                     Grid.Row="1"
-                    BindableLayout.ItemsSource="{Binding CarpoolRide.CarpoolConfirmations}"
+                    BindableLayout.ItemsSource="{Binding UnconfirmedCarpoolConfirmations}"
                     BindableLayout.ItemTemplate="{Binding CarpoolConfirmationItemTemplate}"/>
 
             </Grid>
