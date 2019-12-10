@@ -39,9 +39,9 @@ namespace NorthShoreSurfApp.ModelComponents
             return $"{Id} {FirstName} {LastName}";
         }
 
-        public string FullName()
+        public string FullName
         {
-            return $"{FirstName} {LastName}";
+            get { return $" {FirstName} {LastName}"; }
         }
 
     }

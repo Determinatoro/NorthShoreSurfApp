@@ -55,7 +55,7 @@
                            LineBreakMode="TailTruncation"
                            TextColor="White" 
                            HorizontalOptions="StartAndExpand"
-                           Grid.Row="0" 
+                           Grid.Row="1" 
                            />
               
                 </Grid>
@@ -77,7 +77,7 @@
                            LineBreakMode="TailTruncation"
                            TextColor="White"
                            HorizontalOptions="EndAndExpand"
-                           Grid.Row="1" 
+                           Grid.Row="0" 
                            />
                     <!--Age-->
                     <Label Text="{Binding Age}" 
@@ -85,7 +85,7 @@
                            LineBreakMode="TailTruncation"
                            TextColor="White" 
                            HorizontalOptions="EndAndExpand"
-                           Grid.Row="3" 
+                           Grid.Row="1" 
                            />
                 </Grid>
 

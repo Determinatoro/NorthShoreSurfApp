@@ -40,6 +40,8 @@ namespace NorthShoreSurfApp
                 grid.Margin = safeAreaInset;
             navigationBar.BackButtonClicked += NavigationBar_BackButtonClicked;
             btnJoin.Clicked += BtnJoin_Clicked;
+            btnInvite.IsVisible = false;
+            btnJoin.IsVisible = true;
             _ride = ride;
 
         }
@@ -87,6 +89,8 @@ namespace NorthShoreSurfApp
             navigationBar.BackButtonClicked += NavigationBar_BackButtonClicked;
             btnInvite.Clicked += BtnInvite_Clicked;
             _request = request;
+            btnJoin.IsVisible = false;
+            btnInvite.IsVisible = true;
 
         }
 
@@ -134,6 +138,7 @@ namespace NorthShoreSurfApp
             {
                 if(_request.Comment != null)
                 CarpoolDetailsPageViewModel.Message = _request.Comment;
+                CarpoolDetailsPageViewModel.User.Add(_request.Passenger);
                 CarpoolDetailsPageViewModel.Ride.Add(_request);
 
             }

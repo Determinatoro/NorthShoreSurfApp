@@ -39,7 +39,7 @@ namespace NorthShoreSurfApp.ModelComponents
 
         public string Destination { get => String.Format("{0}", CarpoolRide.DestinationAddress); }
 
-        public string PassengerName { get => String.Format("{0} has requested to join your ride", Passenger.FullName()); }
+        public string PassengerName { get => String.Format("{0} has requested to join your ride", Passenger.FullName); }
 
         public string Date { get => String.Format("{0} ", CarpoolRide.DepartureTimeDayString); }
 
