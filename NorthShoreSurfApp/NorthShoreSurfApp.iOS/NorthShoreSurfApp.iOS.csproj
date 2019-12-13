@@ -343,4 +343,13 @@
       <SubType>Designer</SubType>
     </BundleResource>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_request.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_car.png" />
+  </ItemGroup>
 </Project>

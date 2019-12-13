@@ -69,8 +69,9 @@ namespace NorthShoreSurfApp
                     }
                     else
                     {
-                        // Show details about next ride
-                        GetCars();
+                        if (HomeViewModel.NextCarpoolRide == null)
+                            return;
+                        await Navigation.PushModalAsync(new CarpoolDetailsPage(HomeViewModel.NextCarpoolRide));
                     }
                 }
             };
@@ -105,7 +106,7 @@ namespace NorthShoreSurfApp
                     // Todays opening hours
                     var response = await App.DataService.GetTodaysOpeningHours();
                     // Informatio about the next carpool ride
-                    var response2 = await App.DataService.GetNextCarpoolRide();
+                    var response2 = await App.DataService.GetNextCarpoolRide(AppValuesService.UserId.Value);
                     return new Tuple<DataResponse<string>, DataResponse<CarpoolRide>>(response, response2);
                 },
                 (response) =>
@@ -252,10 +253,7 @@ namespace NorthShoreSurfApp
         // OnPageSelected
         public void OnPageSelected()
         {
-            this.DelayedTask(500, () =>
-            {
-                GetInformation();
-            });
+            GetInformation();
         }
 
         #endregion

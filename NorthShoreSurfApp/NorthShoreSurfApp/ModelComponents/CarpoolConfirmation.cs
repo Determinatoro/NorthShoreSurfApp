@@ -111,5 +111,13 @@ namespace NorthShoreSurfApp.ModelComponents
                 }
             }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is CarpoolConfirmation))
+                return false;
+
+            return this.Id == ((CarpoolConfirmation)obj).Id;
+        }
     }
 }

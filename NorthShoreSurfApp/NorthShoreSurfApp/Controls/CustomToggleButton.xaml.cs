@@ -137,10 +137,15 @@ namespace NorthShoreSurfApp
             });
         public static readonly BindableProperty IconLeftWidthProperty = BindableProperty.Create(nameof(IconLeftWidth), typeof(GridLength), typeof(CustomToggleButton), new GridLength(60, GridUnitType.Absolute));
         public static readonly BindableProperty IconRightWidthProperty = BindableProperty.Create(nameof(IconRightWidth), typeof(GridLength), typeof(CustomToggleButton), new GridLength(60, GridUnitType.Absolute));
+        public static readonly BindableProperty SelectedToggleTypeProperty = BindableProperty.Create(nameof(SelectedToggleType), typeof(ToggleType), typeof(CustomToggleButton), ToggleType.Left, 
+            propertyChanged: (obj, oldValue, newValue) =>
+            {
+                ((CustomToggleButton)obj).UpdateLayout(true);
+            });
 
         public event EventHandler<CustomToggleEventArgs> Toggled;
 
-        private ToggleType selectedToggleType;
+        //private ToggleType selectedToggleType;
 
         #endregion
 
@@ -190,18 +195,9 @@ namespace NorthShoreSurfApp
 
         public ToggleType SelectedToggleType
         {
-            get => selectedToggleType;
-            set
-            {
-                bool toggleTypeChanged = false;
-                if (selectedToggleType != value)
-                    toggleTypeChanged = true;
-                selectedToggleType = value;
-
-                UpdateLayout(toggleTypeChanged);
-            }
+            get { return (ToggleType)GetValue(SelectedToggleTypeProperty); }
+            set { SetValue(SelectedToggleTypeProperty, value); }            
         }
-
         public string TitleLeft
         {
             get { return (string)GetValue(TitleLeftProperty); }
@@ -322,7 +318,6 @@ namespace NorthShoreSurfApp
             get { return (Thickness)GetValue(ContentPaddingProperty); }
             private set { SetValue(ContentPaddingProperty, value); }
         }
-
         
         #endregion
 

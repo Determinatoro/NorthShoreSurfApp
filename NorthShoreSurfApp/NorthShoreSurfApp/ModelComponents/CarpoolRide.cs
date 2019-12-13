@@ -82,5 +82,7 @@ namespace NorthShoreSurfApp.ModelComponents
                 return count;
             }
         }
+        [NotMapped]
+        public bool IsDivider { get; set; }
     }
 }

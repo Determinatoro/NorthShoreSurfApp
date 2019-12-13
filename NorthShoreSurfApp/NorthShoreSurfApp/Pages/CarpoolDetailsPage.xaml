@@ -34,6 +34,13 @@
                                        TitleSize="24"
                                        ShowLogo="False"
                                        Grid.Row="0"
+                                       BackCommand="{Binding BackCommand}"
+                                       ButtonOneImage="{Binding NavigationBarButtonOneIcon}"
+                                       ButtonTwoImage="{Binding NavigationBarButtonTwoIcon}"
+                                       ButtonOneCommand="{Binding NavigationBarButtonOneCommand}"
+                                       ButtonTwoCommand="{Binding NavigationBarButtonTwoCommand}"
+                                       ButtonOneIsVisible="{Binding NavigationBarButtonOneIsVisible}"
+                                       ButtonTwoIsVisible="{Binding NavigationBarButtonTwoIsVisible}"
                                        />
 
             <ScrollView Padding="0"

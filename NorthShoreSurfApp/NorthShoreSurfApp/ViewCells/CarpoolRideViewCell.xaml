@@ -20,7 +20,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    
+
                 </Grid.ColumnDefinitions>
 
                 <!--Left column-->
@@ -160,7 +160,6 @@
 
                 </Grid>
             </Grid>
-
         </Frame>
     </ViewCell.View>
 </ViewCell>

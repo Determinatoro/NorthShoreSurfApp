@@ -1,5 +1,8 @@
+using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NorthShoreSurfApp;
+using NorthShoreSurfApp.Database;
 using NorthShoreSurfApp.ModelComponents;
 using NorthShoreSurfApp.ViewModels;
 using System;
@@ -7,6 +10,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace NorthShoreSurfAppUnitTest
 {
@@ -48,8 +52,27 @@ namespace NorthShoreSurfAppUnitTest
         /// </summary>
         /// <param name="key">Key for a localized string</param>
         /// <returns>A localized string</returns>
-        private string GetLocalizedString(string key) {
+        private string GetLocalizedString(string key)
+        {
             return ResourceManager.GetString(key, CultureInfo.CurrentCulture);
+        }
+
+        #endregion
+
+        #region Services 
+
+        [TestMethod]
+        public async Task DatabaseService_GetUsers_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetUsers();
+                // Assert
+                Assert.IsTrue(response.Result.Count > 0);
+            }
         }
 
         #endregion

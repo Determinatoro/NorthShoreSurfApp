@@ -28,7 +28,7 @@
                 <ColumnDefinition Width="55"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
+            <!--Grid center-->
             <Grid x:Name="gridCenter" 
                   Grid.ColumnSpan="2"
                   >
@@ -62,7 +62,7 @@
                     />
 
             </Grid>
-
+            <!--Grid buttons-->
             <Grid x:Name="gridButtons"
                   Margin="0"
                   Padding="0"
@@ -86,6 +86,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
+                <!--Grid back-->
                 <Grid x:Name="gridBack"   
                       HeightRequest="65"
                       Grid.RowSpan="3"
@@ -100,34 +101,33 @@
                         <RowDefinition Height="1.25*"/>
                     </Grid.RowDefinitions>
 
-                    <Frame
-                    x:Name="frameBack"
-                    Grid.RowSpan="3"
-                    Margin="5"
-                    CornerRadius="27.5"
-                    VerticalOptions="Fill"
-                    HorizontalOptions="Fill"
-                    BackgroundColor="Transparent"
-                    HasShadow="False"
-                    />
-
-                    <Image
-                    x:Name="imageBack"
-                    Grid.Row="1"
-                        Margin="3"
-                    VerticalOptions="Fill"
-                    HorizontalOptions="Center"
-                    Source="ic_back.png"
-                    Aspect="AspectFit"
-                    />
-
-                    <Button
-                    x:Name="btnBack"
-                    Grid.Row="1"
-                    BackgroundColor="Transparent"
-                    VerticalOptions="Fill"
-                    HorizontalOptions="Center"
-                    >
+                    <!--Frame back-->
+                    <Frame x:Name="frameBack"
+                           Grid.RowSpan="3"
+                           Margin="5"
+                           CornerRadius="27.5"
+                           VerticalOptions="Fill"
+                           HorizontalOptions="Fill"
+                           BackgroundColor="Transparent"
+                           HasShadow="False"
+                           />
+                    <!--Image back-->
+                    <Image x:Name="imageBack"
+                           Grid.Row="1"
+                           Margin="3"
+                           VerticalOptions="Fill"
+                           HorizontalOptions="Center"
+                           Source="ic_back.png"
+                           Aspect="AspectFit"
+                           />
+                    <!--Button back-->
+                    <Button x:Name="btnBack"
+                            Grid.Row="1"
+                            BackgroundColor="Transparent"
+                            VerticalOptions="Fill"
+                            HorizontalOptions="Center"
+                            Command="{Binding BackCommand, Source={x:Reference this}}"
+                            >
                         <Button.Triggers>
                             <EventTrigger Event="Pressed">
                                 <local:BackButtonPressedTriggerAction />
@@ -139,7 +139,7 @@
                     </Button>
 
                 </Grid>
-
+                <!--Button one far right-->
                 <local:CustomImageButton
                     x:Name="btn1"
                     Grid.Column="4"
@@ -156,9 +156,10 @@
                     BorderThickness="1"
                     IconColor="{StaticResource NSSBlue}"
                     IconPadding="10"
+                    Command="{Binding ButtonOneCommand, Source={x:Reference this}}"
                     Icon="{Binding ButtonOneImage, Source={x:Reference this}}"
                     />
-
+                <!--Button two-->
                 <local:CustomImageButton
                     x:Name="btn2"
                     Grid.Column="2"
@@ -175,11 +176,10 @@
                     BorderThickness="1"
                     IconColor="{StaticResource NSSBlue}"
                     IconPadding="10"
+                    Command="{Binding ButtonTwoCommand, Source={x:Reference this}}"
                     Icon="{Binding ButtonTwoImage, Source={x:Reference this}}"
                     />
-
             </Grid>
-
         </Grid>
     </ContentView.Content>
 </ContentView>

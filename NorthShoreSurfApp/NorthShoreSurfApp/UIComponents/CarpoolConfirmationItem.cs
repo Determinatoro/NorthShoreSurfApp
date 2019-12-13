@@ -38,8 +38,11 @@ namespace NorthShoreSurfApp.UIComponents
 
         #endregion
 
+        /*****************************************************************/
+        // PROPERTIES
+        /*****************************************************************/
         #region Properties
-
+        
         public int UserId { get; set; }
         public string Title { get; set; }
         public bool IsTitle { get => Title != null; }
@@ -58,6 +61,14 @@ namespace NorthShoreSurfApp.UIComponents
                 {
                     return CarpoolRide.CarpoolConfirmations
                                       .Where(x => !x.IsConfirmed)
+                                      .GroupBy(x => x.PassengerId)
+                                      .SelectMany(x =>
+                                      {
+                                          if (x.Count() > 1)
+                                              return x.Where(x => x.IsRequest);
+                                          else
+                                              return x;
+                                      })
                                       .OrderByDescending(x => x.IsInvite)
                                       .ToList();
                 }
@@ -65,6 +76,14 @@ namespace NorthShoreSurfApp.UIComponents
                 {
                     return CarpoolRide.CarpoolConfirmations
                                       .Where(x => !x.IsConfirmed && x.PassengerId == UserId)
+                                      .GroupBy(x => x.PassengerId)
+                                      .SelectMany(x =>
+                                      {
+                                          if (x.Count() > 1)
+                                              return x.Where(x => x.IsInvite);
+                                          else
+                                              return x;
+                                      })
                                       .OrderBy(x => x.IsInvite)
                                       .ToList();
                 }

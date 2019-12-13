@@ -42,8 +42,14 @@ namespace NorthShoreSurfApp.ModelComponents
         public List<CarpoolRequests_Events_Relation> CarpoolRequests_Events_Relations { get; set; }
 
         [NotMapped]
-        public string TimeInterval { get => String.Format("{0} - {1}", FromTime.ToString("HH:mm"), ToTime.ToString("HH:mm")); }
+        public string ZipcodeCityString { get => String.Format("{0} {1}", ZipCode, City); }
+        [NotMapped]
+        public string DestinationZipcodeCityString { get => String.Format("{0} {1}", DestinationZipCode, DestinationCity); }
+        [NotMapped]
+        public string TimeInterval { get => String.Format("{0}-{1}", FromTime.ToString("HH:mm"), ToTime.ToString("HH:mm")); }
         [NotMapped]
         public string DepartureTimeDayString { get => FromTime.ToCarpoolingFormat(); }
+        [NotMapped]
+        public bool IsDivider { get; set; }
     }
 }

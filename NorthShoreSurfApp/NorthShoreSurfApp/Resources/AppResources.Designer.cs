@@ -88,6 +88,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the {0}?.
+        /// </summary>
+        internal static string are_you_sure_you_want_to_delete_the {
+            get {
+                return ResourceManager.GetString("are_you_sure_you_want_to_delete_the", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this car?.
         /// </summary>
         internal static string are_you_sure_you_want_to_delete_this_car {
@@ -156,6 +165,24 @@ namespace NorthShoreSurfApp.Resources {
         internal static string carpool {
             get {
                 return ResourceManager.GetString("carpool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Carpool not found.
+        /// </summary>
+        internal static string carpool_not_found {
+            get {
+                return ResourceManager.GetString("carpool_not_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Carpool request not found.
+        /// </summary>
+        internal static string carpool_request_not_found {
+            get {
+                return ResourceManager.GetString("carpool_request_not_found", resourceCulture);
             }
         }
         
@@ -315,6 +342,24 @@ namespace NorthShoreSurfApp.Resources {
         internal static string could_not_delete_invite {
             get {
                 return ResourceManager.GetString("could_not_delete_invite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not delete the carpool request.
+        /// </summary>
+        internal static string could_not_delete_the_carpool_request {
+            get {
+                return ResourceManager.GetString("could_not_delete_the_carpool_request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not delete the carpool ride.
+        /// </summary>
+        internal static string could_not_delete_the_carpool_ride {
+            get {
+                return ResourceManager.GetString("could_not_delete_the_carpool_ride", resourceCulture);
             }
         }
         
@@ -536,6 +581,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string last_name {
             get {
                 return ResourceManager.GetString("last_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Leave ride.
+        /// </summary>
+        internal static string leave_ride {
+            get {
+                return ResourceManager.GetString("leave_ride", resourceCulture);
             }
         }
         
@@ -770,11 +824,29 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Requests.
+        /// </summary>
+        internal static string requests {
+            get {
+                return ResourceManager.GetString("requests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ride.
         /// </summary>
         internal static string ride {
             get {
                 return ResourceManager.GetString("ride", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rides.
+        /// </summary>
+        internal static string rides {
+            get {
+                return ResourceManager.GetString("rides", resourceCulture);
             }
         }
         
@@ -948,6 +1020,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string you_have_invited_a_passenger_to_your_carpool_ride {
             get {
                 return ResourceManager.GetString("you_have_invited_a_passenger_to_your_carpool_ride", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have left the ride.
+        /// </summary>
+        internal static string you_have_left_the_carpool_ride {
+            get {
+                return ResourceManager.GetString("you_have_left_the_carpool_ride", resourceCulture);
             }
         }
         

@@ -39,7 +39,10 @@ namespace NorthShoreSurfApp
             CarpoolDetailsPageViewModel.CarpoolRide = ride;
             CarpoolDetailsPageViewModel.ButtonCommand = new Command(() =>
             {
-                JoinRide();
+                if (CarpoolDetailsPageViewModel.PageType == CarpoolDetailsPageType.CarpoolRide_Leave)
+                    LeaveRide();
+                else
+                    JoinRide();
             });
             GetInformation();
         }
@@ -64,11 +67,33 @@ namespace NorthShoreSurfApp
             // iOS safe area insets
             ((Grid)Content).SetIOSSafeAreaInsets(this);
 
-            // Back button clicked
-            navigationBar.BackButtonClicked += (sender, args) =>
+            // Back button command
+            CarpoolDetailsPageViewModel.BackCommand = new Command(() =>
             {
                 PopPage();
-            };
+            });
+            // Edit command
+            CarpoolDetailsPageViewModel.EditCommand = new Command(() =>
+            {
+                // Show edit page
+            });
+            // Delete command
+            CarpoolDetailsPageViewModel.DeleteCommand = new Command(() =>
+            {
+                this.ShowYesNo(string.Format(NorthShoreSurfApp.Resources.AppResources.are_you_sure_you_want_to_delete_the, CarpoolDetailsPageViewModel.NavigationBarTitle.ToLower()), 
+                    () =>
+                    {
+                        switch (CarpoolDetailsPageViewModel.PageObject)
+                        {
+                            case CarpoolDetailsPageObject.CarpoolRide:
+                                DeleteCarpoolRide();
+                                break;
+                            case CarpoolDetailsPageObject.CarpoolRequest:
+                                DeleteCarpoolRequest();
+                                break;
+                        }
+                    });
+            });
         }
 
         #endregion
@@ -133,11 +158,89 @@ namespace NorthShoreSurfApp
                             });
         }
         /// <summary>
+        /// Delete carpool ride
+        /// </summary>
+        private void DeleteCarpoolRide()
+        {
+            var userId = AppValuesService.UserId.Value;
+
+            // Delete carpool ride
+            App.DataService.GetData(
+                            NorthShoreSurfApp.Resources.AppResources.saving_your_action_please_wait,
+                            true,
+                            () => App.DataService.DeleteCarpoolRide(CarpoolDetailsPageViewModel.CarpoolRide.Id),
+                            (response) =>
+                            {
+                                if (response.Success)
+                                {
+                                    // Pop the page because the object has been deleted
+                                    PopPage();
+                                }
+                                else
+                                {
+                                    this.ShowMessage(response.ErrorMessage);
+                                }
+                            });
+        }
+        /// <summary>
+        /// Delete carpool request
+        /// </summary>
+        private void DeleteCarpoolRequest()
+        {
+            var userId = AppValuesService.UserId.Value;
+
+            // Delete carpool request
+            App.DataService.GetData(
+                            NorthShoreSurfApp.Resources.AppResources.saving_your_action_please_wait,
+                            true,
+                            () => App.DataService.DeleteCarpoolRequest(CarpoolDetailsPageViewModel.CarpoolRequest.Id),
+                            (response) =>
+                            {
+                                if (response.Success)
+                                {
+                                    // Pop the page because the object has been deleted
+                                    PopPage();
+                                }
+                                else
+                                {
+                                    this.ShowMessage(response.ErrorMessage);
+                                }
+                            });
+        }
+        /// <summary>
+        /// Leave ride
+        /// </summary>
+        private void LeaveRide()
+        {
+            var userId = AppValuesService.UserId.Value;
+
+            // Join carpool ride
+            App.DataService.GetData(
+                            NorthShoreSurfApp.Resources.AppResources.saving_your_action_please_wait,
+                            true,
+                            () => App.DataService.UnsignFromCarpoolRide(CarpoolDetailsPageViewModel.CarpoolRide.Id, userId),
+                            (response) =>
+                            {
+                                if (response.Success)
+                                {
+                                    CarpoolDetailsPageViewModel.RemoveCarpoolConfirmations(response.Result);
+                                    this.ShowMessage(
+                                            NorthShoreSurfApp.Resources.AppResources.you_have_left_the_carpool_ride,
+                                            NorthShoreSurfApp.Resources.AppResources.ok
+                                        );
+                                }
+                                else
+                                {
+                                    this.ShowMessage(response.ErrorMessage);
+                                }
+                            });
+        }
+        /// <summary>
         /// Join ride
         /// </summary>
         private void JoinRide()
         {
-            var userId = int.Parse(App.LocalDataService.GetValue(nameof(LocalDataKeys.UserId)));
+            var userId = AppValuesService.UserId.Value;
 
             // Join carpool ride
             App.DataService.GetData(

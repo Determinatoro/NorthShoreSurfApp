@@ -126,6 +126,9 @@
   <data name="approve" xml:space="preserve">
     <value>Approve</value>
   </data>
+  <data name="are_you_sure_you_want_to_delete_the" xml:space="preserve">
+    <value>Are you sure you want to delete the {0}?</value>
+  </data>
   <data name="are_you_sure_you_want_to_delete_this_car" xml:space="preserve">
     <value>Are you sure you want to delete this car?</value>
   </data>
@@ -146,6 +149,12 @@
   </data>
   <data name="carpool" xml:space="preserve">
     <value>Carpool</value>
+  </data>
+  <data name="carpool_not_found" xml:space="preserve">
+    <value>Carpool not found</value>
+  </data>
+  <data name="carpool_request_not_found" xml:space="preserve">
+    <value>Carpool request not found</value>
   </data>
   <data name="car_not_found" xml:space="preserve">
     <value>Car not found</value>
@@ -206,6 +215,12 @@ courses</value>
   </data>
   <data name="could_not_delete_invite" xml:space="preserve">
     <value>Could not delete invite</value>
+  </data>
+  <data name="could_not_delete_the_carpool_request" xml:space="preserve">
+    <value>Could not delete the carpool request</value>
+  </data>
+  <data name="could_not_delete_the_carpool_ride" xml:space="preserve">
+    <value>Could not delete the carpool ride</value>
   </data>
   <data name="could_not_invite_passenger" xml:space="preserve">
     <value>Could not invite passenger</value>
@@ -283,6 +298,9 @@ Please wait...</value>
   </data>
   <data name="last_name" xml:space="preserve">
     <value>Last name</value>
+  </data>
+  <data name="leave_ride" xml:space="preserve">
+    <value>Leave ride</value>
   </data>
   <data name="license_plate" xml:space="preserve">
     <value>License plate</value>
@@ -364,8 +382,14 @@ The weather is essential for operation of business which unfortunately can cause
   <data name="request" xml:space="preserve">
     <value>Request</value>
   </data>
+  <data name="requests" xml:space="preserve">
+    <value>Requests</value>
+  </data>
   <data name="ride" xml:space="preserve">
     <value>Ride</value>
+  </data>
+  <data name="rides" xml:space="preserve">
+    <value>Rides</value>
   </data>
   <data name="saving_your_action_please_wait" xml:space="preserve">
     <value>Saving your action.
@@ -425,6 +449,9 @@ Surfing is possible at all temperatures, but it is important to dress according 
   </data>
   <data name="you_have_invited_a_passenger_to_your_carpool_ride" xml:space="preserve">
     <value>You have invited a passenger to your carpool ride</value>
+  </data>
+  <data name="you_have_left_the_carpool_ride" xml:space="preserve">
+    <value>You have left the ride</value>
   </data>
   <data name="you_have_requested_to_join" xml:space="preserve">
     <value>You have requested to join {0}</value>

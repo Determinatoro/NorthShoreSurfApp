@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace NorthShoreSurfApp
 {
+    #region Trigger actions
+
     // Back button pressed trigger
     public class BackButtonPressedTriggerAction : TriggerAction<Button>
     {
@@ -31,6 +33,8 @@ namespace NorthShoreSurfApp
         }
     }
 
+    #endregion
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CustomNavigationBar : ContentView
     {
@@ -50,6 +54,10 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty ButtonTwoIsVisibleProperty = BindableProperty.Create(nameof(ButtonTwoIsVisible), typeof(bool), typeof(CustomNavigationBar), false);
         public static readonly BindableProperty ButtonOneImageProperty = BindableProperty.Create(nameof(ButtonOneImage), typeof(ImageSource), typeof(CustomNavigationBar), null);
         public static readonly BindableProperty ButtonTwoImageProperty = BindableProperty.Create(nameof(ButtonTwoImage), typeof(ImageSource), typeof(CustomNavigationBar), null);
+        public static readonly BindableProperty ButtonOneCommandProperty = BindableProperty.Create(nameof(ButtonOneCommand), typeof(ICommand), typeof(CustomNavigationBar), null);
+        public static readonly BindableProperty ButtonTwoCommandProperty = BindableProperty.Create(nameof(ButtonTwoCommand), typeof(ICommand), typeof(CustomNavigationBar), null);
+        public static readonly BindableProperty BackCommandProperty = BindableProperty.Create(nameof(BackCommand), typeof(ICommand), typeof(CustomNavigationBar), null);
+
         public event EventHandler<EventArgs> BackButtonClicked;
 
         #endregion
@@ -146,8 +154,21 @@ namespace NorthShoreSurfApp
             get { return (bool)GetValue(ButtonTwoIsVisibleProperty); }
             set { SetValue(ButtonTwoIsVisibleProperty, value); }
         }
-
-
+        public ICommand ButtonOneCommand
+        {
+            get { return (ICommand)GetValue(ButtonOneCommandProperty); }
+            set { SetValue(ButtonOneCommandProperty, value); }
+        }
+        public ICommand ButtonTwoCommand
+        {
+            get { return (ICommand)GetValue(ButtonTwoCommandProperty); }
+            set { SetValue(ButtonTwoCommandProperty, value); }
+        }
+        public ICommand BackCommand
+        {
+            get { return (ICommand)GetValue(BackCommandProperty); }
+            set { SetValue(BackCommandProperty, value); }
+        }
 
         #endregion
     }

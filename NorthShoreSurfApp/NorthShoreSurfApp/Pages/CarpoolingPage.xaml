@@ -4,11 +4,10 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
-             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              mc:Ignorable="d"
              xmlns:local="clr-namespace:NorthShoreSurfApp"
              x:Class="NorthShoreSurfApp.CarpoolingPage"
-             BackgroundColor="{StaticResource BarBackground}"
+             BackgroundColor="White"
              >
 
     <ContentPage.BindingContext>
@@ -22,7 +21,8 @@
                 <RowDefinition Height="55"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
+            
+            <!--Top navigation bar-->
             <local:CustomNavigationBar x:Name="navigationBar"
                                        BarBackgroundColor="{StaticResource BarBackground}"
                                        ShowBackButton="False"
@@ -32,43 +32,45 @@
                                        Logo="ic_logo.png"
                                        ButtonOneIsVisible="True"
                                        ButtonTwoIsVisible="True"
-                                       ButtonOneImage="Plus_icon.png"
-                                       ButtonTwoImage="Mail.png"
+                                       ButtonOneImage="ic_plus.png"
+                                       ButtonTwoImage="{Binding NavigationBarButtonTwoIcon}"
                                        />
-
-            <local:CustomToggleButton x:Name="RidesTab"
-                                      TitleRight="Requests"
+            <!--Toggle button in the top-->    
+            <local:CustomToggleButton x:Name="ctbCarpool"
+                                      TitleRight="{local:Translate requests}"
                                       TitleRightSize="18"
-                                      TitleLeft="Rides"
+                                      TitleLeft="{local:Translate rides}"
                                       TitleLeftSize="18"
                                       SelectedColor="White"
+                                      SelectedToggleType="{Binding ToggleType, Mode=TwoWay}"
                                       BackgroundSelected="{StaticResource NSSBlue}"
                                       UnselectedColor="{StaticResource NSSBlue}"
                                       BackgroundUnselected="White"
-                                      IconLeft="ic_car_white.png"
-                                      IconRight="request_icon_w.png"
+                                      IconLeftPadding="5"
+                                      IconRightPadding="5"
+                                      IconLeft="ic_car.png"
+                                      IconRight="ic_request.png"
                                       Grid.Row="1"
-                                      Margin="5,10,5,0"
+                                      Margin="10,10,10,0"
                                       />
-
+            <!--Carpool rides listview-->
             <ListView x:Name="rideList"
                       ItemsSource="{Binding Rides}"
-                      ItemTemplate="{Binding CarpoolRideItemTemplate}"
+                      ItemTemplate="{Binding CarpoolRideDataTemplateSelector}"
+                      IsVisible="{Binding ShowRides}"
                       HasUnevenRows="True"
                       SeparatorVisibility="None"
-                      IsVisible="True"
                       Grid.Row="2"
                       />
-
+            <!--Carpool request listview-->
             <ListView x:Name="requestList"
-                  ItemsSource="{Binding Requests}"
-                  ItemTemplate="{Binding CarpoolRequestItemTemplate}"
-                  HasUnevenRows="True"
-                  SeparatorVisibility="None"
-                  IsVisible="False"
-                  Grid.Row="2"
-                  />
-
+                      ItemsSource="{Binding Requests}"
+                      ItemTemplate="{Binding CarpoolRequestDataTemplateSelector}"
+                      IsVisible="{Binding ShowRequests}"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="None"
+                      Grid.Row="2"
+                      />
         </Grid>
 
     </ContentPage.Content>

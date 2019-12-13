@@ -11,8 +11,20 @@ namespace NorthShoreSurfApp
 {
     public class NSSDatabaseContext : DbContext
     {
+        public NSSDatabaseContext()
+        {
+
+        }
+
+        public NSSDatabaseContext(DbContextOptions<NSSDatabaseContext> options) : base(options)
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (optionsBuilder.IsConfigured)
+                return;
+
             string databasePath = "";
             switch (Device.RuntimePlatform)
             {

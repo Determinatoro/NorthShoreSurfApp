@@ -158,10 +158,7 @@ namespace NorthShoreSurfApp
         // OnPageSelected
         public void OnPageSelected()
         {
-            this.DelayedTask(500, () =>
-            {
-                GetData();
-            });
+            GetData();
         }
 
         #endregion

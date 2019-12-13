@@ -13,6 +13,11 @@ using Xamarin.Forms;
 
 namespace NorthShoreSurfApp.ViewModels
 {
+    /*****************************************************************/
+    // DATA TEMPLATE SELECTOR
+    /*****************************************************************/
+    #region DataTemplateSelector
+
     public class CarpoolDetailDataTemplateSelector : DataTemplateSelector
     {
         public DataTemplate CarpoolRideItemTemplate { get; set; }
@@ -27,6 +32,30 @@ namespace NorthShoreSurfApp.ViewModels
             return null;
         }
     }
+
+    #endregion
+
+    /*****************************************************************/
+    // ENUMS
+    /*****************************************************************/
+    #region Enums
+
+    public enum CarpoolDetailsPageType
+    {
+        CarpoolRide_Join,
+        CarpoolRide_Leave,
+        CarpoolRide_Own,
+        CarpoolRequest_Own,
+        CarpoolRequest_Other
+    }
+
+    public enum CarpoolDetailsPageObject
+    {
+        CarpoolRide,
+        CarpoolRequest
+    }
+
+    #endregion
 
     public class CarpoolDetailsPageViewModel : INotifyPropertyChanged
     {
@@ -43,6 +72,9 @@ namespace NorthShoreSurfApp.ViewModels
         private List<CarpoolConfirmation> carpoolConfirmations;
         private List<CarpoolRide> carpoolRides;
         private ICommand buttonCommand;
+        private ICommand editCommand;
+        private ICommand deleteCommand;
+        private ICommand backCommand;
 
         #endregion
 
@@ -60,22 +92,14 @@ namespace NorthShoreSurfApp.ViewModels
         #endregion
 
         /*****************************************************************/
-        // CONSTRUCTOR
-        /*****************************************************************/
-        #region Constructor
-
-        public CarpoolDetailsPageViewModel()
-        {
-
-        }
-
-        #endregion
-
-        /*****************************************************************/
         // METHODS
         /*****************************************************************/
         #region Methods
 
+        /// <summary>
+        /// Add carpool confirmation
+        /// </summary>
+        /// <param name="carpoolConfirmation"></param>
         public void AddCarpoolConfirmation(CarpoolConfirmation carpoolConfirmation)
         {
             if (CarpoolRide != null)
@@ -83,6 +107,49 @@ namespace NorthShoreSurfApp.ViewModels
             else if (CarpoolRequest != null)
                 CarpoolConfirmations.Add(carpoolConfirmation);
             OnPropertyChanged(nameof(ShowButton));
+            OnPropertyChanged(nameof(ButtonTitle));
+            OnPropertyChanged(nameof(ButtonIcon));
+        }
+        /// <summary>
+        /// Remove carpool confirmations from carpool ride
+        /// </summary>
+        /// <param name="carpoolConfirmations">The carpool confirmations to remove</param>
+        public void RemoveCarpoolConfirmations(List<CarpoolConfirmation> carpoolConfirmations)
+        {
+            foreach (var confirmation in carpoolConfirmations)
+            {
+                CarpoolRide.CarpoolConfirmations.Remove(confirmation);
+            }
+            OnPropertyChanged(nameof(ShowButton));
+            OnPropertyChanged(nameof(ButtonTitle));
+            OnPropertyChanged(nameof(ButtonIcon));
+        }
+        /// <summary>
+        /// Update properties for when setting the object to show details for
+        /// </summary>
+        private void UpdateProperties()
+        {
+            OnPropertyChanged(nameof(Details));
+            OnPropertyChanged(nameof(ShowButton));
+            OnPropertyChanged(nameof(ButtonTitle));
+            OnPropertyChanged(nameof(ButtonIcon));
+            OnPropertyChanged(nameof(NavigationBarTitle));
+            OnPropertyChanged(nameof(UserInformation));
+            OnPropertyChanged(nameof(Comment));
+            OnPropertyChanged(nameof(ShowComment));
+            OnPropertyChanged(nameof(Car));
+            OnPropertyChanged(nameof(ShowCar));
+            OnPropertyChanged(nameof(Passengers));
+            OnPropertyChanged(nameof(ShowPassengers));
+            OnPropertyChanged(nameof(Events));
+            OnPropertyChanged(nameof(ShowEvents));
+            OnPropertyChanged(nameof(UserInformationTitle));
+            OnPropertyChanged(nameof(NavigationBarButtonOneCommand));
+            OnPropertyChanged(nameof(NavigationBarButtonTwoCommand));
+            OnPropertyChanged(nameof(NavigationBarButtonOneIsVisible));
+            OnPropertyChanged(nameof(NavigationBarButtonTwoIsVisible));
+            OnPropertyChanged(nameof(NavigationBarButtonOneIcon));
+            OnPropertyChanged(nameof(NavigationBarButtonTwoIcon));
         }
 
         #endregion
@@ -92,6 +159,186 @@ namespace NorthShoreSurfApp.ViewModels
         /*****************************************************************/
         #region Properties
 
+        public CarpoolDetailsPageType PageType
+        {
+            get
+            {
+                if (User == null)
+                    return default;
+
+                if (CarpoolRide != null)
+                {
+                    if (CarpoolRide.DriverId == User.Id)
+                        return CarpoolDetailsPageType.CarpoolRide_Own;
+
+                    if (CarpoolRide.CarpoolConfirmations.Any(x => x.PassengerId == User.Id && !x.IsInvite))
+                        return CarpoolDetailsPageType.CarpoolRide_Leave;
+                    else if (!CarpoolRide.CarpoolConfirmations.Any(x => x.PassengerId == User.Id))
+                        return CarpoolDetailsPageType.CarpoolRide_Join;
+                }
+                else if (CarpoolRequest != null)
+                {
+                    if (CarpoolRequest.PassengerId == User.Id)
+                        return CarpoolDetailsPageType.CarpoolRide_Own;
+                    else
+                        return CarpoolDetailsPageType.CarpoolRequest_Other;
+                }
+
+                return default;
+            }
+        }
+        public CarpoolDetailsPageObject PageObject
+        {
+            get
+            {
+                switch (PageType)
+                {
+                    case CarpoolDetailsPageType.CarpoolRide_Join:
+                    case CarpoolDetailsPageType.CarpoolRide_Leave:
+                    case CarpoolDetailsPageType.CarpoolRide_Own:
+                        return CarpoolDetailsPageObject.CarpoolRide;
+                    case CarpoolDetailsPageType.CarpoolRequest_Own:
+                    case CarpoolDetailsPageType.CarpoolRequest_Other:
+                        return CarpoolDetailsPageObject.CarpoolRequest;
+                }
+
+                return default;
+            }
+        }
+
+        /// <summary>
+        /// Back command for the page
+        /// </summary>
+        public ICommand BackCommand
+        {
+            get => backCommand;
+            set
+            {
+                backCommand = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// Flag telling if the object in question is owned by the user
+        /// </summary>
+        private bool IsUsersOwn
+        {
+            get
+            {
+                if (User == null)
+                    return false;
+
+                if (CarpoolRide != null)
+                    return CarpoolRide.DriverId == User.Id;
+                else if (CarpoolRequest != null)
+                    return CarpoolRequest.PassengerId == User.Id;
+
+                return false;
+            }
+        }
+        /// <summary>
+        /// Edit command for the page
+        /// </summary>
+        public ICommand EditCommand
+        {
+            get => editCommand;
+            set
+            {
+                editCommand = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// Delete command for the page
+        /// </summary>
+        public ICommand DeleteCommand
+        {
+            get => deleteCommand;
+            set
+            {
+                deleteCommand = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
+        /// Navigation bar button one command
+        /// </summary>
+        public ICommand NavigationBarButtonOneCommand
+        {
+            get
+            {
+                return DeleteCommand;
+            }
+        }
+        /// <summary>
+        /// Navigation bar button two command
+        /// </summary>
+        public ICommand NavigationBarButtonTwoCommand
+        {
+            get
+            {
+                return EditCommand;
+            }
+        }
+        /// <summary>
+        /// Flag for navigation bar button one visibility
+        /// </summary>
+        public bool NavigationBarButtonOneIsVisible
+        {
+            get
+            {
+                if (!IsUsersOwn)
+                    return false;
+
+                if (CarpoolRide != null)
+                    return true;
+                else if (CarpoolRequest != null)
+                    return CarpoolRequest.IsActive;
+
+                return false;
+            }
+        }
+        /// <summary>
+        /// Flag for navigation bar button two visibility
+        /// </summary>
+        public bool NavigationBarButtonTwoIsVisible
+        {
+            get
+            {
+                if (!IsUsersOwn)
+                    return false;
+
+                if (CarpoolRide != null)
+                    return !CarpoolRide.IsLocked;
+                else if (CarpoolRequest != null)
+                    return CarpoolRequest.IsActive;
+
+                return false;
+            }
+        }
+        /// <summary>
+        /// Navigation bar button one icon
+        /// </summary>
+        public ImageSource NavigationBarButtonOneIcon
+        {
+            get
+            {
+                return ImageSource.FromFile("ic_cross.png");
+            }
+        }
+        /// <summary>
+        /// Navigation bar button two icon
+        /// </summary>
+        public ImageSource NavigationBarButtonTwoIcon
+        {
+            get
+            {
+                return ImageSource.FromFile("ic_edit.png");
+            }
+        }
+        /// <summary>
+        /// List of the user's carpool confirmations
+        /// </summary>
         public List<CarpoolConfirmation> CarpoolConfirmations
         {
             get => carpoolConfirmations;
@@ -100,8 +347,12 @@ namespace NorthShoreSurfApp.ViewModels
                 carpoolConfirmations = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(ShowButton));
+                OnPropertyChanged(nameof(ButtonIcon));
             }
         }
+        /// <summary>
+        /// List of the user's carpool rides
+        /// </summary>
         public List<CarpoolRide> CarpoolRides
         {
             get => carpoolRides;
@@ -110,8 +361,12 @@ namespace NorthShoreSurfApp.ViewModels
                 carpoolRides = value;
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(ShowButton));
+                OnPropertyChanged(nameof(ButtonIcon));
             }
         }
+        /// <summary>
+        /// The object holding the user info
+        /// </summary>
         public User User
         {
             get => user;
@@ -122,8 +377,17 @@ namespace NorthShoreSurfApp.ViewModels
                 OnPropertyChanged(nameof(ShowButton));
                 OnPropertyChanged(nameof(Passengers));
                 OnPropertyChanged(nameof(ShowPassengers));
+                OnPropertyChanged(nameof(NavigationBarButtonOneCommand));
+                OnPropertyChanged(nameof(NavigationBarButtonTwoCommand));
+                OnPropertyChanged(nameof(NavigationBarButtonOneIsVisible));
+                OnPropertyChanged(nameof(NavigationBarButtonTwoIsVisible));
+                OnPropertyChanged(nameof(NavigationBarButtonOneIcon));
+                OnPropertyChanged(nameof(NavigationBarButtonTwoIcon));
             }
         }
+        /// <summary>
+        /// The object holding the car info
+        /// </summary>
         public Car Car
         {
             get
@@ -134,6 +398,9 @@ namespace NorthShoreSurfApp.ViewModels
                 return null;
             }
         }
+        /// <summary>
+        /// Flag deciding if the car information should be shown
+        /// </summary>
         public bool ShowCar
         {
             get
@@ -151,21 +418,7 @@ namespace NorthShoreSurfApp.ViewModels
             {
                 carpoolRide = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(Details));
-                OnPropertyChanged(nameof(ShowButton));
-                OnPropertyChanged(nameof(ButtonTitle));
-                OnPropertyChanged(nameof(ButtonIcon));
-                OnPropertyChanged(nameof(NavigationBarTitle));
-                OnPropertyChanged(nameof(UserInformation));
-                OnPropertyChanged(nameof(Comment));
-                OnPropertyChanged(nameof(ShowComment));
-                OnPropertyChanged(nameof(Car));
-                OnPropertyChanged(nameof(ShowCar));
-                OnPropertyChanged(nameof(Passengers));
-                OnPropertyChanged(nameof(ShowPassengers));
-                OnPropertyChanged(nameof(Events));
-                OnPropertyChanged(nameof(ShowEvents));
-                OnPropertyChanged(nameof(UserInformationTitle));
+                UpdateProperties();
             }
         }
         /// <summary>
@@ -178,21 +431,7 @@ namespace NorthShoreSurfApp.ViewModels
             {
                 carpoolRequest = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(Details));
-                OnPropertyChanged(nameof(ShowButton));
-                OnPropertyChanged(nameof(ButtonTitle));
-                OnPropertyChanged(nameof(ButtonIcon));
-                OnPropertyChanged(nameof(NavigationBarTitle));
-                OnPropertyChanged(nameof(UserInformation));
-                OnPropertyChanged(nameof(Comment));
-                OnPropertyChanged(nameof(ShowComment));
-                OnPropertyChanged(nameof(Car));
-                OnPropertyChanged(nameof(ShowCar));
-                OnPropertyChanged(nameof(Passengers));
-                OnPropertyChanged(nameof(ShowPassengers));
-                OnPropertyChanged(nameof(Events));
-                OnPropertyChanged(nameof(ShowEvents));
-                OnPropertyChanged(nameof(UserInformationTitle));
+                UpdateProperties();
             }
         }
         public ICommand ButtonCommand
@@ -242,7 +481,12 @@ namespace NorthShoreSurfApp.ViewModels
             get
             {
                 if (CarpoolRide != null)
-                    return Resources.AppResources.join_ride;
+                {
+                    if (PageType == CarpoolDetailsPageType.CarpoolRide_Leave)
+                        return Resources.AppResources.leave_ride;
+                    else
+                        return Resources.AppResources.join_ride;
+                }
                 else if (CarpoolRequest != null)
                     return Resources.AppResources.invite_to_ride;
 
@@ -257,7 +501,12 @@ namespace NorthShoreSurfApp.ViewModels
             get
             {
                 if (CarpoolRide != null)
+                {
+                    if (PageType == CarpoolDetailsPageType.CarpoolRide_Leave)
+                        return ImageSource.FromFile("ic_log_out.png");
+
                     return ImageSource.FromFile("ic_request.png");
+                }
                 else if (CarpoolRequest != null)
                     return ImageSource.FromFile("ic_plus.png");
 
@@ -279,10 +528,10 @@ namespace NorthShoreSurfApp.ViewModels
                         return false;
                     else
                     {
-                        // Do not show the button if passenger already 
+                        // Show a leave button if the passenger already 
                         // has a confirmation for this carpool ride
                         if (CarpoolRide.CarpoolConfirmations.Any(x => x.PassengerId == User.Id))
-                            return false;
+                            return true;
                         // The user can only request to join a carpool ride 
                         // if there is still available seats
                         return CarpoolRide.AvailableSeats > 0;
@@ -558,6 +807,7 @@ namespace NorthShoreSurfApp.ViewModels
             get => CarpoolRides.Where(x => !x.CarpoolConfirmations.Any(x2 => x2.CarpoolRequestId == CarpoolRequest.Id))
                                .ToList();
         }
+
 
         #endregion
     }
