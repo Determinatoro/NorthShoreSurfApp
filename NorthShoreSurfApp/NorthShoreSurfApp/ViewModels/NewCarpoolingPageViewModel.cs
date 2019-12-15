@@ -276,7 +276,7 @@ namespace NorthShoreSurfApp.ViewModels
         /// </summary>
         public string ApiKey
         {
-            get => "AIzaSyCZVY785J496yAFkI5ii5-rYpkKccd1N1g";
+            get => "pVdnZ1DWpiG8OvYpuXPZ7V/4QEkMtRz+nWEaLsDhe4qD0Z7s19znkE6eA5ZYmpDe5C2CyiYeCSVuYH4cKVfBkO7LGMvLIwx7fkyoof4FxjGwcXsYuJmSdx0gHaovAfy9y7tG6/IjIcyBEVTSc7Q01sOYEkJVimKDCFLe/6A/z0Q=".Decrypt("NSSApp");
         }
         /// <summary>
         /// Complete departure time with date and time
