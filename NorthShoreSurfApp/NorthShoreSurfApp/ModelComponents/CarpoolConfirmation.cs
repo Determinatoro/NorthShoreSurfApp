@@ -111,7 +111,6 @@ namespace NorthShoreSurfApp.ModelComponents
                 }
             }
         }
-
         public override bool Equals(object obj)
         {
             if (!(obj is CarpoolConfirmation))

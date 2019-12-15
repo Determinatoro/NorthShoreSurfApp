@@ -386,7 +386,8 @@ namespace NorthShoreSurfApp.Database
                 using (var context = CreateContext())
                 {
                     // Get user from user id
-                    User user = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+                    User user = await context.Users.AsNoTracking()
+                                                   .FirstOrDefaultAsync(x => x.Id == userId);
                     // User does not exist
                     if (user == null)
                         return new DataResponse<User>(100, Resources.AppResources.user_not_found);
@@ -631,9 +632,47 @@ namespace NorthShoreSurfApp.Database
                     if (!response.Success)
                         return new DataResponse(response.ErrorCode, response.ErrorMessage);
                     // Get user
-                    User user = response.Result;
-                    // Set user to inactive
-                    user.IsActive = false;
+                    User user = await context.Users.FirstOrDefaultAsync(x => x.Id == userId);
+                    // Get all carpool confirmations
+                    var carpoolConfirmations = await context.CarpoolConfirmations
+                                        .Include(x => x.Passenger)
+                                        .Include(x => x.CarpoolRide).ThenInclude(x => x.Driver)
+                                        .Where(x => x.Passenger.Id == userId || x.CarpoolRide.Driver.Id == userId)
+                                        .AsNoTracking()
+                                        .ToListAsync();
+                    // Delete carpool confirmations
+                    context.RemoveRange(carpoolConfirmations);
+                    // Get carpool rides 
+                    var carpoolRides = await context.CarpoolRides
+                                                    .Include(x => x.CarpoolRides_Events_Relations)
+                                                    .Where(x => x.DriverId == user.Id)
+                                                    .ToListAsync();
+                    // Get carpool ride event relations
+                    var carpool_event_relations = carpoolRides.SelectMany(x => x.CarpoolRides_Events_Relations)
+                                                              .ToList();
+                    // Delete carpool ride event relations
+                    context.RemoveRange(carpool_event_relations);
+                    // Get carpool requests
+                    var carpoolRequests = await context.CarpoolRequests
+                                                       .Include(x => x.CarpoolRequests_Events_Relations)
+                                                       .Where(x => x.PassengerId == user.Id)
+                                                       .ToListAsync();
+                    // Get carpool request event relations
+                    var carpool_request_event_relations = carpoolRequests.SelectMany(x => x.CarpoolRequests_Events_Relations)
+                                                                         .ToList();
+                    // Get cars
+                    var cars = await context.Cars.Where(x => x.UserId == userId)
+                                                 .ToListAsync();
+                    // Delete carpool request event relations
+                    context.RemoveRange(carpool_request_event_relations);
+                    // Delete carpool rides
+                    context.RemoveRange(carpoolRides);
+                    // Delete carpool requests
+                    context.RemoveRange(carpoolRequests);
+                    // Delete cars
+                    context.RemoveRange(cars);
+                    // Delete user
+                    context.Users.Remove(user);
                     // Save changes
                     await context.SaveChangesAsync();
                     // Return response
@@ -657,8 +696,26 @@ namespace NorthShoreSurfApp.Database
                     // Check for error
                     if (car == null)
                         return new DataResponse(800, Resources.AppResources.car_not_found);
-                    // Set user to inactive
-                    car.IsActive = false;
+                    // Get carpool rides 
+                    var carpoolRides = await context.CarpoolRides
+                                                    .Include(x => x.CarpoolRides_Events_Relations)
+                                                    .Include(x => x.CarpoolConfirmations)
+                                                    .Where(x => x.CarId == carId)
+                                                    .ToListAsync();
+                    // Get carpool ride event relations
+                    var carpool_event_relations = carpoolRides.SelectMany(x => x.CarpoolRides_Events_Relations)
+                                                              .ToList();
+                    // Get confirmations
+                    var carpoolConfirmations = carpoolRides.SelectMany(x => x.CarpoolConfirmations)
+                                                           .ToList();
+                    // Delete carpool confirmations
+                    context.RemoveRange(carpoolConfirmations);
+                    // Delete carpool ride event relations
+                    context.RemoveRange(carpool_event_relations);
+                    // Delete carpool rides
+                    context.RemoveRange(carpoolRides);
+                    // Delete car
+                    context.Cars.Remove(car);
                     // Save changes
                     await context.SaveChangesAsync();
                     // Return response
@@ -1427,7 +1484,7 @@ namespace NorthShoreSurfApp.Database
                 {
                     // Get user from user id
                     User user = await context.Users.FirstOrDefaultAsync(x => x.PhoneNo == phoneNo);
-                    // Phone no. is used on an existing account
+                    // Phone no. is not used on an existing account
                     if (user == null)
                         return new DataResponse<User>(110, Resources.AppResources.this_phone_no_is_not_used_on_any_existing_accounts);
                     // Return response

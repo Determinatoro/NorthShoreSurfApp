@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using NorthShoreSurfApp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace NorthShoreSurfAppUnitTest
@@ -21,7 +22,8 @@ namespace NorthShoreSurfAppUnitTest
         {
             if (connection == null)
             {
-                var source = new SqliteConnection(@"DataSource=D:\OneDrive\Projects\C Sharp projects\NorthShoreSurfApp\NorthShoreSurfApp\NorthShoreSurfApp.Android\Assets\NSS.db");
+                var path = $@"DataSource={Utilities.GetProjectFolder()}\NSS.db";
+                var source = new SqliteConnection(path);
                 source.Open();
 
                 connection = new SqliteConnection("DataSource=:memory:");

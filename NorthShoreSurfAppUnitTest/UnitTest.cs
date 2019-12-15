@@ -7,6 +7,7 @@ using NorthShoreSurfApp.ModelComponents;
 using NorthShoreSurfApp.ViewModels;
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
@@ -59,9 +60,13 @@ namespace NorthShoreSurfAppUnitTest
 
         #endregion
 
+        /*****************************************************************/
+        // SERVICES
+        /*****************************************************************/
         #region Services 
 
         [TestMethod]
+        [TestCategory("NSSDatabaseService")]
         public async Task DatabaseService_GetUsers_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -72,6 +77,589 @@ namespace NorthShoreSurfAppUnitTest
                 var response = await service.GetUsers();
                 // Assert
                 Assert.IsTrue(response.Result.Count > 0);
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetEvents_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetEvents();
+                // Assert
+                Assert.IsTrue(response.Result.Count > 0);
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetOpeningHours_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetOpeningHours();
+                // Assert
+                Assert.IsTrue(response.Result != null);
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetContactInfo_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetContactInfo();
+                ContactInfo contactInfo = response.Result;
+                // Assert
+                Assert.IsTrue(
+                    contactInfo.Address != null &&
+                    contactInfo.Email != null &&
+                    contactInfo.ZipCode != null &&
+                    contactInfo.City != null &&
+                    contactInfo.PhoneNo != null
+                );
+            }
+        }
+        [TestMethod]
+        [DataRow(1)]
+        [DataRow(2)]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetUsersCarpoolRides_Success(int userId)
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetUsersCarpoolRides(userId);
+                // Assert
+                Assert.IsTrue(response.Result.OwnRides
+                                .TrueForAll(x => x.DriverId == userId ||
+                                x.CarpoolConfirmations.Any(x2 => x2.IsConfirmed && x2.PassengerId == userId)) &&
+                                response.Result.OtherRides.TrueForAll(x => x.DriverId != userId)
+                );
+            }
+        }
+        [TestMethod]
+        [DataRow(1)]
+        [DataRow(2)]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetUsersCarpoolRequests_Success(int userId)
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetUsersCarpoolRequests(userId);
+                // Assert
+                Assert.IsTrue(
+                    response.Result.OwnRequests.TrueForAll(x => x.PassengerId == userId) &&
+                    response.Result.OtherRequests.TrueForAll(x => x.PassengerId != userId)
+                );
+            }
+        }
+        [TestMethod]
+        [DataRow(1)]
+        [DataRow(2)]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetOwnCarpoolRides_Success(int userId)
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetOwnCarpoolRides(userId);
+                // Assert
+                Assert.IsTrue(
+                    response.Result.TrueForAll(x => x.DriverId == userId)
+                );
+            }
+        }
+        [TestMethod]
+        [DataRow(1)]
+        [DataRow(2)]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetConfirmations_Success(int userId)
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetConfirmations(userId);
+                // Assert
+                Assert.IsTrue(
+                    response.Result.OwnRides.TrueForAll(x => x.DriverId == userId) &&
+                    response.Result.OtherRides.TrueForAll(x => x.DriverId != userId)
+                );
+            }
+        }
+        [TestMethod]
+        [DataRow(1)]
+        [DataRow(2)]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetCars_Success(int userId)
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetCars(userId);
+                // Assert
+                Assert.IsTrue(response.Result.TrueForAll(x => x.UserId == userId));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetOpeningHoursInformation_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetOpeningHoursInformation();
+                // Assert
+                Assert.IsTrue(!string.IsNullOrEmpty(response.Result));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetTodaysOpeningHours_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetTodaysOpeningHours();
+                // Assert
+                Assert.IsTrue(!string.IsNullOrEmpty(response.Result));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetNextCarpoolRide_NoNextCarpoolRide()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetNextCarpoolRide(1);
+                // Assert
+                Assert.IsTrue(response.Success);
+            }
+        }
+        [TestMethod]
+        [DataRow(1)]
+        [DataRow(2)]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetCarpoolConfirmations_Success(int userId)
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetCarpoolConfirmations(userId);
+                // Assert
+                Assert.IsTrue(response.Result.TrueForAll(x => x.Passenger.Id == userId || x.CarpoolRide.Driver.Id == userId));
+            }
+        }
+        [TestMethod]
+        [DataRow(1)]
+        [DataRow(2)]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetPendingCarpoolConfirmations_Success(int userId)
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetPendingCarpoolConfirmations(userId);
+                // Assert
+                Assert.IsTrue(response.Result.TrueForAll(x => (x.Passenger.Id == userId || x.CarpoolRide.Driver.Id == userId) && !x.IsConfirmed));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_CheckIfPhoneIsNotUsedAlready_PhoneNoAlreadyUsed()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                string phoneNo = "+4530360633";
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.CheckIfPhoneIsNotUsedAlready(phoneNo);
+                // Assert
+                Assert.IsTrue(!response.Success);
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_CheckIfPhoneIsNotUsedAlready_PhoneNoNotUsed()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                string phoneNo = "+4510101010";
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.CheckIfPhoneIsNotUsedAlready(phoneNo);
+                // Assert
+                Assert.IsTrue(response.Success);
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetUser_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetUser(1);
+                // Assert
+                Assert.IsTrue(response.Success);
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_GetUser_UserNotFound()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.GetUser(10000);
+                // Assert
+                Assert.IsTrue(!response.Success);
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_UpdateUser_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                string firstName = "test";
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.UpdateUser(1, firstName, "test", "1234", 30, 2);
+                var response2 = await service.GetUser(1);
+                // Assert
+                Assert.IsTrue(response.Success && response2.Result.FirstName == firstName);
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_SignUpUser_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                string firstName = "test";
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.SignUpUser(firstName, "test", "1234", 30, 2);
+                var response2 = await service.GetUser(response.Result.Id);
+                // Assert
+                Assert.IsTrue(response.Success && response2.Result.FirstName == firstName);
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_DeleteUser_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.DeleteUser(1);
+                var response2 = await service.GetUser(1);
+                // Assert
+                Assert.IsTrue(response.Success && !response2.Success);
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_CreateCar_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.CreateCar(1, "TE12345", "Grøn");
+                var response2 = await service.GetCars(1);
+                // Assert
+                Assert.IsTrue(response.Success && response2.Result.Any(x => x.Id == response.Result.Id));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_DeleteCar_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.DeleteCar(1);
+                var response2 = await service.GetCars(1);
+                // Assert
+                Assert.IsTrue(response.Success && !response2.Result.Any(x => x.Id == 1));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_CreateCarpoolRide_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                // Make list of events
+                var events = new System.Collections.Generic.List<Event>();
+                events.Add(new Event() { Id = 1 });
+                events.Add(new Event() { Id = 2 });
+                // Create carpool ride with test values
+                var response = await service.CreateCarpoolRide(1, DateTime.Now.AddDays(1), "Testvej 1", "1234", "Testby", "Testvej 10", "4321", "Testby 2", 1, 4, 100, events, "this is a test");
+                // Get user's carpool rides
+                var response2 = await service.GetOwnCarpoolRides(1);
+                // Assert
+                Assert.IsTrue(response.Success && response2.Result.Any(x => x.Id == response.Result.Id));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_DeleteCarpoolRide_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                var response = await service.DeleteCarpoolRide(1);
+                var response2 = await service.GetUsersCarpoolRides(1);
+                // Assert
+                Assert.IsTrue(response.Success && !response2.Result.OtherRides.Any(x => x.Id == 1) && !response2.Result.OwnRides.Any(x => x.Id == 1));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_DeleteCarpoolRequest_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                int userId = 1;
+                // Get user's carpool requests
+                var resp = await service.GetUsersCarpoolRequests(userId);
+                // Get the first of the user's own requests
+                int id = resp.Result.OwnRequests.FirstOrDefault().Id;
+                var response = await service.DeleteCarpoolRequest(id);
+                var response2 = await service.GetUsersCarpoolRequests(userId);
+                // Assert
+                Assert.IsTrue(response.Success && !response2.Result.OtherRequests.Any(x => x.Id == id) && !response2.Result.OwnRequests.Any(x => x.Id == id));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_CreateCarpoolRequest_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                // Make list of events
+                var events = new System.Collections.Generic.List<Event>();
+                events.Add(new Event() { Id = 1 });
+                events.Add(new Event() { Id = 2 });
+                // Create carpool request with test values
+                var response = await service.CreateCarpoolRequest(1, DateTime.Now.AddMinutes(20), DateTime.Now.AddMinutes(30), "1234", "Testby", "Testvej 1", "4321", "Testby 2", events, "This is a test");
+                // Get user's carpool requests
+                var response2 = await service.GetUsersCarpoolRequests(1);
+                // Assert
+                Assert.IsTrue(response.Success && response2.Result.OwnRequests.Any(x => x.Id == response.Result.Id));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_InvitePassenger_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                int userId = 1;
+                // Get user's carpool requests
+                var resp = await service.GetUsersCarpoolRequests(userId);
+                // Get first of the unrelated requests to the user
+                int carpoolRequestId = resp.Result.OtherRequests.FirstOrDefault().Id;
+                // Invite passenger to ride
+                var response = await service.InvitePassenger(carpoolRequestId, 1);
+                // Get user's carpool confirmations
+                var response2 = await service.GetCarpoolConfirmations(userId);
+                // Assert
+                Assert.IsTrue(response.Success && response2.Result.Any(x => x.CarpoolRequestId == carpoolRequestId));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_SignUpToCarpoolRide_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                int userId = 1;
+                var resp = await service.GetUsersCarpoolRides(userId);
+                // Get first of unrelated rides to the user
+                int carpoolRideId = resp.Result.OtherRides.FirstOrDefault().Id;
+                // Sign up to carpool ride
+                var response = await service.SignUpToCarpoolRide(carpoolRideId, userId);
+                // Get user's carpool confirmations
+                var response2 = await service.GetCarpoolConfirmations(userId);
+                // Assert
+                Assert.IsTrue(response.Success && response2.Result.Any(x => x.CarpoolRideId == carpoolRideId));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_UnsignFromCarpoolRide_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                // Get user's carpool rides
+                var resp = await service.GetUsersCarpoolRides(1);
+                // Get first of the user's own rides with a confirmed passenger
+                CarpoolRide carpoolRide = resp.Result.OwnRides.Where(x => x.CarpoolConfirmations.Any(x2 => x2.IsConfirmed)).FirstOrDefault();
+                // Get passenger id for confirmed passenger
+                int passengerId = carpoolRide.CarpoolConfirmations.OrderBy(x => x.PassengerId).FirstOrDefault(x => x.IsConfirmed).PassengerId;
+                // Unsign the passenger
+                var response = await service.UnsignFromCarpoolRide(carpoolRide.Id, passengerId);
+                // Get user's carpool rides
+                var response2 = await service.GetUsersCarpoolRides(1);
+                // Assert
+                Assert.IsTrue(response.Success && !response2.Result.OwnRides.FirstOrDefault(x => x.Id == carpoolRide.Id).CarpoolConfirmations.Any(x => x.PassengerId == passengerId));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_AnswerCarpoolConfirmation_Accept()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                int userId = 1;
+                // Get user's carpool confirmations
+                var resp = await service.GetCarpoolConfirmations(userId);
+                // Get first confirmation that is an invite
+                var carpoolConfirmation = resp.Result.FirstOrDefault(x => x.PassengerId == userId && x.IsInvite);
+                // Accept the invitation
+                var response = await service.AnswerCarpoolConfirmation(userId, carpoolConfirmation.Id, true);
+                // Get user's carpool rides
+                var response2 = await service.GetUsersCarpoolRides(userId);
+                // Assert
+                Assert.IsTrue(response.Success && response2.Result.OwnRides.Any(x => x.Id == carpoolConfirmation.CarpoolRideId));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_AnswerCarpoolConfirmation_Deny()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                int userId = 1;
+                // Get user's carpool confirmations
+                var resp = await service.GetCarpoolConfirmations(userId);
+                // Get first confirmation that is an invite
+                var carpoolConfirmation = resp.Result.FirstOrDefault(x => x.PassengerId == userId && x.IsInvite);
+                // Deny the invite 
+                var response = await service.AnswerCarpoolConfirmation(userId, carpoolConfirmation.Id, false);
+                // Get the user's carpool confirmations
+                var response2 = await service.GetCarpoolConfirmations(userId);
+                // Assert
+                Assert.IsTrue(response.Success && !response2.Result.Any(x => x.Id == carpoolConfirmation.Id));
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_UpdateCarpoolRequest_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                // User's id
+                int userId = 1;
+                // Get user's carpool requests
+                var resp = await service.GetUsersCarpoolRequests(userId);
+                // Get first request
+                var carpoolRequest = resp.Result.OwnRequests.OrderBy(x => x.Id).FirstOrDefault();
+                // Update values for the request
+                var response = await service.UpdateCarpoolRequest(carpoolRequest.Id, DateTime.Now.AddMinutes(30), DateTime.Now.AddMinutes(40), "1234", "Testby", "Testvej 1", "4321", "Testby 2", new System.Collections.Generic.List<Event>(), null);
+                // Get the user's requests
+                var response2 = await service.GetUsersCarpoolRequests(userId);
+                // Assert
+                Assert.IsTrue(response.Success && response2.Result.OwnRequests.FirstOrDefault(x => x.Id == carpoolRequest.Id && x.ZipCode == "1234") != null);
+            }
+        }
+        [TestMethod]
+        [TestCategory("NSSDatabaseService")]
+        public async Task DatabaseService_UpdateCarpoolRide_Success()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                // Act
+                // User's id
+                int userId = 1;
+                // Get user's carpool rides
+                var resp = await service.GetUsersCarpoolRides(userId);
+                // Get first ride
+                var carpoolRide = resp.Result.OwnRides.OrderBy(x => x.Id).FirstOrDefault();
+                // Update values for the ride
+                var response = await service.UpdateCarpoolRide(carpoolRide.Id, DateTime.Now.AddMinutes(30), "Testvej 2", "1234", "Testby", "Testvej 1", "4321", "Testby 2", 1, 100, new System.Collections.Generic.List<Event>(), "This is a test");
+                // Get the user's rides
+                var response2 = await service.GetUsersCarpoolRides(userId);
+                // Assert
+                Assert.IsTrue(response.Success && response2.Result.OwnRides.FirstOrDefault(x => x.Id == carpoolRide.Id && x.ZipCode == "1234") != null);
             }
         }
 

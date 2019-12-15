@@ -40,6 +40,7 @@ namespace NorthShoreSurfApp.ModelComponents
         public string Comment { get; set; }
 
         public List<CarpoolRequests_Events_Relation> CarpoolRequests_Events_Relations { get; set; }
+        public List<CarpoolConfirmation> CarpoolConfirmations { get; set; }
 
         [NotMapped]
         public string ZipcodeCityString { get => String.Format("{0} {1}", ZipCode, City); }
