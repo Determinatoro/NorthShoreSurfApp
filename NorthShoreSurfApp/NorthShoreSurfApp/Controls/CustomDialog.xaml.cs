@@ -30,54 +30,26 @@ namespace NorthShoreSurfApp
     /*****************************************************************/
     #region Trigger actions
 
-    // Cancel pressed trigger
-    public class CustomDialogCancelPressedTriggerAction : TriggerAction<Button>
+    // Dialog button pressed trigger
+    public class CustomDialogPressedTriggerAction : TriggerAction<Button>
     {
         protected override void Invoke(Button button)
         {
             string classId = button.ClassId;
             var parent = button.FindParentWithType<Grid>();
-            Frame frame = null;
-
-            switch (classId)
-            {
-                case "Yes":
-                    frame = parent.FindByName<Frame>("frameYes");
-                    break;
-                case "No":
-                    frame = parent.FindByName<Frame>("frameNo");
-                    break;
-                case "Cancel":
-                    frame = parent.FindByName<Frame>("frameCancel");
-                    break;
-            }
-
+            Frame frame = parent.FindByName<Frame>($"frame{classId}");
             frame.BackgroundColor = (Color)App.Current.Resources["NSSBluePressed"];
         }
     }
 
-    // Cancel released trigger
-    public class CustomDialogCancelReleasedTriggerAction : TriggerAction<Button>
+    // Dialog button released trigger
+    public class CustomDialogReleasedTriggerAction : TriggerAction<Button>
     {
         protected override void Invoke(Button button)
         {
             string classId = button.ClassId;
             var parent = button.FindParentWithType<Grid>();
-            Frame frame = null;
-
-            switch (classId)
-            {
-                case "Yes":
-                    frame = parent.FindByName<Frame>("frameYes");
-                    break;
-                case "No":
-                    frame = parent.FindByName<Frame>("frameNo");
-                    break;
-                case "Cancel":
-                    frame = parent.FindByName<Frame>("frameCancel");
-                    break;
-            }
-
+            Frame frame = parent.FindByName<Frame>($"frame{classId}");
             frame.BackgroundColor = (Color)App.Current.Resources["NSSBlue"];
         }
     }

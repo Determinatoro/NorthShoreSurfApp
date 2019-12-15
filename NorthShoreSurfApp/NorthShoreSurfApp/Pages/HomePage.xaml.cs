@@ -79,11 +79,6 @@ namespace NorthShoreSurfApp
             frameContactUs.GestureRecognizers.Add(frameTap);
             frameWebcam.GestureRecognizers.Add(frameTap);
             frameNextRide.GestureRecognizers.Add(frameTap);
-
-            cpCar.Clicked += (sender, args) =>
-            {
-                GetCars();
-            };
         }
 
         #endregion
@@ -125,101 +120,6 @@ namespace NorthShoreSurfApp
                     else
                         this.ShowMessage(response.Item2.ErrorMessage);
                 });
-        }
-
-        private void GetCars()
-        {
-            App.DataService.GetData(
-                NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                true,
-                () => App.DataService.GetCars(AppValuesService.GetUserId().Value),
-                async (response) =>
-                {
-                    // Set opening hours content
-                    if (response.Success)
-                    {
-                        // Set car objects
-                        HomeViewModel.Cars = new ObservableCollection<Car>(response.Result);
-                        // Add new car option
-                        HomeViewModel.Cars.Add(new Car() { Title = NorthShoreSurfApp.Resources.AppResources.add_new_car });
-
-                        // Show list selection
-                        CustomListDialog customListDialog = new CustomListDialog(
-                            HomeViewModel.CarItemTemplate,
-                            HomeViewModel.Cars,
-                            string.Format(NorthShoreSurfApp.Resources.AppResources.select_parameter, NorthShoreSurfApp.Resources.AppResources.car.ToLower())
-                            );
-                        // Do not close the dialog when an item is selected
-                        customListDialog.CloseOnItemTapped = false;
-                        // Set car delete command
-                        HomeViewModel.CarDeleteCommand = new Command((parameter) =>
-                        {
-                            // Get car from view cell
-                            var car = ((Func<Car>)parameter).Invoke();
-                            // Yes no dialog
-                            this.ShowYesNo(NorthShoreSurfApp.Resources.AppResources.are_you_sure_you_want_to_delete_this_car, () =>
-                            {
-                                // Remove the selected car
-                                RemoveCar(car);
-                            });
-                        });
-                        // List item tapped
-                        customListDialog.ItemTapped += async (sender, args) =>
-                        {
-                            // Selected car
-                            var item = (Car)args.Item;
-                            // A car has been selected
-                            if (!item.IsTitle)
-                            {
-                                // Car selected
-                                await PopupNavigation.Instance.PopAsync();
-                                HomeViewModel.CarInfo = item.CarInfo;
-                            }
-                            // Add new car selected
-                            else
-                            {
-                                // Unselect item
-                                customListDialog.UnselectItem();
-                                // Add new car
-                                AddCar();
-
-                            }
-                        };
-                        await PopupNavigation.Instance.PushAsync(customListDialog);
-                    }
-                    // Show error
-                    else
-                        this.ShowMessage(response.ErrorMessage);
-                });
-        }
-
-        private async void AddCar()
-        {
-            NewCarPage newCarPage = new NewCarPage();
-            newCarPage.NewCarAdded = (car) =>
-            {
-                HomeViewModel.Cars.Insert(HomeViewModel.Cars.Count - 1, car);
-            };
-            await PopupNavigation.Instance.PushAsync(newCarPage);
-        }
-
-        private void RemoveCar(Car car)
-        {
-            App.DataService.GetData(
-                            NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                            true,
-                            () => App.DataService.DeleteCar(car.Id),
-                            (response) =>
-                            {
-                                // Set opening hours content
-                                if (response.Success)
-                                {
-                                    HomeViewModel.Cars.Remove(car);
-                                }
-                                // Show error
-                                else
-                                    this.ShowMessage(response.ErrorMessage);
-                            });
         }
 
         #endregion

@@ -19,16 +19,17 @@ namespace NorthShoreSurfApp
         #region Variables
 
         public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(Title), typeof(string), typeof(CustomImageTextButton), null);
-        public static readonly BindableProperty TitleSizeProperty = BindableProperty.Create(nameof(TitleSize), typeof(double), typeof(CustomImageTextButton), null);
+        public static readonly BindableProperty TitleSizeProperty = BindableProperty.Create(nameof(TitleSize), typeof(double), typeof(CustomImageTextButton), 18.0);
         public static readonly BindableProperty TitleColorProperty = BindableProperty.Create(nameof(TitleColor), typeof(Color), typeof(CustomImageTextButton), null);
         public static readonly BindableProperty TextProperty = BindableProperty.Create(nameof(Text), typeof(string), typeof(CustomImageTextButton), null);
-        public static readonly BindableProperty TextSizeProperty = BindableProperty.Create(nameof(TextSize), typeof(double), typeof(CustomImageTextButton), null);
+        public static readonly BindableProperty TextSizeProperty = BindableProperty.Create(nameof(TextSize), typeof(double), typeof(CustomImageTextButton), 24.0);
         public static readonly BindableProperty TextColorProperty = BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(CustomImageTextButton), null);
         public static readonly BindableProperty TextMarginProperty = BindableProperty.Create(nameof(TextMargin), typeof(Thickness), typeof(CustomImageTextButton), new Thickness(5, 0, 5, 0));
         public static readonly BindableProperty KeyboardProperty = BindableProperty.Create(nameof(Keyboard), typeof(Keyboard), typeof(CustomImageTextButton), null);
         public static readonly BindableProperty CornerRadiusProperty = BindableProperty.Create(nameof(CornerRadius), typeof(CornerRadius), typeof(CustomImageButton), new CornerRadius(10));
         public static readonly BindableProperty BorderThicknessProperty = BindableProperty.Create(nameof(BorderThickness), typeof(float), typeof(CustomImageButton), 0.0f);
         public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(CustomImageButton), Color.Black);
+        public static readonly BindableProperty IsReadOnlyProperty = BindableProperty.Create(nameof(IsReadOnly), typeof(bool), typeof(CustomImageButton), false);
 
         public event EventHandler<TextChangedEventArgs> TextChanged;
 
@@ -112,6 +113,11 @@ namespace NorthShoreSurfApp
         {
             get { return (Color)GetValue(BorderColorProperty); }
             set { SetValue(BorderColorProperty, value); }
+        }
+        public bool IsReadOnly
+        {
+            get { return (bool)GetValue(IsReadOnlyProperty); }
+            set { SetValue(IsReadOnlyProperty, value); }
         }
 
         #endregion

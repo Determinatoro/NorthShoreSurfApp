@@ -102,62 +102,6 @@ namespace NorthShoreSurfApp.ViewModels
             }
         }
 
-        private ICommand carDeleteCommand;
-        private ObservableCollection<Car> cars;
-        private string carInfo;
-
-        /// <summary>
-        /// Info shown in the select car picker
-        /// </summary>
-        public string CarInfo
-        {
-            get => carInfo;
-            set
-            {
-                carInfo = value;
-                OnPropertyChanged();
-            }
-        }
-        /// <summary>
-        /// Command for when the user wants to delete a car
-        /// </summary>
-        public ICommand CarDeleteCommand
-        {
-            get => carDeleteCommand;
-            set
-            {
-                carDeleteCommand = value;
-                OnPropertyChanged();
-            }
-        }
-        /// <summary>
-        /// Collection of cars for the select car picker
-        /// </summary>
-        public ObservableCollection<Car> Cars
-        {
-            get => cars;
-            set
-            {
-                cars = value;
-                OnPropertyChanged();
-            }
-        }
-        /// <summary>
-        /// Item template for the select car picker
-        /// </summary>
-        public DataTemplate CarItemTemplate
-        {
-            get
-            {
-                return new DataTemplate(() =>
-                {
-                    var viewCell = new CarViewCell();
-                    viewCell.DeleteCommand = CarDeleteCommand;
-                    return viewCell;
-                });
-            }
-        }
-
         #endregion
     }
 }

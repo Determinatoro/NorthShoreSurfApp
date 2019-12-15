@@ -159,27 +159,35 @@ namespace NorthShoreSurfApp.ViewModels
         /*****************************************************************/
         #region Properties
 
+        /// <summary>
+        /// Type of page 
+        /// </summary>
         public CarpoolDetailsPageType PageType
         {
             get
             {
+                // User is not set yet
                 if (User == null)
                     return default;
 
                 if (CarpoolRide != null)
                 {
+                    // The user is the driver
                     if (CarpoolRide.DriverId == User.Id)
                         return CarpoolDetailsPageType.CarpoolRide_Own;
-
+                    // The user has requested to join the carpool ride or is already confirmed
                     if (CarpoolRide.CarpoolConfirmations.Any(x => x.PassengerId == User.Id && !x.IsInvite))
                         return CarpoolDetailsPageType.CarpoolRide_Leave;
+                    // The user has no relation to the carpool ride
                     else if (!CarpoolRide.CarpoolConfirmations.Any(x => x.PassengerId == User.Id))
                         return CarpoolDetailsPageType.CarpoolRide_Join;
                 }
                 else if (CarpoolRequest != null)
                 {
+                    // The user is the one who has made the request
                     if (CarpoolRequest.PassengerId == User.Id)
-                        return CarpoolDetailsPageType.CarpoolRide_Own;
+                        return CarpoolDetailsPageType.CarpoolRequest_Own;
+                    // This is not the user's request
                     else
                         return CarpoolDetailsPageType.CarpoolRequest_Other;
                 }
@@ -187,6 +195,9 @@ namespace NorthShoreSurfApp.ViewModels
                 return default;
             }
         }
+        /// <summary>
+        /// Type of object that is shown details for
+        /// </summary>
         public CarpoolDetailsPageObject PageObject
         {
             get
@@ -205,7 +216,6 @@ namespace NorthShoreSurfApp.ViewModels
                 return default;
             }
         }
-
         /// <summary>
         /// Back command for the page
         /// </summary>
@@ -323,7 +333,7 @@ namespace NorthShoreSurfApp.ViewModels
         {
             get
             {
-                return ImageSource.FromFile("ic_cross.png");
+                return ImageSource.FromFile("ic_delete.png");
             }
         }
         /// <summary>
@@ -434,6 +444,9 @@ namespace NorthShoreSurfApp.ViewModels
                 UpdateProperties();
             }
         }
+        /// <summary>
+        /// Command for the button at the bottom
+        /// </summary>
         public ICommand ButtonCommand
         {
             get => buttonCommand;
@@ -513,10 +526,14 @@ namespace NorthShoreSurfApp.ViewModels
                 return string.Empty;
             }
         }
+        /// <summary>
+        /// Flag for showing the bottom button
+        /// </summary>
         public bool ShowButton
         {
             get
             {
+                // If user is not set yet return false
                 if (User == null)
                     return false;
 
@@ -619,9 +636,13 @@ namespace NorthShoreSurfApp.ViewModels
             get
             {
                 var collection = new ObservableCollection<User>();
-
-                if (CarpoolRide != null && User != null && (CarpoolRide.DriverId == User.Id || CarpoolRide.CarpoolConfirmations.Any(x => x.IsConfirmed && x.PassengerId == User.Id)))
+                // Carpool ride and user is not set yet
+                if (CarpoolRide == null || User == null)
+                    return null;
+                // The user is the driver or the user is one of the passengers confirmed for the ride
+                if (CarpoolRide.DriverId == User.Id || CarpoolRide.CarpoolConfirmations.Any(x => x.IsConfirmed && x.PassengerId == User.Id))
                 {
+                    // Get all the confirmed passengers
                     var passengers = CarpoolRide.CarpoolConfirmations
                                                 .Where(x => x.IsConfirmed)
                                                 .Select(x => x.Passenger)
@@ -645,6 +666,7 @@ namespace NorthShoreSurfApp.ViewModels
 
                 if (CarpoolRide != null)
                 {
+                    // Get related events for the carpool ride
                     collection = new ObservableCollection<Event>(
                         CarpoolRide.CarpoolRides_Events_Relations
                                    .Select(x => x.Event)
@@ -652,12 +674,14 @@ namespace NorthShoreSurfApp.ViewModels
                 }
                 else if (CarpoolRequest != null)
                 {
+                    // Get related events for the carpool request
                     collection = new ObservableCollection<Event>(
                         CarpoolRequest.CarpoolRequests_Events_Relations
                                       .Select(x => x.Event)
                                       .ToList());
                 }
 
+                // Return null if there is no events
                 if (collection.Count == 0)
                     return null;
                 return collection;
@@ -807,7 +831,6 @@ namespace NorthShoreSurfApp.ViewModels
             get => CarpoolRides.Where(x => !x.CarpoolConfirmations.Any(x2 => x2.CarpoolRequestId == CarpoolRequest.Id))
                                .ToList();
         }
-
 
         #endregion
     }

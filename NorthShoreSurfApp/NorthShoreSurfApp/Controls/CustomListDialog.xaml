@@ -42,6 +42,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="55"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="{Binding RowSelectHeight, Source={x:Reference this}}"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
 
@@ -56,8 +57,8 @@
                              Spacing="0"
                              VerticalOptions="Fill"
                              >
-                <!--Header label-->
-                <Label
+                    <!--Header label-->
+                    <Label
                      HorizontalOptions="Fill"
                      VerticalOptions="CenterAndExpand"
                      FontSize="{Binding HeaderSize, Source={x:Reference this}}"
@@ -85,41 +86,77 @@
                       ItemsSource="{Binding ItemsSource, Source={x:Reference this}}"
                       />
 
-            <!--Cancel button frame-->
-            <local:CustomFrame
-                x:Name="frameCancel"
-                Grid.Row="2"
-                Padding="0"
-                CornerRadius="0,0,10,10"
-                BackgroundColor="{StaticResource NSSBlue}"
-                HorizontalOptions="Fill">
-
-                <!--Cancel button text-->
-                <Label
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    FontSize="24"
-                    Text="{local:Translate cancel}"
-                    TextColor="White"/>
-
-            </local:CustomFrame>
-
-            <!--Button-->
-            <Button x:Name="btnCancel"
-                    Grid.Row="2"
-                    ClassId="Cancel"
-                    BackgroundColor="Transparent">
-                <Button.Triggers>
-                    <EventTrigger Event="Pressed">
-                        <local:CustomDialogCancelPressedTriggerAction />
-                    </EventTrigger>
-                    <EventTrigger Event="Released">
-                        <local:CustomDialogCancelReleasedTriggerAction />
-                    </EventTrigger>
-                </Button.Triggers>
-            </Button>
-
+            <!--Select button grid-->
+            <Grid Grid.Row="2"
+                  Padding="0"
+                  ColumnSpacing="0"
+                  RowSpacing="0"
+                  IsVisible="{Binding ShowSelectButton, Source={x:Reference this}}"
+                  Margin="0, 0, 0, 1"
+                  >
+                <!--Select button frame-->
+                <local:CustomFrame x:Name="frameSelect"
+                                   Padding="0"
+                                   CornerRadius="0,0,0,0"
+                                   BackgroundColor="{StaticResource NSSBlue}"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill">
+                    <!--Select button text-->
+                    <Label HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           FontSize="24"
+                           Text="{local:Translate select}"
+                           TextColor="White"/>
+                </local:CustomFrame>
+                <!--Select button-->
+                <Button x:Name="btnSelect"
+                        ClassId="Select"
+                        Command="{Binding SelectCommand, Source={x:Reference this}}"
+                        BackgroundColor="Transparent">
+                    <Button.Triggers>
+                        <EventTrigger Event="Pressed">
+                            <local:CustomDialogPressedTriggerAction />
+                        </EventTrigger>
+                        <EventTrigger Event="Released">
+                            <local:CustomDialogReleasedTriggerAction />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
+            <!--Cancel button grid-->
+            <Grid RowSpacing="0"
+                  Padding="0"
+                  Margin="0"
+                  ColumnSpacing="0"
+                  Grid.Row="3">
+                <!--Cancel button frame-->
+                <local:CustomFrame x:Name="frameCancel"
+                                   Padding="0"
+                                   CornerRadius="0,0,10,10"
+                                   BackgroundColor="{StaticResource NSSBlue}"
+                                   HorizontalOptions="Fill"
+                                   VerticalOptions="Fill">
+                    <!--Cancel button text-->
+                    <Label HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           FontSize="24"
+                           Text="{local:Translate cancel}"
+                           TextColor="White"/>
+                </local:CustomFrame>
+                <!--Cancel button-->
+                <Button x:Name="btnCancel"
+                        ClassId="Cancel"
+                        BackgroundColor="Transparent">
+                    <Button.Triggers>
+                        <EventTrigger Event="Pressed">
+                            <local:CustomDialogPressedTriggerAction />
+                        </EventTrigger>
+                        <EventTrigger Event="Released">
+                            <local:CustomDialogReleasedTriggerAction />
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+            </Grid>
         </Grid>
-
     </Grid>
 </pages:PopupPage>

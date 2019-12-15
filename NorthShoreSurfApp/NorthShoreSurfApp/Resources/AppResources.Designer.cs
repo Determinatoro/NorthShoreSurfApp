@@ -61,6 +61,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Event.
+        /// </summary>
+        internal static string _event {
+            get {
+                return ResourceManager.GetString("event", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new car.
         /// </summary>
         internal static string add_new_car {
@@ -120,6 +129,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string are_you_sure_you_want_to_log_out {
             get {
                 return ResourceManager.GetString("are_you_sure_you_want_to_log_out", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this {0}?.
+        /// </summary>
+        internal static string are_you_sure_you_want_to_remove_this {
+            get {
+                return ResourceManager.GetString("are_you_sure_you_want_to_remove_this", resourceCulture);
             }
         }
         
@@ -364,6 +382,24 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not find carpool request.
+        /// </summary>
+        internal static string could_not_find_carpool_request {
+            get {
+                return ResourceManager.GetString("could_not_find_carpool_request", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not find carpool ride.
+        /// </summary>
+        internal static string could_not_find_carpool_ride {
+            get {
+                return ResourceManager.GetString("could_not_find_carpool_ride", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not invite passenger.
         /// </summary>
         internal static string could_not_invite_passenger {
@@ -391,6 +427,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create {0}.
+        /// </summary>
+        internal static string create_this {
+            get {
+                return ResourceManager.GetString("create_this", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating account.
         ///Please wait....
         /// </summary>
@@ -407,6 +452,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string creating_car_please_wait {
             get {
                 return ResourceManager.GetString("creating_car_please_wait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        internal static string date {
+            get {
+                return ResourceManager.GetString("date", resourceCulture);
             }
         }
         
@@ -449,6 +503,33 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Departure date.
+        /// </summary>
+        internal static string departure_date {
+            get {
+                return ResourceManager.GetString("departure_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Departure time.
+        /// </summary>
+        internal static string departure_time {
+            get {
+                return ResourceManager.GetString("departure_time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination.
+        /// </summary>
+        internal static string destination {
+            get {
+                return ResourceManager.GetString("destination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Driver.
         /// </summary>
         internal static string driver {
@@ -463,6 +544,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string edit_information {
             get {
                 return ResourceManager.GetString("edit_information", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit {0}.
+        /// </summary>
+        internal static string edit_this {
+            get {
+                return ResourceManager.GetString("edit_this", resourceCulture);
             }
         }
         
@@ -499,6 +589,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string first_name {
             get {
                 return ResourceManager.GetString("first_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Free.
+        /// </summary>
+        internal static string free {
+            get {
+                return ResourceManager.GetString("free", resourceCulture);
             }
         }
         
@@ -648,6 +747,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New {0}.
+        /// </summary>
+        internal static string new_this {
+            get {
+                return ResourceManager.GetString("new_this", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Next.
         /// </summary>
         internal static string next {
@@ -689,6 +797,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string none {
             get {
                 return ResourceManager.GetString("none", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of seats.
+        /// </summary>
+        internal static string number_of_seats {
+            get {
+                return ResourceManager.GetString("number_of_seats", resourceCulture);
             }
         }
         
@@ -788,6 +905,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pickup point.
+        /// </summary>
+        internal static string pickup_point {
+            get {
+                return ResourceManager.GetString("pickup_point", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter SMS code.
         /// </summary>
         internal static string please_enter_sms_code {
@@ -802,6 +928,33 @@ namespace NorthShoreSurfApp.Resources {
         internal static string please_fill_out_all_the_empty_fields {
             get {
                 return ResourceManager.GetString("please_fill_out_all_the_empty_fields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a time in the future.
+        /// </summary>
+        internal static string please_select_a_time_in_the_future {
+            get {
+                return ResourceManager.GetString("please_select_a_time_in_the_future", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select valid to and from times.
+        /// </summary>
+        internal static string please_select_valid_to_and_from_times {
+            get {
+                return ResourceManager.GetString("please_select_valid_to_and_from_times", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Price per passenger.
+        /// </summary>
+        internal static string price_per_passenger {
+            get {
+                return ResourceManager.GetString("price_per_passenger", resourceCulture);
             }
         }
         
@@ -879,6 +1032,24 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        internal static string select {
+            get {
+                return ResourceManager.GetString("select", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select events.
+        /// </summary>
+        internal static string select_events {
+            get {
+                return ResourceManager.GetString("select_events", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select {0}.
         /// </summary>
         internal static string select_parameter {
@@ -920,6 +1091,15 @@ namespace NorthShoreSurfApp.Resources {
         internal static string this_phone_no_is_not_used_on_any_existing_accounts {
             get {
                 return ResourceManager.GetString("this_phone_no_is_not_used_on_any_existing_accounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time interval.
+        /// </summary>
+        internal static string time_interval {
+            get {
+                return ResourceManager.GetString("time_interval", resourceCulture);
             }
         }
         

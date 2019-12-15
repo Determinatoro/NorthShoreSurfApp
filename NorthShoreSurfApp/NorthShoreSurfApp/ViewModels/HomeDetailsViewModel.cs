@@ -30,17 +30,11 @@ namespace NorthShoreSurfApp.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        #endregion
-
-        /*****************************************************************/
-        // CONSTRUCTOR
-        /*****************************************************************/
-        #region Constructor
-
-        public HomeDetailsViewModel()
-        {
-
-        }
+        private HomeDetailsPageType homeDetailsPageType;
+        private string pageTitle;
+        private string openingHoursDetails;
+        private string contactInfoDetails;
+        private ContactInfo contactInfo;
 
         #endregion
 
@@ -124,7 +118,9 @@ namespace NorthShoreSurfApp.ViewModels
         /*****************************************************************/
         #region Properties
 
-        private HomeDetailsPageType homeDetailsPageType;
+        /// <summary>
+        /// Page type deciding the content
+        /// </summary>
         public HomeDetailsPageType HomeDetailsPageType
         {
             get => homeDetailsPageType;
@@ -147,7 +143,9 @@ namespace NorthShoreSurfApp.ViewModels
                 OnPropertyChanged(nameof(ShowContactInfoDetails));
             }
         }
-        private string pageTitle;
+        /// <summary>
+        /// Title for the page used in the navigation bar
+        /// </summary>
         public string PageTitle
         {
             get => pageTitle;
@@ -157,7 +155,9 @@ namespace NorthShoreSurfApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        private string openingHoursDetails;
+        /// <summary>
+        /// Opening hours details as a string
+        /// </summary>
         public string OpeningHoursDetails
         {
             get => openingHoursDetails;
@@ -167,7 +167,9 @@ namespace NorthShoreSurfApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        private string contactInfoDetails;
+        /// <summary>
+        /// Contact info details as a string
+        /// </summary>
         public string ContactInfoDetails
         {
             get => contactInfoDetails;
@@ -177,7 +179,9 @@ namespace NorthShoreSurfApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        private ContactInfo contactInfo;
+        /// <summary>
+        /// Contact info object
+        /// </summary>
         public ContactInfo ContactInfo
         {
             get => contactInfo;
@@ -187,10 +191,16 @@ namespace NorthShoreSurfApp.ViewModels
                 ContactInfoDetails = $"North Shore Surf Løkken\n\n{contactInfo.Email}\n{contactInfo.PhoneNo}\n\n{contactInfo.Address}\n{contactInfo.ZipCode} {contactInfo.City}";
             }
         }
+        /// <summary>
+        /// Flag for showing the opening hours
+        /// </summary>
         public bool ShowOpeningHoursDetails
         {
             get => HomeDetailsPageType == HomeDetailsPageType.OpeningHours;
         }
+        /// <summary>
+        /// Flag for showing the contact info
+        /// </summary>
         public bool ShowContactInfoDetails
         {
             get => HomeDetailsPageType == HomeDetailsPageType.ContactInfo;

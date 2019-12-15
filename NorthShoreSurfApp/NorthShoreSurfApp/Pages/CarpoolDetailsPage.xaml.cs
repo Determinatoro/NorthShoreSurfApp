@@ -73,9 +73,27 @@ namespace NorthShoreSurfApp
                 PopPage();
             });
             // Edit command
-            CarpoolDetailsPageViewModel.EditCommand = new Command(() =>
+            CarpoolDetailsPageViewModel.EditCommand = new Command(async () =>
             {
-                // Show edit page
+                NewCarpoolingPage newCarpoolingPage = null;
+                switch (CarpoolDetailsPageViewModel.PageObject)
+                {
+                    case CarpoolDetailsPageObject.CarpoolRide:
+                        newCarpoolingPage = new NewCarpoolingPage(CarpoolDetailsPageViewModel.CarpoolRide);
+                        newCarpoolingPage.CarpoolRideUpdated = (carpoolRide) =>
+                        {
+                            CarpoolDetailsPageViewModel.CarpoolRide = carpoolRide;
+                        };
+                        break;
+                    case CarpoolDetailsPageObject.CarpoolRequest:
+                        newCarpoolingPage = new NewCarpoolingPage(CarpoolDetailsPageViewModel.CarpoolRequest);
+                        newCarpoolingPage.CarpoolRequestUpdated = (carpoolRequest) =>
+                        {
+                            CarpoolDetailsPageViewModel.CarpoolRequest = carpoolRequest;
+                        };
+                        break;
+                }
+                await Navigation.PushModalAsync(newCarpoolingPage);
             });
             // Delete command
             CarpoolDetailsPageViewModel.DeleteCommand = new Command(() =>

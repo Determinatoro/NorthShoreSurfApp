@@ -84,6 +84,9 @@
                     <EventTrigger Event="Released">
                         <local:CustomPickerReleasedTriggerAction />
                     </EventTrigger>
+                    <EventTrigger Event="Unfocused">
+                        <local:CustomPickerReleasedTriggerAction />
+                    </EventTrigger>
                 </Button.Triggers>
             </Button>
 

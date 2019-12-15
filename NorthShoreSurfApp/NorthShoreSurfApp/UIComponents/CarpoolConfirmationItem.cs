@@ -42,14 +42,34 @@ namespace NorthShoreSurfApp.UIComponents
         // PROPERTIES
         /*****************************************************************/
         #region Properties
-        
-        public int UserId { get; set; }
-        public string Title { get; set; }
-        public bool IsTitle { get => Title != null; }
-        public bool OwnRide { get; set; }
-        public bool OtherRide { get; set; }
-        public CarpoolRide CarpoolRide { get; set; }
 
+        /// <summary>
+        /// Title for the header
+        /// </summary>
+        public string Title { get; set; }
+        /// <summary>
+        /// Flag for showing header instead of a confirmation
+        /// </summary>
+        public bool IsTitle { get => Title != null; }
+        /// <summary>
+        /// User seeing this confirmation
+        /// </summary>
+        public int UserId { get; set; }
+        /// <summary>
+        /// Flag for own ride
+        /// </summary>
+        public bool OwnRide { get; set; }
+        /// <summary>
+        /// Flag for other ride
+        /// </summary>
+        public bool OtherRide { get; set; }
+        /// <summary>
+        /// Carpool ride object
+        /// </summary>
+        public CarpoolRide CarpoolRide { get; set; }
+        /// <summary>
+        /// All the unconfirmed confirmations for the carpool ride
+        /// </summary>
         public List<CarpoolConfirmation> UnconfirmedCarpoolConfirmations
         {
             get
@@ -91,6 +111,9 @@ namespace NorthShoreSurfApp.UIComponents
                 return null;
             }
         }
+        /// <summary>
+        /// Items source for showing a single carpool ride
+        /// </summary>
         public List<CarpoolRide> CarpoolRideItemsSource
         {
             get
@@ -100,7 +123,9 @@ namespace NorthShoreSurfApp.UIComponents
                 return list;
             }
         }
-        public List<CarpoolConfirmation> CarpoolConfirmations { get; set; }
+        /// <summary>
+        /// Item template for the carpool ride
+        /// </summary>
         public DataTemplate CarpoolRideItemTemplate
         {
             get
@@ -112,6 +137,9 @@ namespace NorthShoreSurfApp.UIComponents
                 });
             }
         }
+        /// <summary>
+        /// Accept confirmatio command
+        /// </summary>
         public ICommand AcceptConfirmationCommand
         {
             get => acceptConfirmationCommand;
@@ -121,6 +149,9 @@ namespace NorthShoreSurfApp.UIComponents
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// Deny confirmation command
+        /// </summary>
         public ICommand DenyConfirmationCommand
         {
             get => denyConfirmationCommand;
@@ -130,6 +161,9 @@ namespace NorthShoreSurfApp.UIComponents
                 OnPropertyChanged();
             }
         }
+        /// <summary>
+        /// Item template for a confirmation
+        /// </summary>
         public DataTemplate CarpoolConfirmationItemTemplate
         {
             get
@@ -140,14 +174,12 @@ namespace NorthShoreSurfApp.UIComponents
                     viewCell.AcceptCommand = AcceptConfirmationCommand;
                     viewCell.DenyCommand = DenyConfirmationCommand;
                     var view = viewCell.View;
-
                     var func = new Func<CarpoolConfirmation>(() =>
                     {
                         return view.BindingContext as CarpoolConfirmation;
                     });
                     viewCell.AcceptCommandParameter = func;
                     viewCell.DenyCommandParameter = func;
-
                     view.Margin = new Thickness(10, 0, 10, 5);
                     return view;
                 });

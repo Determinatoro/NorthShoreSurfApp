@@ -33,26 +33,34 @@ namespace NorthShoreSurfApp.Droid
         {
             base.SetTheme(Resource.Style.MainTheme);
 
+            // Set instance property for use in the services
             Instance = this;
+            // Set tabbar resource
             TabLayoutResource = Resource.Layout.Tabbar;
+            // Set toolbar resource
             ToolbarResource = Resource.Layout.Toolbar;
-
+            // Set property for device orientation
             CrossCurrentActivity.Current.Activity = this;
 
             base.OnCreate(savedInstanceState);
 
+            // Firebase initialization
             FirebaseApp.InitializeApp(this);
-
+            // Setup facebook service
             facebookService = new AndroidFacebookService();
+            // Setup firebase service
             firebaseService = new AndroidFirebaseService();
-
+            // Set keyboard input mode
             Window.SetSoftInputMode(Android.Views.SoftInput.AdjustPan);
-
+            // Set facebook service in shared code
             App.FacebookService = facebookService;
+            // Set firebase service in shared code
             App.FirebaseService = firebaseService;
-
+            // Rg.Plugins.Popup initialization
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+            // FFImageLoading ImageRenderer initialization
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
+            // Forms9Patch initialization
             Forms9Patch.Droid.Settings.Initialize(this);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);

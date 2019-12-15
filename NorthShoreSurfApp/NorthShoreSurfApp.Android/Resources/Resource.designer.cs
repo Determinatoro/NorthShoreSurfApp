@@ -13562,34 +13562,34 @@ namespace NorthShoreSurfApp.Droid
 			public const int ic_car = 2130837648;
 			
 			// aapt resource value: 0x7f020091
-			public const int ic_car_white = 2130837649;
+			public const int ic_carpooling = 2130837649;
 			
 			// aapt resource value: 0x7f020092
-			public const int ic_carpooling = 2130837650;
+			public const int ic_carpooling_selected = 2130837650;
 			
 			// aapt resource value: 0x7f020093
-			public const int ic_carpooling_selected = 2130837651;
+			public const int ic_check = 2130837651;
 			
 			// aapt resource value: 0x7f020094
-			public const int ic_check = 2130837652;
+			public const int ic_cross = 2130837652;
 			
 			// aapt resource value: 0x7f020095
-			public const int ic_cross = 2130837653;
+			public const int ic_delete = 2130837653;
 			
 			// aapt resource value: 0x7f020096
-			public const int ic_delete = 2130837654;
+			public const int ic_dialog_close_dark = 2130837654;
 			
 			// aapt resource value: 0x7f020097
-			public const int ic_dialog_close_dark = 2130837655;
+			public const int ic_dialog_close_light = 2130837655;
 			
 			// aapt resource value: 0x7f020098
-			public const int ic_dialog_close_light = 2130837656;
+			public const int ic_down_arrow = 2130837656;
 			
 			// aapt resource value: 0x7f020099
-			public const int ic_down_arrow = 2130837657;
+			public const int ic_edit = 2130837657;
 			
 			// aapt resource value: 0x7f02009a
-			public const int ic_edit = 2130837658;
+			public const int ic_event = 2130837658;
 			
 			// aapt resource value: 0x7f02009b
 			public const int ic_facebook = 2130837659;

@@ -9,11 +9,18 @@ using Xamarin.Forms;
 
 namespace NorthShoreSurfApp.ViewModels
 {
+    /*****************************************************************/
+    // ENUMS
+    /*****************************************************************/
+    #region Enums
+
     public enum WelcomePageContentSite
     {
         Welcome,
         UserNotLoggedIn
     }
+
+    #endregion
 
     public class WelcomeViewModel : INotifyPropertyChanged
     {

@@ -47,6 +47,7 @@
                            TextColor="White"
                            Grid.Column="0"
                            Grid.Row="0"
+                           LineBreakMode="TailTruncation"
                            />
 
                     <!--Phone no.-->

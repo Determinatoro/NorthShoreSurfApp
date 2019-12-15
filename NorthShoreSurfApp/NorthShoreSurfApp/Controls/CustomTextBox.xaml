@@ -36,6 +36,7 @@
                                    Text="{Binding Text, Source={x:Reference this}, Mode=TwoWay}" 
                                    FontSize="{Binding TextSize, Source={x:Reference this}}" 
                                    TextColor="{Binding TextColor, Source={x:Reference this}}"
+                                   IsReadOnly="{Binding IsReadOnly, Source={x:Reference this}}"
                                    />
             </local:CustomFrame>
         </Grid>

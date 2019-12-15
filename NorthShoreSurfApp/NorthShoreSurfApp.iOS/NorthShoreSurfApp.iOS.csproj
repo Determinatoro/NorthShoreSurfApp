@@ -78,20 +78,7 @@
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <BundleResource Include="Resources\NSS.db" />
-    <BundleResource Include="Resources\ic_car_white.png" />
-    <BundleResource Include="Resources\request_icon_b.png" />
-    <BundleResource Include="Resources\request_icon_w.png" />
-    <BundleResource Include="Resources\Mail.png" />
     <BundleResource Include="Resources\ic_seat_red.png" />
-    <BundleResource Include="Resources\Car h.png" />
-    <BundleResource Include="Resources\Request icon b.png" />
-    <BundleResource Include="Resources\Request icon w.png" />
-    <BundleResource Include="Resources\Car s - Kopi.png" />
-    <BundleResource Include="Resources\Car - Kopi.png" />
-    <BundleResource Include="Resources\Car.png" />
-    <BundleResource Include="Resources\Car s.png" />
-    <BundleResource Include="Resources\NSS logo.png" />
-    <BundleResource Include="Resources\Plus_icon.png" />
     <BundleResource Include="Resources\ic_location_destination.png" />
   </ItemGroup>
   <ItemGroup>
@@ -351,5 +338,11 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_car.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_message.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\ic_message_pending.png" />
   </ItemGroup>
 </Project>

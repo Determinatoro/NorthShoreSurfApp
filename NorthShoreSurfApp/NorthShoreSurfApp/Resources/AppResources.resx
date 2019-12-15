@@ -138,6 +138,9 @@
   <data name="are_you_sure_you_want_to_log_out" xml:space="preserve">
     <value>Are you sure you want to log out?</value>
   </data>
+  <data name="are_you_sure_you_want_to_remove_this" xml:space="preserve">
+    <value>Are you sure you want to remove this {0}?</value>
+  </data>
   <data name="back" xml:space="preserve">
     <value>Back</value>
   </data>
@@ -222,6 +225,12 @@ courses</value>
   <data name="could_not_delete_the_carpool_ride" xml:space="preserve">
     <value>Could not delete the carpool ride</value>
   </data>
+  <data name="could_not_find_carpool_request" xml:space="preserve">
+    <value>Could not find carpool request</value>
+  </data>
+  <data name="could_not_find_carpool_ride" xml:space="preserve">
+    <value>Could not find carpool ride</value>
+  </data>
   <data name="could_not_invite_passenger" xml:space="preserve">
     <value>Could not invite passenger</value>
   </data>
@@ -231,6 +240,9 @@ courses</value>
   <data name="could_not_unsign_from_carpool" xml:space="preserve">
     <value>Could not unsign from carpool event</value>
   </data>
+  <data name="create_this" xml:space="preserve">
+    <value>Create {0}</value>
+  </data>
   <data name="creating_account_please_wait" xml:space="preserve">
     <value>Creating account.
 Please wait...</value>
@@ -238,6 +250,9 @@ Please wait...</value>
   <data name="creating_car_please_wait" xml:space="preserve">
     <value>Creating car.
 Please wait...</value>
+  </data>
+  <data name="date" xml:space="preserve">
+    <value>Date</value>
   </data>
   <data name="days" xml:space="preserve">
     <value>{0} day(s)</value>
@@ -253,11 +268,26 @@ Please wait...</value>
     <value>Deleting data.
 Please wait...</value>
   </data>
+  <data name="departure_date" xml:space="preserve">
+    <value>Departure date</value>
+  </data>
+  <data name="departure_time" xml:space="preserve">
+    <value>Departure time</value>
+  </data>
+  <data name="destination" xml:space="preserve">
+    <value>Destination</value>
+  </data>
   <data name="driver" xml:space="preserve">
     <value>Driver</value>
   </data>
   <data name="edit_information" xml:space="preserve">
     <value>Edit information</value>
+  </data>
+  <data name="edit_this" xml:space="preserve">
+    <value>Edit {0}</value>
+  </data>
+  <data name="event" xml:space="preserve">
+    <value>Event</value>
   </data>
   <data name="events" xml:space="preserve">
     <value>Events</value>
@@ -270,6 +300,9 @@ Please wait...</value>
   </data>
   <data name="first_name" xml:space="preserve">
     <value>First name</value>
+  </data>
+  <data name="free" xml:space="preserve">
+    <value>Free</value>
   </data>
   <data name="full_name" xml:space="preserve">
     <value>Full name</value>
@@ -320,6 +353,9 @@ Please wait...</value>
   <data name="minutes" xml:space="preserve">
     <value>{0} minute(s)</value>
   </data>
+  <data name="new_this" xml:space="preserve">
+    <value>New {0}</value>
+  </data>
   <data name="next" xml:space="preserve">
     <value>Next</value>
   </data>
@@ -334,6 +370,9 @@ Please wait...</value>
   </data>
   <data name="none" xml:space="preserve">
     <value>None</value>
+  </data>
+  <data name="number_of_seats" xml:space="preserve">
+    <value>Number of seats</value>
   </data>
   <data name="ocean_conditions" xml:space="preserve">
     <value>Ocean conditions</value>
@@ -370,11 +409,23 @@ The weather is essential for operation of business which unfortunately can cause
   <data name="phone_no" xml:space="preserve">
     <value>Phone no.</value>
   </data>
+  <data name="pickup_point" xml:space="preserve">
+    <value>Pickup point</value>
+  </data>
   <data name="please_enter_sms_code" xml:space="preserve">
     <value>Please enter SMS code</value>
   </data>
   <data name="please_fill_out_all_the_empty_fields" xml:space="preserve">
     <value>Please fill out all the empty fields</value>
+  </data>
+  <data name="please_select_a_time_in_the_future" xml:space="preserve">
+    <value>Please select a time in the future</value>
+  </data>
+  <data name="please_select_valid_to_and_from_times" xml:space="preserve">
+    <value>Please select valid to and from times</value>
+  </data>
+  <data name="price_per_passenger" xml:space="preserve">
+    <value>Price per passenger</value>
   </data>
   <data name="profile" xml:space="preserve">
     <value>Profile</value>
@@ -401,6 +452,12 @@ Please wait...</value>
   <data name="see_webcam" xml:space="preserve">
     <value>See webcam</value>
   </data>
+  <data name="select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="select_events" xml:space="preserve">
+    <value>Select events</value>
+  </data>
   <data name="select_parameter" xml:space="preserve">
     <value>Select {0}</value>
   </data>
@@ -415,6 +472,9 @@ Please wait...</value>
   </data>
   <data name="this_phone_no_is_not_used_on_any_existing_accounts" xml:space="preserve">
     <value>This phone no. is not used on any existing accounts.</value>
+  </data>
+  <data name="time_interval" xml:space="preserve">
+    <value>Time interval</value>
   </data>
   <data name="user_already_exist" xml:space="preserve">
     <value>User already exist</value>

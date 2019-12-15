@@ -1,144 +1,315 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="clr-namespace:NorthShoreSurfApp.ViewModels"
+             xmlns:places="clr-namespace:DurianCode.PlacesSearchBar;assembly=NorthShoreSurfApp"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
              xmlns:local="clr-namespace:NorthShoreSurfApp"
              x:Class="NorthShoreSurfApp.NewCarpoolingPage"
-             BackgroundColor="{StaticResource BarBackground}"
+             BackgroundColor="White"
              >
-
-
-     <ContentPage.BindingContext>
+    <ContentPage.BindingContext>
         <models:NewCarpoolingPageViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <Grid>
-
-        <Grid.RowDefinitions>
-             <RowDefinition Height="Auto"/>
-             <RowDefinition Height="55"/>
-             <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
+        <Grid RowSpacing="0"
+              ColumnSpacing="0"
+              Margin="0"
+              Padding="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Top navigation bar-->
             <local:CustomNavigationBar x:Name="navigationBar"
-                                           BarBackgroundColor="{StaticResource BarBackground}"
-                                           ShowBackButton="True"
-                                           TitleColor="Black"
-                                           TitleSize="24"
-                                           ShowLogo="True"
-                                           Logo="ic_logo.png"
-                                           Grid.Row="0"
-                                           />
+                                       BarBackgroundColor="{StaticResource BarBackground}"
+                                       ShowBackButton="True"
+                                       TitleColor="Black"
+                                       TitleSize="24"
+                                       ShowLogo="False"
+                                       Title="{Binding NavigationBarTitle}"
+                                       Logo="ic_logo.png"
+                                       Grid.Row="0"
+                                       />
+            <!--Toggle button-->
+            <local:CustomToggleButton x:Name="ctbNewCarpool"
+                                      TitleRight="{local:Translate request}"
+                                      TitleLeft="{local:Translate ride}"
+                                      IsVisible="{Binding ShowToggleButton}"
+                                      TitleRightSize="18"
+                                      TitleLeftSize="18"
+                                      SelectedColor="White"
+                                      HeightRequest="45"
+                                      BackgroundSelected="{StaticResource NSSBlue}"
+                                      UnselectedColor="{StaticResource NSSBlue}"
+                                      SelectedToggleType="{Binding ToggleType, Mode=TwoWay}"
+                                      BackgroundUnselected="White"
+                                      IconLeft="ic_car.png"
+                                      IconRight="ic_request.png"
+                                      Grid.Row="1"
+                                      Margin="10,10,10,0"
+                                      />
+            <!--Content-->
+            <Grid RowSpacing="0"
+                  ColumnSpacing="0"
+                  Margin="0"
+                  Grid.Row="2"
+                  Padding="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
-            <local:CustomToggleButton x:Name="RidesTab"
-                                          TitleRight="Requests"
-                                          TitleRightSize="18"
-                                          TitleLeft="Rides"
-                                          TitleLeftSize="18"
-                                          SelectedColor="White"
-                                          BackgroundSelected="{StaticResource NSSBlue}"
-                                          UnselectedColor="{StaticResource NSSBlue}"
-                                          BackgroundUnselected="White"
-                                          IconLeft="ic_car_white.png"
-                                          IconRight="request_icon_w.png"
-                                          Grid.Row="1"
-                                          Margin="5,10,5,0"
-                                          />
-
-            <ScrollView x:Name="newRide" Grid.Row="2" >
-                <StackLayout>
-                    <Frame BackgroundColor="#2b3d4e" Margin="15,15,15,0" HasShadow="False">
-                        <StackLayout>
-                            <Label Text="New Ride" FontSize="Subtitle" TextColor="White" Margin="0,5"/>
-                            <Label Text="Select departure date below:" TextColor="White"/>
-                            <DatePicker x:Name="DatePicker"
-                                MinimumDate="{Binding DateToday}"
-                                />
-                            <Label Text="Select time below:" TextColor="White"/>
-                            <TimePicker x:Name="TimePicker"
-                                Format="HH:mm"
-                                />
-                            
-                            <Label Text="Pickup Point:" TextColor="White"/>
-                            <local:CustomTextBox x:Name="pickUpTextBox" Text="{Binding Address, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
-
-                            <Label Text="Destination:" TextColor="White"/>
-                            <local:CustomTextBox x:Name="destinationTextBox" Text="{Binding Destination, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
-
-                            <Label Text="Price" TextColor="White" />
-                            <local:CustomTextBox x:Name="pricePerPassengerTextBox" Keyboard="Numeric" Text="{Binding PricePerPasenger, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
-
-                            <Label Text="Number of Seats" TextColor="White" />
-                            <local:CustomTextBox x:Name="numberOfSeatsTextBox" Keyboard="Numeric" Text="{Binding NumberOfSeats, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
-                            <Label Text="Comment" TextColor="White" />
-                            <local:CustomTextBox x:Name="commentTextBox" Text="{Binding Comment, Mode=TwoWay}" TextColor="Black" TextSize="14"/>
-
-                            <Label Text="Car" TextColor="White" />
-                            <local:CustomEntry Text="No car chosen" TextColor="#2b3d4f" BackgroundColor="White" />
-
-                            <Button BackgroundColor="White" Text="Select Car" TextColor="#2b3d4e"/>
-                            <Label Text="Events" TextColor="White" />
-                            <local:CustomEntry Text="Surfer's lounge" TextColor="#2b3d4f" BackgroundColor="White" />
-                            <local:CustomEntry Text="Beginner surfer's lesson" TextColor="#2b3d4f" BackgroundColor="White" />
-                            <Button BackgroundColor="White" Text ="Add event to carpool" TextColor="#2b3d4e"/>
-                        </StackLayout>
-                    </Frame>
-
-                    <Button x:Name="createEventButton" Text="Create Lift" TextColor="White" BackgroundColor="#2b3d4e" Margin="15,0,15,15" />
-                </StackLayout>
-            </ScrollView>
-
-
-            <ScrollView x:Name="newRequest" Grid.Row="2" IsVisible="False">
-                <StackLayout>
-                    <Frame BackgroundColor="#2b3d4e" Margin="15,15,15,0" HasShadow="False">
-                        <StackLayout>
-                            <Label Text="New Request" FontSize="Subtitle" TextColor="White" Margin="0,5"/>
-                            <Label Text="Select departure date below:" TextColor="White"/>
-                            <DatePicker x:Name="RequestDatePicker"
+                <!--Scrollview ride-->
+                <ScrollView Margin="0"
+                            IsVisible="{Binding ShowRide}"
+                            Padding="0">
+                    <StackLayout Spacing="0"
+                                 Margin="0"
+                                 Padding="10">
+                        <!--Departure date header-->
+                        <Label Text="{local:Translate departure_date}" 
+                               TextColor="Black"
+                               FontSize="18"
+                               Margin="0, 0, 0, 3"
+                               />
+                        <!--Departure date picker-->
+                        <DatePicker x:Name="datePickerRide"
                                     MinimumDate="{Binding DateToday}"
+                                    Date="{Binding DepartureDate, Mode=TwoWay}"
                                     />
-
-                            <Label Text="Select time interval below:" TextColor="White"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                
-
-                                
-                               
-                                <TimePicker x:Name="RequestTimePicker"
+                        <!--Departure time header-->
+                        <Label Text="{local:Translate departure_time}" 
+                               TextColor="Black"
+                               FontSize="18"
+                               Margin="0, 0, 0, 3"
+                               />
+                        <!--Time picker-->
+                        <TimePicker x:Name="timePickerDeparture"
                                     Format="HH:mm"
-                                />
+                                    Time="{Binding DepartureTime, Mode=TwoWay}"
+                                    />
+                        <!--Pickup point header-->
+                        <Label Text="{local:Translate pickup_point}" 
+                               TextColor="Black"
+                               FontSize="18"
+                               Margin="0, 0, 0, 3"
+                               />
+                        <!--Pickup point search bar-->
+                        <local:CustomPlacesBar x:Name="cpbPickupPoint"
+                                               ApiKey="{Binding ApiKey}"
+                                               SelectedPlace="{Binding PickupPlace, Mode=TwoWay}"
+                                               />
+                        <!--Destination header-->
+                        <Label Text="{local:Translate destination}" 
+                               TextColor="Black"
+                               FontSize="18"
+                               Margin="0, 0, 0, 3"
+                               />
+                        <!--Destination search bar-->
+                        <local:CustomPlacesBar x:Name="cpbDestination"
+                                               ApiKey="{Binding ApiKey}"
+                                               SelectedPlace="{Binding DestinationPlace}"
+                                               />
+                        <!--Price per passenger-->
+                        <local:CustomTextBox Keyboard="Numeric" 
+                                             Text="{Binding PricePerPassengerString, Mode=TwoWay}" 
+                                             TextColor="Black" 
+                                             TitleColor="Black"
+                                             CornerRadius="10" 
+                                             Margin="0, 5, 0, 0"
+                                             BorderThickness="1"
+                                             Title="{local:Translate price_per_passenger}"
+                                             />
+                        <!--Number of seats-->
+                        <local:CustomTextBox Keyboard="Numeric" 
+                                             Text="{Binding NumberOfSeatsString, Mode=TwoWay}" 
+                                             IsReadOnly="{Binding IsNumberOfSeatsReadOnly}"
+                                             TextColor="Black" 
+                                             TitleColor="Black"
+                                             CornerRadius="10" 
+                                             Margin="0, 5, 0, 0"
+                                             BorderThickness="1"
+                                             Title="{local:Translate number_of_seats}"
+                                             />
+                        <!--Comment-->
+                        <local:CustomTextBox Text="{Binding Comment, Mode=TwoWay}" 
+                                             TextColor="Black" 
+                                             TitleColor="Black"
+                                             CornerRadius="10" 
+                                             Margin="0, 5, 0, 0"
+                                             BorderThickness="1"
+                                             Title="{local:Translate comment}"
+                                             />
+                        <!--Car-->
+                        <local:CustomPicker x:Name="cpCar"
+                                            Title="{local:Translate car}"
+                                            TitleColor="Black"
+                                            HandleClickManually="True"
+                                            TextColor="Black"
+                                            BorderColor="Black"
+                                            BorderThickness="1"
+                                            Margin="0, 5, 0, 0"
+                                            TextMargin="10, 0, 10, 0"
+                                            Text="{Binding CarInfo}"
+                                            />
+                        <!--Events header-->
+                        <Label Text="{local:Translate events}" 
+                               IsVisible="{Binding EventsSelected}"
+                               TextColor="Black"
+                               FontSize="18"
+                               Margin="0, 3, 0, 0"
+                               />
+                        <!--Selected events-->
+                        <StackLayout Spacing="0"     
+                                     Margin="0"
+                                     BindableLayout.ItemsSource="{Binding SelectedEvents}"
+                                     BindableLayout.ItemTemplate="{Binding EventSelectedItemTemplate}"
+                                     />
+                        <!--Select events button-->
+                        <local:CustomImageTextButton x:Name="btnSelectEvents"
+                                                     Grid.Row="1" 
+                                                     HeightRequest="60" 
+                                                     Margin="0, 5, 0, 0" 
+                                                     CornerRadius="10" 
+                                                     TitleSize="24"
+                                                     TitleColor="White"
+                                                     IconColor="White"
+                                                     Icon="ic_event.png"
+                                                     IconPadding="10"
+                                                     Background="{StaticResource NSSOrange}" 
+                                                     BackgroundPressed="{StaticResource NSSOrangePressed}" 
+                                                     Command="{Binding SelectEventsCommand}"
+                                                     Title="{local:Translate select_events}"
+                                                     />
+                    </StackLayout>
+                </ScrollView>
+                <!--Scrollview request-->
+                <ScrollView IsVisible="{Binding ShowRequest}">
+                    <StackLayout Spacing="0"
+                                 Margin="0"
+                                 Padding="10">
+                        <!--Date header-->
+                        <Label Text="{local:Translate date}" 
+                               TextColor="Black"
+                               FontSize="18"
+                               Margin="0, 0, 0, 3"
+                               />
+                        <DatePicker x:Name="RequestDatePicker"
+                                    MinimumDate="{Binding DateToday}"
+                                    Date="{Binding RequestDate, Mode=TwoWay}"
+                                    />
+                        <!--Time interval header-->
+                        <Label Text="{local:Translate time_interval}" 
+                               TextColor="Black"
+                               FontSize="18"
+                               Margin="0, 0, 0, 3"
+                               />
+                        <!--Time interval grid-->
+                        <Grid ColumnSpacing="5"
+                              RowSpacing="0"
+                              Margin="0"
+                              Padding="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <!--Time interval from picker-->
+                            <TimePicker x:Name="timePickerFromTime"
+                                        Format="HH:mm"
+                                        Time="{Binding FromTime, Mode=TwoWay}"
+                                        />
+                            <!--Time interval to picker-->
+                            <TimePicker x:Name="timePickerToTime"
+                                        Format="HH:mm"
+                                        Grid.Column="1"
+                                        Time="{Binding ToTime, Mode=TwoWay}"
+                                        />
+                        </Grid>
+                        <!--Pickup point header-->
+                        <Label Text="{local:Translate pickup_point}" 
+                               TextColor="Black"
+                               FontSize="18"
+                               Margin="0, 0, 0, 3"
+                               />
+                        <!--Pickup point search bar-->
+                        <local:CustomPlacesBar x:Name="cpbRequestPickupPoint"
+                                               ApiKey="{Binding ApiKey}"
+                                               SelectedPlace="{Binding RequestPickupPlace, Mode=TwoWay}"
+                                               />
+                        <!--Destination header-->
+                        <Label Text="{local:Translate destination}" 
+                               TextColor="Black"
+                               FontSize="18"
+                               Margin="0, 0, 0, 3"
+                               />
+                        <!--Destination search bar-->
+                        <local:CustomPlacesBar x:Name="cpbRequestDestination"
+                                               ApiKey="{Binding ApiKey}"
+                                               SelectedPlace="{Binding RequestDestinationPlace}"
+                                               />
+                        <!--Comment-->
+                        <local:CustomTextBox Text="{Binding Comment, Mode=TwoWay}" 
+                                             TextColor="Black" 
+                                             TitleColor="Black"
+                                             CornerRadius="10" 
+                                             Margin="0, 5, 0, 0"
+                                             BorderThickness="1"
+                                             Title="{local:Translate comment}"
+                                             />
+                        <!--Events header-->
+                        <Label Text="{local:Translate events}" 
+                               IsVisible="{Binding EventsSelected}"
+                               TextColor="Black"
+                               FontSize="18"
+                               Margin="0, 3, 0, 0"
+                               />
+                        <!--Selected events-->
+                        <StackLayout Spacing="0"     
+                                     Margin="0"
+                                     BindableLayout.ItemsSource="{Binding SelectedEvents}"
+                                     BindableLayout.ItemTemplate="{Binding EventSelectedItemTemplate}"
+                                     />
+                        <!--Select events button-->
+                        <local:CustomImageTextButton x:Name="btnRequestSelectEvents"
+                                                     Grid.Row="1" 
+                                                     HeightRequest="60" 
+                                                     Margin="0, 5, 0, 0" 
+                                                     CornerRadius="10" 
+                                                     TitleSize="24"
+                                                     TitleColor="White"
+                                                     IconColor="White"
+                                                     Icon="ic_event.png"
+                                                     IconPadding="10"
+                                                     Background="{StaticResource NSSOrange}" 
+                                                     BackgroundPressed="{StaticResource NSSOrangePressed}" 
+                                                     Command="{Binding SelectEventsCommand}"
+                                                     Title="{local:Translate select_events}"
+                                                     />
+                    </StackLayout>
+                </ScrollView>
 
-                                <TimePicker x:Name="RequestEndTimePicker" Grid.Column="1"
-                                    Format="HH:mm"
-                                />
-                            </Grid>
-                            
-                            <Label Text="Pick up" TextColor="White"/>
-                            <local:CustomTextBox x:Name="RequestPickUp" TextColor="Black" TextSize="14"/>
-                            <Label Text="Destination" TextColor="White" />
-                            <local:CustomTextBox x:Name="RequestDestination" TextColor="Black" TextSize="14"/>
-                            <Label Text="Comment:" TextColor="White" />
-                            <local:CustomTextBox x:Name="RequestComment" TextColor="Black" TextSize="14"/>
-                        </StackLayout>
-                    </Frame>
-                    <Button x:Name="createRequestButton" Text="Create Request" TextColor="White" BackgroundColor="#2b3d4e" Margin="15,0,15,15" />
-                </StackLayout>
-            </ScrollView>
-
+                <!--Create button-->
+                <local:CustomImageTextButton x:Name="btnCreate"
+                                             Grid.Row="1" 
+                                             HeightRequest="60" 
+                                             Margin="10" 
+                                             CornerRadius="10" 
+                                             TitleSize="24"
+                                             TitleColor="White"
+                                             IconColor="White"
+                                             IconPadding="10"
+                                             Background="{StaticResource NSSBlue}" 
+                                             BackgroundPressed="{StaticResource NSSBluePressed}" 
+                                             Icon="{Binding ButtonIcon}"
+                                             Command="{Binding ButtonCommand}"
+                                             Title="{Binding ButtonTitle}"
+                                             />
+            </Grid>
         </Grid>
-
-
     </ContentPage.Content>
-
-
-
 </ContentPage>

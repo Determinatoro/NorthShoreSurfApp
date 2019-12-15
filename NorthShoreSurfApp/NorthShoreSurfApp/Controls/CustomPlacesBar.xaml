@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:places="clr-namespace:DurianCode.PlacesSearchBar;assembly=NorthShoreSurfApp"
+             mc:Ignorable="d"
+             x:Class="NorthShoreSurfApp.CustomPlacesBar"
+             x:Name="this">
+    <ContentView.Content>
+        <StackLayout Spacing="0"
+                     Padding="0"
+                     Margin="0">
+            <places:PlacesBar x:Name="placesBar"
+                              Margin="0"
+                              Text="{Binding Text, Source={x:Reference this}}"
+                              ApiKey="{Binding ApiKey, Source={x:Reference this}}"
+                              />
+            <StackLayout Spacing="0"     
+                         BindableLayout.ItemsSource="{Binding AutoCompletePredictions, Source={x:Reference this}}"
+                         BindableLayout.ItemTemplate="{Binding AutoCompletionItemTemplate, Source={x:Reference this}}"
+                         />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

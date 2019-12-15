@@ -52,7 +52,6 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -359,15 +358,6 @@
                                                    />
                             </Grid>
                         </Frame>
-
-                        <local:CustomPicker x:Name="cpCar"
-                                            Title="{local:Translate car}"
-                                            TitleColor="Black"
-                                            HandleClickManually="True"
-                                            Grid.Row="5"
-                                            Text="{Binding CarInfo}"
-                                            Grid.ColumnSpan="2"
-                                            />
                     </Grid>
                 </ScrollView>
             </Grid>

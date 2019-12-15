@@ -158,10 +158,10 @@
                     BackgroundColor="Transparent">
                 <Button.Triggers>
                     <EventTrigger Event="Pressed">
-                        <local:CustomDialogCancelPressedTriggerAction />
+                        <local:CustomDialogPressedTriggerAction />
                     </EventTrigger>
                     <EventTrigger Event="Released">
-                        <local:CustomDialogCancelReleasedTriggerAction />
+                        <local:CustomDialogReleasedTriggerAction />
                     </EventTrigger>
                 </Button.Triggers>
             </Button>

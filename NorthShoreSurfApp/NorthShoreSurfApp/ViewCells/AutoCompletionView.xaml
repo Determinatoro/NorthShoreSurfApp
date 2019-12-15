@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="NorthShoreSurfApp.ViewCells.AutoCompletionView"
+             x:Name="this">
+  <ContentView.Content>
+        <Grid RowSpacing="0"
+              ColumnSpacing="0"
+              Padding="0"
+              Margin="0">
+            <StackLayout Spacing="0">
+                <Label Text="{Binding MainText}"
+                       FontSize="16"
+                       TextColor="Black"
+                       Padding="10, 10, 10, 5"
+                       />
+                <Label Text="{Binding SecondaryText}"
+                       FontSize="14"
+                       TextColor="#404040"
+                       Padding="10, 0, 10, 10"
+                       />
+            </StackLayout>
+            <Button x:Name="button"
+                    BackgroundColor="Transparent"
+                    Command="{Binding SelectedCommand, Mode=TwoWay, Source={x:Reference this}}"
+                    CommandParameter="{Binding SelectedCommandParameter, Source={x:Reference this}}"
+                    />
+        </Grid>
+    </ContentView.Content>
+</ContentView>

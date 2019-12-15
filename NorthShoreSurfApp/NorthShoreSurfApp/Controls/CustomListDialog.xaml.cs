@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -28,8 +28,15 @@ namespace NorthShoreSurfApp
         public static readonly BindableProperty HeaderFontAttributesProperty = BindableProperty.Create(nameof(HeaderDecorations), typeof(FontAttributes), typeof(CustomListDialog), FontAttributes.None);
         public static readonly BindableProperty ItemsSourceProperty = BindableProperty.Create(nameof(ItemsSource), typeof(IList), typeof(CustomListDialog), null);
         public static readonly BindableProperty CloseOnItemTappedProperty = BindableProperty.Create(nameof(CloseOnItemTapped), typeof(bool), typeof(CustomListDialog), true);
+        public static readonly BindableProperty ShowSelectButtonProperty = BindableProperty.Create(nameof(ShowSelectButton), typeof(bool), typeof(CustomListDialog), false,
+            propertyChanged: (obj, oldValue, newValue) =>
+            {
+                ((CustomListDialog)obj).SetSelectRowHeight();
+            });
         public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create(nameof(SelectedItem), typeof(object), typeof(CustomListDialog), true);
         public static readonly BindableProperty ListSeparatorVisibilityProperty = BindableProperty.Create(nameof(ListSeparatorVisibility), typeof(SeparatorVisibility), typeof(CustomListDialog), SeparatorVisibility.Default);
+        public static readonly BindableProperty SelectCommandProperty = BindableProperty.Create(nameof(SelectCommand), typeof(ICommand), typeof(CustomListDialog), null);
+        public static readonly BindableProperty RowSelectHeightProperty = BindableProperty.Create(nameof(RowSelectHeight), typeof(GridLength), typeof(CustomListDialog), new GridLength(61.0, GridUnitType.Absolute));
 
         public event EventHandler<EventArgs> Canceled;
         public event EventHandler<ItemTappedEventArgs> ItemTapped;
@@ -73,14 +80,36 @@ namespace NorthShoreSurfApp
                     await PopupNavigation.Instance.PopAsync();
                 ItemTapped?.Invoke(this, args);
             };
+
+            SetSelectRowHeight();
         }
 
         #endregion
 
+        /*****************************************************************/
+        // METHODS
+        /*****************************************************************/
+        #region Methods
+
+        /// <summary>
+        /// Unselect item in list
+        /// </summary>
         public void UnselectItem()
         {
             SelectedItem = null;
         }
+        /// <summary>
+        /// Set select row height
+        /// </summary>
+        private void SetSelectRowHeight()
+        {
+            if (ShowSelectButton)
+                RowSelectHeight = new GridLength(61.0, GridUnitType.Absolute);
+            else
+                RowSelectHeight = new GridLength(0, GridUnitType.Auto);
+        }
+
+        #endregion
 
         /*****************************************************************/
         // PROPERTIES
@@ -127,6 +156,11 @@ namespace NorthShoreSurfApp
             get { return (bool)GetValue(CloseOnItemTappedProperty); }
             set { SetValue(CloseOnItemTappedProperty, value); }
         }
+        public bool ShowSelectButton
+        {
+            get { return (bool)GetValue(ShowSelectButtonProperty); }
+            set { SetValue(ShowSelectButtonProperty, value); }
+        }
         public object SelectedItem
         {
             get { return (object)GetValue(SelectedItemProperty); }
@@ -136,6 +170,16 @@ namespace NorthShoreSurfApp
         {
             get { return (SeparatorVisibility)GetValue(ListSeparatorVisibilityProperty); }
             set { SetValue(ListSeparatorVisibilityProperty, value); }
+        }
+        public ICommand SelectCommand
+        {
+            get { return (ICommand)GetValue(SelectCommandProperty); }
+            set { SetValue(SelectCommandProperty, value); }
+        }
+        public GridLength RowSelectHeight
+        {
+            get { return (GridLength)GetValue(RowSelectHeightProperty); }
+            private set { SetValue(RowSelectHeightProperty, value); }
         }
 
         #endregion

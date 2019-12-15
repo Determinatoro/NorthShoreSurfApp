@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+          xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+          xmlns:converters="clr-namespace:NorthShoreSurfApp.Converters"
+          mc:Ignorable="d"
+          x:Class="NorthShoreSurfApp.ViewCells.EventListViewCell">
+  <ViewCell.View>
+        <Grid RowSpacing="0"
+              ColumnSpacing="0"
+              Padding="0"
+              Margin="0">
+            <!--Resources-->
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <converters:BoolToColorConverter x:Key="backgroundBoolToColor" TrueColor="{StaticResource NSSOrange}" FalseColor="Transparent"/>
+                    <converters:BoolToColorConverter x:Key="textBoolToColor" TrueColor="White" FalseColor="Black"/>
+                </ResourceDictionary>
+            </Grid.Resources>
+
+            <Grid HeightRequest="60"
+                  ColumnSpacing="0"
+                  RowSpacing="0"
+                  Margin="0"
+                  BackgroundColor="{Binding IsSelected, Converter={StaticResource backgroundBoolToColor}}"
+                  Padding="0">
+
+                <Label Text="{Binding Name}" 
+                       TextColor="{Binding IsSelected, Converter={StaticResource textBoolToColor}}"
+                       VerticalTextAlignment="Center"
+                       VerticalOptions="Fill"
+                       FontSize="20"
+                       Padding="10, 0, 0, 0"
+                       />
+            </Grid>
+        </Grid>
+    </ViewCell.View>
+</ViewCell>

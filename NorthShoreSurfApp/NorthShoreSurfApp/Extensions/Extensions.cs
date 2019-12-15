@@ -1,6 +1,7 @@
 ﻿using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -15,6 +16,11 @@ using Xamarin.Forms.Xaml;
 
 namespace NorthShoreSurfApp
 {
+    /*****************************************************************/
+    // TRANSLATE EXTENSIONS
+    /*****************************************************************/
+    #region Translate Extensions
+
     [ContentProperty("Text")]
     public class TranslateExtension : IMarkupExtension
     {
@@ -30,6 +36,13 @@ namespace NorthShoreSurfApp
             return MakeUpper ? str.ToUpper() : str;
         }
     }
+
+    #endregion
+
+    /*****************************************************************/
+    // GENERAL EXTENSIONS
+    /*****************************************************************/
+    #region General Extensions
 
     public static class Extensions
     {
@@ -60,11 +73,18 @@ namespace NorthShoreSurfApp
         }
     }
 
+    #endregion
+
+    /*****************************************************************/
+    // PAGE EXTENSIONS
+    /*****************************************************************/
+    #region Page Extensions
+
     public static class PageExtensions
     {
         public static async void ShowMessage(this Xamarin.Forms.Page page, string errorMessage, string cancelTitle = null)
         {
-            CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, errorMessage, cancelTitle);
+            CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, errorMessage, cancelTitle == null ? Resources.AppResources.ok : cancelTitle);
             await PopupNavigation.Instance.PushAsync(customDialog);
         }
         public static async void ShowYesNo(this Xamarin.Forms.Page page, string message, Action accepted, Action denied = null)
@@ -96,6 +116,35 @@ namespace NorthShoreSurfApp
         }
     }
 
+    #endregion
+
+    /*****************************************************************/
+    // DATE TIME EXTENSIONS
+    /*****************************************************************/
+    #region DateTime Extensions
+
+    public static class DateTimeExtensions
+    {
+        public static string ToCarpoolingFormat(this DateTime dateTime)
+        {
+            if ((dateTime - DateTime.Today).TotalDays < 8)
+            {
+                return dateTime.ToString("dddd").FirstCharToUpper();
+            }
+            else
+            {
+                return dateTime.ToString("dd-MM-yy");
+            }
+        }
+    }
+
+    #endregion
+
+    /*****************************************************************/
+    // VIEW EXTENSIONS
+    /*****************************************************************/
+    #region View Extensions
+
     public static class ViewExtensions
     {
         public static void SetIOSSafeAreaInsets(this View view, Xamarin.Forms.Page page)
@@ -108,4 +157,35 @@ namespace NorthShoreSurfApp
             view.Margin = safeAreaInset;
         }
     }
+
+    #endregion
+
+    /*****************************************************************/
+    // LIST EXTENSIONS
+    /*****************************************************************/
+    #region List Extensions
+
+    public static class ListExtensions
+    {
+        public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> enumerableList)
+        {
+            if (enumerableList != null)
+            {
+                // Create an emtpy observable collection object
+                var observableCollection = new ObservableCollection<T>();
+
+                // Loop through all the records and add to observable collection object
+                foreach (var item in enumerableList)
+                {
+                    observableCollection.Add(item);
+                }
+
+                // Return the populated observable collection
+                return observableCollection;
+            }
+            return null;
+        }
+    }
+
+    #endregion
 }

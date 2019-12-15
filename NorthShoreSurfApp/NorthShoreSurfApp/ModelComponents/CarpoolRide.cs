@@ -63,11 +63,11 @@ namespace NorthShoreSurfApp.ModelComponents
         [NotMapped]
         public string DepartureTimeHourString { get => DepartureTime.ToString("HH:mm"); }
         [NotMapped]
-        public string PricePerPassengerString { get => String.Format("{0} DKK", PricePerPassenger); }
+        public string PricePerPassengerString { get => PricePerPassenger == 0 ? Resources.AppResources.free : string.Format("{0} DKK", PricePerPassenger); }
         [NotMapped]
-        public string ZipcodeCityString { get => String.Format("{0} {1}", ZipCode, City); }
+        public string ZipcodeCityString { get => string.Format("{0} {1}", ZipCode, City); }
         [NotMapped]
-        public string DestinationZipcodeCityString { get => String.Format("{0} {1}", DestinationZipCode, DestinationCity); }
+        public string DestinationZipcodeCityString { get => string.Format("{0} {1}", DestinationZipCode, DestinationCity); }
         [NotMapped]
         public int AvailableSeats
         {

@@ -21,7 +21,6 @@ namespace NorthShoreSurfApp.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         private ICommand seeWebcamCommand;
-        private ObservableCollection<CarpoolRide> carpoolRides;
 
         #endregion
 

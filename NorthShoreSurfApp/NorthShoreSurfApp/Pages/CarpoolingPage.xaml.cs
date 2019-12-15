@@ -67,9 +67,9 @@ namespace NorthShoreSurfApp
             // Plus icon clicked in navigation bar
             navigationBar.ButtonOne.Clicked += async (sender, args) =>
             {
-                NewCarpoolingPage newCarpoolingPage = new NewCarpoolingPage();
+                NewCarpoolingPage newCarpoolingPage = new NewCarpoolingPage(CarpoolingPageViewModel.ToggleType == ToggleType.Left ? NewCarpoolingPageType.NewCarpoolRide : NewCarpoolingPageType.NewCarpoolRequest);
                 newCarpoolingPage.Disappearing += (sender, args) => UpdateList();
-                await Navigation.PushAsync(newCarpoolingPage);
+                await Navigation.PushModalAsync(newCarpoolingPage);
             };
             // Message icon clicked in navigation bar
             navigationBar.ButtonTwo.Clicked += async (sender, args) =>

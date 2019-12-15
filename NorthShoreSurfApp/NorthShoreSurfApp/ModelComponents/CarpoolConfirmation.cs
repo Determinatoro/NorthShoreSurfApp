@@ -119,5 +119,10 @@ namespace NorthShoreSurfApp.ModelComponents
 
             return this.Id == ((CarpoolConfirmation)obj).Id;
         }
+
+        public override int GetHashCode()
+        {
+            return Id;
+        }
     }
 }
