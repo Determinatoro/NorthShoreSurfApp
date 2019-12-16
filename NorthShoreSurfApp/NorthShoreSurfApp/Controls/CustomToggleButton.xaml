@@ -89,7 +89,7 @@
                             VerticalTextAlignment="Center"
                             HorizontalTextAlignment="Center"
                             Text="{Binding TitleLeft, Source={x:Reference this}}"
-                            TextColor="{Binding TitleSelectedColor, Source={x:Reference this}}"
+                            TextColor="White"
                             FontSize="{Binding TitleLeftSize, Source={x:Reference this}}"
                             />
 
@@ -134,7 +134,7 @@
                             VerticalTextAlignment="Center"
                             HorizontalTextAlignment="Center"
                             Text="{Binding TitleRight, Source={x:Reference this}}"
-                            TextColor="{Binding TitleSelectedColor, Source={x:Reference this}}"
+                            TextColor="White"
                             FontSize="{Binding TitleRightSize, Source={x:Reference this}}"
                             />
 

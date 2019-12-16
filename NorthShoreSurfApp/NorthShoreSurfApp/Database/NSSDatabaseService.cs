@@ -1447,7 +1447,7 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse<string>(1, mes.Message);
             }
         }
-        public async Task<DataResponse<CarpoolRide>> GetNextCarpoolRide(int userId)
+        public async Task<DataResponse<CarpoolRide>> GetNextCarpoolRide(int? userId)
         {
             try
             {
@@ -1463,7 +1463,7 @@ namespace NorthShoreSurfApp.Database
                                                             .ThenInclude(x => x.Gender)
                                                    .Include(x => x.CarpoolRides_Events_Relations)
                                                         .ThenInclude(x => x.Event)
-                                                   .Where(x => x.DriverId != userId && x.DepartureTime.CompareTo(DateTime.Now) >= 0)
+                                                   .Where(x => (userId == null || x.DriverId != userId) && x.DepartureTime.CompareTo(DateTime.Now) >= 0)
                                                    .OrderBy(x => x.DepartureTime)
                                                    .FirstOrDefaultAsync();
                     // Return response

@@ -37,13 +37,13 @@ namespace NorthShoreSurfApp
             DataService.Initialize();
 
             // TEST User logged in
-            LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), "1");
+            LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), null);
             LocalDataService.SaveValue(nameof(LocalDataKeys.IsGuest), null);
 
             // TEST Sign up user 
             //User user = DataService.SignUpUser("Emil", "Danielsen", "29711907", 21, 1).Result.Result;
 
-            if (AppValuesService.GetUserId() != null || AppValuesService.IsGuest())
+            if (AppValuesService.UserId != null || AppValuesService.IsGuest)
             {
                 // Set main page to tab
                 MainPage = new RootTabbedPage();

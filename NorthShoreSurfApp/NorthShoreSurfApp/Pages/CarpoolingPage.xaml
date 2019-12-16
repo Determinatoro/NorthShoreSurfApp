@@ -11,7 +11,7 @@
              >
 
     <ContentPage.BindingContext>
-        <models:CarpoolingPageViewModel />
+        <models:CarpoolingViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>

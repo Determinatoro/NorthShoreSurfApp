@@ -25,7 +25,7 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Variables
 
-        public CarpoolDetailsPageViewModel CarpoolDetailsPageViewModel { get => (CarpoolDetailsPageViewModel)this.BindingContext; }
+        public CarpoolDetailsViewModel CarpoolDetailsPageViewModel { get => (CarpoolDetailsViewModel)this.BindingContext; }
 
         #endregion
 

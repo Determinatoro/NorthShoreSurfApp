@@ -11,7 +11,7 @@
              BackgroundColor="White"
              >
     <ContentPage.BindingContext>
-        <models:NewCarpoolingPageViewModel />
+        <models:NewCarpoolingViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Content>

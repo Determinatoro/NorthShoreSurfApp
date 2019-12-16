@@ -31,9 +31,7 @@ namespace NorthShoreSurfApp.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
 
         private HomeDetailsPageType homeDetailsPageType;
-        private string pageTitle;
         private string openingHoursDetails;
-        private string contactInfoDetails;
         private ContactInfo contactInfo;
 
         #endregion
@@ -53,64 +51,6 @@ namespace NorthShoreSurfApp.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        /// <summary>
-        /// Get information for the page
-        /// </summary>
-        public void GetInformation()
-        {
-            switch (HomeDetailsPageType)
-            {
-                case HomeDetailsPageType.OpeningHours:
-                    {
-                        // Get opening hours information
-                        App.DataService.GetData(
-                            NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                            true,
-                            () => App.DataService.GetOpeningHoursInformation(),
-                            async (response) =>
-                            {
-                                if (response.Success)
-                                {
-                                    // Set opening hours information
-                                    OpeningHoursDetails = response.Result;
-                                }
-                                else
-                                {
-                                    // Show error
-                                    CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                                    await PopupNavigation.Instance.PushAsync(customDialog);
-                                }
-                            });
-
-                        break;
-                    }
-                case HomeDetailsPageType.ContactInfo:
-                    {
-                        // Get contact info from the database
-                        App.DataService.GetData(
-                            NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
-                            true,
-                            () => App.DataService.GetContactInfo(),
-                            async (response) =>
-                            {
-                                if (response.Success)
-                                {
-                                    // Set contact info object
-                                    ContactInfo = response.Result;
-                                }
-                                else
-                                {
-                                    // Show error
-                                    CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
-                                    await PopupNavigation.Instance.PushAsync(customDialog);
-                                }
-                            });
-
-                        break;
-                    }
-            }
-        }
-
         #endregion
 
         /*****************************************************************/
@@ -121,26 +61,16 @@ namespace NorthShoreSurfApp.ViewModels
         /// <summary>
         /// Page type deciding the content
         /// </summary>
-        public HomeDetailsPageType HomeDetailsPageType
+        public HomeDetailsPageType PageType
         {
             get => homeDetailsPageType;
             set
             {
                 homeDetailsPageType = value;
-
-                switch (value)
-                {
-                    case HomeDetailsPageType.OpeningHours:
-                        PageTitle = Resources.AppResources.opening_hours;
-                        break;
-                    case HomeDetailsPageType.ContactInfo:
-                        PageTitle = Resources.AppResources.contact_us;
-                        break;
-                }
-
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(ShowOpeningHoursDetails));
                 OnPropertyChanged(nameof(ShowContactInfoDetails));
+                OnPropertyChanged(nameof(PageTitle));
             }
         }
         /// <summary>
@@ -148,11 +78,17 @@ namespace NorthShoreSurfApp.ViewModels
         /// </summary>
         public string PageTitle
         {
-            get => pageTitle;
-            set
+            get  
             {
-                pageTitle = value;
-                OnPropertyChanged();
+                switch (PageType)
+                {
+                    case HomeDetailsPageType.OpeningHours:
+                        return Resources.AppResources.opening_hours;
+                    case HomeDetailsPageType.ContactInfo:
+                        return Resources.AppResources.contact_us;
+                }
+
+                return string.Empty;
             }
         }
         /// <summary>
@@ -172,11 +108,12 @@ namespace NorthShoreSurfApp.ViewModels
         /// </summary>
         public string ContactInfoDetails
         {
-            get => contactInfoDetails;
-            set
+            get
             {
-                contactInfoDetails = value;
-                OnPropertyChanged();
+                if (ContactInfo == null)
+                    return string.Empty;
+
+                return $"North Shore Surf Løkken\n\n{ContactInfo.Email}\n{ContactInfo.PhoneNo}\n\n{ContactInfo.Address}\n{ContactInfo.ZipCode} {ContactInfo.City}";
             }
         }
         /// <summary>
@@ -188,7 +125,8 @@ namespace NorthShoreSurfApp.ViewModels
             set
             {
                 contactInfo = value;
-                ContactInfoDetails = $"North Shore Surf Løkken\n\n{contactInfo.Email}\n{contactInfo.PhoneNo}\n\n{contactInfo.Address}\n{contactInfo.ZipCode} {contactInfo.City}";
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(ContactInfoDetails));
             }
         }
         /// <summary>
@@ -196,14 +134,14 @@ namespace NorthShoreSurfApp.ViewModels
         /// </summary>
         public bool ShowOpeningHoursDetails
         {
-            get => HomeDetailsPageType == HomeDetailsPageType.OpeningHours;
+            get => PageType == HomeDetailsPageType.OpeningHours;
         }
         /// <summary>
         /// Flag for showing the contact info
         /// </summary>
         public bool ShowContactInfoDetails
         {
-            get => HomeDetailsPageType == HomeDetailsPageType.ContactInfo;
+            get => PageType == HomeDetailsPageType.ContactInfo;
         }
 
         #endregion

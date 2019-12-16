@@ -53,7 +53,7 @@ namespace NorthShoreSurfApp.ViewModels
 
     #endregion
 
-    public class CarpoolingPageViewModel : INotifyPropertyChanged
+    public class CarpoolingViewModel : INotifyPropertyChanged
     {
         /*****************************************************************/
         // VARIABLES

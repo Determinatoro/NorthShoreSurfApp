@@ -109,7 +109,6 @@
     <Compile Include="Services\AndroidFirebaseService.cs" />
     <Compile Include="Services\AndroidScreenService.cs" />
     <Compile Include="Services\AndroidLocalDataService.cs" />
-    <Compile Include="Utilities\AndroidUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\NSS.db" />

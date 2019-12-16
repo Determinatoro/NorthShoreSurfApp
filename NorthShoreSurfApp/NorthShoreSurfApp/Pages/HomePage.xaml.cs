@@ -62,16 +62,24 @@ namespace NorthShoreSurfApp
                     await Navigation.PushModalAsync(new SurfingConditionsFullscreenPage(SurfingConditionsViewModel.VideoUrl), false);
                 else if (sender == frameNextRide)
                 {
-                    if (AppValuesService.IsGuest())
+                    if (AppValuesService.IsGuest)
                     {
                         var tabbedPage = ((RootTabbedPage)App.Current.MainPage);
-                        tabbedPage.SelectedItem = tabbedPage.Children.Where(x => ((Xamarin.Forms.NavigationPage)x).RootPage is WelcomePage).FirstOrDefault();
+                        tabbedPage.CurrentPage = tabbedPage.Children.Where(x => ((Xamarin.Forms.NavigationPage)x).RootPage is WelcomePage).FirstOrDefault();
                     }
                     else
                     {
                         if (HomeViewModel.NextCarpoolRide == null)
                             return;
-                        await Navigation.PushModalAsync(new CarpoolDetailsPage(HomeViewModel.NextCarpoolRide));
+                        if (AppValuesService.IsGuest)
+                        {
+                            var tabbedPage = ((RootTabbedPage)App.Current.MainPage);
+                            tabbedPage.SelectedItem = tabbedPage.Children.FirstOrDefault(x => ((Xamarin.Forms.NavigationPage)x).RootPage is WelcomePage);
+                        }
+                        else
+                        {
+                            await Navigation.PushModalAsync(new CarpoolDetailsPage(HomeViewModel.NextCarpoolRide));
+                        }
                     }
                 }
             };
@@ -100,8 +108,8 @@ namespace NorthShoreSurfApp
                 {
                     // Todays opening hours
                     var response = await App.DataService.GetTodaysOpeningHours();
-                    // Informatio about the next carpool ride
-                    var response2 = await App.DataService.GetNextCarpoolRide(AppValuesService.UserId.Value);
+                    // Information about the next carpool ride
+                    var response2 = await App.DataService.GetNextCarpoolRide(AppValuesService.UserId);
                     return new Tuple<DataResponse<string>, DataResponse<CarpoolRide>>(response, response2);
                 },
                 (response) =>
@@ -113,12 +121,15 @@ namespace NorthShoreSurfApp
                     else
                         this.ShowMessage(response.Item1.ErrorMessage);
 
-                    // Set next carpool ride
-                    if (response.Item2.Success)
-                        HomeViewModel.NextCarpoolRide = response.Item2.Result;
-                    // Show error
-                    else
-                        this.ShowMessage(response.Item2.ErrorMessage);
+                    if (AppValuesService.IsGuest)
+                    {
+                        // Set next carpool ride
+                        if (response.Item2.Success)
+                            HomeViewModel.NextCarpoolRide = response.Item2.Result;
+                        // Show error
+                        else
+                            this.ShowMessage(response.Item2.ErrorMessage);
+                    }
                 });
         }
 

@@ -28,7 +28,7 @@ namespace NorthShoreSurfApp.ViewModels
 
     #endregion
 
-    public class NewCarpoolingPageViewModel : INotifyPropertyChanged
+    public class NewCarpoolingViewModel : INotifyPropertyChanged
     {
         /*****************************************************************/
         // VARIABLES
@@ -76,7 +76,7 @@ namespace NorthShoreSurfApp.ViewModels
         /*****************************************************************/
         #region Constructor
 
-        public NewCarpoolingPageViewModel()
+        public NewCarpoolingViewModel()
         {
             PageType = NewCarpoolingPageType.NewCarpoolRide;
             // Default values

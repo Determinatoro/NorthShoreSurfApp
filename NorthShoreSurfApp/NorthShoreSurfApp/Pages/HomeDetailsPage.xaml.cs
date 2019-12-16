@@ -33,7 +33,7 @@ namespace NorthShoreSurfApp
 
         public HomeDetailsPage(HomeDetailsPageType homeDetailsPageType) : this()
         {
-            HomeDetailsViewModel.HomeDetailsPageType = homeDetailsPageType;
+            HomeDetailsViewModel.PageType = homeDetailsPageType;
         }
 
         private HomeDetailsPage()
@@ -41,15 +41,10 @@ namespace NorthShoreSurfApp
             // Hide default navigation bar
             Xamarin.Forms.NavigationPage.SetHasNavigationBar(this, false);
             Xamarin.Forms.NavigationPage.SetHasBackButton(this, false);
+            // Initialize the page
             InitializeComponent();
-            // Use safe area on iOS
-            On<iOS>().SetUseSafeArea(true);
-            // Get root grid
-            Grid grid = (Grid)Content;
-            // Get safe area margins
-            var safeAreaInset = On<iOS>().SafeAreaInsets();
-            // Set safe area margins
-            grid.Margin = safeAreaInset;
+            // iOS safe area insets
+            ((Grid)Content).SetIOSSafeAreaInsets(this);
 
             // Back button clicked
             navigationBar.BackButtonClicked += (sender, args) =>
@@ -69,8 +64,8 @@ namespace NorthShoreSurfApp
         protected override void OnAppearing()
         {
             base.OnAppearing();
-
-            HomeDetailsViewModel.GetInformation();
+            // Get information for the page
+            GetInformation();
         }
 
         // OnBackButtonPressed
@@ -94,6 +89,64 @@ namespace NorthShoreSurfApp
         {
             while (Navigation.ModalStack.Count > 0 && Navigation.ModalStack.Contains(this))
                 await Navigation.PopModalAsync();
+        }
+
+        /// <summary>
+        /// Get information for the page
+        /// </summary>
+        public void GetInformation()
+        {
+            switch (HomeDetailsViewModel.PageType)
+            {
+                case HomeDetailsPageType.OpeningHours:
+                    {
+                        // Get opening hours information
+                        App.DataService.GetData(
+                            NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
+                            true,
+                            () => App.DataService.GetOpeningHoursInformation(),
+                            async (response) =>
+                            {
+                                if (response.Success)
+                                {
+                                    // Set opening hours information
+                                    HomeDetailsViewModel.OpeningHoursDetails = response.Result;
+                                }
+                                else
+                                {
+                                    // Show error
+                                    CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                                    await PopupNavigation.Instance.PushAsync(customDialog);
+                                }
+                            });
+
+                        break;
+                    }
+                case HomeDetailsPageType.ContactInfo:
+                    {
+                        // Get contact info from the database
+                        App.DataService.GetData(
+                            NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
+                            true,
+                            () => App.DataService.GetContactInfo(),
+                            async (response) =>
+                            {
+                                if (response.Success)
+                                {
+                                    // Set contact info object
+                                    HomeDetailsViewModel.ContactInfo = response.Result;
+                                }
+                                else
+                                {
+                                    // Show error
+                                    CustomDialog customDialog = new CustomDialog(CustomDialogType.Message, response.ErrorMessage);
+                                    await PopupNavigation.Instance.PushAsync(customDialog);
+                                }
+                            });
+
+                        break;
+                    }
+            }
         }
 
         #endregion

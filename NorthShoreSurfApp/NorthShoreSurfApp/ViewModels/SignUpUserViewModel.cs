@@ -220,7 +220,7 @@ namespace NorthShoreSurfApp.ViewModels
                 LastName = existingUser.LastName;
                 Age = existingUser.Age.ToString();
                 PhoneNo = existingUser.PhoneNo;
-                Gender = existingUser.Gender?.Name;
+                Gender = existingUser.Gender?.LocalizedName;
                 GenderId = existingUser.GenderId;
             }
         }
@@ -317,7 +317,9 @@ namespace NorthShoreSurfApp.ViewModels
                 }
             }
         }
-        // Age input
+        /// <summary>
+        /// Age string input 
+        /// </summary>
         public string Age
         {
             get { return age; }

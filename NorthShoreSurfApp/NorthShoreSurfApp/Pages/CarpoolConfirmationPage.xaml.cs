@@ -85,7 +85,7 @@ namespace NorthShoreSurfApp
 
         private void GetCarpoolConfirmationItems(bool showDialog = true)
         {
-            int userId = AppValuesService.GetUserId().Value;
+            int userId = AppValuesService.UserId.Value;
 
             // Get user data from database
             App.DataService.GetData(

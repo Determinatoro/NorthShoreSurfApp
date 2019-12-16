@@ -48,13 +48,16 @@ namespace NorthShoreSurfApp
             }
         }
 
-        public static bool IsGuest()
+        public static bool IsGuest
         {
-            var isGuest = App.LocalDataService.GetValue(nameof(LocalDataKeys.IsGuest));
-            if (bool.TryParse(isGuest, out bool flag))
-                return flag;
-            else
-                return false;
+            get
+            {
+                var isGuest = App.LocalDataService.GetValue(nameof(LocalDataKeys.IsGuest));
+                if (bool.TryParse(isGuest, out bool flag))
+                    return flag;
+                else
+                    return false;
+            }
         }
     }
 }

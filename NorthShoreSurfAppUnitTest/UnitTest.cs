@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Resources;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace NorthShoreSurfAppUnitTest
 {
@@ -65,8 +66,13 @@ namespace NorthShoreSurfAppUnitTest
         /*****************************************************************/
         #region Services 
 
+        /****************************************************/
+        // DATABASE SERVICE
+        /****************************************************/
+        #region DatabaseService
+
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetUsers_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -80,7 +86,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetEvents_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -94,7 +100,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetOpeningHours_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -108,7 +114,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetContactInfo_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -131,7 +137,7 @@ namespace NorthShoreSurfAppUnitTest
         [TestMethod]
         [DataRow(1)]
         [DataRow(2)]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetUsersCarpoolRides_Success(int userId)
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -151,7 +157,7 @@ namespace NorthShoreSurfAppUnitTest
         [TestMethod]
         [DataRow(1)]
         [DataRow(2)]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetUsersCarpoolRequests_Success(int userId)
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -170,7 +176,7 @@ namespace NorthShoreSurfAppUnitTest
         [TestMethod]
         [DataRow(1)]
         [DataRow(2)]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetOwnCarpoolRides_Success(int userId)
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -188,7 +194,7 @@ namespace NorthShoreSurfAppUnitTest
         [TestMethod]
         [DataRow(1)]
         [DataRow(2)]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetConfirmations_Success(int userId)
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -207,7 +213,7 @@ namespace NorthShoreSurfAppUnitTest
         [TestMethod]
         [DataRow(1)]
         [DataRow(2)]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetCars_Success(int userId)
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -221,7 +227,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetOpeningHoursInformation_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -235,7 +241,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetTodaysOpeningHours_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -249,7 +255,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetNextCarpoolRide_NoNextCarpoolRide()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -265,7 +271,7 @@ namespace NorthShoreSurfAppUnitTest
         [TestMethod]
         [DataRow(1)]
         [DataRow(2)]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetCarpoolConfirmations_Success(int userId)
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -281,7 +287,7 @@ namespace NorthShoreSurfAppUnitTest
         [TestMethod]
         [DataRow(1)]
         [DataRow(2)]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetPendingCarpoolConfirmations_Success(int userId)
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -295,7 +301,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_CheckIfPhoneIsNotUsedAlready_PhoneNoAlreadyUsed()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -310,7 +316,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_CheckIfPhoneIsNotUsedAlready_PhoneNoNotUsed()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -325,7 +331,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetUser_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -339,7 +345,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_GetUser_UserNotFound()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -353,7 +359,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_UpdateUser_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -369,7 +375,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_SignUpUser_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -385,7 +391,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_DeleteUser_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -400,7 +406,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_CreateCar_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -415,7 +421,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_DeleteCar_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -430,7 +436,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_CreateCarpoolRide_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -451,7 +457,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_DeleteCarpoolRide_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -466,7 +472,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_DeleteCarpoolRequest_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -486,7 +492,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_CreateCarpoolRequest_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -507,7 +513,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_InvitePassenger_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -529,7 +535,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_SignUpToCarpoolRide_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -538,6 +544,7 @@ namespace NorthShoreSurfAppUnitTest
                 NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
                 // Act
                 int userId = 1;
+                // Get user's carpool rides
                 var resp = await service.GetUsersCarpoolRides(userId);
                 // Get first of unrelated rides to the user
                 int carpoolRideId = resp.Result.OtherRides.FirstOrDefault().Id;
@@ -550,7 +557,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_UnsignFromCarpoolRide_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -558,8 +565,9 @@ namespace NorthShoreSurfAppUnitTest
                 // Arrange
                 NSSDatabaseService<NSSDatabaseContext> service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
                 // Act
+                int userId = 1;
                 // Get user's carpool rides
-                var resp = await service.GetUsersCarpoolRides(1);
+                var resp = await service.GetUsersCarpoolRides(userId);
                 // Get first of the user's own rides with a confirmed passenger
                 CarpoolRide carpoolRide = resp.Result.OwnRides.Where(x => x.CarpoolConfirmations.Any(x2 => x2.IsConfirmed)).FirstOrDefault();
                 // Get passenger id for confirmed passenger
@@ -567,13 +575,13 @@ namespace NorthShoreSurfAppUnitTest
                 // Unsign the passenger
                 var response = await service.UnsignFromCarpoolRide(carpoolRide.Id, passengerId);
                 // Get user's carpool rides
-                var response2 = await service.GetUsersCarpoolRides(1);
+                var response2 = await service.GetUsersCarpoolRides(userId);
                 // Assert
                 Assert.IsTrue(response.Success && !response2.Result.OwnRides.FirstOrDefault(x => x.Id == carpoolRide.Id).CarpoolConfirmations.Any(x => x.PassengerId == passengerId));
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_AnswerCarpoolConfirmation_Accept()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -595,7 +603,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_AnswerCarpoolConfirmation_Deny()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -617,7 +625,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_UpdateCarpoolRequest_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -640,7 +648,7 @@ namespace NorthShoreSurfAppUnitTest
             }
         }
         [TestMethod]
-        [TestCategory("NSSDatabaseService")]
+        [TestCategory("DatabaseService")]
         public async Task DatabaseService_UpdateCarpoolRide_Success()
         {
             using (var factory = new NSSDatabaseContextFactory())
@@ -665,6 +673,8 @@ namespace NorthShoreSurfAppUnitTest
 
         #endregion
 
+        #endregion
+
         /*****************************************************************/
         // MODEL COMPONENTS
         /*****************************************************************/
@@ -683,6 +693,7 @@ namespace NorthShoreSurfAppUnitTest
         #region HomeViewModel
 
         [TestMethod]
+        [TestCategory("HomeViewModel")]
         public void HomeViewModel_SetNextCarpoolRideDepartureTimeSeconds_CheckNextCarpoolRideContent()
         {
             // Arrange
@@ -694,6 +705,7 @@ namespace NorthShoreSurfAppUnitTest
             Assert.IsTrue(homeViewModel.NextRideInContent != null);
         }
         [TestMethod]
+        [TestCategory("HomeViewModel")]
         public void HomeViewModel_SetNextCarpoolRideDeaprtureTimeMinutes_CheckNextCarpoolRideContent()
         {
             // Arrange
@@ -705,6 +717,7 @@ namespace NorthShoreSurfAppUnitTest
             Assert.AreEqual(string.Format(GetLocalizedString("minutes"), "5"), homeViewModel.NextRideInContent);
         }
         [TestMethod]
+        [TestCategory("HomeViewModel")]
         public void HomeViewModel_SetNextCarpoolRideDeaprtureTimeHours_CheckNextCarpoolRideContent()
         {
             // Arrange
@@ -716,6 +729,7 @@ namespace NorthShoreSurfAppUnitTest
             Assert.AreEqual(string.Format(GetLocalizedString("hours"), "5"), homeViewModel.NextRideInContent);
         }
         [TestMethod]
+        [TestCategory("HomeViewModel")]
         public void HomeViewModel_SetNextCarpoolRideDeaprtureTimeDays_CheckNextCarpoolRideContent()
         {
             // Arrange
@@ -727,6 +741,7 @@ namespace NorthShoreSurfAppUnitTest
             Assert.AreEqual(string.Format(GetLocalizedString("days"), "5"), homeViewModel.NextRideInContent);
         }
         [TestMethod]
+        [TestCategory("HomeViewModel")]
         public void HomeViewModel_SetNextCarpoolRideToNull_CheckNextCarpoolRideContent()
         {
             // Arrange
@@ -737,6 +752,7 @@ namespace NorthShoreSurfAppUnitTest
             Assert.AreEqual(GetLocalizedString("none"), homeViewModel.NextRideInContent);
         }
         [TestMethod]
+        [TestCategory("HomeViewModel")]
         public void HomeViewModel_SetOpeningHoursContent_CheckIfValueIsSet()
         {
             // Arrange
@@ -745,6 +761,434 @@ namespace NorthShoreSurfAppUnitTest
             homeViewModel.OpeningHoursContent = "test";
             // Assert
             Assert.AreEqual("test", homeViewModel.OpeningHoursContent);
+        }
+
+        #endregion
+
+        /****************************************************/
+        // HOME DETAILS VIEW MODEL
+        /****************************************************/
+        #region HomeDetailsViewModel
+
+        [TestMethod]
+        [TestCategory("HomeDetailsViewModel")]
+        public void HomeDetailsViewModel_SetPageTypeToContactInfo_CheckPageTitle()
+        {
+            // Arrange
+            HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel();
+            // Act
+            homeDetailsViewModel.PageType = HomeDetailsPageType.ContactInfo;
+            // Assert
+            Assert.AreEqual(GetLocalizedString("contact_us"), homeDetailsViewModel.PageTitle);
+        }
+        [TestMethod]
+        [TestCategory("HomeDetailsViewModel")]
+        public void HomeDetailsViewModel_SetPageTypeToContactInfo_ShowContactInfoDetailsIsTrue()
+        {
+            // Arrange
+            HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel();
+            // Act
+            homeDetailsViewModel.PageType = HomeDetailsPageType.ContactInfo;
+            // Assert
+            Assert.AreEqual(true, homeDetailsViewModel.ShowContactInfoDetails);
+        }
+        [TestMethod]
+        [TestCategory("HomeDetailsViewModel")]
+        public void HomeDetailsViewModel_SetPageTypeToOpeningHours_CheckPageTitle()
+        {
+            // Arrange
+            HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel();
+            // Act
+            homeDetailsViewModel.PageType = HomeDetailsPageType.OpeningHours;
+            // Assert
+            Assert.AreEqual(GetLocalizedString("opening_hours"), homeDetailsViewModel.PageTitle);
+        }
+        [TestMethod]
+        [TestCategory("HomeDetailsViewModel")]
+        public void HomeDetailsViewModel_SetPageTypeToOpeningHours_ShowOpeningsHoursDetailsIsTrue()
+        {
+            // Arrange
+            HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel();
+            // Act
+            homeDetailsViewModel.PageType = HomeDetailsPageType.OpeningHours;
+            // Assert
+            Assert.AreEqual(true, homeDetailsViewModel.ShowOpeningHoursDetails);
+        }
+        [TestMethod]
+        [TestCategory("HomeDetailsViewModel")]
+        public void HomeDetailsViewModel_SetOpeningHoursDetails_ContentIsSet()
+        {
+            // Arrange
+            HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel();
+            // Act
+            homeDetailsViewModel.OpeningHoursDetails = "test";
+            // Assert
+            Assert.AreEqual("test", homeDetailsViewModel.OpeningHoursDetails);
+        }
+        [TestMethod]
+        [TestCategory("HomeDetailsViewModel")]
+        public void HomeDetailsViewModel_SetContactInfo_ContactInfoDetailsIsNotNull()
+        {
+            // Arrange
+            HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel();
+            // Act
+            homeDetailsViewModel.ContactInfo = new ContactInfo()
+            {
+                Address = "test",
+                City = "test1",
+                Email = "test2",
+                PhoneNo = "test3",
+                ZipCode = "test4"
+            };
+            // Assert
+            Assert.IsTrue(!string.IsNullOrEmpty(homeDetailsViewModel.ContactInfoDetails));
+        }
+
+        #endregion
+
+        /****************************************************/
+        // NEW CAR VIEW MODEL
+        /****************************************************/
+        #region NewCarViewModel
+
+        [TestMethod]
+        [TestCategory("NewCarViewModel")]
+        public void NewCarViewModel_TestAllDataGiven_IsTrue()
+        {
+            // Arrange
+            NewCarViewModel newCarViewModel = new NewCarViewModel();
+            // Act
+            newCarViewModel.Color = "test";
+            newCarViewModel.LicensePlate = "TE12345";
+            // Assert
+            Assert.AreEqual(true, newCarViewModel.AllDataGiven);
+        }
+        [TestMethod]
+        [TestCategory("NewCarViewModel")]
+        public void NewCarViewModel_TestAllDataGiven_IsFalse()
+        {
+            // Arrange
+            NewCarViewModel newCarViewModel = new NewCarViewModel();
+            // Act
+            newCarViewModel.Color = "test";
+            newCarViewModel.LicensePlate = "T";
+            // Assert
+            Assert.AreEqual(false, newCarViewModel.AllDataGiven);
+        }
+        [TestMethod]
+        [TestCategory("NewCarViewModel")]
+        public void NewCarViewModel_CreateCommand_CommandIsExecuted()
+        {
+            // Arrange
+            NewCarViewModel newCarViewModel = new NewCarViewModel();
+            // Act
+            newCarViewModel.CreateCommand = new Command(() =>
+            {
+                // Assert
+                Assert.IsTrue(true);
+            });
+            newCarViewModel.CreateCommand.Execute(null);
+            // Assert
+            Assert.IsFalse(false);
+        }
+        [TestMethod]
+        [TestCategory("NewCarViewModel")]
+        public void NewCarViewModel_CancelCommand_CommandIsExecuted()
+        {
+            // Arrange
+            NewCarViewModel newCarViewModel = new NewCarViewModel();
+            // Act
+            newCarViewModel.CancelCommand = new Command(() =>
+            {
+                // Assert
+                Assert.IsTrue(true);
+            });
+            newCarViewModel.CancelCommand.Execute(null);
+            // Assert
+            Assert.IsFalse(false);
+        }
+
+        #endregion
+
+        /****************************************************/
+        // SIGN UP USER VIEW MODEL
+        /****************************************************/
+        #region SignUpUserViewModel
+
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_SetCurrentContentSiteToEnterData_ShowEnterDataSiteIsTrue()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.CurrentContentSite = SignUpUserPageContentSite.EnterData;
+            // Assert
+            Assert.AreEqual(true, signUpUserViewModel.ShowEnterDataSite);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_SetCurrentContentSiteToEditInformation_ShowEnterDataSiteIsTrue()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.CurrentContentSite = SignUpUserPageContentSite.EditInformation;
+            // Assert
+            Assert.AreEqual(true, signUpUserViewModel.ShowEnterDataSite);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_SetCurrentContentSiteToEnterSMSCode_ShowEnterSMSCodeSiteIsTrue()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.CurrentContentSite = SignUpUserPageContentSite.EnterSMSCode;
+            // Assert
+            Assert.AreEqual(true, signUpUserViewModel.ShowEnterSMSCodeSite);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_ButtonNextIcon_NotNullWhenSettingContentSite()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.CurrentContentSite = SignUpUserPageContentSite.EditInformation;
+            // Assert
+            Assert.IsTrue(signUpUserViewModel.ButtonNextIcon != null);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_ButtonNextTitle_CorrectTitleForContentSiteEditInformation()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.CurrentContentSite = SignUpUserPageContentSite.EditInformation;
+            // Assert
+            Assert.AreEqual(GetLocalizedString("approve"), signUpUserViewModel.ButtonNextTitle);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_ButtonNextTitle_CorrectTitleForContentSiteOtherThanEditInformation()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.CurrentContentSite = SignUpUserPageContentSite.EnterData;
+            // Assert
+            Assert.AreEqual(GetLocalizedString("next"), signUpUserViewModel.ButtonNextTitle);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_ButtonNextTitle_CorrectMarginForPageTypeLogin()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.PageType = SignUpUserPageType.Login;
+            // Assert
+            Assert.AreEqual(new Thickness(0), signUpUserViewModel.TextBoxPhoneNoMargin);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_ButtonNextTitle_CorrectMarginForPageTypeOtherThanLogin()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.PageType = SignUpUserPageType.SignUp;
+            // Assert
+            Assert.AreEqual(new Thickness(0, 5, 0, 0), signUpUserViewModel.TextBoxPhoneNoMargin);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_ShowLoginPage_TrueIfPageTypeLoginIsSet()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.PageType = SignUpUserPageType.Login;
+            // Assert
+            Assert.AreEqual(true, signUpUserViewModel.ShowLoginPage);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        [DataRow(SignUpUserPageType.SignUp, "sign_up")]
+        [DataRow(SignUpUserPageType.Login, "log_in")]
+        [DataRow(SignUpUserPageType.EditInformation, "edit_information")]
+        public void SignUpUserViewModel_PageTitle_CorrectForPageType(SignUpUserPageType pageType, string keyForLocalizedString)
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.PageType = pageType;
+            // Assert
+            Assert.AreEqual(GetLocalizedString(keyForLocalizedString), signUpUserViewModel.PageTitle);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_AllDataGiven_TrueForEditInformationAndSignup()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.PageType = SignUpUserPageType.EditInformation;
+            signUpUserViewModel.FirstName = "test";
+            signUpUserViewModel.LastName = "test2";
+            signUpUserViewModel.Age = "30";
+            signUpUserViewModel.PhoneNo = "test4";
+            signUpUserViewModel.GenderId = 2;
+            // Assert
+            Assert.AreEqual(true, signUpUserViewModel.AllDataGiven);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_AllDataGiven_TrueForLogin()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.PageType = SignUpUserPageType.Login;
+            signUpUserViewModel.PhoneNo = "test4";
+            // Assert
+            Assert.AreEqual(true, signUpUserViewModel.AllDataGiven);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public async Task SignUpUserViewModel_HasPhoneNumberChanged_FalseIfNothingChanged()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                IDataService service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+                // Act
+                var response = await service.GetUser(1);
+                // Act
+                signUpUserViewModel.ExistingUser = response.Result;
+                signUpUserViewModel.PageType = SignUpUserPageType.Login;
+                // Assert
+                Assert.AreEqual(false, signUpUserViewModel.HasPhoneNumberChanged);
+            }
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public async Task SignUpUserViewModel_HasPhoneNumberChanged_TrueIfPhoneNoChanged()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                IDataService service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+                // Act
+                var response = await service.GetUser(1);
+                // Act
+                signUpUserViewModel.ExistingUser = response.Result;
+                signUpUserViewModel.PageType = SignUpUserPageType.Login;
+                signUpUserViewModel.PhoneNo = "1234";
+                // Assert
+                Assert.AreEqual(true, signUpUserViewModel.HasPhoneNumberChanged);
+            }
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public async Task SignUpUserViewModel_ExistingUser_ValuesAreSet()
+        {
+            using (var factory = new NSSDatabaseContextFactory())
+            {
+                // Arrange
+                IDataService service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+                // Act
+                var response = await service.GetUser(1);
+                var user = response.Result;
+                // Act
+                signUpUserViewModel.ExistingUser = user;
+                // Assert
+                Assert.IsTrue(
+                    signUpUserViewModel.FirstName == user.FirstName &&
+                    signUpUserViewModel.LastName == user.LastName &&
+                    signUpUserViewModel.Age == user.Age.ToString() &&
+                    signUpUserViewModel.PhoneNo == user.PhoneNo &&
+                    signUpUserViewModel.Gender == user.Gender.LocalizedName &&
+                    signUpUserViewModel.GenderId == user.GenderId
+                );
+            }
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_Genders_NotNullAndCountIsGreaterThanOne()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Assert
+            Assert.IsTrue(signUpUserViewModel.Genders.Count > 0);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_AgeValue_RightInput()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.Age = "12";
+            // Assert
+            Assert.AreEqual(12, signUpUserViewModel.AgeValue);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_AgeValue_WrongInput()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.Age = "12r";
+            // Assert
+            Assert.AreEqual(-1, signUpUserViewModel.AgeValue);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_GenderPickerItemTemplate_NotNull()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Assert
+            Assert.IsTrue(signUpUserViewModel.GenderPickerItemTemplate != null);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_NextCommand_CommandIsExecuted()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.NextCommand = new Command(() =>
+            {
+                // Assert
+                Assert.IsTrue(true);
+            });
+            signUpUserViewModel.NextCommand.Execute(null);
+            // Assert
+            Assert.IsFalse(false);
+        }
+        [TestMethod]
+        [TestCategory("SignUpUserViewModel")]
+        public void SignUpUserViewModel_ApproveCommand_CommandIsExecuted()
+        {
+            // Arrange
+            SignUpUserViewModel signUpUserViewModel = new SignUpUserViewModel();
+            // Act
+            signUpUserViewModel.ApproveCommand = new Command(() =>
+            {
+                // Assert
+                Assert.IsTrue(true);
+            });
+            signUpUserViewModel.ApproveCommand.Execute(null);
+            // Assert
+            Assert.IsFalse(false);
         }
 
         #endregion

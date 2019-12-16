@@ -24,7 +24,7 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Variables
 
-        public NewCarpoolingPageViewModel NewCarpoolingPageViewModel { get => (NewCarpoolingPageViewModel)this.BindingContext; }
+        public NewCarpoolingViewModel NewCarpoolingPageViewModel { get => (NewCarpoolingViewModel)this.BindingContext; }
 
         public Action<CarpoolRide> CarpoolRideUpdated;
         public Action<CarpoolRequest> CarpoolRequestUpdated;
@@ -251,7 +251,7 @@ namespace NorthShoreSurfApp
             App.DataService.GetData(
                 NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
                 true,
-                () => App.DataService.GetCars(AppValuesService.GetUserId().Value),
+                () => App.DataService.GetCars(AppValuesService.UserId.Value),
                 async (response) =>
                 {
                     // Check response
@@ -383,8 +383,8 @@ namespace NorthShoreSurfApp
                         // Set dialog select command
                         customListDialog.SelectCommand = new Command(async () =>
                         {
-                            var selectedEvents = ((ObservableCollection<Event>)customListDialog.ItemsSource).Where(x => x.IsSelected).ToObservableCollection();
-                            NewCarpoolingPageViewModel.SelectedEvents = selectedEvents;
+                            var selectedEvents = ((ObservableCollection<Event>)customListDialog.ItemsSource).Where(x => x.IsSelected).ToList();
+                            NewCarpoolingPageViewModel.SelectedEvents = new ObservableCollection<Event>(selectedEvents);
                             await PopupNavigation.Instance.PopAsync();
                         });
                         // List item tapped

@@ -57,7 +57,7 @@ namespace NorthShoreSurfApp.ViewModels
 
     #endregion
 
-    public class CarpoolDetailsPageViewModel : INotifyPropertyChanged
+    public class CarpoolDetailsViewModel : INotifyPropertyChanged
     {
         /*****************************************************************/
         // VARIABLES
@@ -89,13 +89,6 @@ namespace NorthShoreSurfApp.ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        #endregion
-
-        /*****************************************************************/
-        // METHODS
-        /*****************************************************************/
-        #region Methods
-
         /// <summary>
         /// Add carpool confirmation
         /// </summary>
@@ -120,9 +113,8 @@ namespace NorthShoreSurfApp.ViewModels
             {
                 CarpoolRide.CarpoolConfirmations.Remove(confirmation);
             }
-            OnPropertyChanged(nameof(ShowButton));
-            OnPropertyChanged(nameof(ButtonTitle));
-            OnPropertyChanged(nameof(ButtonIcon));
+            OnPropertyChanged(nameof(CarpoolRide));
+            UpdateProperties();
         }
         /// <summary>
         /// Update properties for when setting the object to show details for
@@ -176,7 +168,7 @@ namespace NorthShoreSurfApp.ViewModels
                     if (CarpoolRide.DriverId == User.Id)
                         return CarpoolDetailsPageType.CarpoolRide_Own;
                     // The user has requested to join the carpool ride or is already confirmed
-                    if (CarpoolRide.CarpoolConfirmations.Any(x => x.PassengerId == User.Id && !x.IsInvite))
+                    else if (CarpoolRide.CarpoolConfirmations.Any(x => x.PassengerId == User.Id && !x.IsInvite))
                         return CarpoolDetailsPageType.CarpoolRide_Leave;
                     // The user has no relation to the carpool ride
                     else if (!CarpoolRide.CarpoolConfirmations.Any(x => x.PassengerId == User.Id))
@@ -358,6 +350,7 @@ namespace NorthShoreSurfApp.ViewModels
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(ShowButton));
                 OnPropertyChanged(nameof(ButtonIcon));
+                OnPropertyChanged(nameof(ButtonTitle));
             }
         }
         /// <summary>
@@ -372,6 +365,7 @@ namespace NorthShoreSurfApp.ViewModels
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(ShowButton));
                 OnPropertyChanged(nameof(ButtonIcon));
+                OnPropertyChanged(nameof(ButtonTitle));
             }
         }
         /// <summary>

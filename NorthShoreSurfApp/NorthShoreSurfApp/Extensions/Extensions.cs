@@ -42,28 +42,12 @@ namespace NorthShoreSurfApp
     #endregion
 
     /*****************************************************************/
-    // GENERAL EXTENSIONS
+    // STRING EXTENSIONS
     /*****************************************************************/
-    #region General Extensions
+    #region String Extensions
 
-    public static class Extensions
+    public static class StringExtensions
     {
-        public static T FindParentWithType<T>(this Element view)
-        {
-            if (view == null)
-                return default(T);
-
-            Element parent = view.Parent;
-            while (parent != null)
-            {
-                if (parent.GetType() == typeof(T))
-                    return (T)Convert.ChangeType(parent, typeof(T));
-                parent = parent.Parent;
-            }
-
-            return default(T);
-        }
-
         public static string FirstCharToUpper(this string input)
         {
             switch (input)
@@ -171,6 +155,28 @@ namespace NorthShoreSurfApp
     #endregion
 
     /*****************************************************************/
+    // DATE TIME EXTENSIONS
+    /*****************************************************************/
+    #region DateTime Extensions
+
+    public static class DateTimeExtensions
+    {
+        public static string ToCarpoolingFormat(this DateTime dateTime)
+        {
+            if ((dateTime - DateTime.Today).TotalDays < 8)
+            {
+                return dateTime.ToString("dddd").FirstCharToUpper();
+            }
+            else
+            {
+                return dateTime.ToString("dd-MM-yy");
+            }
+        }
+    }
+
+    #endregion
+
+    /*****************************************************************/
     // PAGE EXTENSIONS
     /*****************************************************************/
     #region Page Extensions
@@ -215,34 +221,17 @@ namespace NorthShoreSurfApp
     #endregion
 
     /*****************************************************************/
-    // DATE TIME EXTENSIONS
-    /*****************************************************************/
-    #region DateTime Extensions
-
-    public static class DateTimeExtensions
-    {
-        public static string ToCarpoolingFormat(this DateTime dateTime)
-        {
-            if ((dateTime - DateTime.Today).TotalDays < 8)
-            {
-                return dateTime.ToString("dddd").FirstCharToUpper();
-            }
-            else
-            {
-                return dateTime.ToString("dd-MM-yy");
-            }
-        }
-    }
-
-    #endregion
-
-    /*****************************************************************/
     // VIEW EXTENSIONS
     /*****************************************************************/
     #region View Extensions
 
     public static class ViewExtensions
     {
+        /// <summary>
+        /// Set iOS safe area insets
+        /// </summary>
+        /// <param name="view">The view which should have the margins</param>
+        /// <param name="page">The page calling this method</param>
         public static void SetIOSSafeAreaInsets(this View view, Xamarin.Forms.Page page)
         {
             // Use safe area on iOS
@@ -252,34 +241,27 @@ namespace NorthShoreSurfApp
             // Set safe area margins
             view.Margin = safeAreaInset;
         }
-    }
 
-    #endregion
-
-    /*****************************************************************/
-    // LIST EXTENSIONS
-    /*****************************************************************/
-    #region List Extensions
-
-    public static class ListExtensions
-    {
-        public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> enumerableList)
+        /// <summary>
+        /// Find a parent view with a given type
+        /// </summary>
+        /// <typeparam name="T">The given type</typeparam>
+        /// <param name="view">The view to find a parent for</param>
+        /// <returns></returns>
+        public static T FindParentWithType<T>(this Element view)
         {
-            if (enumerableList != null)
+            if (view == null)
+                return default(T);
+
+            Element parent = view.Parent;
+            while (parent != null)
             {
-                // Create an emtpy observable collection object
-                var observableCollection = new ObservableCollection<T>();
-
-                // Loop through all the records and add to observable collection object
-                foreach (var item in enumerableList)
-                {
-                    observableCollection.Add(item);
-                }
-
-                // Return the populated observable collection
-                return observableCollection;
+                if (parent.GetType() == typeof(T))
+                    return (T)Convert.ChangeType(parent, typeof(T));
+                parent = parent.Parent;
             }
-            return null;
+
+            return default(T);
         }
     }
 

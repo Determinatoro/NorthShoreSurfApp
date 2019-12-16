@@ -159,7 +159,7 @@ namespace NorthShoreSurfApp
         /// </summary>
         /// <param name="userId">The user's id</param>
         /// <returns>A carpool ride if one is found else null</returns>
-        Task<DataResponse<CarpoolRide>> GetNextCarpoolRide(int userId);
+        Task<DataResponse<CarpoolRide>> GetNextCarpoolRide(int? userId);
         /// <summary>
         /// Get all the carpool confirmations that are related to the user
         /// </summary>
