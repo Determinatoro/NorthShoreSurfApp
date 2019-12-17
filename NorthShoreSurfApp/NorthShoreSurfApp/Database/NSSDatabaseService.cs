@@ -364,8 +364,8 @@ namespace NorthShoreSurfApp.Database
             {
                 using (var context = CreateContext())
                 {
-                    // Get all cars
-                    var cars = await context.Cars
+                    // Get user's cars
+                    List<Car> cars = await context.Cars
                                         .Where(x => x.IsActive == true && x.UserId == userId)
                                         .AsNoTracking()
                                         .ToListAsync();

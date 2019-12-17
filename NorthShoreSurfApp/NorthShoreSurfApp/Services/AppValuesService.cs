@@ -22,20 +22,9 @@ namespace NorthShoreSurfApp
             // Remove user id from local data
             SaveValue(LocalDataKeys.UserId, null);
         }
-
         /// <summary>
-        /// Get ID for the user that is logged in
+        /// User id that has logged in
         /// </summary>
-        /// <returns></returns>
-        public static int? GetUserId()
-        {
-            var userId = App.LocalDataService.GetValue(nameof(LocalDataKeys.UserId));
-            if (int.TryParse(userId, out int id))
-                return id;
-            else
-                return null;
-        }
-
         public static int? UserId
         {
             get
@@ -47,7 +36,9 @@ namespace NorthShoreSurfApp
                     return null;
             }
         }
-
+        /// <summary>
+        /// Flag for logged in as guest
+        /// </summary>
         public static bool IsGuest
         {
             get

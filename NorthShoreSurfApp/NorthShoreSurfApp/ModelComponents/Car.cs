@@ -44,5 +44,9 @@ namespace NorthShoreSurfApp.ModelComponents
                 return false;
             return this.Id == ((Car)obj).Id;
         }
+        public override int GetHashCode()
+        {
+            return Id;
+        }
     }
 }

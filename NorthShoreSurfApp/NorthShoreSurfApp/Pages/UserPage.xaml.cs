@@ -57,7 +57,7 @@ namespace NorthShoreSurfApp
                     // Get user data from database
                     App.DataService.GetData(
                             NorthShoreSurfApp.Resources.AppResources.deleting_account_please_wait,
-                            false, () => App.DataService.DeleteUser(AppValuesService.GetUserId().Value),
+                            false, () => App.DataService.DeleteUser(AppValuesService.UserId.Value),
                             (response) =>
                             {
                                 // Check response
@@ -119,7 +119,7 @@ namespace NorthShoreSurfApp
             App.DataService.GetData(
                     NorthShoreSurfApp.Resources.AppResources.getting_data_please_wait,
                     true,
-                    () => App.DataService.GetUser(AppValuesService.GetUserId().Value),
+                    () => App.DataService.GetUser(AppValuesService.UserId.Value),
                     (response) =>
                     {
                         if (response.Success)

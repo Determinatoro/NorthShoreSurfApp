@@ -55,17 +55,20 @@ namespace NorthShoreSurfApp.ViewModels
         {
             try
             {
+                // Initialize VLC library
                 Core.Initialize();
-
+                // Create new instance
                 LibVLC = new LibVLC();
 
                 if (VideoURL != null)
                 {
+                    // Create media to run
                     var media = new Media(LibVLC,
                         VideoURL,
                         FromType.FromLocation);
-
+                    // Setup media player
                     MediaPlayer = new MediaPlayer(LibVLC);
+                    // Play media
                     MediaPlayer.Play(media);
                 }
             }
