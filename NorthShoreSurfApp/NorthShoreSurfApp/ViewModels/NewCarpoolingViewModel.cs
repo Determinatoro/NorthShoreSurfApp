@@ -52,6 +52,7 @@ namespace NorthShoreSurfApp.ViewModels
         private ObservableCollection<Car> cars;
         private ToggleType toggleType;
         private ICommand carDeleteCommand;
+        private ICommand carEditCommand;
         private ICommand createCommand;
         private ICommand selectEventsCommand;
         private ICommand eventDeleteCommand;
@@ -60,7 +61,6 @@ namespace NorthShoreSurfApp.ViewModels
         private Place requestPickupPlace;
         private Place requestDestinationPlace;
         private Car car;
-        private bool showCreateButton;
         private string pricePerPassengerString;
         private string numberOfSeatsString;
 
@@ -264,13 +264,6 @@ namespace NorthShoreSurfApp.ViewModels
         /// Today's date
         /// </summary>
         public DateTime DateToday { get => DateTime.Now; }
-        /// <summary>
-        /// Place ID for North Shore Surf Løkken
-        /// </summary>
-        public string DefaultDestinationPlaceId
-        {
-            get => "ChIJHz_ZhfrbSEYRkhyfL1ymwxo";
-        }
         /// <summary>
         /// API key for Google Places API
         /// </summary>
@@ -564,6 +557,18 @@ namespace NorthShoreSurfApp.ViewModels
             }
         }
         /// <summary>
+        /// Command for when the user wants to edit a car
+        /// </summary>
+        public ICommand CarEditCommand
+        {
+            get => carEditCommand;
+            set
+            {
+                carEditCommand = value;
+                OnPropertyChanged();
+            }
+        }
+        /// <summary>
         /// Collection of cars for the select car picker
         /// </summary>
         public ObservableCollection<Car> Cars
@@ -586,6 +591,7 @@ namespace NorthShoreSurfApp.ViewModels
                 {
                     var viewCell = new CarViewCell();
                     viewCell.DeleteCommand = CarDeleteCommand;
+                    viewCell.EditCommand = CarEditCommand;
                     return viewCell;
                 });
             }
@@ -687,18 +693,6 @@ namespace NorthShoreSurfApp.ViewModels
             set
             {
                 pricePerPassengerString = value;
-                OnPropertyChanged();
-            }
-        }
-        /// <summary>
-        /// Flag for showing the create button at the bottom
-        /// </summary>
-        public bool ShowCreateButton
-        {
-            get => showCreateButton;
-            set
-            {
-                showCreateButton = value;
                 OnPropertyChanged();
             }
         }

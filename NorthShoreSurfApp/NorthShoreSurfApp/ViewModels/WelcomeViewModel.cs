@@ -55,15 +55,11 @@ namespace NorthShoreSurfApp.ViewModels
         // PROPERTIES
         /*****************************************************************/
         #region Properties 
-
-        /// <summary>
-        /// Page using the view model
-        /// </summary>
-        public Page Page { get; set; }
+        
         /// <summary>
         /// Content site enum to show different content for different purposes
         /// </summary>
-        public WelcomePageContentSite WelcomePageContentSite
+        public WelcomePageContentSite CurrentContentSite
         {
             get { return welcomePageContentSite; }
             set
@@ -78,14 +74,14 @@ namespace NorthShoreSurfApp.ViewModels
         /// </summary>
         public bool ShowWelcome
         {
-            get => WelcomePageContentSite == WelcomePageContentSite.Welcome;            
+            get => CurrentContentSite == WelcomePageContentSite.Welcome;            
         }
         /// <summary>
         /// Flag for showing elements for the user not logged in page
         /// </summary>
         public bool ShowUserNotLoggedIn
         {
-            get => WelcomePageContentSite == WelcomePageContentSite.UserNotLoggedIn;            
+            get => CurrentContentSite == WelcomePageContentSite.UserNotLoggedIn;            
         }
         /// <summary>
         /// Sign up button click

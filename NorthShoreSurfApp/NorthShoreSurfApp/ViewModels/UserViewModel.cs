@@ -59,7 +59,7 @@ namespace NorthShoreSurfApp.ViewModels
                     return;
 
                 // Assign values
-                FullName = existingUser.FirstName + " " + existingUser.LastName;
+                FullName = existingUser.FullName;
                 PhoneNo = existingUser.PhoneNo;
                 Age = existingUser.Age.ToString();
                 Gender = existingUser.Gender.LocalizedName;
@@ -99,18 +99,6 @@ namespace NorthShoreSurfApp.ViewModels
             {
                 age = value;
                 OnPropertyChanged();
-            }
-        }
-        /// <summary>
-        /// User's age as integer
-        /// </summary>
-        public int AgeValue
-        {
-            get
-            {
-                if (int.TryParse(Age, out int value))
-                    return value;
-                return -1;
             }
         }
         /// <summary>

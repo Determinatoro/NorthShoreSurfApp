@@ -11,6 +11,19 @@ using Xamarin.Forms;
 
 namespace NorthShoreSurfApp.ViewModels
 {
+    /*****************************************************************/
+    // ENUMS
+    /*****************************************************************/
+    #region Enums
+
+    public enum NewCarPageType
+    {
+        Add,
+        Edit
+    }
+
+    #endregion
+
     public class NewCarViewModel : INotifyPropertyChanged
     {
         /*****************************************************************/
@@ -21,8 +34,9 @@ namespace NorthShoreSurfApp.ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
         private string licensePlate;
         private string color;
-        private ICommand createCommand;
+        private ICommand buttonCommand;
         private ICommand cancelCommand;
+        private Car car;
 
         #endregion
 
@@ -44,6 +58,83 @@ namespace NorthShoreSurfApp.ViewModels
         /*****************************************************************/
         #region Properties
 
+        /// <summary>
+        /// Page type
+        /// </summary>
+        public NewCarPageType PageType
+        {
+            get
+            {
+                if (Car == null)
+                    return NewCarPageType.Add;
+                else
+                    return NewCarPageType.Edit;
+            }
+        }
+        /// <summary>
+        /// Car object
+        /// </summary>
+        public Car Car
+        {
+            get => car;
+            set
+            {
+                car = value;
+
+                if (value != null)
+                {
+                    LicensePlate = Car.LicensePlate;
+                    Color = Car.Color;
+                }
+
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(NavigationBarTitle));
+                OnPropertyChanged(nameof(ButtonIcon));
+                OnPropertyChanged(nameof(ButtonTitle));
+            }
+        }
+        /// <summary>
+        /// Navigation bar title
+        /// </summary>
+        public string NavigationBarTitle
+        {
+            get
+            {
+                switch (PageType)
+                {
+                    case NewCarPageType.Add:
+                        return Resources.AppResources.add_new_car;
+                    case NewCarPageType.Edit:
+                        return Resources.AppResources.edit_car;
+                }
+
+                return string.Empty;
+            }
+        }
+        /// <summary>
+        /// Icon for the button
+        /// </summary>
+        public ImageSource ButtonIcon
+        {
+            get
+            {
+                if (Car == null)
+                    return ImageSource.FromFile("ic_car.png");
+                else
+                    return ImageSource.FromFile("ic_edit.png");
+            }
+        }
+        // Title for the button
+        public string ButtonTitle
+        {
+            get
+            {
+                if (Car == null)
+                    return Resources.AppResources.add_new_car;
+                else
+                    return Resources.AppResources.edit_car;
+            }
+        }
         /// <summary>
         /// Flag for all data given
         /// </summary>
@@ -88,12 +179,12 @@ namespace NorthShoreSurfApp.ViewModels
         /// <summary>
         /// Create command
         /// </summary>
-        public ICommand CreateCommand
+        public ICommand ButtonCommand
         {
-            get => createCommand;
+            get => buttonCommand;
             set
             {
-                createCommand = value;
+                buttonCommand = value;
                 OnPropertyChanged();
             }
         }

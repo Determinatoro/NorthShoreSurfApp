@@ -37,18 +37,10 @@ namespace NorthShoreSurfApp
             // Initialize page
             InitializeComponent();
             // Use safe area on iOS
-            On<iOS>().SetUseSafeArea(true);
-            // Get root grid
-            Grid grid = (Grid)Content;
-            // Get safe area margins
-            var safeAreaInset = On<iOS>().SafeAreaInsets();
-            // Set safe area margins
-            grid.Margin = safeAreaInset;
-
-            // Set page in model
-            WelcomeViewModel.Page = this;
+            ((Grid)Content).SetIOSSafeAreaInsets(this);
+            
             // Set content site in model
-            WelcomeViewModel.WelcomePageContentSite = welcomePageContentSite;
+            WelcomeViewModel.CurrentContentSite = welcomePageContentSite;
 
             // Open pages as modal if it is used in the tabbed page else as navigation page
             Action<Xamarin.Forms.Page> openPage = async (page) =>

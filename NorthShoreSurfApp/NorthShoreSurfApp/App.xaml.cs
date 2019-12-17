@@ -37,7 +37,7 @@ namespace NorthShoreSurfApp
             DataService.Initialize();
 
             // TEST User logged in
-            LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), null);
+            LocalDataService.SaveValue(nameof(LocalDataKeys.UserId), "1");
             LocalDataService.SaveValue(nameof(LocalDataKeys.IsGuest), null);
 
             // TEST Sign up user 

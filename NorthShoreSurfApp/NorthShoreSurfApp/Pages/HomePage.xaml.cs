@@ -121,15 +121,12 @@ namespace NorthShoreSurfApp
                     else
                         this.ShowMessage(response.Item1.ErrorMessage);
 
-                    if (AppValuesService.IsGuest)
-                    {
-                        // Set next carpool ride
-                        if (response.Item2.Success)
-                            HomeViewModel.NextCarpoolRide = response.Item2.Result;
-                        // Show error
-                        else
-                            this.ShowMessage(response.Item2.ErrorMessage);
-                    }
+                    // Set next carpool ride
+                    if (response.Item2.Success)
+                        HomeViewModel.NextCarpoolRide = response.Item2.Result;
+                    // Show error
+                    else
+                        this.ShowMessage(response.Item2.ErrorMessage);
                 });
         }
 

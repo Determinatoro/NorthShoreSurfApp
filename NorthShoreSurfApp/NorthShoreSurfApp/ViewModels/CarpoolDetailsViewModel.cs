@@ -295,7 +295,7 @@ namespace NorthShoreSurfApp.ViewModels
                 if (CarpoolRide != null)
                     return true;
                 else if (CarpoolRequest != null)
-                    return CarpoolRequest.IsActive;
+                    return true;
 
                 return false;
             }
@@ -313,7 +313,7 @@ namespace NorthShoreSurfApp.ViewModels
                 if (CarpoolRide != null)
                     return !CarpoolRide.IsLocked;
                 else if (CarpoolRequest != null)
-                    return CarpoolRequest.IsActive;
+                    return true;
 
                 return false;
             }

@@ -280,6 +280,9 @@ Please wait...</value>
   <data name="driver" xml:space="preserve">
     <value>Driver</value>
   </data>
+  <data name="edit_car" xml:space="preserve">
+    <value>Edit car</value>
+  </data>
   <data name="edit_information" xml:space="preserve">
     <value>Edit information</value>
   </data>

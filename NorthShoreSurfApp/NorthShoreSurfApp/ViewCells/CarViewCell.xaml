@@ -29,6 +29,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="60"/>
+                    <ColumnDefinition Width="60"/>
                 </Grid.ColumnDefinitions>
 
                 <Label Text="{Binding CarInfo}" 
@@ -40,12 +41,27 @@
                        FontSize="20"
                        Padding="10, 0, 0, 0"
                        />
-                <local:CustomImageButton Command="{Binding DeleteCommand, Source={x:Reference this}}"
-                                         CommandParameter="{Binding DeleteCommandParameter, Source={x:Reference this}}"
+                <local:CustomImageButton Command="{Binding EditCommand, Source={x:Reference this}}"
+                                         CommandParameter="{Binding EditCommandParameter, Source={x:Reference this}}"
                                          Grid.Column="1"
                                          Background="Transparent"
-                                         HeightRequest="50"
-                                         WidthRequest="50"
+                                         HeightRequest="40"
+                                         WidthRequest="40"
+                                         VerticalOptions="Center"
+                                         HorizontalOptions="Center"
+                                         BorderColor="Transparent"
+                                         BorderThickness="0"
+                                         Icon="ic_edit.png"
+                                         IconColor="Black"
+                                         IconPadding="5"
+                                         BackgroundPressed="{StaticResource NSSGray}"
+                                         />
+                <local:CustomImageButton Command="{Binding DeleteCommand, Source={x:Reference this}}"
+                                         CommandParameter="{Binding DeleteCommandParameter, Source={x:Reference this}}"
+                                         Grid.Column="2"
+                                         Background="Transparent"
+                                         HeightRequest="40"
+                                         WidthRequest="40"
                                          VerticalOptions="Center"
                                          HorizontalOptions="Center"
                                          BorderColor="Transparent"

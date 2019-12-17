@@ -37,5 +37,12 @@ namespace NorthShoreSurfApp.ModelComponents
         public string CarInfo { get => $"{LicensePlate}, {Color}"; }
 
         #endregion
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Car))
+                return false;
+            return this.Id == ((Car)obj).Id;
+        }
     }
 }

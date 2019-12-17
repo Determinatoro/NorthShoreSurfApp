@@ -756,6 +756,28 @@ namespace NorthShoreSurfApp.Database
                 return new DataResponse<Car>(1, mes.Message);
             }
         }
+        public async Task<DataResponse<Car>> UpdateCar(int carId, string licensePlate, string color)
+        {
+            try
+            {
+                using (var context = CreateContext())
+                {
+                    // Update car values
+                    Car car = await context.Cars.FirstOrDefaultAsync(x => x.Id == carId);
+                    car.LicensePlate = licensePlate;
+                    car.Color = color;
+                    // Save changes
+                    await context.SaveChangesAsync();
+                    // Return response
+                    return new DataResponse<Car>(true, car);
+                }
+            }
+            catch (Exception mes)
+            {
+                // Return exception
+                return new DataResponse<Car>(1, mes.Message);
+            }
+        }
         public async Task<DataResponse<CarpoolRide>> CreateCarpoolRide(int userId, DateTime departureTime, string address, string zipCode, string city, string destinationAddress, string destinationZipCode, string destinationCity, int carId, int numberOfSeats, int pricePerPassenger, List<Event> events, string comment = null)
         {
             try
@@ -1463,7 +1485,7 @@ namespace NorthShoreSurfApp.Database
                                                             .ThenInclude(x => x.Gender)
                                                    .Include(x => x.CarpoolRides_Events_Relations)
                                                         .ThenInclude(x => x.Event)
-                                                   .Where(x => (userId == null || x.DriverId != userId) && x.DepartureTime.CompareTo(DateTime.Now) >= 0)
+                                                   .Where(x => (userId == null || x.DriverId != userId.Value) && x.DepartureTime.CompareTo(DateTime.Now) >= 0)
                                                    .OrderBy(x => x.DepartureTime)
                                                    .FirstOrDefaultAsync();
                     // Return response

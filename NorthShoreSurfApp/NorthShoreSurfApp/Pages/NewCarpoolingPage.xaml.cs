@@ -282,6 +282,14 @@ namespace NorthShoreSurfApp
                                 RemoveCar(car);
                             });
                         });
+                        // Set car edit command
+                        NewCarpoolingPageViewModel.CarEditCommand = new Command((parameter) =>
+                        {
+                            // Get car from view cell
+                            var car = ((Func<Car>)parameter).Invoke();
+                            // Edit car
+                            EditCar(car);
+                        });
                         // List item tapped
                         customListDialog.ItemTapped += async (sender, args) =>
                         {
@@ -310,6 +318,20 @@ namespace NorthShoreSurfApp
                     else
                         this.ShowMessage(response.ErrorMessage);
                 });
+        }
+        /// <summary>
+        /// Edit car
+        /// </summary>
+        /// <param name="car">The car to edit</param>
+        private async void EditCar(Car car)
+        {
+            NewCarPage newCarPage = new NewCarPage(car);
+            newCarPage.CarValuesChanged = (car) =>
+            {
+                var index = NewCarpoolingPageViewModel.Cars.IndexOf(car);
+                NewCarpoolingPageViewModel.Cars[index] = car;
+            };
+            await PopupNavigation.Instance.PushAsync(newCarPage);
         }
         /// <summary>
         /// Add car

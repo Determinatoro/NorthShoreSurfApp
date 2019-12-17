@@ -56,7 +56,7 @@
                        FontSize="24"
                        VerticalTextAlignment="Center"
                        HorizontalTextAlignment="Center"
-                       Text="{local:Translate add_new_car}"
+                       Text="{Binding NavigationBarTitle}"
                        TextColor="White"
                        />
             </StackLayout>
@@ -119,13 +119,13 @@
                                          Background="{StaticResource NSSBlue}" 
                                          CornerRadius="10" 
                                          BackgroundPressed="{StaticResource NSSBluePressed}" 
-                                         Icon="ic_car.png"
                                          TitleColor="White"
                                          TitleSize="24"
                                          IconColor="White"
                                          IconPadding="10"
-                                         Command="{Binding CreateCommand}"
-                                         Title="{local:Translate add_new_car}"
+                                         Icon="{Binding ButtonIcon}"
+                                         Command="{Binding ButtonCommand}"
+                                         Title="{Binding ButtonTitle}"
                                          />
         </Grid>
 

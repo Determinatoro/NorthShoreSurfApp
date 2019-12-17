@@ -218,6 +218,14 @@ namespace NorthShoreSurfApp
         /// <returns>Tru if succeeded else false</returns>
         Task<DataResponse> DeleteUser(int userId);
         /// <summary>
+        /// Update car values
+        /// </summary>
+        /// <param name="carId">Car's id</param>
+        /// <param name="licensePlate">Car's licenseplate</param>
+        /// <param name="color">Car's color</param>
+        /// <returns></returns>
+        Task<DataResponse<Car>> UpdateCar(int carId, string licensePlate, string color);
+        /// <summary>
         /// Create a new car for a user
         /// </summary>
         /// <param name="userId">The user's id</param>

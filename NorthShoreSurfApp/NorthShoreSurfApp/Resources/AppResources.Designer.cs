@@ -539,6 +539,15 @@ namespace NorthShoreSurfApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit car.
+        /// </summary>
+        internal static string edit_car {
+            get {
+                return ResourceManager.GetString("edit_car", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit information.
         /// </summary>
         internal static string edit_information {

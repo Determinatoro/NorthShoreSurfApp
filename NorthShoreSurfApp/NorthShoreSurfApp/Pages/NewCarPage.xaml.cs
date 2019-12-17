@@ -28,6 +28,7 @@ namespace NorthShoreSurfApp
 
         public NewCarViewModel NewCarViewModel { get => (NewCarViewModel)this.BindingContext; }
         public Action<Car> NewCarAdded;
+        public Action<Car> CarValuesChanged;
 
         #endregion
 
@@ -36,12 +37,14 @@ namespace NorthShoreSurfApp
         /*****************************************************************/
         #region Constructor
 
-        public NewCarPage()
+        public NewCarPage(Car car = null)
         {
             InitializeComponent();
+            // Set car object
+            NewCarViewModel.Car = car;
 
-            // Create command
-            NewCarViewModel.CreateCommand = new Command(() =>
+            // Bottom button command
+            NewCarViewModel.ButtonCommand = new Command(() =>
             {
                 if (!NewCarViewModel.AllDataGiven)
                 {
@@ -50,7 +53,16 @@ namespace NorthShoreSurfApp
                     return;
                 }
 
-                CreateCar();
+                switch (NewCarViewModel.PageType)
+                {
+                    case NewCarPageType.Add:
+                        CreateCar();
+                        break;
+                    case NewCarPageType.Edit:
+                        EditCar();
+                        break;
+                }
+                
             });
             // Cancel command
             NewCarViewModel.CancelCommand = new Command(async () =>
@@ -72,7 +84,7 @@ namespace NorthShoreSurfApp
         private void CreateCar()
         {
             App.DataService.GetData(
-                            NorthShoreSurfApp.Resources.AppResources.creating_car_please_wait,
+                            NorthShoreSurfApp.Resources.AppResources.saving_your_action_please_wait,
                             true,
                             () => App.DataService.CreateCar(AppValuesService.UserId.Value, NewCarViewModel.LicensePlate, NewCarViewModel.Color),
                             async (response) =>
@@ -82,6 +94,28 @@ namespace NorthShoreSurfApp
                                 {
                                     await PopupNavigation.Instance.PopAsync();
                                     NewCarAdded?.Invoke(response.Result);
+                                }
+                                // Show error
+                                else
+                                    this.ShowMessage(response.ErrorMessage);
+                            });
+        }
+        /// <summary>
+        /// Edit car
+        /// </summary>
+        private void EditCar()
+        {
+            App.DataService.GetData(
+                            NorthShoreSurfApp.Resources.AppResources.saving_your_action_please_wait,
+                            true,
+                            () => App.DataService.UpdateCar(NewCarViewModel.Car.Id, NewCarViewModel.LicensePlate, NewCarViewModel.Color),
+                            async (response) =>
+                            {
+                                // Set opening hours content
+                                if (response.Success)
+                                {
+                                    await PopupNavigation.Instance.PopAsync();
+                                    CarValuesChanged?.Invoke(response.Result);
                                 }
                                 // Show error
                                 else
