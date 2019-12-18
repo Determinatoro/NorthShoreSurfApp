@@ -5,6 +5,7 @@
 	a. Download the installer from this website: https://visualstudio.microsoft.com/vs/
 
 2. Install these extensions in the visual studio installer 2019
+
 	a. Install "Mobile Deveoplent with .net"
 
 	b. Install "SDK 4.7.2"
