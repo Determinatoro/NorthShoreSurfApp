@@ -302,10 +302,10 @@
     <BundleResource Include="Resources\nss_pic.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\ic_log_out.png">
+    <BundleResource Include="Resources\ic_log_out.png">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
-    </AndroidResource>
+    </BundleResource>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\ic_delete.png">
