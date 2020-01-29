@@ -51,15 +51,8 @@ namespace NorthShoreSurfApp.Droid.Renderers
 
         private class CustomWebViewClient : WebViewClient
         {
-            public async override void OnPageFinished(WebView view, string url)
+            public override void OnPageFinished(WebView view, string url)
             {
-                if (customWebView != null)
-                {
-                    view.Settings.JavaScriptEnabled = true;
-                    await Task.Delay(100);
-                    string result = await customWebView.EvaluateJavaScriptAsync("(function(){return document.body.scrollHeight;})()");
-                    customWebView.HeightRequest = Convert.ToDouble(result);
-                }
                 base.OnPageFinished(view, url);
             }
         }

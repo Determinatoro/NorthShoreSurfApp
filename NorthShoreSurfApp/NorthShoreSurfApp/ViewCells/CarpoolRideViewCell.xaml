@@ -112,7 +112,7 @@
                            HorizontalOptions="FillAndExpand"
                            HorizontalTextAlignment="End"
                            LineBreakMode="TailTruncation"
-                           Grid.Row="0"
+                           Grid.Row="1"
                            />
                     <!--Departure city-->
                     <Label Text="{Binding ZipcodeCityString}" 
@@ -123,18 +123,7 @@
                            HorizontalOptions="FillAndExpand"
                            HorizontalTextAlignment="End"
                            LineBreakMode="TailTruncation"
-                           Grid.Row="1" 
-                           />
-                    <!--Destination zipcode-->
-                    <Label Text="{Binding DestinationZipcodeCityString}" 
-                           TextColor="White" 
-                           MaxLines="1"
-                           HeightRequest="20"
-                           FontSize="Default"
-                           HorizontalOptions="FillAndExpand"
-                           HorizontalTextAlignment="End"
-                           LineBreakMode="TailTruncation"
-                           Grid.Row="3" 
+                           Grid.Row="0" 
                            />
                     <!--Destination address-->
                     <Label Text="{Binding DestinationAddress}" 
@@ -146,6 +135,17 @@
                            HorizontalTextAlignment="End"
                            LineBreakMode="TailTruncation"
                            Grid.Row="4" 
+                           />
+                    <!--Destination zipcode-->
+                    <Label Text="{Binding DestinationZipcodeCityString}" 
+                           TextColor="White" 
+                           MaxLines="1"
+                           HeightRequest="20"
+                           FontSize="Default"
+                           HorizontalOptions="FillAndExpand"
+                           HorizontalTextAlignment="End"
+                           LineBreakMode="TailTruncation"
+                           Grid.Row="3" 
                            />
 
                     <Image Source="ic_location_destination.png"

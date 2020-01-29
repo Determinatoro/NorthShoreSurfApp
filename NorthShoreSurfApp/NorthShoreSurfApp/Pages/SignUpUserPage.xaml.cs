@@ -117,7 +117,7 @@ namespace NorthShoreSurfApp
 
                 // Sign up page or user has changed phone no.
                 if (SignUpUserViewModel.PageType == SignUpUserPageType.SignUp ||
-                    SignUpUserViewModel.HasPhoneNumberChanged)
+                    (SignUpUserViewModel.PageType != SignUpUserPageType.Login && SignUpUserViewModel.HasPhoneNumberChanged))
                 {
                     // Check if phone no. already exist
                     App.DataService.GetData(
@@ -316,6 +316,8 @@ namespace NorthShoreSurfApp
                     }
                 case SignUpUserPageType.Login:
                     {
+                        AppValuesService.SaveValue(LocalDataKeys.UserId, SignUpUserViewModel.ExistingUser.Id.ToString());
+                        AppValuesService.SaveValue(LocalDataKeys.IsGuest, null);
                         // Go to home page
                         App.Current.MainPage = new RootTabbedPage();
                         break;

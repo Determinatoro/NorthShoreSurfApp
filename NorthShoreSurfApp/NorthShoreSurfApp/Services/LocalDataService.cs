@@ -6,7 +6,7 @@ namespace NorthShoreSurfApp
 {
     public class LocalDataFiles
     {
-        public const string Database = "NSS.db";
+        public const string Database = "NSS.db";        
 
         public static readonly string[] AllFiles = { Database };
     }

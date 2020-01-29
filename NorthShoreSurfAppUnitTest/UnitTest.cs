@@ -60,6 +60,11 @@ namespace NorthShoreSurfAppUnitTest
             return ResourceManager.GetString(key, CultureInfo.CurrentCulture);
         }
 
+        private IDataService getDataService(NSSDatabaseContextFactory factory)
+        {
+            return new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+        }
+
         #endregion
 
         /*****************************************************************/
@@ -1766,7 +1771,7 @@ namespace NorthShoreSurfAppUnitTest
             using (var factory = new NSSDatabaseContextFactory())
             {
                 // Arrange
-                IDataService service = new NSSDatabaseService<NSSDatabaseContext>(() => factory.CreateContext());
+                IDataService service = getDataService(factory);
                 UserViewModel userViewModel = new UserViewModel();
                 // Act
                 var response = await service.GetUser(1);

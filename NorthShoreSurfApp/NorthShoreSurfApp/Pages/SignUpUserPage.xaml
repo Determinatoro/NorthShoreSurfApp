@@ -174,38 +174,36 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <Frame Padding="10"
-                       Margin="10"
-                       CornerRadius="10"
-                       BackgroundColor="{StaticResource NSSBlue}">
-
-                    <!--ScrollView-->
-                    <ScrollView Margin="0"
+                <!--ScrollView-->
+                <ScrollView Margin="0"
                             Padding="0">
 
-                        <StackLayout Margin="10"
+                    <StackLayout Padding="10"
+                                 Margin="0"
+                                 Spacing="0"
                                  VerticalOptions="Start"
                                  HorizontalOptions="Fill">
-                            <!--Header-->
-                            <Label Text="Verify phone number"
+                        <!--Header-->
+                        <Label Text="Verify phone number"
                                HorizontalTextAlignment="Center"
-                               TextColor="White"
+                               TextColor="Black"
                                Padding="0, 0, 0, 20"
                                FontSize="24"
                                />
-                            <!--SMS code input-->
-                            <local:CustomTextBox Keyboard="Numeric" 
+                        <!--SMS code input-->
+                        <local:CustomTextBox Keyboard="Numeric" 
                                              Title="{local:Translate sms_code}" 
-                                             TitleColor="White" 
+                                             TitleColor="Black" 
                                              TitleSize="18" 
                                              CornerRadius="10" 
+                                             BorderColor="{StaticResource NSSBlue}"
+                                             BorderThickness="1"
                                              Text="{Binding SMSCode, Mode=TwoWay}" 
                                              TextColor="Black" 
                                              TextSize="24"
                                              />
-                        </StackLayout>
-                    </ScrollView>
-                </Frame>
+                    </StackLayout>
+                </ScrollView>
 
                 <!--Navigation button-->
                 <local:CustomImageTextButton x:Name="btnApprove"
